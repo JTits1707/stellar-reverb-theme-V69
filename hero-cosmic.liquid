@@ -1,0 +1,152 @@
+{% comment %} Cosmic Hero Section {% endcomment %}
+
+<style>
+  .hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('{{ section.settings.hero_background | image_url: width: 1920 }}');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 48%, var(--color-neon-magenta) 49%, var(--color-neon-magenta) 51%, transparent 52%);
+    opacity: 0.1;
+    animation: glitch-overlay 3s ease-in-out infinite;
+  }
+
+  @keyframes glitch-overlay {
+    0%, 100% { opacity: 0.1; transform: translateX(0); }
+    25% { opacity: 0.3; transform: translateX(2px); }
+    50% { opacity: 0.1; transform: translateX(-2px); }
+    75% { opacity: 0.2; transform: translateX(1px); }
+  }
+
+  .hero-content {
+    text-align: center;
+    z-index: 5;
+  }
+
+  .transmission-text {
+    font-family: 'Orbitron', monospace;
+    color: var(--color-radioactive-green);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    animation: glitch-reveal 2s ease-out;
+  }
+
+  .hero h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: 4rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--color-neon-magenta), var(--color-cyan-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 30px var(--color-neon-magenta);
+  }
+
+  .hero p {
+    font-size: 1.5rem;
+    color: var(--color-cyan-blue);
+    margin-bottom: 2rem;
+  }
+
+  .initiate-button {
+    background: linear-gradient(45deg, var(--color-radioactive-green), var(--color-cyan-blue));
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 2rem;
+    font-family: 'Orbitron', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .initiate-button:hover {
+    box-shadow: 0 0 40px var(--color-radioactive-green);
+    transform: translateY(-3px);
+  }
+
+  @keyframes glitch-reveal {
+    0% { opacity: 0; transform: translateX(-20px); }
+    20% { opacity: 0.3; transform: translateX(10px); }
+    40% { opacity: 0.7; transform: translateX(-5px); }
+    60% { opacity: 0.9; transform: translateX(3px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+</style>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="transmission-text">{{ section.settings.transmission_text | default: 'TRANSMISSION: SYNAPSE_INIT' }}</div>
+    <h1>{{ section.settings.hero_title | default: 'STELLAR REVERB' }}</h1>
+    <p>{{ section.settings.hero_subtitle | default: 'Sound. Style. Transmissions Of Cosmic Identity.' }}</p>
+    <div class="decode-text">{{ section.settings.decode_text | default: 'DECODING: ECHO SIGNAL MATCHED.' }}</div>
+    <button class="initiate-button">{{ section.settings.cta_text | default: 'INITIATE SIGNAL LOCK' }}</button>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cosmic Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_background",
+      "label": "Hero Background Image"
+    },
+    {
+      "type": "text",
+      "id": "transmission_text",
+      "label": "Transmission Text",
+      "default": "TRANSMISSION: SYNAPSE_INIT"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "STELLAR REVERB"
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "default": "Sound. Style. Transmissions Of Cosmic Identity."
+    },
+    {
+      "type": "text",
+      "id": "decode_text",
+      "label": "Decode Text",
+      "default": "DECODING: ECHO SIGNAL MATCHED."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "INITIATE SIGNAL LOCK"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cosmic Hero"
+    }
+  ]
+}
+{% endschema %}
