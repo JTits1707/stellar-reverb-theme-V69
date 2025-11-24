@@ -3,14 +3,13 @@
   STELLAR REVERB - HOMEPAGE TEMPLATE
   ═══════════════════════════════════════════════════════════
   
-  Dynamic sections-based homepage
-  Sections can be added/removed/reordered in theme editor
-  
+  Dynamic sections-based homepage.
+  Sections are managed via {{ content_for_index }} in the Theme Editor.
+  This template itself should NOT contain {% schema %} – schema belongs in sections.
   ═══════════════════════════════════════════════════════════
 {% endcomment %}
 
 <div class="homepage">
-  {% comment %} All sections are rendered dynamically {% endcomment %}
   {{ content_for_index }}
 </div>
 
@@ -34,19 +33,3 @@
     margin-top: 0;
   }
 </style>
-
-{% schema %}
-{
-  "name": "Homepage",
-  "settings": [
-    {
-      "type": "header",
-      "content": "Homepage Settings"
-    },
-    {
-      "type": "paragraph",
-      "content": "Add and arrange sections below to customize your homepage. Drag to reorder."
-    }
-  ]
-}
-{% endschema %}
