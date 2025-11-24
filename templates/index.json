@@ -8,6 +8,18 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "announcement_bar_4CLwPq": {
+      "type": "announcement-bar",
+      "name": "Announcement bar",
+      "settings": {
+        "message": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
+        "color_scheme": "accent-1",
+        "show_announcement": true
+      }
+    }
+  },
+  "order": [
+    "announcement_bar_4CLwPq"
+  ]
 }
