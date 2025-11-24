@@ -1,551 +1,151 @@
-{% comment %}
-  ═══════════════════════════════════════════════════════════
-  STELLAR REVERB - COSMIC HERO SECTION
-  ═══════════════════════════════════════════════════════════
-  
-  Homepage hero with animated cosmic background
-  
-  ═══════════════════════════════════════════════════════════
-{% endcomment %}
-
-<section class="hero-cosmic" id="hero-{{ section.id }}">
-  
-  {%- comment -%} Animated Background Layer {%- endcomment -%}
-  <div class="hero-backdrop">
-    <div class="hero-gradient"></div>
-    {% if section.settings.show_floating_elements %}
-      {% render 'floating-elements' %}
-    {% endif %}
-  </div>
-
-  {%- comment -%} Hero Content {%- endcomment -%}
-  <div class="container">
-    <div class="hero-content">
-
-      {%- comment -%} Badge/Eyebrow {%- endcomment -%}
-      {% if section.settings.eyebrow_text != blank %}
-        <div class="hero-eyebrow">
-          {% if section.settings.eyebrow_icon != blank %}
-            <span class="eyebrow-icon">{{ section.settings.eyebrow_icon }}</span>
-          {% endif %}
-          <span class="eyebrow-text">{{ section.settings.eyebrow_text }}</span>
-        </div>
-      {% endif %}
-
-      {%- comment -%} Main Headline {%- endcomment -%}
-      <h1 class="hero-title{% if section.settings.enable_glitch %} glitch-text{% endif %}" 
-          {% if section.settings.enable_glitch %}data-text="{{ section.settings.heading }}"{% endif %}>
-        {{ section.settings.heading | default: 'Transmissions from the Cosmic Archive' }}
-      </h1>
-
-      {%- comment -%} Subheadline {%- endcomment -%}
-      {% if section.settings.subheading != blank %}
-        <p class="hero-subtitle">
-          {{ section.settings.subheading }}
-        </p>
-      {% endif %}
-
-      {%- comment -%} CTA Buttons {%- endcomment -%}
-      <div class="hero-actions">
-        
-        {% if section.settings.primary_button_text != blank %}
-          <a 
-            href="{{ section.settings.primary_button_url }}" 
-            class="btn btn-primary hero-btn-primary"
-          >
-            {{ section.settings.primary_button_text }}
-          </a>
-        {% endif %}
-
-        {% if section.settings.secondary_button_text != blank %}
-          <a 
-            href="{{ section.settings.secondary_button_url }}" 
-            class="btn btn-secondary hero-btn-secondary"
-          >
-            {{ section.settings.secondary_button_text }}
-          </a>
-        {% endif %}
-
-      </div>
-
-      {%- comment -%} Optional Features List {%- endcomment -%}
-      {% if section.settings.show_features %}
-        <div class="hero-features">
-          {% for i in (1..3) %}
-            {% assign feature_text = 'feature_' | append: i | append: '_text' %}
-            {% if section.settings[feature_text] != blank %}
-              <div class="feature-item">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                  <path d="M4 10l4 4 8-8" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-                <span>{{ section.settings[feature_text] }}</span>
-              </div>
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endif %}
-
-    </div>
-  </div>
-
-  {%- comment -%} Scroll Indicator {%- endcomment -%}
-  {% if section.settings.show_scroll_indicator %}
-    <div class="scroll-indicator">
-      <div class="scroll-icon">
-        <svg width="24" height="40" viewBox="0 0 24 40" fill="none" stroke="currentColor">
-          <rect x="8" y="1" width="8" height="14" rx="4" stroke-width="2"/>
-          <circle cx="12" cy="5" r="1.5" fill="currentColor">
-            <animate attributeName="cy" from="5" to="11" dur="1.5s" repeatCount="indefinite"/>
-          </circle>
-        </svg>
-      </div>
-      <span class="scroll-text">{{ section.settings.scroll_text | default: 'Scroll to Explore' }}</span>
-    </div>
-  {% endif %}
-
-</section>
+{% comment %} Cosmic Hero Section {% endcomment %}
 
 <style>
-  #hero-{{ section.id }} {
-    position: relative;
-    min-height: {{ section.settings.section_height }}vh;
+  .hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('{{ section.settings.hero_background | image_url: width: 1920 }}');
+    background-size: cover;
+    background-position: center;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    padding: var(--spacing-xl, 4rem) 0;
+    align-items: center;
+    position: relative;
     overflow: hidden;
   }
 
-  /* Backdrop */
-  .hero-backdrop {
+  .hero::before {
+    content: '';
     position: absolute;
-    inset: 0;
-    z-index: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 48%, var(--color-neon-magenta) 49%, var(--color-neon-magenta) 51%, transparent 52%);
+    opacity: 0.1;
+    animation: glitch-overlay 3s ease-in-out infinite;
   }
 
-  .hero-gradient {
-    position: absolute;
-    inset: 0;
-    background: 
-      radial-gradient(circle at 20% 50%, {{ section.settings.gradient_color_1 | default: 'rgba(108, 36, 179, 0.4)' }} 0%, transparent 50%),
-      radial-gradient(circle at 80% 50%, {{ section.settings.gradient_color_2 | default: 'rgba(40, 168, 214, 0.4)' }} 0%, transparent 50%);
-    animation: gradient-pulse 8s ease-in-out infinite;
+  @keyframes glitch-overlay {
+    0%, 100% { opacity: 0.1; transform: translateX(0); }
+    25% { opacity: 0.3; transform: translateX(2px); }
+    50% { opacity: 0.1; transform: translateX(-2px); }
+    75% { opacity: 0.2; transform: translateX(1px); }
   }
 
-  /* Hero Content */
   .hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: {{ section.settings.text_alignment }};
+    text-align: center;
+    z-index: 5;
   }
 
-  /* Eyebrow */
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius-pill, 999px);
-    background: {{ section.settings.eyebrow_background | default: 'linear-gradient(135deg, var(--radioactive-green), var(--cyan-blue))' }};
-    color: {{ section.settings.eyebrow_color | default: 'var(--void-black)' }};
-    font-family: var(--font-title, "Orbitron", sans-serif);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: var(--spacing-md, 1.5rem);
-    box-shadow: 0 0 20px rgba(0, 240, 172, 0.5);
-    animation: badge-glow 2s ease-in-out infinite;
-  }
-
-  .eyebrow-icon {
+  .transmission-text {
+    font-family: 'Orbitron', monospace;
+    color: var(--color-radioactive-green);
     font-size: 1.2rem;
+    margin-bottom: 1rem;
+    animation: glitch-reveal 2s ease-out;
   }
 
-  /* Title */
-  .hero-title {
-    font-family: var(--font-title, "Orbitron", sans-serif);
-    font-size: clamp(2.5rem, {{ section.settings.title_size_mobile }}vw, {{ section.settings.title_size_desktop }}rem);
+  .hero h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: 4rem;
     font-weight: 900;
-    line-height: 1.1;
-    letter-spacing: {{ section.settings.title_letter_spacing }}em;
-    text-transform: uppercase;
-    margin-bottom: var(--spacing-md, 1.5rem);
-    background: {{ section.settings.title_gradient | default: 'linear-gradient(135deg, var(--neon-magenta), var(--cyan-blue))' }};
+    background: linear-gradient(45deg, var(--color-neon-magenta), var(--color-cyan-blue));
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 30px var(--color-neon-magenta);
   }
 
-  /* Subtitle */
-  .hero-subtitle {
-    font-family: var(--font-body, "Montserrat", sans-serif);
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    line-height: 1.6;
-    color: {{ section.settings.subtitle_color | default: 'rgba(255, 255, 255, 0.8)' }};
-    margin-bottom: var(--spacing-lg, 2.5rem);
-    max-width: 700px;
-    {% if section.settings.text_alignment == 'center' %}
-    margin-left: auto;
-    margin-right: auto;
-    {% endif %}
+  .hero p {
+    font-size: 1.5rem;
+    color: var(--color-cyan-blue);
+    margin-bottom: 2rem;
   }
 
-  /* Actions */
-  .hero-actions {
-    display: flex;
-    gap: var(--spacing-sm, 1rem);
-    flex-wrap: wrap;
-    margin-bottom: var(--spacing-lg, 2.5rem);
-    {% if section.settings.text_alignment == 'center' %}
-    justify-content: center;
-    {% elsif section.settings.text_alignment == 'right' %}
-    justify-content: flex-end;
-    {% endif %}
-  }
-
-  .hero-btn-primary,
-  .hero-btn-secondary {
-    padding: 1rem 2rem;
-    font-size: 0.9rem;
-  }
-
-  /* Features List */
-  .hero-features {
-    display: flex;
-    gap: var(--spacing-md, 1.5rem);
-    flex-wrap: wrap;
-    padding-top: var(--spacing-md, 1.5rem);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    {% if section.settings.text_alignment == 'center' %}
-    justify-content: center;
-    {% elsif section.settings.text_alignment == 'right' %}
-    justify-content: flex-end;
-    {% endif %}
-  }
-
-  .feature-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-body, "Montserrat", sans-serif);
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  .feature-item svg {
-    color: var(--radioactive-green, #00F0AC);
-    flex-shrink: 0;
-  }
-
-  /* Scroll Indicator */
-  .scroll-indicator {
-    position: absolute;
-    bottom: var(--spacing-lg, 2.5rem);
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    animation: bounce 2s ease-in-out infinite;
-  }
-
-  .scroll-icon {
-    color: var(--cyan-blue, #28A8D6);
-  }
-
-  .scroll-text {
-    font-family: var(--font-title, "Orbitron", sans-serif);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+  .initiate-button {
+    background: linear-gradient(45deg, var(--color-radioactive-green), var(--color-cyan-blue));
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 2rem;
+    font-family: 'Orbitron', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 1px;
   }
 
-  /* Animations */
-  @keyframes gradient-pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.05); opacity: 0.9; }
+  .initiate-button:hover {
+    box-shadow: 0 0 40px var(--color-radioactive-green);
+    transform: translateY(-3px);
   }
 
-  @keyframes badge-glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(0, 240, 172, 0.5); }
-    50% { box-shadow: 0 0 30px rgba(40, 168, 214, 0.8); }
-  }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(-10px); }
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    #hero-{{ section.id }} {
-      min-height: 70vh;
-      padding: var(--spacing-lg, 2.5rem) 0;
-    }
-
-    .hero-actions {
-      flex-direction: column;
-      width: 100%;
-    }
-
-    .hero-btn-primary,
-    .hero-btn-secondary {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .hero-features {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .scroll-indicator {
-      display: none;
-    }
-  }
-
-  /* Reduced Motion */
-  @media (prefers-reduced-motion: reduce) {
-    .hero-gradient,
-    .hero-eyebrow,
-    .scroll-indicator {
-      animation: none !important;
-    }
+  @keyframes glitch-reveal {
+    0% { opacity: 0; transform: translateX(-20px); }
+    20% { opacity: 0.3; transform: translateX(10px); }
+    40% { opacity: 0.7; transform: translateX(-5px); }
+    60% { opacity: 0.9; transform: translateX(3px); }
+    100% { opacity: 1; transform: translateX(0); }
   }
 </style>
 
+<section class="hero">
+  <div class="hero-content">
+    <div class="transmission-text">{{ section.settings.transmission_text | default: 'TRANSMISSION: SYNAPSE_INIT' }}</div>
+    <h1>{{ section.settings.hero_title | default: 'STELLAR REVERB' }}</h1>
+    <p>{{ section.settings.hero_subtitle | default: 'Sound. Style. Transmissions Of Cosmic Identity.' }}</p>
+    <div class="decode-text">{{ section.settings.decode_text | default: 'DECODING: ECHO SIGNAL MATCHED.' }}</div>
+    <button class="initiate-button">{{ section.settings.cta_text | default: 'INITIATE SIGNAL LOCK' }}</button>
+  </div>
+</section>
+
 {% schema %}
 {
-  "name": "Hero - Cosmic",
+  "name": "Cosmic Hero",
   "settings": [
     {
-      "type": "header",
-      "content": "Layout"
-    },
-    {
-      "type": "range",
-      "id": "section_height",
-      "min": 50,
-      "max": 100,
-      "step": 5,
-      "unit": "vh",
-      "label": "Section height",
-      "default": 90
-    },
-    {
-      "type": "select",
-      "id": "text_alignment",
-      "label": "Text alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "center"
-    },
-    {
-      "type": "header",
-      "content": "Eyebrow Badge"
+      "type": "image_picker",
+      "id": "hero_background",
+      "label": "Hero Background Image"
     },
     {
       "type": "text",
-      "id": "eyebrow_text",
-      "label": "Eyebrow text",
-      "default": "New Capsule Drop"
+      "id": "transmission_text",
+      "label": "Transmission Text",
+      "default": "TRANSMISSION: SYNAPSE_INIT"
     },
     {
       "type": "text",
-      "id": "eyebrow_icon",
-      "label": "Eyebrow icon (emoji)",
-      "default": "📡"
-    },
-    {
-      "type": "color",
-      "id": "eyebrow_color",
-      "label": "Eyebrow text color",
-      "default": "#0D0D0D"
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "STELLAR REVERB"
     },
     {
       "type": "text",
-      "id": "eyebrow_background",
-      "label": "Eyebrow background (CSS)",
-      "default": "linear-gradient(135deg, #00F0AC, #28A8D6)"
-    },
-    {
-      "type": "header",
-      "content": "Headline"
-    },
-    {
-      "type": "textarea",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Transmissions from the Cosmic Archive"
-    },
-    {
-      "type": "range",
-      "id": "title_size_desktop",
-      "min": 2,
-      "max": 8,
-      "step": 0.5,
-      "unit": "rem",
-      "label": "Title size (desktop)",
-      "default": 5
-    },
-    {
-      "type": "range",
-      "id": "title_size_mobile",
-      "min": 6,
-      "max": 12,
-      "step": 1,
-      "unit": "vw",
-      "label": "Title size (mobile)",
-      "default": 8
-    },
-    {
-      "type": "range",
-      "id": "title_letter_spacing",
-      "min": 0,
-      "max": 0.2,
-      "step": 0.02,
-      "label": "Letter spacing",
-      "default": 0.1
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "default": "Sound. Style. Transmissions Of Cosmic Identity."
     },
     {
       "type": "text",
-      "id": "title_gradient",
-      "label": "Title gradient (CSS)",
-      "default": "linear-gradient(135deg, #E13CFA, #28A8D6)"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_glitch",
-      "label": "Enable glitch effect",
-      "default": false
-    },
-    {
-      "type": "header",
-      "content": "Subheadline"
-    },
-    {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Sound. Style. Signals of Identity."
-    },
-    {
-      "type": "color",
-      "id": "subtitle_color",
-      "label": "Subtitle color",
-      "default": "#FFFFFF"
-    },
-    {
-      "type": "header",
-      "content": "Primary Button"
+      "id": "decode_text",
+      "label": "Decode Text",
+      "default": "DECODING: ECHO SIGNAL MATCHED."
     },
     {
       "type": "text",
-      "id": "primary_button_text",
-      "label": "Button text",
-      "default": "Explore Capsules"
-    },
-    {
-      "type": "url",
-      "id": "primary_button_url",
-      "label": "Button URL",
-      "default": "/collections/all"
-    },
-    {
-      "type": "header",
-      "content": "Secondary Button"
-    },
-    {
-      "type": "text",
-      "id": "secondary_button_text",
-      "label": "Button text",
-      "default": "Join Signal Seekers"
-    },
-    {
-      "type": "url",
-      "id": "secondary_button_url",
-      "label": "Button URL",
-      "default": "/pages/signal-seekers"
-    },
-    {
-      "type": "header",
-      "content": "Features List"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_features",
-      "label": "Show features list",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "feature_1_text",
-      "label": "Feature 1",
-      "default": "Free Shipping on Orders $50+"
-    },
-    {
-      "type": "text",
-      "id": "feature_2_text",
-      "label": "Feature 2",
-      "default": "Exclusive Limited Editions"
-    },
-    {
-      "type": "text",
-      "id": "feature_3_text",
-      "label": "Feature 3",
-      "default": "Early Access for Signal Seekers"
-    },
-    {
-      "type": "header",
-      "content": "Background"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_floating_elements",
-      "label": "Show floating elements",
-      "default": true
-    },
-    {
-      "type": "color",
-      "id": "gradient_color_1",
-      "label": "Gradient color 1",
-      "default": "#6C24B3"
-    },
-    {
-      "type": "color",
-      "id": "gradient_color_2",
-      "label": "Gradient color 2",
-      "default": "#28A8D6"
-    },
-    {
-      "type": "header",
-      "content": "Scroll Indicator"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_scroll_indicator",
-      "label": "Show scroll indicator",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "scroll_text",
-      "label": "Scroll text",
-      "default": "Scroll to Explore"
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "INITIATE SIGNAL LOCK"
     }
   ],
   "presets": [
     {
-      "name": "Hero - Cosmic"
+      "name": "Cosmic Hero"
     }
   ]
 }
