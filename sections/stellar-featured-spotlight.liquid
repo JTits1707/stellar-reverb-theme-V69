@@ -1,0 +1,668 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FEATURED TRANSMISSION SPOTLIGHT
+  ═══════════════════════════════════════════════════════════
+  
+  Purpose: Showcase a featured capsule with hero treatment
+  Features:
+    - Large visual showcase
+    - Animated border effects
+    - CTA buttons
+    - Theme color customization
+    - Metaobject integration
+  
+  Usage: Add to homepage to highlight current/upcoming capsule
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% liquid
+  assign featured_capsule = section.settings.featured_capsule
+  assign theme_color = section.settings.theme_color | default: 'cyan-magenta'
+  assign show_badge = section.settings.show_badge | default: true
+  assign badge_text = section.settings.badge_text | default: 'FEATURED TRANSMISSION'
+  
+  # Get capsule data from metaobject or manual settings
+  if featured_capsule
+    assign capsule_title = featured_capsule.title.value
+    assign capsule_number = featured_capsule.capsule_number.value
+    assign capsule_image = featured_capsule.featured_image.value
+    assign capsule_description = featured_capsule.description.value
+    assign capsule_url = featured_capsule.page_url.value
+  else
+    assign capsule_title = section.settings.manual_title
+    assign capsule_number = section.settings.manual_number
+    assign capsule_image = section.settings.manual_image
+    assign capsule_description = section.settings.manual_description
+    assign capsule_url = section.settings.manual_url
+  endif
+%}
+
+<section 
+  class="featured-spotlight" 
+  data-section-id="{{ section.id }}"
+  data-section-type="featured-spotlight"
+  data-theme="{{ theme_color }}"
+>
+  
+  <div class="container">
+    
+    {%- comment -%} Section Header {%- endcomment -%}
+    {% if section.settings.show_heading %}
+      <div class="spotlight-header">
+        <h2 class="spotlight-heading">
+          {{ section.settings.heading | default: 'FEATURED TRANSMISSION' }}
+        </h2>
+        {% if section.settings.subheading != blank %}
+          <p class="spotlight-subheading">{{ section.settings.subheading }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+    {%- comment -%} Main Spotlight Card {%- endcomment -%}
+    <div class="spotlight-card">
+      
+      {%- comment -%} Featured Badge {%- endcomment -%}
+      {% if show_badge %}
+        <div class="spotlight-badge">
+          <svg class="badge-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 0l2.939 6.366L20 7.607l-5.455 4.763L16.18 20 10 16.366 3.82 20l1.635-7.63L0 7.607l7.061-1.241z"/>
+          </svg>
+          {{ badge_text }}
+        </div>
+      {% endif %}
+      
+      {%- comment -%} Image Container {%- endcomment -%}
+      <div class="spotlight-image-container">
+        {% if capsule_image %}
+          <img 
+            src="{{ capsule_image | image_url: width: 1200 }}"
+            srcset="{{ capsule_image | image_url: width: 600 }} 600w,
+                    {{ capsule_image | image_url: width: 900 }} 900w,
+                    {{ capsule_image | image_url: width: 1200 }} 1200w"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            alt="{{ capsule_title }}"
+            loading="lazy"
+            class="spotlight-image"
+          >
+        {% else %}
+          <div class="spotlight-image-placeholder">
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" stroke="currentColor">
+              <rect x="10" y="10" width="100" height="100" rx="8" stroke-width="2"/>
+              <path d="M30 80l20-30 15 20 25-35" stroke-width="2"/>
+            </svg>
+          </div>
+        {% endif %}
+        
+        {%- comment -%} Animated Border Effect {%- endcomment -%}
+        <div class="spotlight-border-effect" aria-hidden="true"></div>
+      </div>
+      
+      {%- comment -%} Content Container {%- endcomment -%}
+      <div class="spotlight-content">
+        
+        {%- comment -%} Capsule Number {%- endcomment -%}
+        {% if capsule_number != blank %}
+          <div class="spotlight-number">
+            CAPSULE <span class="number-value">{{ capsule_number }}</span>
+          </div>
+        {% endif %}
+        
+        {%- comment -%} Title {%- endcomment -%}
+        <h3 class="spotlight-title">{{ capsule_title | upcase }}</h3>
+        
+        {%- comment -%} Description {%- endcomment -%}
+        {% if capsule_description != blank %}
+          <div class="spotlight-description">
+            {{ capsule_description | truncate: 200 }}
+          </div>
+        {% endif %}
+        
+        {%- comment -%} CTA Buttons {%- endcomment -%}
+        <div class="spotlight-actions">
+          
+          {% if capsule_url != blank %}
+            <a 
+              href="{{ capsule_url }}" 
+              class="spotlight-btn spotlight-btn--primary"
+              aria-label="Explore {{ capsule_title }}"
+            >
+              <span>EXPLORE TRANSMISSION</span>
+              <svg class="btn-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                <path d="M5 10h10M10 5l5 5-5 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          {% endif %}
+          
+          {% if section.settings.secondary_cta_text != blank %}
+            <a 
+              href="{{ section.settings.secondary_cta_url }}" 
+              class="spotlight-btn spotlight-btn--secondary"
+            >
+              {{ section.settings.secondary_cta_text }}
+            </a>
+          {% endif %}
+          
+        </div>
+        
+        {%- comment -%} Metadata Tags {%- endcomment -%}
+        {% if section.settings.show_metadata %}
+          <div class="spotlight-metadata">
+            {% if featured_capsule.theme_color.value %}
+              <span class="metadata-tag">{{ featured_capsule.theme_color.value | replace: '-', ' ' }}</span>
+            {% endif %}
+            {% if featured_capsule.release_date.value %}
+              <span class="metadata-tag">{{ featured_capsule.release_date.value | date: "%b %Y" }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+        
+      </div>
+      
+    </div>
+    
+  </div>
+  
+</section>
+
+<style>
+  .featured-spotlight {
+    position: relative;
+    padding: 6rem 0;
+    background: #000000;
+    overflow: hidden;
+  }
+  
+  .featured-spotlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     SECTION HEADER
+     ──────────────────────────────────────────────────────── */
+  
+  .spotlight-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .spotlight-heading {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #00f0ff 0%, #ff00ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .spotlight-subheading {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     SPOTLIGHT CARD
+     ──────────────────────────────────────────────────────── */
+  
+  .spotlight-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 20px;
+    padding: 3rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+  }
+  
+  .spotlight-card:hover {
+    border-color: rgba(0, 240, 255, 0.5);
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     FEATURED BADGE
+     ──────────────────────────────────────────────────────── */
+  
+  .spotlight-badge {
+    position: absolute;
+    top: -1rem;
+    left: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #000000;
+    background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+    border-radius: 30px;
+    z-index: 10;
+    animation: pulse-badge 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-badge {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    }
+  }
+  
+  .badge-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     IMAGE CONTAINER
+     ──────────────────────────────────────────────────────── */
+  
+  .spotlight-image-container {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .spotlight-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  
+  .spotlight-card:hover .spotlight-image {
+    transform: scale(1.05);
+  }
+  
+  .spotlight-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.3);
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     ANIMATED BORDER EFFECT
+     ──────────────────────────────────────────────────────── */
+  
+  .spotlight-border-effect {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 12px;
+    background: linear-gradient(45deg, #00f0ff, #ff00ff, #00f0ff);
+    background-size: 200% 200%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: gradient-rotate 3s linear infinite;
+    z-index: -1;
+  }
+  
+  .spotlight-card:hover .spotlight-border-effect {
+    opacity: 0.6;
+  }
+  
+  @keyframes gradient-rotate {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     CONTENT
+     ──────────────────────────────────────────────────────── */
+  
+  .spotlight-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .spotlight-number {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+  }
+  
+  .number-value {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #00f0ff;
+    margin-left: 0.5rem;
+  }
+  
+  .spotlight-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: #ffffff;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  
+  .spotlight-description {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     CTA BUTTONS
+     ──────────────────────────────────────────────────────── */
+  
+  .spotlight-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  
+  .spotlight-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .spotlight-btn--primary {
+    color: #000000;
+    background: linear-gradient(135deg, #00f0ff 0%, #00d4e0 100%);
+    border: 2px solid transparent;
+  }
+  
+  .spotlight-btn--primary:hover {
+    background: linear-gradient(135deg, #00d4e0 0%, #00b8c7 100%);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+    transform: translateY(-2px);
+  }
+  
+  .spotlight-btn--secondary {
+    color: #00f0ff;
+    background: transparent;
+    border: 2px solid #00f0ff;
+  }
+  
+  .spotlight-btn--secondary:hover {
+    background: rgba(0, 240, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+  }
+  
+  .btn-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .spotlight-btn:hover .btn-icon {
+    transform: translateX(4px);
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     METADATA TAGS
+     ──────────────────────────────────────────────────────── */
+  
+  .spotlight-metadata {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  
+  .metadata-tag {
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     RESPONSIVE
+     ──────────────────────────────────────────────────────── */
+  
+  @media (max-width: 1024px) {
+    .spotlight-card {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    
+    .spotlight-badge {
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .featured-spotlight {
+      padding: 4rem 0;
+    }
+    
+    .spotlight-header {
+      margin-bottom: 2rem;
+    }
+    
+    .spotlight-actions {
+      flex-direction: column;
+    }
+    
+    .spotlight-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     ACCESSIBILITY
+     ──────────────────────────────────────────────────────── */
+  
+  @media (prefers-reduced-motion: reduce) {
+    .spotlight-badge,
+    .spotlight-image,
+    .spotlight-border-effect {
+      animation: none;
+      transition: none;
+    }
+    
+    .spotlight-card:hover {
+      transform: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured Transmission Spotlight",
+  "tag": "section",
+  "class": "section-featured-spotlight",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show section heading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "FEATURED TRANSMISSION"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "header",
+      "content": "Featured Capsule"
+    },
+    {
+      "type": "metaobject",
+      "id": "featured_capsule",
+      "label": "Select Capsule",
+      "metaobject_type": "capsule_archive",
+      "info": "Choose from your capsule metaobjects"
+    },
+    {
+      "type": "header",
+      "content": "Manual Override (if no metaobject selected)"
+    },
+    {
+      "type": "text",
+      "id": "manual_number",
+      "label": "Capsule Number",
+      "default": "001"
+    },
+    {
+      "type": "text",
+      "id": "manual_title",
+      "label": "Title",
+      "default": "UNTITLED TRANSMISSION"
+    },
+    {
+      "type": "image_picker",
+      "id": "manual_image",
+      "label": "Featured Image"
+    },
+    {
+      "type": "textarea",
+      "id": "manual_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "manual_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show featured badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "FEATURED TRANSMISSION"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_text",
+      "label": "Secondary CTA Text",
+      "default": "VIEW ALL CAPSULES"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_url",
+      "label": "Secondary CTA URL"
+    },
+    {
+      "type": "header",
+      "content": "Display Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_metadata",
+      "label": "Show metadata tags",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "theme_color",
+      "label": "Theme Color Scheme",
+      "options": [
+        {
+          "value": "cyan-magenta",
+          "label": "Cyan-Magenta"
+        },
+        {
+          "value": "gold-cyan",
+          "label": "Gold-Cyan"
+        },
+        {
+          "value": "vintage-amber",
+          "label": "Vintage-Amber"
+        },
+        {
+          "value": "cosmic-purple",
+          "label": "Cosmic-Purple"
+        }
+      ],
+      "default": "cyan-magenta"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Transmission Spotlight"
+    }
+  ]
+}
+{% endschema %}

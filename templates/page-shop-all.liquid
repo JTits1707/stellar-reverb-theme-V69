@@ -1,0 +1,1792 @@
+{% comment %}
+  Stellar Reverb – COSMIC SHOP ALL SECTION (FINAL POLISHED v1.0)
+  - Use on Shop All collection template
+  - Dynamic filters by Capsule + tags
+  - FOMO badges + low-stock callouts
+  - Upsell / cross-sell strip at bottom
+  - Signal Seeker CTA
+  - AJAX cart, URL persistence, analytics, accessibility
+{% endcomment %}
+
+<!-- Preload critical fonts -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Montserrat&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Montserrat&display=swap">
+</noscript>
+
+<section
+  class="stellar-shop-all"
+  data-collection-handle="{{ collection.handle }}"
+  data-loading="true"
+>
+  <style>
+    :root {
+      --neon-magenta: #E13CFA;
+      --cyan-blue:    #28A8D6;
+      --void-black:   #0D0D0D;
+      --cosmic-purple:#6C24B3;
+      --radioactive-green:#00F0AC;
+      --electric-yellow:#F4FF30;
+      --chrome-silver:#B0B0B0;
+    }
+
+    .stellar-shop-all {
+      position: relative;
+      background: var(--void-black);
+      color: #fff;
+      overflow: hidden;
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    /* Loading state */
+    [data-loading="true"] .product-grid {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    [data-loading="false"] .product-grid {
+      opacity: 1;
+    }
+
+    /* Cosmic BG */
+    .stellar-shop-all .cosmic-bg {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(108, 36, 179, 0.9) 0%, transparent 55%),
+        radial-gradient(circle at 80% 20%, rgba(40, 168, 214, 0.8) 0%, transparent 55%),
+        radial-gradient(circle at 40% 40%, rgba(225, 60, 250, 0.6) 0%, transparent 55%);
+      opacity: 0.18;
+      z-index: -2;
+      transform-origin: center;
+      transition: transform 0.4s ease-out;
+      will-change: transform;
+    }
+
+    .stellar-shop-all .constellation-dot {
+      position: fixed;
+      width: 3px;
+      height: 3px;
+      background: var(--cyan-blue);
+      border-radius: 50%;
+      animation: twinkle 3s ease-in-out infinite;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    @keyframes twinkle {
+      0%,100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.3); }
+    }
+
+    /* Sticky header inside section (brand icon + mini-nav) */
+    .stellar-shop-all .section-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(13,13,13,0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(108,36,179,0.6);
+    }
+    .stellar-shop-all .section-header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .stellar-shop-all .brand-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .stellar-shop-all .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 0.75rem;
+      background: linear-gradient(135deg, var(--neon-magenta), var(--cyan-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 18px rgba(225,60,250,0.7);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .stellar-shop-all .brand-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+    }
+    .stellar-shop-all .brand-icon:hover {
+      transform: translateY(-1px) scale(1.05);
+      box-shadow: 0 0 26px rgba(40,168,214,0.8);
+    }
+    .stellar-shop-all .logo-text {
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-weight: 900;
+      font-size: 1.3rem;
+      background: linear-gradient(135deg, var(--neon-magenta), var(--cyan-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.15em;
+    }
+    .stellar-shop-all .mini-nav {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+    .stellar-shop-all .mini-nav a {
+      position: relative;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #ccc;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    .stellar-shop-all .mini-nav a:hover,
+    .stellar-shop-all .mini-nav a:focus {
+      color: var(--cyan-blue);
+      border-color: rgba(40,168,214,0.6);
+      box-shadow: 0 0 14px rgba(40,168,214,0.5);
+      background: rgba(40,168,214,0.1);
+      outline: none;
+    }
+    .stellar-shop-all .mini-nav .signal-link {
+      background: linear-gradient(135deg, var(--radioactive-green), var(--cosmic-purple));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 0 18px rgba(0,240,172,0.6);
+      animation: signalPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes signalPulse {
+      0%,100% { box-shadow: 0 0 18px rgba(0,240,172,0.4); }
+      50%     { box-shadow: 0 0 30px rgba(225,60,250,0.7); }
+    }
+
+    /* Layout */
+    .stellar-shop-all .inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero */
+    .stellar-shop-all .hero {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .stellar-shop-all .hero-kicker {
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--chrome-silver);
+      margin-bottom: 0.75rem;
+    }
+    .stellar-shop-all .hero-title {
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      background: linear-gradient(135deg, var(--neon-magenta), var(--cyan-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.75rem;
+    }
+    .stellar-shop-all .hero-subtitle {
+      font-size: 1rem;
+      color: #d1d5db;
+      max-width: 540px;
+      margin: 0 auto 1.75rem;
+    }
+    .stellar-shop-all .hero-meta {
+      display: inline-flex;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.5rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(13,13,13,0.9);
+      border: 1px solid rgba(176,176,176,0.4);
+      font-size: 0.75rem;
+      color: #e5e7eb;
+    }
+    .stellar-shop-all .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* Filter + sort bar capsule */
+    .stellar-shop-all .filter-shell {
+      position: sticky;
+      top: 3.3rem;
+      z-index: 30;
+      margin-bottom: 1.5rem;
+    }
+    .stellar-shop-all .filter-capsule {
+      backdrop-filter: blur(20px);
+      background: linear-gradient(135deg, rgba(40,168,214,0.18), rgba(225,60,250,0.16));
+      border-radius: 999px;
+      border: 1px solid rgba(40,168,214,0.4);
+      padding: 0.75rem 1rem;
+      box-shadow: 0 0 22px rgba(40,168,214,0.35);
+    }
+    .stellar-shop-all .filter-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .stellar-shop-all .filter-label {
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--radioactive-green);
+      white-space: nowrap;
+    }
+    .stellar-shop-all .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      flex: 1;
+    }
+    .stellar-shop-all .filter-pill {
+      background: rgba(108,36,179,0.3);
+      border: 1px solid var(--cosmic-purple);
+      color: #fff;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .stellar-shop-all .filter-pill:hover,
+    .stellar-shop-all .filter-pill:focus,
+    .stellar-shop-all .filter-pill.is-active {
+      background: var(--cosmic-purple);
+      border-color: var(--neon-magenta);
+      box-shadow: 0 0 18px rgba(108,36,179,0.7);
+      transform: translateY(-1px);
+      outline: 2px solid transparent;
+    }
+    .stellar-shop-all .filter-pill:focus-visible {
+      outline: 2px solid var(--cyan-blue);
+      outline-offset: 2px;
+    }
+
+    /* motif tags line */
+    .stellar-shop-all .motif-row {
+      margin-top: 0.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+    }
+    .stellar-shop-all .motif-tag {
+      background: rgba(0,240,172,0.14);
+      border: 1px solid rgba(0,240,172,0.7);
+      color: var(--radioactive-green);
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .stellar-shop-all .motif-tag:hover,
+    .stellar-shop-all .motif-tag:focus,
+    .stellar-shop-all .motif-tag.is-active {
+      background: var(--radioactive-green);
+      color: var(--void-black);
+      box-shadow: 0 0 16px rgba(0,240,172,0.7);
+      outline: 2px solid transparent;
+    }
+    .stellar-shop-all .motif-tag:focus-visible {
+      outline: 2px solid var(--radioactive-green);
+      outline-offset: 2px;
+    }
+
+    /* Sort dropdown */
+    .stellar-shop-all .sort-shell {
+      margin-top: 0.5rem;
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+    .stellar-shop-all .sort-shell label {
+      font-family: "Orbitron", system-ui, sans-serif;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+    }
+    .stellar-shop-all .sort-select {
+      background: rgba(13,13,13,0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(176,176,176,0.6);
+      color: #e5e7eb;
+      font-size: 0.75rem;
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+    }
+    .stellar-shop-all .sort-select:focus {
+      outline: 2px solid var(--cyan-blue);
+      outline-offset: 2px;
+    }
+
+    /* Grid */
+    .stellar-shop-all .grid-shell {
+      margin-top: 2rem;
+    }
+    .stellar-shop-all .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .stellar-shop-all .product-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(108,36,179,0.18), rgba(40,168,214,0.14));
+      border-radius: 1rem;
+      border: 1px solid rgba(108,36,179,0.7);
+      padding: 1.1rem;
+      transition: all 0.26s ease;
+      transform-origin: center;
+      overflow: hidden;
+    }
+    .stellar-shop-all .product-card:hover {
+      transform: translateY(-8px) rotateY(4deg);
+      box-shadow:
+        0 18px 40px rgba(225,60,250,0.28),
+        0 0 26px rgba(40,168,214,0.22);
+      border-color: var(--neon-magenta);
+      filter: brightness(1.1) contrast(1.03);
+    }
+    .stellar-shop-all .product-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(225,60,250,0.35), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .stellar-shop-all .product-card:hover::before {
+      opacity: 1;
+    }
+
+    .stellar-shop-all .capsule-tag {
+      position: absolute;
+      top: 0.8rem;
+      left: 0.8rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--neon-magenta), var(--cosmic-purple));
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      z-index: 2;
+    }
+
+    .stellar-shop-all .limited-badge {
+      position: absolute;
+      top: 0.9rem;
+      right: 0.8rem;
+      background: var(--radioactive-green);
+      color: var(--void-black);
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      animation: limitedGlow 2s ease-in-out infinite;
+      z-index: 2;
+    }
+    @keyframes limitedGlow {
+      0%,100% { box-shadow: 0 0 10px rgba(0,240,172,0.7); }
+      50%     { box-shadow: 0 0 20px rgba(0,240,172,1); }
+    }
+
+    .stellar-shop-all .card-media {
+      border-radius: 0.8rem;
+      overflow: hidden;
+      margin-bottom: 0.9rem;
+      position: relative;
+      background: radial-gradient(circle at 10% 0, rgba(225,60,250,0.5), transparent 55%),
+                  radial-gradient(circle at 90% 100%, rgba(40,168,214,0.5), transparent 55%);
+      aspect-ratio: 1 / 1;
+    }
+    .stellar-shop-all .card-media img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: screen;
+      filter: saturate(1.1);
+      transition: transform 0.3s ease;
+    }
+    .stellar-shop-all .product-card:hover .card-media img {
+      transform: scale(1.06);
+    }
+
+    .stellar-shop-all .product-title {
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+    }
+    .stellar-shop-all .product-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .stellar-shop-all .product-title a:hover,
+    .stellar-shop-all .product-title a:focus {
+      color: var(--cyan-blue);
+      outline: none;
+    }
+    .stellar-shop-all .product-snippet {
+      font-size: 0.8rem;
+      color: #d1d5db;
+      margin-bottom: 0.6rem;
+      min-height: 2.6em;
+    }
+    .stellar-shop-all .tag-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 0.8rem;
+    }
+    .stellar-shop-all .tag-chip {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(108,36,179,0.55);
+      color: #e5e7eb;
+      border: 1px solid rgba(176,176,176,0.4);
+    }
+
+    .stellar-shop-all .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .stellar-shop-all .price-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+    .stellar-shop-all .price-main {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--electric-yellow);
+    }
+    .stellar-shop-all .price-compare {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      text-decoration: line-through;
+    }
+    .stellar-shop-all .low-stock {
+      font-size: 0.7rem;
+      color: var(--radioactive-green);
+    }
+
+    .stellar-shop-all .card-cta {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .stellar-shop-all .btn-outline,
+    .stellar-shop-all .btn-solid {
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--chrome-silver);
+      background: transparent;
+      color: #e5e7eb;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .stellar-shop-all .btn-solid {
+      background: linear-gradient(135deg, var(--neon-magenta), var(--cyan-blue));
+      border-color: transparent;
+      color: #0b0b0b;
+      box-shadow: 0 0 14px rgba(225,60,250,0.7);
+    }
+    .stellar-shop-all .btn-outline:hover,
+    .stellar-shop-all .btn-outline:focus {
+      background: rgba(176,176,176,0.1);
+      box-shadow: 0 0 14px rgba(176,176,176,0.4);
+      outline: none;
+    }
+    .stellar-shop-all .btn-solid:hover,
+    .stellar-shop-all .btn-solid:focus {
+      filter: contrast(1.1) brightness(1.05);
+      box-shadow: 0 0 20px rgba(40,168,214,0.9);
+      outline: none;
+    }
+    .stellar-shop-all .btn-solid:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Empty state */
+    .stellar-shop-all .empty-vault {
+      text-align: center;
+      padding: 4rem 2rem;
+      grid-column: 1 / -1;
+    }
+    .stellar-shop-all .empty-vault-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .stellar-shop-all .empty-vault-title {
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--neon-magenta), var(--cyan-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.75rem;
+    }
+    .stellar-shop-all .empty-vault-text {
+      color: #9ca3af;
+      margin: 1rem 0 2rem;
+    }
+
+    /* Upsell / cross-sell strip */
+    .stellar-shop-all .upsell-shell {
+      margin-top: 3rem;
+      padding-top: 2.2rem;
+      border-top: 1px dashed rgba(176,176,176,0.4);
+    }
+    .stellar-shop-all .upsell-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+    .stellar-shop-all .upsell-title {
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .stellar-shop-all .upsell-subtitle {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+    .stellar-shop-all .upsell-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.25rem;
+    }
+    .stellar-shop-all .upsell-card {
+      background: linear-gradient(135deg, rgba(108,36,179,0.18), rgba(40,168,214,0.12));
+      border-radius: 0.9rem;
+      padding: 0.8rem;
+      border: 1px solid rgba(108,36,179,0.6);
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .stellar-shop-all .upsell-card:hover,
+    .stellar-shop-all .upsell-card:focus {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 34px rgba(0,0,0,0.6);
+      border-color: var(--neon-magenta);
+      outline: 2px solid transparent;
+    }
+    .stellar-shop-all .upsell-card:focus-visible {
+      outline: 2px solid var(--cyan-blue);
+      outline-offset: 2px;
+    }
+    .stellar-shop-all .upsell-media {
+      width: 60px;
+      height: 60px;
+      border-radius: 0.7rem;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .stellar-shop-all .upsell-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .stellar-shop-all .upsell-meta {
+      flex: 1;
+    }
+    .stellar-shop-all .upsell-name {
+      font-size: 0.8rem;
+      margin-bottom: 0.1rem;
+    }
+    .stellar-shop-all .upsell-price {
+      font-size: 0.85rem;
+      color: var(--electric-yellow);
+      margin-bottom: 0.1rem;
+    }
+    .stellar-shop-all .upsell-tagline {
+      font-size: 0.7rem;
+      color: #9ca3af;
+    }
+
+    /* Signal Seeker CTA */
+    .stellar-shop-all .signal-shell {
+      margin-top: 3rem;
+      display: flex;
+      justify-content: center;
+    }
+    .stellar-shop-all .signal-card {
+      position: relative;
+      max-width: 600px;
+      width: 100%;
+      padding: 2.4rem 2.0rem;
+      border-radius: 1.4rem;
+      border: 2px solid var(--neon-magenta);
+      background: linear-gradient(135deg,
+        rgba(225,60,250,0.14),
+        rgba(108,36,179,0.22)
+      );
+      overflow: hidden;
+      box-shadow: 0 0 26px rgba(225,60,250,0.5);
+    }
+    .stellar-shop-all .signal-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(
+        from 0deg,
+        rgba(225,60,250,0.1),
+        rgba(40,168,214,0.25),
+        rgba(0,240,172,0.2),
+        transparent 70%
+      );
+      opacity: 0.2;
+      animation: spinAura 14s linear infinite;
+    }
+    @keyframes spinAura {
+      to { transform: rotate(360deg); }
+    }
+    .stellar-shop-all .signal-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .stellar-shop-all .signal-eye {
+      margin: 0 auto 1rem;
+      width: 70px;
+      height: 70px;
+      position: relative;
+      animation: mysticalFloat 4s ease-in-out infinite;
+    }
+    @keyframes mysticalFloat {
+      0%,100% { transform: translateY(0px); }
+      50%     { transform: translateY(-8px); }
+    }
+    .stellar-shop-all .signal-eye-shape {
+      width: 70px;
+      height: 70px;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      border: 3px solid var(--neon-magenta);
+      background: radial-gradient(circle, rgba(40,168,214,0.3), rgba(108,36,179,0.4));
+      box-shadow: 0 0 22px rgba(225,60,250,0.7);
+      position: relative;
+    }
+    .stellar-shop-all .signal-eye-core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--cyan-blue), var(--cosmic-purple));
+      box-shadow: 0 0 18px var(--cyan-blue);
+    }
+    .stellar-shop-all .signal-eye-core::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      animation: eyeBlink 4s ease-in-out infinite;
+    }
+    @keyframes eyeBlink {
+      0%,90%,100% { opacity: 1; }
+      95%         { opacity: 0; }
+    }
+    .stellar-shop-all .signal-title {
+      font-family: "Orbitron", system-ui, sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 0.4rem;
+      color: var(--neon-magenta);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .stellar-shop-all .signal-subtitle {
+      font-size: 0.95rem;
+      color: #e5e7eb;
+      font-style: italic;
+      margin-bottom: 1.3rem;
+    }
+    .stellar-shop-all .signal-benefits {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.4rem;
+      font-size: 0.8rem;
+    }
+    .stellar-shop-all .signal-benefit {
+      background: rgba(0,240,172,0.12);
+      border-radius: 0.7rem;
+      padding: 0.55rem;
+      border: 1px solid rgba(0,240,172,0.6);
+    }
+    .stellar-shop-all .signal-benefit-title {
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    /* Newsletter success/error states */
+    .stellar-shop-all .signal-success,
+    .stellar-shop-all .signal-error {
+      text-align: center;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .stellar-shop-all .signal-success {
+      background: rgba(0,240,172,0.2);
+      border: 1px solid var(--radioactive-green);
+      color: var(--radioactive-green);
+    }
+    .stellar-shop-all .signal-error {
+      background: rgba(225,60,250,0.2);
+      border: 1px solid var(--neon-magenta);
+      color: var(--neon-magenta);
+    }
+    .stellar-shop-all .signal-success-icon,
+    .stellar-shop-all .signal-error-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .stellar-shop-all .signal-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+    }
+    .stellar-shop-all .signal-input {
+      flex: 1 1 160px;
+      min-width: 0;
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(176,176,176,0.7);
+      background: rgba(13,13,13,0.96);
+      color: #f9fafb;
+      font-size: 0.8rem;
+    }
+    .stellar-shop-all .signal-input::placeholder {
+      color: #9ca3af;
+    }
+    .stellar-shop-all .signal-input:focus {
+      outline: 2px solid var(--cyan-blue);
+      outline-offset: 2px;
+      border-color: var(--cyan-blue);
+    }
+    .stellar-shop-all .signal-btn {
+      font-family: "Orbitron", system-ui, sans-serif;
+      letter-spacing: 0.18em;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--radioactive-green), var(--cyan-blue));
+      color: #0b0b0b;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(0,240,172,0.7);
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .stellar-shop-all .signal-btn:hover,
+    .stellar-shop-all .signal-btn:focus {
+      filter: contrast(1.1) brightness(1.05);
+      box-shadow: 0 0 24px rgba(40,168,214,0.9);
+      outline: none;
+    }
+    .stellar-shop-all .signal-btn:focus-visible {
+      outline: 2px solid var(--radioactive-green);
+      outline-offset: 2px;
+    }
+
+    /* Mobile filter toggle */
+    .stellar-shop-all .filter-toggle {
+      display: none;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      .stellar-shop-all .section-header-inner {
+        flex-direction: row;
+        align-items: center;
+      }
+      .stellar-shop-all .mini-nav {
+        display: none;
+      }
+      .stellar-shop-all .filter-capsule {
+        border-radius: 1rem;
+        max-height: 75vh;
+        overflow-y: auto;
+      }
+      .stellar-shop-all .filter-line {
+        align-items: flex-start;
+      }
+      .stellar-shop-all .sort-shell {
+        width: 100%;
+        justify-content: flex-start;
+        margin-left: 0;
+      }
+      .stellar-shop-all .signal-card {
+        padding: 2rem 1.4rem;
+      }
+      .stellar-shop-all .signal-benefits {
+        grid-template-columns: 1fr;
+      }
+      
+      /* Mobile filter toggle button */
+      .stellar-shop-all .filter-toggle {
+        display: flex;
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        z-index: 50;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--neon-magenta), var(--cyan-blue));
+        box-shadow: 0 4px 20px rgba(225,60,250,0.6);
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        font-size: 1.5rem;
+      }
+      .stellar-shop-all .filter-toggle:active {
+        transform: scale(0.95);
+      }
+      .stellar-shop-all .filter-shell.is-hidden {
+        display: none;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      .stellar-shop-all .cosmic-bg,
+      .stellar-shop-all .constellation-dot,
+      .stellar-shop-all .section-header,
+      .stellar-shop-all .filter-shell,
+      .stellar-shop-all .signal-shell {
+        display: none;
+      }
+    }
+  </style>
+
+  <!-- cosmic backdrop shared just for this section -->
+  <div class="cosmic-bg" aria-hidden="true"></div>
+  <div class="constellation-dot" style="top:15%;left:12%;" aria-hidden="true" role="presentation"></div>
+  <div class="constellation-dot" style="top:35%;left:78%;" aria-hidden="true" role="presentation"></div>
+  <div class="constellation-dot" style="top:55%;left:22%;" aria-hidden="true" role="presentation"></div>
+  <div class="constellation-dot" style="top:70%;left:90%;" aria-hidden="true" role="presentation"></div>
+  <div class="constellation-dot" style="top:82%;left:45%;" aria-hidden="true" role="presentation"></div>
+
+  <!-- Sticky section header (mini-brand) -->
+  <header class="section-header">
+    <div class="section-header-inner">
+      <div class="brand-chip">
+        <a href="{{ routes.root_url }}" class="brand-icon" aria-label="Stellar Reverb Home">
+          <!-- simple cassette icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+            <rect x="6" y="9" width="3" height="2" rx="0.5"></rect>
+            <rect x="15" y="9" width="3" height="2" rx="0.5"></rect>
+            <circle cx="9" cy="14" r="1.3"></circle>
+            <circle cx="15" cy="14" r="1.3"></circle>
+          </svg>
+        </a>
+        <div class="logo-text">STELLAR REVERB</div>
+      </div>
+
+      <nav class="mini-nav" aria-label="Main navigation">
+        <a href="{{ routes.root_url }}">Home</a>
+        <a href="{{ routes.collections_url }}">Transmissions</a>
+        <a href="/pages/floating-archive">Floating Archive</a>
+        <a href="/pages/universal-lore">Universal Lore</a>
+        <a href="/pages/about">About</a>
+        <a href="/pages/signal-seekers" class="signal-link">
+          <span>Signal Seekers</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="inner">
+    <!-- HERO -->
+    <section class="hero">
+      {% if section.settings.hero_kicker != blank %}
+        <p class="hero-kicker">{{ section.settings.hero_kicker }}</p>
+      {% endif %}
+
+      <h1 class="hero-title">
+        {{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}
+      </h1>
+
+      <p class="hero-subtitle">
+        {{ section.settings.hero_subtitle
+          | default: 'Shop every transmission across capsules — analog relics, glitchwave tees, and cosmic hoodies from the Stellar Reverb multiverse.' }}
+      </p>
+
+      <div class="hero-meta">
+        <span>🛰 {{ collection.all_products_count }} relics in orbit</span>
+        <span>📼 Capsules 001–014</span>
+        <span>⚡ Limited drops • Signal exclusives</span>
+      </div>
+    </section>
+
+    <!-- FILTER + SORT CAPSULE -->
+    <div class="filter-shell" id="filterShell">
+      <div class="filter-capsule" role="search" aria-label="Product filters">
+        <div class="filter-line">
+          <span class="filter-label">📡 FILTER TRANSMISSIONS</span>
+
+          <div class="filter-pills" data-filter-group="capsule" role="radiogroup" aria-label="Capsule filter">
+            <button 
+              class="filter-pill is-active" 
+              data-filter-value="all"
+              role="radio"
+              aria-checked="true"
+              aria-label="Show all transmissions"
+            >
+              All Transmissions
+            </button>
+            <button class="filter-pill" data-filter-value="cap-001" role="radio" aria-checked="false" aria-label="Filter by Capsule 001">Capsule 001</button>
+            <button class="filter-pill" data-filter-value="cap-002" role="radio" aria-checked="false" aria-label="Filter by Capsule 002">Capsule 002</button>
+            <button class="filter-pill" data-filter-value="cap-003" role="radio" aria-checked="false" aria-label="Filter by Capsule 003">Capsule 003</button>
+            <button class="filter-pill" data-filter-value="cap-004" role="radio" aria-checked="false" aria-label="Filter by Capsule 004">Capsule 004</button>
+            <button class="filter-pill" data-filter-value="cap-005" role="radio" aria-checked="false" aria-label="Filter by Capsule 005">Capsule 005</button>
+            <button class="filter-pill" data-filter-value="cap-006" role="radio" aria-checked="false" aria-label="Filter by Capsule 006">Capsule 006</button>
+            <button class="filter-pill" data-filter-value="cap-007" role="radio" aria-checked="false" aria-label="Filter by Capsule 007">Capsule 007</button>
+            <button class="filter-pill" data-filter-value="cap-008" role="radio" aria-checked="false" aria-label="Filter by Capsule 008">Capsule 008</button>
+            <button class="filter-pill" data-filter-value="signal-seeker" role="radio" aria-checked="false" aria-label="Show Signal Seeker exclusives">
+              Signal Seeker Exclusives
+            </button>
+            <button class="filter-pill" data-filter-value="floating-archive" role="radio" aria-checked="false" aria-label="Show Floating Archive items">
+              Floating Archive
+            </button>
+          </div>
+
+          <div class="sort-shell">
+            <label for="cosmic-sort">Sort</label>
+            <select id="cosmic-sort" class="sort-select" aria-label="Sort products">
+              <option value="default">Featured Signal</option>
+              <option value="price-asc">Price – Low to High</option>
+              <option value="price-desc">Price – High to Low</option>
+              <option value="limited-first">Limited // Almost Gone</option>
+              <option value="newest">Recently Tuned</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="motif-row" data-filter-group="motif" role="group" aria-label="Motif filters">
+          <button class="motif-tag" data-filter-value="cassette" aria-label="Filter by Cassette Glyph motif">
+            <span aria-hidden="true">📼</span><span>Cassette Glyph</span>
+          </button>
+          <button class="motif-tag" data-filter-value="fractal" aria-label="Filter by Fractal Echo motif">
+            <span aria-hidden="true">🌀</span><span>Fractal Echo</span>
+          </button>
+          <button class="motif-tag" data-filter-value="mythic" aria-label="Filter by Mythic Tech motif">
+            <span aria-hidden="true">🛰</span><span>Mythic Tech</span>
+          </button>
+          <button class="motif-tag" data-filter-value="glitch" aria-label="Filter by Glitch Oracle motif">
+            <span aria-hidden="true">👁</span><span>Glitch Oracle</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile filter toggle -->
+    <button class="filter-toggle" aria-label="Toggle filters" aria-expanded="true" aria-controls="filterShell">
+      🎛️
+    </button>
+
+    <!-- MAIN GRID -->
+    <div class="grid-shell">
+      {% paginate collection.products by section.settings.products_per_page %}
+        <div
+          class="product-grid"
+          id="stellarProductGrid"
+          role="list"
+          aria-label="Product list"
+        >
+          {% for product in collection.products %}
+            {%- comment -%}
+              Build capsule handle from any CAP-* tag, e.g. "CAP-001" → "cap-001"
+            {%- endcomment -%}
+            {% assign capsule_handle = '' %}
+            {% assign special_zone = '' %}
+            {% for tag in product.tags %}
+              {% assign lower_tag = tag | downcase %}
+              {% if lower_tag contains 'cap-' %}
+                {% assign capsule_handle = tag | handleize %}
+              {% endif %}
+              {% if lower_tag contains 'signal seeker' %}
+                {% assign special_zone = 'signal-seeker' %}
+              {% elsif lower_tag contains 'floating archive' %}
+                {% assign special_zone = 'floating-archive' %}
+              {% endif %}
+            {% endfor %}
+
+            {% if capsule_handle == '' %}
+              {% assign capsule_handle = special_zone %}
+            {% endif %}
+
+            {% assign all_tags_down = product.tags | join: ',' | downcase %}
+
+            {% assign is_limited = false %}
+            {% if all_tags_down contains 'limited' or all_tags_down contains 'exclusive' %}
+              {% assign is_limited = true %}
+            {% endif %}
+
+            {% assign inv_qty = 0 %}
+            {% if product.variants.first.inventory_management %}
+              {% assign inv_qty = product.variants.first.inventory_quantity %}
+            {% endif %}
+
+            <article
+              class="product-card"
+              data-capsule="{{ capsule_handle }}"
+              data-tags="{{ all_tags_down }}"
+              data-price="{{ product.price | divided_by: 100.0 }}"
+              data-limited="{{ is_limited }}"
+              data-created="{{ product.created_at | date: '%s' }}"
+              data-product-id="{{ product.id }}"
+              data-product-name="{{ product.title | escape }}"
+              role="listitem"
+            >
+              {% comment %}capsule tag / limited badges{% endcomment %}
+              {% assign capsule_label = product.metafields.custom.capsule_label.value | default: product.metafields.custom.capsule_label | default: '' %}
+              {% if capsule_label != '' %}
+                <div class="capsule-tag" aria-label="Capsule {{ capsule_label }}">
+                  {{ capsule_label }}
+                </div>
+              {% elsif capsule_handle != '' %}
+                <div class="capsule-tag" aria-label="Capsule {{ capsule_handle }}">
+                  {{ capsule_handle | replace: 'cap-','CAP-00' | upcase }}
+                </div>
+              {% endif %}
+
+              {% if is_limited %}
+                <div class="limited-badge" aria-label="Limited edition item">
+                  {% if all_tags_down contains 'exclusive' %}
+                    EXCLUSIVE
+                  {% else %}
+                    LIMITED
+                  {% endif %}
+                </div>
+              {% endif %}
+
+              <div class="card-media">
+                <a href="{{ product.url }}" aria-label="View {{ product.title }}">
+                  {% if product.featured_image %}
+                    <img
+                      src="{{ product.featured_image | image_url: width: 600 }}"
+                      alt="{{ product.featured_image.alt | escape }}"
+                      loading="lazy"
+                      width="600"
+                      height="600"
+                    >
+                  {% else %}
+                    <img
+                      src="{{ 'placeholder-image.png' | asset_url }}"
+                      alt="{{ product.title | escape }}"
+                      loading="lazy"
+                      width="600"
+                      height="600"
+                    >
+                  {% endif %}
+                </a>
+              </div>
+
+              <h3 class="product-title">
+                <a href="{{ product.url }}">
+                  {{ product.title }}
+                </a>
+              </h3>
+
+              <p class="product-snippet">
+                {% if product.metafields.custom.lore_snippet != blank %}
+                  {{ product.metafields.custom.lore_snippet }}
+                {% elsif product.description != blank %}
+                  {{ product.description | strip_html | truncate: 110 }}
+                {% else %}
+                  Transmission fragment awaiting full decryption.
+                {% endif %}
+              </p>
+
+              <div class="tag-chips" aria-label="Product tags">
+                {% for tag in product.tags limit: 4 %}
+                  <span class="tag-chip">#{{ tag | handle }}</span>
+                {% endfor %}
+              </div>
+
+              <div class="card-footer">
+                <div class="price-block">
+                  <span class="price-main" aria-label="Price: {{ product.price | money }}">
+                    {{ product.price | money }}
+                  </span>
+                  {% if product.compare_at_price > product.price %}
+                    <span class="price-compare" aria-label="Original price: {{ product.compare_at_price | money }}">
+                      {{ product.compare_at_price | money }}
+                    </span>
+                  {% endif %}
+
+                  {% if inv_qty > 0 and inv_qty <= 5 %}
+                    <span class="low-stock" role="status" aria-live="polite">
+                      🔥 Only {{ inv_qty }} left in the vault
+                    </span>
+                  {% elsif is_limited %}
+                    <span class="low-stock">
+                      ⏳ Limited run • Once it's gone, it's gone
+                    </span>
+                  {% endif %}
+                </div>
+
+                <div class="card-cta">
+                  <a href="{{ product.url }}" class="btn-outline">
+                    View relic
+                  </a>
+
+                  {% if product.available %}
+                    <form
+                      action="/cart/add"
+                      method="post"
+                      class="add-to-cart-form"
+                    >
+                      <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                      <button type="submit" class="btn-solid" aria-label="Add {{ product.title }} to cart">
+                        Add to cart
+                      </button>
+                    </form>
+                  {% else %}
+                    <span class="btn-outline" style="opacity:0.6;cursor:not-allowed;" aria-label="Product sold out">
+                      Sold out
+                    </span>
+                  {% endif %}
+                </div>
+              </div>
+            </article>
+          {% else %}
+            <!-- Empty state -->
+            <div class="empty-vault" role="status" aria-live="polite">
+              <div class="empty-vault-icon" aria-hidden="true">📡</div>
+              <h3 class="empty-vault-title">NO SIGNALS DETECTED</h3>
+              <p class="empty-vault-text">
+                Try adjusting your filters or check back later for new transmissions.
+              </p>
+              <a href="{{ routes.all_products_url }}" class="btn-solid">
+                Browse All Transmissions
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if paginate.pages > 1 %}
+          <nav class="pagination" style="margin-top:2rem;display:flex;justify-content:center;gap:0.75rem;font-size:0.875rem;" aria-label="Pagination">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}" class="btn-outline" aria-label="Go to previous page">
+                ‹ Previous
+              </a>
+            {% endif %}
+            <span style="align-self:center;opacity:0.7;" aria-current="page">
+              Page {{ paginate.current_page }} of {{ paginate.pages }}
+            </span>
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}" class="btn-outline" aria-label="Go to next page">
+                Next ›
+              </a>
+            {% endif %}
+          </nav>
+        {% endif %}
+      {% endpaginate %}
+    </div>
+
+    <!-- Upsell / Cross-sell Strip -->
+    {% if collection.products_count > 0 %}
+      <section class="upsell-shell" aria-labelledby="upsell-title">
+        <div class="upsell-header">
+          <h2 class="upsell-title" id="upsell-title">
+            ALMOST GONE // SIGNAL HOTSPOTS
+          </h2>
+          <p class="upsell-subtitle">
+            Handpicked limited transmissions you'll regret leaving behind.
+          </p>
+        </div>
+
+        <div class="upsell-grid">
+          {% assign upsell_limit = 4 %}
+          {% assign upsell_count = 0 %}
+
+          {%- comment -%}
+            Strategy:
+            1) Pull products in this collection tagged with the configured upsell tag OR containing "limited"/"exclusive".
+            2) Stop once upsell_limit is hit.
+          {%- endcomment -%}
+          {% for upsell in collection.products %}
+            {% if upsell_count >= upsell_limit %}
+              {% break %}
+            {% endif %}
+
+            {% assign upsell_tags = upsell.tags | join: ',' | downcase %}
+            {% assign match_tag = false %}
+            {% if section.settings.upsell_tag != blank and upsell_tags contains section.settings.upsell_tag | downcase %}
+              {% assign match_tag = true %}
+            {% elsif upsell_tags contains 'limited' or upsell_tags contains 'exclusive' %}
+              {% assign match_tag = true %}
+            {% endif %}
+
+            {% if match_tag %}
+              {% assign upsell_count = upsell_count | plus: 1 %}
+              <a href="{{ upsell.url }}" class="upsell-card" aria-label="View {{ upsell.title }}">
+                <div class="upsell-media">
+                  {% if upsell.featured_image %}
+                    <img
+                      src="{{ upsell.featured_image | image_url: width: 200 }}"
+                      alt="{{ upsell.featured_image.alt | escape }}"
+                      loading="lazy"
+                      width="200"
+                      height="200"
+                    >
+                  {% else %}
+                    <img
+                      src="{{ 'placeholder-image.png' | asset_url }}"
+                      alt="{{ upsell.title | escape }}"
+                      loading="lazy"
+                      width="200"
+                      height="200"
+                    >
+                  {% endif %}
+                </div>
+                <div class="upsell-meta">
+                  <div class="upsell-name">
+                    {{ upsell.title }}
+                  </div>
+                  <div class="upsell-price">
+                    {{ upsell.price | money }}
+                  </div>
+                  <div class="upsell-tagline">
+                    {% if upsell.metafields.custom.lore_snippet != blank %}
+                      {{ upsell.metafields.custom.lore_snippet | truncate: 60 }}
+                    {% else %}
+                      Last echoes from this frequency lane.
+                    {% endif %}
+                  </div>
+                </div>
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+    <!-- ROKT / Personalization hook -->
+    <div id="stellar-rokt-slot" style="margin-top:2.5rem;">
+      {% comment %}
+        Drop your Rokt / personalization app embed here.
+        Use data attributes if needed:
+        data-collection="{{ collection.handle }}"
+      {% endcomment %}
+    </div>
+
+    <!-- SIGNAL SEEKER CTA -->
+    <section class="signal-shell" aria-labelledby="signal-title">
+      <div class="signal-card">
+        <div class="signal-inner">
+          <div class="signal-eye" aria-hidden="true">
+            <div class="signal-eye-shape">
+              <div class="signal-eye-core"></div>
+            </div>
+          </div>
+
+          <h2 class="signal-title" id="signal-title">
+            JOIN THE SIGNAL SEEKERS
+          </h2>
+          <p class="signal-subtitle">
+            Early access drops, hidden relics, and encrypted lore from beyond the event horizon.
+          </p>
+
+          <div class="signal-benefits">
+            <div class="signal-benefit">
+              <div class="signal-benefit-title">⚡ Priority transmissions</div>
+              <div>First in line for capsule drops & restocks.</div>
+            </div>
+            <div class="signal-benefit">
+              <div class="signal-benefit-title">📼 Vault-only relics</div>
+              <div>Signal Seeker exclusives you won't see on the main grid.</div>
+            </div>
+            <div class="signal-benefit">
+              <div class="signal-benefit-title">🛰 Lore fragments</div>
+              <div>Encrypted stories, concept art, and world-building leaks.</div>
+            </div>
+            <div class="signal-benefit">
+              <div class="signal-benefit-title">💸 Secret discounts</div>
+              <div>Occasional code drops and insider perks.</div>
+            </div>
+          </div>
+
+          {% form 'customer', id: 'signal-seeker-form', class: 'signal-form-wrapper' %}
+            {% if form.posted_successfully? %}
+              <div class="signal-success" role="status" aria-live="polite">
+                <span class="signal-success-icon" aria-hidden="true">✓</span>
+                <strong>SIGNAL LOCKED!</strong> Check your inbox for your first transmission.
+              </div>
+            {% elsif form.errors %}
+              <div class="signal-error" role="alert" aria-live="assertive">
+                <span class="signal-error-icon" aria-hidden="true">⚠</span>
+                <strong>SIGNAL INTERFERENCE!</strong> Please check your email and try again.
+              </div>
+            {% endif %}
+
+            <div class="signal-form">
+              <input
+                class="signal-input"
+                type="email"
+                name="contact[email]"
+                required
+                placeholder="Enter your transmission frequency..."
+                aria-label="Email address"
+                aria-required="true"
+              >
+              <input type="hidden" name="contact[tags]" value="newsletter,signal-seekers">
+              <button class="signal-btn" type="submit">
+                <span>INITIATE SIGNAL</span> <span aria-hidden="true">📡</span>
+              </button>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function() {
+      const section = document.currentScript.closest('.stellar-shop-all');
+      if (!section) return;
+
+      // Lazy load constellation dots
+      const dots = section.querySelectorAll('.constellation-dot');
+      const dotObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.opacity = '0.4';
+            dotObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      dots.forEach(dot => dotObserver.observe(dot));
+
+      // Parallax cosmic background
+      const bg = section.querySelector('.cosmic-bg');
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking && bg) {
+          window.requestAnimationFrame(() => {
+            const y = window.scrollY || window.pageYOffset;
+            bg.style.transform = 'scale(' + (1 + y * 0.0005) + ')';
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+
+      // Product grid filtering & sorting
+      const grid = section.querySelector('#stellarProductGrid');
+      if (!grid) return;
+
+      const cards = Array.from(grid.querySelectorAll('.product-card'));
+      const capsulePills = Array.from(
+        section.querySelectorAll('.filter-pills [data-filter-value]')
+      );
+      const motifTags = Array.from(
+        section.querySelectorAll('.motif-row [data-filter-value]')
+      );
+      const sortSelect = section.querySelector('#cosmic-sort');
+
+      // Initialize from URL params
+      const urlParams = new URLSearchParams(window.location.search);
+      let activeCapsule = urlParams.get('capsule') || 'all';
+      let activeMotif = urlParams.get('motif') || null;
+
+      // Set initial UI state from URL
+      capsulePills.forEach(pill => {
+        if (pill.dataset.filterValue === activeCapsule) {
+          pill.classList.add('is-active');
+          pill.setAttribute('aria-checked', 'true');
+        } else {
+          pill.classList.remove('is-active');
+          pill.setAttribute('aria-checked', 'false');
+        }
+      });
+
+      if (activeMotif) {
+        motifTags.forEach(tag => {
+          if (tag.dataset.filterValue === activeMotif) {
+            tag.classList.add('is-active');
+          }
+        });
+      }
+
+      if (sortSelect) {
+        sortSelect.value = urlParams.get('sort') || 'default';
+      }
+
+      // Update URL with current filter state
+      function updateURL() {
+        const params = new URLSearchParams();
+        if (activeCapsule !== 'all') params.set('capsule', activeCapsule);
+        if (activeMotif) params.set('motif', activeMotif);
+        if (sortSelect && sortSelect.value !== 'default') params.set('sort', sortSelect.value);
+        
+        const newURL = params.toString() ? `?${params}` : window.location.pathname;
+        history.replaceState(null, '', newURL);
+      }
+
+      // Apply filters
+      function applyFilters() {
+        let visibleCount = 0;
+        
+        cards.forEach(card => {
+          let visible = true;
+
+          const capsule = (card.dataset.capsule || '').toLowerCase();
+          const tags = (card.dataset.tags || '').toLowerCase();
+
+          // Capsule filter
+          if (activeCapsule && activeCapsule !== 'all') {
+            if (activeCapsule === 'signal-seeker' || activeCapsule === 'floating-archive') {
+              visible = capsule === activeCapsule;
+            } else {
+              if (capsule !== activeCapsule) visible = false;
+            }
+          }
+
+          // Motif filter
+          if (visible && activeMotif) {
+            if (!tags.includes(activeMotif)) {
+              visible = false;
+            }
+          }
+
+          card.style.display = visible ? '' : 'none';
+          if (visible) visibleCount++;
+        });
+
+        // Announce filter results to screen readers
+        const announcement = `${visibleCount} product${visibleCount !== 1 ? 's' : ''} found`;
+        announceToScreenReader(announcement);
+      }
+
+      // Apply sorting
+      function applySort() {
+        const value = sortSelect ? sortSelect.value : 'default';
+        const visibleCards = cards.filter(c => c.style.display !== 'none');
+        const hiddenCards = cards.filter(c => c.style.display === 'none');
+
+        visibleCards.sort((a, b) => {
+          const priceA = parseFloat(a.dataset.price || '0');
+          const priceB = parseFloat(b.dataset.price || '0');
+          const limitedA = a.dataset.limited === 'true';
+          const limitedB = b.dataset.limited === 'true';
+          const createdA = parseInt(a.dataset.created || '0', 10);
+          const createdB = parseInt(b.dataset.created || '0', 10);
+
+          switch (value) {
+            case 'price-asc':
+              return priceA - priceB;
+            case 'price-desc':
+              return priceB - priceA;
+            case 'limited-first':
+              if (limitedA && !limitedB) return -1;
+              if (!limitedA && limitedB) return 1;
+              return priceB - priceA;
+            case 'newest':
+              return createdB - createdA;
+            case 'default':
+            default:
+              return 0;
+          }
+        });
+
+        const fragment = document.createDocumentFragment();
+        visibleCards.concat(hiddenCards).forEach(card => fragment.appendChild(card));
+        grid.appendChild(fragment);
+
+        updateURL();
+      }
+
+      // Screen reader announcements
+      function announceToScreenReader(message) {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('role', 'status');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.className = 'sr-only';
+        announcement.style.position = 'absolute';
+        announcement.style.left = '-10000px';
+        announcement.style.width = '1px';
+        announcement.style.height = '1px';
+        announcement.style.overflow = 'hidden';
+        announcement.textContent = message;
+        document.body.appendChild(announcement);
+        setTimeout(() => announcement.remove(), 1000);
+      }
+
+      // Capsule filter handlers
+      capsulePills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          capsulePills.forEach(p => {
+            p.classList.remove('is-active');
+            p.setAttribute('aria-checked', 'false');
+          });
+          pill.classList.add('is-active');
+          pill.setAttribute('aria-checked', 'true');
+          activeCapsule = pill.dataset.filterValue;
+          applyFilters();
+          applySort();
+        });
+
+        // Keyboard navigation
+        pill.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            pill.click();
+          }
+        });
+      });
+
+      // Motif filter handlers
+      motifTags.forEach(tag => {
+        tag.addEventListener('click', () => {
+          if (tag.classList.contains('is-active')) {
+            tag.classList.remove('is-active');
+            activeMotif = null;
+          } else {
+            motifTags.forEach(t => t.classList.remove('is-active'));
+            tag.classList.add('is-active');
+            activeMotif = tag.dataset.filterValue;
+          }
+          applyFilters();
+          applySort();
+        });
+
+        // Keyboard navigation
+        tag.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            tag.click();
+          }
+        });
+      });
+
+      // Sort handler
+      if (sortSelect) {
+        sortSelect.addEventListener('change', () => {
+          applySort();
+        });
+      }
+
+      // AJAX cart add
+      const addToCartForms = section.querySelectorAll('.add-to-cart-form');
+      addToCartForms.forEach(form => {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const btn = form.querySelector('.btn-solid');
+          const originalText = btn.textContent;
+          const productCard = form.closest('.product-card');
+          
+          btn.textContent = 'Adding...';
+          btn.disabled = true;
+          
+          try {
+            const formData = new FormData(form);
+            const response = await fetch('/cart/add.js', {
+              method: 'POST',
+              body: formData
+            });
+            
+            if (response.ok) {
+              const data = await response.json();
+              btn.textContent = '✓ Added!';
+              
+              // Analytics tracking
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'add_to_cart', {
+                  currency: 'USD',
+                  value: parseFloat(productCard.dataset.price || 0),
+                  items: [{
+                    item_id: productCard.dataset.productId,
+                    item_name: productCard.dataset.productName,
+                    price: parseFloat(productCard.dataset.price || 0),
+                    quantity: 1
+                  }]
+                });
+              }
+              
+              setTimeout(() => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+                // Optional: Trigger cart drawer or redirect
+                // window.location.href = '/cart';
+              }, 1200);
+            } else {
+              throw new Error('Cart add failed');
+            }
+          } catch (error) {
+            console.error('Cart add error:', error);
+            btn.textContent = 'Error - Try Again';
+            setTimeout(() => {
+              btn.textContent = originalText;
+              btn.disabled = false;
+            }, 2000);
+          }
+        });
+      });
+
+      // Product click tracking
+      cards.forEach(card => {
+        const link = card.querySelector('.product-title a');
+        if (link) {
+          link.addEventListener('click', () => {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'select_item', {
+                item_list_name: 'Shop All',
+                items: [{
+                  item_id: card.dataset.productId,
+                  item_name: card.dataset.productName,
+                  price: card.dataset.price
+                }]
+              });
+            }
+          });
+        }
+      });
+
+      // Mobile filter toggle
+      const filterToggle = section.querySelector('.filter-toggle');
+      const filterShell = section.querySelector('#filterShell');
+      if (filterToggle && filterShell) {
+        filterToggle.addEventListener('click', () => {
+          const isHidden = filterShell.classList.toggle('is-hidden');
+          filterToggle.setAttribute('aria-expanded', !isHidden);
+          filterToggle.textContent = isHidden ? '🎛️' : '✕';
+        });
+      }
+
+      // Initial render
+      applyFilters();
+      applySort();
+
+      // Remove loading state
+      window.addEventListener('load', () => {
+        section.dataset.loading = 'false';
+      });
+    })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Stellar Shop All – Cosmic Vault",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_kicker",
+      "label": "Hero kicker",
+      "default": "SHOP ALL TRANSMISSIONS"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero title",
+      "default": "COSMIC PRODUCT VAULT"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Hero subtitle",
+      "default": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid."
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "default": 24,
+      "min": 6,
+      "max": 48,
+      "step": 6
+    },
+    {
+      "type": "text",
+      "id": "upsell_tag",
+      "label": "Upsell tag (optional)",
+      "info": "Products with this tag will be prioritized for the Almost Gone upsell strip.",
+      "default": "limited"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stellar Shop All – Cosmic Vault"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,119 @@
+{%- if section.settings.message != blank -%}
+  <div class="announcement-bar color-{{ section.settings.color_scheme }}" role="region" aria-label="{{ 'sections.header.announcement' | t }}">
+    <div class="page-width">
+      <p class="announcement-bar__message h5">
+        <span>{{ section.settings.message | escape }}</span>
+      </p>
+    </div>
+  </div>
+{%- endif -%}
+
+<style>
+  .announcement-bar {
+    background: linear-gradient(135deg, #E13CFA, #28A8D6);
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-family: 'Orbitron', monospace;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .announcement-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: shimmer 3s infinite;
+  }
+  
+  .announcement-bar__message {
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    animation: cosmic-glow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes cosmic-glow {
+    from { text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+    to { text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(225,60,250,0.5); }
+  }
+  
+  @keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  
+  .page-width {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .announcement-bar {
+      padding: 8px 0;
+      font-size: 0.8rem;
+    }
+    
+    .page-width {
+      padding: 0 1rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "message",
+      "default": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
+      "label": "Announcement message"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2", 
+          "label": "Accent 2"
+        },
+        {
+          "value": "background-1",
+          "label": "Background 1"
+        }
+      ],
+      "default": "accent-1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "default": true,
+      "label": "Show announcement bar"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar",
+      "settings": {
+        "message": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
+        "color_scheme": "accent-1",
+        "show_announcement": true
+      }
+    }
+  ]
+}
+{% endschema %}

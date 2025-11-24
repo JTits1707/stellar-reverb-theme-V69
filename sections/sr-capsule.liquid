@@ -1,0 +1,253 @@
+{% comment %}
+  STELLAR REVERB – MODULAR CAPSULE SECTION
+  Section: sr-capsule.liquid
+  Context: Collection (capsule collections) + optional manual capsule override
+
+  Logic:
+  - Pull capsule metaobject from:
+      1) Section setting "capsule_override" (optional)
+      2) Else: collection.metafields.custom.capsule
+  - Render:
+      • Cosmic hero (image, title, number, status, release date)
+      • Lore block
+      • Product grid (current collection products)
+      • Optional: resonance chip, SEO description
+
+  Requirements:
+  - Metaobject definition: "capsule"
+  - Collection metafield: custom.capsule => Metaobject reference (capsule)
+  - Snippet: 'card-product' (Dawn-style product card)
+{% endcomment %}
+
+{% liquid
+  assign capsule = nil
+
+  # 1. Prefer manual override if set in the section
+  if section.settings.capsule_override != blank
+    assign capsule = section.settings.capsule_override
+  endif
+
+  # 2. Else, fall back to collection metafield
+  if capsule == nil and collection and collection.metafields.custom.capsule
+    assign capsule_ref = collection.metafields.custom.capsule
+    if capsule_ref.type == 'metaobject_reference'
+      assign capsule = capsule_ref.value
+    else
+      assign capsule = capsule_ref
+    endif
+  endif
+%}
+
+<section class="sr-capsule page-width">
+  {% if capsule == nil %}
+    <div class="sr-capsule__fallback">
+      <h1 class="sr-capsule__title">
+        {{ collection.title | default: 'Capsule Transmission' }}
+      </h1>
+      <p class="sr-capsule__subtitle">
+        Capsule metaobject is not linked yet.  
+        In Shopify admin, edit this collection and set the
+        <strong>Capsule</strong> metafield to the matching entry.
+      </p>
+    </div>
+  {% else %}
+    {%- assign capsule_number = capsule.capsule_number | default: '' -%}
+    {%- assign capsule_title = capsule.capsule_title | default: collection.title -%}
+    {%- assign capsule_status = capsule.capsule_status | downcase -%}
+    {%- assign capsule_release_date = capsule.capsule_release_date -%}
+    {%- assign resonance_score = capsule.resonance_score -%}
+    {%- assign seo_description = capsule.seo_description -%}
+
+    {%- comment -%}
+      ───────────────────────────────────────────
+      HERO
+      ───────────────────────────────────────────
+    {%- endcomment -%}
+    <header class="sr-capsule-hero">
+      <div class="sr-capsule-hero__media">
+        {% if capsule.capsule_hero %}
+          {{ capsule.capsule_hero | image_url: width: 2000 | image_tag:
+            loading: 'lazy',
+            class: 'sr-capsule-hero__image'
+          }}
+        {% elsif capsule.capsule_image_url %}
+          {{ capsule.capsule_image_url | image_url: width: 2000 | image_tag:
+            loading: 'lazy',
+            class: 'sr-capsule-hero__image'
+          }}
+        {% endif %}
+        <div class="sr-capsule-hero__gradient"></div>
+      </div>
+
+      <div class="sr-capsule-hero__content">
+        <div class="sr-capsule-hero__capsule-id">
+          {% if capsule_number != blank %}
+            <span class="sr-chip sr-chip--capsule">CAPSULE {{ capsule_number }}</span>
+          {% endif %}
+
+          {% if capsule_status != blank and section.settings.show_status %}
+            <span class="sr-chip sr-chip--status sr-chip--status-{{ capsule_status }}">
+              {% case capsule_status %}
+                {% when 'active' %}LIVE TRANSMISSION{% endwhen %}
+                {% when 'incoming' %}INCOMING SIGNAL{% endwhen %}
+                {% when 'vaulted' %}ARCHIVED RELIC{% endwhen %}
+                {% else %}{{ capsule.capsule_status }}{% endcase %}
+            </span>
+          {% endif %}
+
+          {% if resonance_score and section.settings.show_resonance %}
+            <span class="sr-chip sr-chip--resonance">
+              RESONANCE: {{ resonance_score }}/100
+            </span>
+          {% endif %}
+        </div>
+
+        <h1 class="sr-capsule-hero__title">
+          {{ capsule_title }}
+        </h1>
+
+        {% if capsule_release_date and section.settings.show_release_date %}
+          <p class="sr-capsule-hero__meta">
+            <span class="sr-capsule-hero__meta-label">Release window:</span>
+            <span class="sr-capsule-hero__meta-value">
+              {{ capsule_release_date | date: '%B %d, %Y' }}
+            </span>
+          </p>
+        {% endif %}
+
+        {% if seo_description != blank and section.settings.show_short_description %}
+          <p class="sr-capsule-hero__excerpt">
+            {{ seo_description }}
+          </p>
+        {% endif %}
+      </div>
+    </header>
+
+    {%- comment -%}
+      ───────────────────────────────────────────
+      LORE BLOCK
+      ───────────────────────────────────────────
+    {%- endcomment -%}
+    {% if section.settings.show_lore and capsule.capsule_lore %}
+      <section class="sr-capsule-lore">
+        <div class="sr-capsule-lore__inner">
+          <h2 class="sr-capsule-lore__heading">
+            Transmission Lore
+          </h2>
+          <div class="sr-capsule-lore__body rte">
+            {{ capsule.capsule_lore | metafield_tag }}
+          </div>
+        </div>
+      </section>
+    {% endif %}
+  {% endif %}
+
+  {%- comment -%}
+    ───────────────────────────────────────────
+    PRODUCT GRID
+    ───────────────────────────────────────────
+  {%- endcomment -%}
+  {% if collection %}
+    {% paginate collection.products by section.settings.products_per_page %}
+      <section class="sr-capsule-grid">
+        <div class="sr-capsule-grid__header">
+          <h2 class="sr-capsule-grid__title">
+            Relics from this Capsule
+          </h2>
+          <p class="sr-capsule-grid__subtitle">
+            Each piece is a fragment of the signal — limited-run transmissions from {{ capsule_title | default: collection.title }}.
+          </p>
+        </div>
+
+        {% if collection.products_count == 0 %}
+          <p class="sr-capsule-grid__empty">
+            No relics are live in this capsule yet. The signal is still tuning…
+          </p>
+        {% else %}
+          <div class="sr-capsule-grid__items">
+            {% for product in collection.products %}
+              <div class="sr-capsule-grid__item">
+                {% render 'card-product',
+                  card_product: product,
+                  media_aspect_ratio: 'square',
+                  show_secondary_image: true,
+                  show_vendor: false,
+                  show_rating: false,
+                  section_id: section.id
+                %}
+              </div>
+            {% endfor %}
+          </div>
+
+          {% if paginate.pages > 1 %}
+            <div class="sr-capsule-grid__pagination">
+              {% render 'pagination', paginate: paginate, anchor: '#MainContent' %}
+            </div>
+          {% endif %}
+        {% endif %}
+      </section>
+    {% endpaginate %}
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Stellar Capsule Layout",
+  "tag": "section",
+  "class": "section sr-capsule-section",
+  "settings": [
+    {
+      "type": "metaobject",
+      "id": "capsule_override",
+      "label": "Capsule override (optional)",
+      "metaobject_type": "capsule",
+      "info": "If set, this capsule will be used instead of the collection metafield."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_status",
+      "label": "Show capsule status chip",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_resonance",
+      "label": "Show resonance score chip",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_release_date",
+      "label": "Show release date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_short_description",
+      "label": "Show short SEO description under title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_lore",
+      "label": "Show lore section",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 4,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stellar Capsule Layout",
+      "category": "Stellar Reverb"
+    }
+  ]
+}
+{% endschema %}

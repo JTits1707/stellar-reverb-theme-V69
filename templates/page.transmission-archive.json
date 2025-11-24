@@ -1,0 +1,12 @@
+{
+  "name": "Transmission Archive",
+  "sections": {
+    "main": {
+      "type": "transmission-archive-main",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

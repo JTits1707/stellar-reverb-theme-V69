@@ -1,0 +1,501 @@
+{% comment %}
+  Stellar Reverb - Filter Bar Section
+  Navigation for transmission archive
+{% endcomment %}
+
+<section class="filter-bar section" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    <div class="filter-container">
+      
+      {% if section.settings.show_header %}
+        <div class="filter-header">
+          <h3 class="filter-title">{{ section.settings.title | default: 'Filter transmissions by frequency...' }}</h3>
+          <p class="filter-subtitle">{{ section.settings.subtitle | default: 'Tune into your desired cosmic wavelength' }}</p>
+        </div>
+      {% endif %}
+
+      <div class="capsule-filters">
+        <button class="capsule-btn active" data-filter="all">{{ section.settings.all_text | default: 'All Transmissions' }}</button>
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'filter_button' %}
+              <button class="capsule-btn" data-filter="{{ block.settings.filter_value }}" {{ block.shopify_attributes }}>
+                {{ block.settings.button_text }}
+              </button>
+          {% endcase %}
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_secondary_filters %}
+        <div class="secondary-filters">
+          
+          {% if section.settings.show_visual_motifs %}
+            <div class="filter-group">
+              <label class="filter-label">Visual Motifs</label>
+              <div class="tag-navigation">
+                <button class="tag-btn active" data-tag="all">🌌 All Relics</button>
+                <button class="tag-btn" data-tag="fractal">🌀 Fractal Echo</button>
+                <button class="tag-btn" data-tag="cassette">📼 Cassette Oracle</button>
+                <button class="tag-btn" data-tag="glitch">👁 Glitch Relic</button>
+                <button class="tag-btn" data-tag="lunar">🌕 Lunar Myth</button>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if section.settings.show_color_filter %}
+            <div class="filter-group">
+              <label class="filter-label">Color Pulse</label>
+              <select class="dropdown-select" id="colorFilter">
+                <option value="all">All Frequencies</option>
+                <option value="magenta">Neon Magenta</option>
+                <option value="cyan">Cyan Blue</option>
+                <option value="green">Radioactive Green</option>
+                <option value="purple">Cosmic Purple</option>
+              </select>
+            </div>
+          {% endif %}
+
+          {% if section.settings.show_sort_options %}
+            <div class="filter-group">
+              <label class="filter-label">Sort by Transmission</label>
+              <div class="sort-navigation">
+                <button class="sort-btn active" data-sort="resonant">✴️ Most Resonant</button>
+                <button class="sort-btn" data-sort="decoded">🌀 Recently Decoded</button>
+                <button class="sort-btn" data-sort="hidden">👁 Hidden Fragments</button>
+                <button class="sort-btn" data-sort="sonic">🎛 Sonic Relics</button>
+              </div>
+            </div>
+          {% endif %}
+
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Filter Bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Filter Header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show filter header",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Filter transmissions by frequency..."
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Tune into your desired cosmic wavelength"
+    },
+    {
+      "type": "text",
+      "id": "all_text",
+      "label": "All items button text",
+      "default": "All Transmissions"
+    },
+    {
+      "type": "header",
+      "content": "Secondary Filters"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_filters",
+      "label": "Show secondary filters",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_visual_motifs",
+      "label": "Show visual motifs filter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_filter",
+      "label": "Show color filter dropdown",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sort_options",
+      "label": "Show sort options",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter_button",
+      "name": "Filter Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Capsule 001"
+        },
+        {
+          "type": "text",
+          "id": "filter_value",
+          "label": "Filter value",
+          "default": "capsule-001",
+          "info": "Used for filtering functionality"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Filter Bar",
+      "settings": {
+        "show_header": true,
+        "title": "Filter transmissions by frequency...",
+        "subtitle": "Tune into your desired cosmic wavelength",
+        "all_text": "All Transmissions",
+        "show_secondary_filters": true,
+        "show_visual_motifs": true,
+        "show_color_filter": true,
+        "show_sort_options": true,
+        "padding_top": 40,
+        "padding_bottom": 40
+      },
+      "blocks": [
+        {
+          "type": "filter_button",
+          "settings": {
+            "button_text": "Capsule 001",
+            "filter_value": "capsule-001"
+          }
+        },
+        {
+          "type": "filter_button",
+          "settings": {
+            "button_text": "Capsule 002",
+            "filter_value": "capsule-002"
+          }
+        },
+        {
+          "type": "filter_button",
+          "settings": {
+            "button_text": "Capsule 003",
+            "filter_value": "capsule-003"
+          }
+        },
+        {
+          "type": "filter_button",
+          "settings": {
+            "button_text": "Signal Seeker Exclusives",
+            "filter_value": "signal-seeker"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .filter-bar {
+    background: rgba(0, 0, 0, 0.8);
+    border-top: 1px solid rgba(0, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .filter-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .filter-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .filter-title {
+    color: var(--color-cosmic-cyan);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .filter-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    font-style: italic;
+  }
+
+  .capsule-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .capsule-btn {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .capsule-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  .capsule-btn:hover::before {
+    left: 100%;
+  }
+
+  .capsule-btn:hover,
+  .capsule-btn.active {
+    border-color: var(--color-cosmic-cyan);
+    color: var(--color-cosmic-cyan);
+    box-shadow: 
+      0 0 15px rgba(0, 255, 255, 0.3),
+      inset 0 0 15px rgba(0, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .secondary-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .filter-group {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 0, 255, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  .filter-label {
+    color: var(--color-cosmic-magenta);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .tag-navigation,
+  .sort-navigation {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag-btn,
+  .sort-btn {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .tag-btn:hover,
+  .tag-btn.active,
+  .sort-btn:hover,
+  .sort-btn.active {
+    border-color: var(--color-cosmic-magenta);
+    color: var(--color-cosmic-magenta);
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .dropdown-select {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 255, 127, 0.3);
+    color: var(--color-cosmic-green);
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-select:focus {
+    outline: none;
+    border-color: var(--color-cosmic-green);
+    box-shadow: 0 0 10px rgba(0, 255, 127, 0.3);
+  }
+
+  .dropdown-select option {
+    background: rgba(0, 0, 0, 0.9);
+    color: var(--color-cosmic-green);
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .capsule-filters {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .capsule-btn {
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .secondary-filters {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .filter-group {
+      padding: 1.25rem;
+    }
+    
+    .tag-navigation,
+    .sort-navigation {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .filter-title {
+      font-size: 1.25rem;
+    }
+    
+    .filter-subtitle {
+      font-size: 0.9rem;
+    }
+    
+    .tag-btn,
+    .sort-btn {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.8rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.capsule-btn');
+    const tagButtons = document.querySelectorAll('.tag-btn');
+    const sortButtons = document.querySelectorAll('.sort-btn');
+    const colorSelect = document.getElementById('colorFilter');
+
+    // Handle filter button clicks
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        
+        const filterValue = this.getAttribute('data-filter');
+        // Trigger custom event for product filtering
+        document.dispatchEvent(new CustomEvent('stellarFilter', {
+          detail: { type: 'capsule', value: filterValue }
+        }));
+      });
+    });
+
+    // Handle tag button clicks
+    tagButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        tagButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        
+        const tagValue = this.getAttribute('data-tag');
+        document.dispatchEvent(new CustomEvent('stellarFilter', {
+          detail: { type: 'motif', value: tagValue }
+        }));
+      });
+    });
+
+    // Handle sort button clicks
+    sortButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        sortButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        
+        const sortValue = this.getAttribute('data-sort');
+        document.dispatchEvent(new CustomEvent('stellarFilter', {
+          detail: { type: 'sort', value: sortValue }
+        }));
+      });
+    });
+
+    // Handle color filter change
+    if (colorSelect) {
+      colorSelect.addEventListener('change', function() {
+        const colorValue = this.value;
+        document.dispatchEvent(new CustomEvent('stellarFilter', {
+          detail: { type: 'color', value: colorValue }
+        }));
+      });
+    }
+  });
+</script>

@@ -1,0 +1,499 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - PRODUCT TEMPLATE
+  ═══════════════════════════════════════════════════════════
+  
+  Individual product page with cosmic styling
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<div class="product-page">
+  <div class="container">
+
+    <div class="product-layout">
+
+      {%- comment -%} Product Images {%- endcomment -%}
+      <div class="product-media">
+        {% if product.featured_media %}
+          <div class="product-featured-image">
+            <img
+              src="{{ product.featured_media | image_url: width: 1000 }}"
+              alt="{{ product.featured_media.alt | escape }}"
+              width="1000"
+              height="1000"
+              loading="eager"
+            >
+          </div>
+        {% endif %}
+
+        {% if product.media.size > 1 %}
+          <div class="product-thumbnails">
+            {% for media in product.media limit: 4 %}
+              <button 
+                type="button" 
+                class="thumbnail{% if forloop.first %} is-active{% endif %}"
+                data-media-index="{{ forloop.index0 }}"
+              >
+                <img
+                  src="{{ media | image_url: width: 200 }}"
+                  alt="{{ media.alt | escape }}"
+                  width="200"
+                  height="200"
+                  loading="lazy"
+                >
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Product Info {%- endcomment -%}
+      <div class="product-info">
+        
+        {%- comment -%} Breadcrumbs {%- endcomment -%}
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="{{ routes.root_url }}">{{ 'general.breadcrumbs.home' | t }}</a>
+          <span class="breadcrumb-divider">/</span>
+          {% if collection %}
+            <a href="{{ collection.url }}">{{ collection.title }}</a>
+            <span class="breadcrumb-divider">/</span>
+          {% endif %}
+          <span>{{ product.title }}</span>
+        </nav>
+
+        {%- comment -%} Product Title {%- endcomment -%}
+        <h1 class="product-title">{{ product.title }}</h1>
+
+        {%- comment -%} Product Vendor {%- endcomment -%}
+        {% if product.vendor != blank %}
+          <p class="product-vendor">{{ product.vendor }}</p>
+        {% endif %}
+
+        {%- comment -%} Product Price {%- endcomment -%}
+        <div class="product-price-wrapper">
+          <span class="product-price">
+            {{ product.selected_or_first_available_variant.price | money }}
+          </span>
+          {% if product.compare_at_price > product.price %}
+            <span class="product-compare-price">
+              {{ product.selected_or_first_available_variant.compare_at_price | money }}
+            </span>
+          {% endif %}
+        </div>
+
+        {%- comment -%} Product Form {%- endcomment -%}
+        {% form 'product', product, id: 'product-form' %}
+          
+          {%- comment -%} Variant Selector {%- endcomment -%}
+          {% unless product.has_only_default_variant %}
+            <div class="product-variants">
+              {% for option in product.options_with_values %}
+                <div class="variant-option">
+                  <label for="option-{{ option.name | handleize }}">
+                    {{ option.name }}
+                  </label>
+                  <select 
+                    id="option-{{ option.name | handleize }}"
+                    name="options[{{ option.name | escape }}]"
+                    class="variant-select"
+                  >
+                    {% for value in option.values %}
+                      <option 
+                        value="{{ value | escape }}"
+                        {% if option.selected_value == value %}selected{% endif %}
+                      >
+                        {{ value }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            </div>
+          {% endunless %}
+
+          {%- comment -%} Quantity Selector {%- endcomment -%}
+          <div class="product-quantity">
+            <label for="quantity">{{ 'products.product.quantity' | t }}</label>
+            <div class="quantity-selector">
+              <button type="button" class="quantity-btn" data-quantity-minus>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M2 8h12"/>
+                </svg>
+              </button>
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                value="1"
+                min="1"
+                class="quantity-input"
+              >
+              <button type="button" class="quantity-btn" data-quantity-plus>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M8 2v12M2 8h12"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {%- comment -%} Add to Cart Button {%- endcomment -%}
+          <button
+            type="submit"
+            name="add"
+            class="btn btn-primary product-submit"
+            {% unless product.available %}disabled{% endunless %}
+          >
+            {% if product.available %}
+              {{ 'products.product.add_to_cart' | t }}
+            {% else %}
+              {{ 'products.product.sold_out' | t }}
+            {% endif %}
+          </button>
+
+        {% endform %}
+
+        {%- comment -%} Product Description {%- endcomment -%}
+        {% if product.description != blank %}
+          <div class="product-description rte">
+            {{ product.description }}
+          </div>
+        {% endif %}
+
+        {%- comment -%} Product Meta {%- endcomment -%}
+        <div class="product-meta">
+          {% if product.sku != blank %}
+            <div class="meta-item">
+              <span class="meta-label">{{ 'products.product.sku' | t }}:</span>
+              <span class="meta-value">{{ product.selected_or_first_available_variant.sku }}</span>
+            </div>
+          {% endif %}
+          
+          {% if product.available %}
+            <div class="meta-item">
+              <span class="meta-label">{{ 'products.product.availability' | t | default: 'Availability' }}:</span>
+              <span class="meta-value meta-in-stock">{{ 'products.product.in_stock' | t }}</span>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .product-page {
+    padding: var(--spacing-xl, 4rem) 0;
+  }
+
+  .product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl, 4rem);
+    align-items: start;
+  }
+
+  /* Product Media */
+  .product-media {
+    position: sticky;
+    top: calc(var(--header-height, 80px) + var(--spacing-md, 1.5rem));
+  }
+
+  .product-featured-image {
+    border-radius: var(--border-radius-lg, 18px);
+    overflow: hidden;
+    margin-bottom: var(--spacing-md, 1.5rem);
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .product-featured-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .product-thumbnails {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-sm, 1rem);
+  }
+
+  .thumbnail {
+    border-radius: var(--border-radius-sm, 8px);
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0;
+  }
+
+  .thumbnail:hover,
+  .thumbnail.is-active {
+    border-color: var(--cyan-blue, #28A8D6);
+    box-shadow: 0 0 16px rgba(40, 168, 214, 0.5);
+  }
+
+  .thumbnail img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Product Info */
+  .breadcrumbs {
+    font-family: var(--font-body, "Montserrat", sans-serif);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: var(--spacing-sm, 1rem);
+  }
+
+  .breadcrumbs a {
+    color: var(--cyan-blue, #28A8D6);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--neon-magenta, #E13CFA);
+  }
+
+  .breadcrumb-divider {
+    margin: 0 0.5rem;
+  }
+
+  .product-title {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-sm, 1rem);
+    background: linear-gradient(135deg, var(--neon-magenta, #E13CFA), var(--cyan-blue, #28A8D6));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .product-vendor {
+    font-family: var(--font-body, "Montserrat", sans-serif);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: var(--spacing-md, 1.5rem);
+  }
+
+  .product-price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 1rem);
+    margin-bottom: var(--spacing-lg, 2.5rem);
+  }
+
+  .product-price {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--cyan-blue, #28A8D6);
+  }
+
+  .product-compare-price {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: line-through;
+  }
+
+  /* Variant Options */
+  .product-variants {
+    margin-bottom: var(--spacing-md, 1.5rem);
+  }
+
+  .variant-option {
+    margin-bottom: var(--spacing-sm, 1rem);
+  }
+
+  .variant-option label {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .variant-select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border-radius: var(--border-radius-sm, 8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-family: var(--font-body, "Montserrat", sans-serif);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .variant-select:focus {
+    outline: none;
+    border-color: var(--cyan-blue, #28A8D6);
+    box-shadow: 0 0 16px rgba(40, 168, 214, 0.5);
+  }
+
+  /* Quantity */
+  .product-quantity {
+    margin-bottom: var(--spacing-md, 1.5rem);
+  }
+
+  .product-quantity label {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 150px;
+  }
+
+  .quantity-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius-sm, 8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .quantity-btn:hover {
+    border-color: var(--cyan-blue, #28A8D6);
+    background: rgba(40, 168, 214, 0.15);
+  }
+
+  .quantity-input {
+    flex: 1;
+    height: 40px;
+    text-align: center;
+    border-radius: var(--border-radius-sm, 8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .quantity-input::-webkit-inner-spin-button,
+  .quantity-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Submit Button */
+  .product-submit {
+    width: 100%;
+    margin-bottom: var(--spacing-lg, 2.5rem);
+  }
+
+  /* Description */
+  .product-description {
+    padding: var(--spacing-lg, 2.5rem) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: var(--spacing-md, 1.5rem);
+  }
+
+  /* Meta */
+  .product-meta {
+    padding-top: var(--spacing-md, 1.5rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .meta-item {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-body, "Montserrat", sans-serif);
+    font-size: 0.9rem;
+  }
+
+  .meta-label {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .meta-value {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+  }
+
+  .meta-in-stock {
+    color: var(--radioactive-green, #00F0AC);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .product-layout {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg, 2.5rem);
+    }
+
+    .product-media {
+      position: relative;
+      top: 0;
+    }
+  }
+</style>
+
+<script>
+(function() {
+  // Quantity buttons
+  const minusBtn = document.querySelector('[data-quantity-minus]');
+  const plusBtn = document.querySelector('[data-quantity-plus]');
+  const quantityInput = document.getElementById('quantity');
+
+  if (minusBtn && plusBtn && quantityInput) {
+    minusBtn.addEventListener('click', function() {
+      const currentValue = parseInt(quantityInput.value);
+      if (currentValue > 1) {
+        quantityInput.value = currentValue - 1;
+      }
+    });
+
+    plusBtn.addEventListener('click', function() {
+      const currentValue = parseInt(quantityInput.value);
+      quantityInput.value = currentValue + 1;
+    });
+  }
+
+  // Thumbnail switching
+  const thumbnails = document.querySelectorAll('.thumbnail');
+  const featuredImage = document.querySelector('.product-featured-image img');
+
+  thumbnails.forEach(function(thumb) {
+    thumb.addEventListener('click', function() {
+      thumbnails.forEach(t => t.classList.remove('is-active'));
+      thumb.classList.add('is-active');
+      
+      const img = thumb.querySelector('img');
+      if (img && featuredImage) {
+        featuredImage.src = img.src.replace('_200x', '_1000x');
+      }
+    });
+  });
+})();
+</script>

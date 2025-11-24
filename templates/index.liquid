@@ -1,0 +1,52 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - HOMEPAGE TEMPLATE
+  ═══════════════════════════════════════════════════════════
+  
+  Dynamic sections-based homepage
+  Sections can be added/removed/reordered in theme editor
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<div class="homepage">
+  {% comment %} All sections are rendered dynamically {% endcomment %}
+  {{ content_for_index }}
+</div>
+
+<style>
+  .homepage {
+    position: relative;
+    z-index: var(--z-base, 1);
+  }
+
+  /* Add spacing between homepage sections */
+  .homepage .shopify-section {
+    margin-bottom: var(--spacing-xl, 4rem);
+  }
+
+  .homepage .shopify-section:last-child {
+    margin-bottom: 0;
+  }
+
+  /* First section (hero) gets no top margin */
+  .homepage .shopify-section:first-child {
+    margin-top: 0;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Homepage",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Homepage Settings"
+    },
+    {
+      "type": "paragraph",
+      "content": "Add and arrange sections below to customize your homepage. Drag to reorder."
+    }
+  ]
+}
+{% endschema %}

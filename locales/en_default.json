@@ -1,0 +1,184 @@
+{
+  "general": {
+    "404": {
+      "title": "Signal Lost",
+      "subtext": "This transmission doesn't exist in our archive.",
+      "link": "Return to Home Base"
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "shop": "Shop"
+    },
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close",
+      "previous": "Previous",
+      "next": "Next",
+      "loading": "Loading"
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search transmissions...",
+      "submit": "Search",
+      "no_results": "No results found for \"{{ terms }}\"",
+      "results_for": "Results for \"{{ terms }}\""
+    }
+  },
+  "header": {
+    "menu": "Menu",
+    "search": "Search",
+    "cart": "Cart",
+    "account": "Account"
+  },
+  "footer": {
+    "shop": "Shop",
+    "about": "About",
+    "newsletter": "Join the Signal",
+    "all_rights_reserved": "All rights reserved.",
+    "powered_by_html": "Powered by <a href=\"https://www.shopify.com\" target=\"_blank\">Shopify</a>"
+  },
+  "homepage": {
+    "title": "Stellar Reverb",
+    "hero_heading": "Transmissions from the Cosmic Archive",
+    "hero_subheading": "Sound. Style. Signals of Identity.",
+    "shop_now": "Explore Capsules"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "price": "Price",
+      "vendor": "Vendor",
+      "sku": "SKU",
+      "view_full_details": "View Full Details",
+      "in_stock": "In Stock",
+      "low_stock": "Only {{ count }} left",
+      "out_of_stock": "Out of Stock"
+    },
+    "filters": {
+      "title": "Filter",
+      "sort_by": "Sort by",
+      "availability": "Availability",
+      "price": "Price",
+      "vendor": "Brand",
+      "product_type": "Type",
+      "clear_all": "Clear All",
+      "apply": "Apply",
+      "in_stock_only": "In stock only"
+    },
+    "sorting": {
+      "title": "Sort by",
+      "featured": "Featured",
+      "best_selling": "Best Selling",
+      "alphabetically_az": "Alphabetically, A-Z",
+      "alphabetically_za": "Alphabetically, Z-A",
+      "price_low_high": "Price, Low to High",
+      "price_high_low": "Price, High to Low",
+      "date_new_old": "Date, New to Old",
+      "date_old_new": "Date, Old to New"
+    }
+  },
+  "collections": {
+    "general": {
+      "title": "Collections",
+      "all_collections": "All Collections",
+      "no_products": "No products found",
+      "products_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      }
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your Cart",
+      "remove": "Remove",
+      "update": "Update Cart",
+      "note": "Order Notes",
+      "subtotal": "Subtotal",
+      "taxes_and_shipping": "Taxes and shipping calculated at checkout",
+      "checkout": "Check Out",
+      "empty": "Your cart is empty",
+      "continue_shopping": "Continue Shopping",
+      "item_count": {
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
+      },
+      "view_cart": "View Cart"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Account",
+      "orders": "Orders",
+      "addresses": "Addresses",
+      "details": "Account Details",
+      "log_out": "Log Out"
+    },
+    "orders": {
+      "title": "Order History",
+      "order_number": "Order",
+      "date": "Date",
+      "payment_status": "Payment Status",
+      "fulfillment_status": "Fulfillment Status",
+      "total": "Total",
+      "none": "You haven't placed any orders yet."
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "sign_in": "Sign In",
+      "forgot_password": "Forgot password?",
+      "create_account": "Create Account"
+    },
+    "register": {
+      "title": "Create Account",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create Account"
+    }
+  },
+  "signal_seekers": {
+    "title": "Signal Seekers",
+    "join": "Join the Signal",
+    "members_only": "Members Only",
+    "unlock": "Enter your email to unlock",
+    "email_placeholder": "your@email.com",
+    "submit": "Unlock Transmission",
+    "success": "Access granted! Check your inbox.",
+    "already_member": "Already a member?",
+    "dashboard": "View Dashboard"
+  },
+  "floating_archive": {
+    "title": "Floating Archive",
+    "locked": "This archive is protected",
+    "unlock_message": "Join the Signal Seekers to access exclusive hidden relics.",
+    "join_cta": "Join Signal Seekers"
+  },
+  "newsletter": {
+    "placeholder": "your@email.com",
+    "button": "Subscribe",
+    "success": "Thanks for joining the signal!",
+    "error": "Please enter a valid email address."
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Gift Card",
+      "subtext": "Your gift card balance is {{ balance }}",
+      "disabled": "Disabled"
+    }
+  },
+  "date_formats": {
+    "month_day_year": "%B %d, %Y",
+    "month_year": "%B %Y"
+  }
+}

@@ -1,0 +1,98 @@
+{% comment %}
+  Universal Lore – Capsule Timeline
+  Powered by capsule metaobjects
+{% endcomment %}
+
+<section id="universal-lore-timeline" class="lore-section" data-section-id="{{ section.id }}">
+  <h2 class="section-title">
+    {{ section.settings.title | default: 'TRANSMISSION ARCHIVE' }}
+  </h2>
+
+  {% assign capsules = shop.metaobjects['capsule'].values | sort: 'capsule_number' %}
+
+  {% if capsules.size > 0 %}
+    <div class="lore-timeline">
+      <div class="lore-timeline__list">
+        {% for capsule in capsules %}
+          {% assign status = capsule.status | default: 'active' %}
+
+          {% if section.settings.hide_incoming and status == 'incoming' %}
+            {% continue %}
+          {% endif %}
+
+          <article
+            class="timeline-node"
+            data-capsule="{{ capsule.capsule_number | escape }}"
+          >
+            <div class="timeline-node__meta">
+              Capsule {{ capsule.capsule_number | escape }}
+              {% if status != blank and status != 'active' %}
+                · {{ status | upcase }}
+              {% endif %}
+            </div>
+
+            <h3 class="timeline-node__title">
+              {{ capsule.capsule_title | default: 'Untitled Transmission' }}
+            </h3>
+
+            {% assign lore_snippet = capsule.capsule_lore | strip_html | truncate: 160 %}
+
+            {% if lore_snippet != blank %}
+              <p class="timeline-node__teaser">
+                {{ lore_snippet }}
+              </p>
+            {% endif %}
+
+            {% if section.settings.show_read_more %}
+              <div style="margin-top:0.85rem;font-size:0.8rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.7);">
+                {{ section.settings.read_more_label | default: 'OPEN CAPSULE' }}
+              </div>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <p style="text-align:center;color:#aaa;font-size:0.9rem;margin-top:1.5rem;">
+      No capsules are configured yet. Add entries to the <strong>capsule</strong> metaobject to populate this timeline.
+    </p>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Universal Lore · Timeline",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section heading",
+      "default": "Transmission Archive"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_incoming",
+      "label": "Hide capsules with status \"incoming\"",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_read_more",
+      "label": "Show \"open capsule\" microcopy",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "read_more_label",
+      "label": "\"Read more\" label",
+      "default": "Open Capsule"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Universal Lore · Timeline"
+    }
+  ]
+}
+{% endschema %}

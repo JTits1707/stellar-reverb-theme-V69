@@ -1,0 +1,646 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - SIGNAL SEEKER CTA (SECTION)
+  ═══════════════════════════════════════════════════════════
+  
+  Purpose: Email capture for newsletter/exclusive content
+  Features:
+    - Shopify customer signup form
+    - Cosmic neon styling
+    - Benefits list
+    - Success/error messaging
+    - Optional: tags for segmentation
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<section 
+  class="signal-seeker-cta" 
+  data-section-id="{{ section.id }}"
+  data-section-type="signal-seeker-cta"
+>
+  
+  <div class="signal-cta-container">
+    
+    {%- comment -%} Content Side {%- endcomment -%}
+    <div class="signal-cta-content">
+      
+      {%- comment -%} Icon/Logo {%- endcomment -%}
+      <div class="signal-cta-icon">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="35" stroke="currentColor" stroke-width="2"/>
+          <circle cx="40" cy="40" r="25" stroke="currentColor" stroke-width="2"/>
+          <circle cx="40" cy="40" r="15" stroke="currentColor" stroke-width="2"/>
+          <circle cx="40" cy="40" r="5" fill="currentColor"/>
+          <path d="M40 5 L40 15 M40 65 L40 75 M5 40 L15 40 M65 40 L75 40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M13 13 L23 23 M57 57 L67 67 M13 67 L23 57 M57 23 L67 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+      </div>
+      
+      {%- comment -%} Title {%- endcomment -%}
+      <h2 class="signal-cta-title orbitron">
+        {{ section.settings.heading | default: 'JOIN THE SIGNAL SEEKERS' | upcase }}
+      </h2>
+      
+      {%- comment -%} Subtitle {%- endcomment -%}
+      {% if section.settings.subtitle != blank %}
+        <p class="signal-cta-subtitle">
+          {{ section.settings.subtitle }}
+        </p>
+      {% endif %}
+      
+      {%- comment -%} Benefits List {%- endcomment -%}
+      {% if section.settings.show_benefits %}
+        <ul class="signal-cta-benefits">
+          <li class="benefit-item">
+            <span class="benefit-icon">✦</span>
+            <span class="benefit-text">{{ section.settings.benefit_1 | default: 'Early access to new capsule drops' }}</span>
+          </li>
+          <li class="benefit-item">
+            <span class="benefit-icon">✦</span>
+            <span class="benefit-text">{{ section.settings.benefit_2 | default: 'Exclusive lore & behind-the-scenes content' }}</span>
+          </li>
+          <li class="benefit-item">
+            <span class="benefit-icon">✦</span>
+            <span class="benefit-text">{{ section.settings.benefit_3 | default: 'Limited edition collaborations & drops' }}</span>
+          </li>
+          {% if section.settings.benefit_4 != blank %}
+            <li class="benefit-item">
+              <span class="benefit-icon">✦</span>
+              <span class="benefit-text">{{ section.settings.benefit_4 }}</span>
+            </li>
+          {% endif %}
+        </ul>
+      {% endif %}
+      
+    </div>
+    
+    {%- comment -%} Form Side {%- endcomment -%}
+    <div class="signal-cta-form-wrapper">
+      
+      {%- comment -%} Form Card {%- endcomment -%}
+      <div class="signal-form-card">
+        
+        <div class="form-header">
+          <p class="form-label orbitron">// INITIATE CONNECTION</p>
+        </div>
+        
+        {%- comment -%} Newsletter Form {%- endcomment -%}
+        {% form 'customer', class: 'signal-form', id: 'signal-seeker-form' %}
+          
+          {%- comment -%} Success Message {%- endcomment -%}
+          {% if form.posted_successfully? %}
+            <div class="form-message form-message-success">
+              <div class="message-icon">✓</div>
+              <div class="message-text">
+                <strong>CONNECTION ESTABLISHED!</strong><br>
+                Check your email to confirm your transmission link.
+              </div>
+            </div>
+          {% endif %}
+          
+          {%- comment -%} Error Messages {%- endcomment -%}
+          {% if form.errors %}
+            <div class="form-message form-message-error">
+              <div class="message-icon">⚠</div>
+              <div class="message-text">
+                <strong>TRANSMISSION FAILED</strong><br>
+                {{ form.errors | default_errors }}
+              </div>
+            </div>
+          {% endif %}
+          
+          {%- comment -%} Hidden field to create customer account {%- endcomment -%}
+          <input type="hidden" name="contact[tags]" value="newsletter,signal-seeker">
+          
+          {%- comment -%} Email Input {%- endcomment -%}
+          <div class="form-group">
+            <label for="signal-email" class="form-label-input">
+              EMAIL TRANSMISSION ID
+            </label>
+            <input 
+              type="email" 
+              name="contact[email]" 
+              id="signal-email"
+              class="form-input"
+              placeholder="your.signal@cosmos.net"
+              required
+              autocomplete="email"
+            >
+          </div>
+          
+          {%- comment -%} Optional: Name field {%- endcomment -%}
+          {% if section.settings.collect_name %}
+            <div class="form-group">
+              <label for="signal-name" class="form-label-input">
+                SIGNAL DESIGNATION (OPTIONAL)
+              </label>
+              <input 
+                type="text" 
+                name="contact[first_name]" 
+                id="signal-name"
+                class="form-input"
+                placeholder="Your Name"
+                autocomplete="given-name"
+              >
+            </div>
+          {% endif %}
+          
+          {%- comment -%} Privacy Notice {%- endcomment -%}
+          <p class="form-privacy">
+            We respect your cosmic privacy. Unsubscribe anytime.
+          </p>
+          
+          {%- comment -%} Submit Button {%- endcomment -%}
+          <button type="submit" class="form-submit">
+            <span class="submit-text">CONNECT TO THE SIGNAL</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 10h10M10 5l5 5-5 5"/>
+            </svg>
+          </button>
+          
+        {% endform %}
+        
+        {%- comment -%} Decorative Elements {%- endcomment -%}
+        <div class="form-glow"></div>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+  
+</section>
+
+{% schema %}
+{
+  "name": "Signal Seeker CTA",
+  "tag": "section",
+  "class": "section-signal-seeker-cta",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "JOIN THE SIGNAL SEEKERS"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Become part of the cosmic network. Receive exclusive transmissions, early access, and hidden lore from the Stellar Reverb universe."
+    },
+    {
+      "type": "header",
+      "content": "Benefits"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_benefits",
+      "label": "Show benefits list",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "Early access to new capsule drops"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "Exclusive lore & behind-the-scenes content"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "Limited edition collaborations & drops"
+    },
+    {
+      "type": "text",
+      "id": "benefit_4",
+      "label": "Benefit 4 (optional)",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Form Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "collect_name",
+      "label": "Collect name field",
+      "default": false,
+      "info": "Ask for first name in addition to email"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout style",
+      "options": [
+        {
+          "value": "split",
+          "label": "Split (50/50)"
+        },
+        {
+          "value": "centered",
+          "label": "Centered"
+        }
+      ],
+      "default": "split"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Signal Seeker CTA"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  /* ════════════════════════════════════════
+     SIGNAL SEEKER CTA STYLES
+     ════════════════════════════════════════ */
+  
+  .signal-seeker-cta {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: linear-gradient(135deg, 
+      var(--void-black) 0%, 
+      rgba(0, 240, 172, 0.05) 50%, 
+      var(--void-black) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .signal-seeker-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(0, 240, 172, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(40, 168, 214, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  .signal-cta-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  
+  /* Centered layout */
+  .signal-seeker-cta[data-layout="centered"] .signal-cta-container {
+    grid-template-columns: 1fr;
+    max-width: 700px;
+    text-align: center;
+  }
+  
+  .signal-seeker-cta[data-layout="centered"] .signal-cta-benefits {
+    justify-content: center;
+  }
+  
+  /* Content Side */
+  .signal-cta-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 2rem;
+    color: var(--radioactive-green);
+    filter: drop-shadow(0 0 20px currentColor);
+    animation: rotate 30s linear infinite, pulse-glow 3s ease-in-out infinite;
+  }
+  
+  .signal-cta-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .signal-cta-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--radioactive-green), var(--cyan-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .signal-cta-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  
+  /* Benefits List */
+  .signal-cta-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .benefit-icon {
+    color: var(--radioactive-green);
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 8px currentColor);
+  }
+  
+  .benefit-text {
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+  }
+  
+  /* Form Side */
+  .signal-cta-form-wrapper {
+    position: relative;
+  }
+  
+  .signal-form-card {
+    background: linear-gradient(135deg, 
+      rgba(0, 240, 172, 0.05) 0%, 
+      rgba(40, 168, 214, 0.05) 100%);
+    border: 2px solid var(--radioactive-green);
+    border-radius: 12px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0, 240, 172, 0.2);
+  }
+  
+  .form-header {
+    margin-bottom: 2rem;
+  }
+  
+  .form-label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--radioactive-green);
+  }
+  
+  .form-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 240, 172, 0.1) 0%, transparent 70%);
+    animation: glow-rotate 10s linear infinite;
+    pointer-events: none;
+  }
+  
+  @keyframes glow-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Form Elements */
+  .signal-form {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-label-input {
+    display: block;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--cyan-blue);
+    margin-bottom: 0.75rem;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(40, 168, 214, 0.3);
+    border-radius: 6px;
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    border-color: var(--radioactive-green);
+    box-shadow: 0 0 20px rgba(0, 240, 172, 0.3);
+  }
+  
+  .form-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-family: monospace;
+  }
+  
+  .form-privacy {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  /* Submit Button */
+  .form-submit {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--void-black);
+    background: var(--radioactive-green);
+    border: 2px solid var(--radioactive-green);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 30px rgba(0, 240, 172, 0.4);
+  }
+  
+  .form-submit:hover {
+    background: transparent;
+    color: var(--radioactive-green);
+    box-shadow: 0 0 50px rgba(0, 240, 172, 0.6);
+    transform: translateY(-2px);
+  }
+  
+  .form-submit svg {
+    transition: transform 0.3s ease;
+  }
+  
+  .form-submit:hover svg {
+    transform: translateX(4px);
+  }
+  
+  /* Messages */
+  .form-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+  
+  .message-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  .form-message-success {
+    background: rgba(0, 240, 172, 0.1);
+    border: 2px solid var(--radioactive-green);
+    color: var(--radioactive-green);
+  }
+  
+  .form-message-error {
+    background: rgba(225, 60, 250, 0.1);
+    border: 2px solid var(--neon-magenta);
+    color: var(--neon-magenta);
+  }
+  
+  .message-text strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-family: 'Orbitron', monospace;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .signal-cta-container {
+      gap: 3rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .signal-seeker-cta {
+      padding: 3rem 0;
+    }
+    
+    .signal-cta-container {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding: 0 1.5rem;
+    }
+    
+    .signal-cta-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+    }
+    
+    .signal-cta-title,
+    .signal-cta-subtitle {
+      text-align: center;
+    }
+    
+    .signal-cta-benefits {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .signal-form-card {
+      padding: 2rem 1.5rem;
+    }
+  }
+  
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .signal-cta-icon,
+    .form-glow {
+      animation: none;
+    }
+    
+    .form-submit,
+    .form-input {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Set layout
+  (function() {
+    const section = document.querySelector('.signal-seeker-cta');
+    if (!section) return;
+    
+    const layout = '{{ section.settings.layout }}';
+    section.setAttribute('data-layout', layout);
+    
+    // Form submission tracking
+    const form = document.getElementById('signal-seeker-form');
+    if (form) {
+      form.addEventListener('submit', function() {
+        if (typeof window.stellarAnalytics !== 'undefined') {
+          window.stellarAnalytics.trackNewsletterSignup({
+            source: 'homepage_cta',
+            email: form.querySelector('#signal-email').value
+          });
+        }
+      });
+    }
+  })();
+</script>

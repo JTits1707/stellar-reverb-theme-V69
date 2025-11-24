@@ -1,0 +1,429 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - SCARCITY MARQUEE SECTION
+  ═══════════════════════════════════════════════════════════
+  
+  Purpose: Infinite scrolling marquee with urgency messaging
+  Features:
+    - Continuous horizontal scroll
+    - Glitch effects on hover
+    - Scarcity-driven messaging
+    - Customizable messages via schema
+    - Dual-direction option
+  
+  Usage: Add to homepage between timeline and featured sections
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% liquid
+  assign marquee_speed = section.settings.marquee_speed | default: 30
+  assign show_separator = section.settings.show_separator | default: true
+  assign separator_icon = section.settings.separator_icon | default: '◆'
+  assign enable_glitch = section.settings.enable_glitch | default: true
+  assign text_color = section.settings.text_color | default: '#00f0ff'
+  
+  # Build message array from blocks
+  assign messages = ''
+  for block in section.blocks
+    if block.settings.message != blank
+      assign messages = messages | append: block.settings.message | append: '|||'
+    endif
+  endfor
+%}
+
+<section 
+  class="stellar-marquee-section" 
+  data-section-id="{{ section.id }}"
+  data-section-type="scarcity-marquee"
+  style="--marquee-speed: {{ marquee_speed }}s; --marquee-color: {{ text_color }};"
+>
+  
+  <div class="marquee-container">
+    
+    {%- comment -%} Primary Marquee Track {%- endcomment -%}
+    <div class="marquee-track" data-marquee-track="primary">
+      
+      {%- comment -%} Duplicate content for seamless loop {%- endcomment -%}
+      {% for i in (1..2) %}
+        <div class="marquee-content">
+          
+          {% for block in section.blocks %}
+            {% if block.settings.message != blank %}
+              
+              <span 
+                class="marquee-item{% if enable_glitch %} marquee-item--glitch{% endif %}"
+                data-block-id="{{ block.id }}"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.message | upcase }}
+              </span>
+              
+              {% if show_separator and forloop.last == false %}
+                <span class="marquee-separator">{{ separator_icon }}</span>
+              {% endif %}
+              
+            {% endif %}
+          {% endfor %}
+          
+        </div>
+      {% endfor %}
+      
+    </div>
+    
+  </div>
+  
+  {%- comment -%} Background Scan Line Effect {%- endcomment -%}
+  {% if section.settings.show_scanlines %}
+    <div class="marquee-scanlines" aria-hidden="true"></div>
+  {% endif %}
+  
+</section>
+
+<style>
+  .stellar-marquee-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #000000;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(0, 240, 255, 0.2);
+    border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     MARQUEE CONTAINER
+     ──────────────────────────────────────────────────────── */
+  
+  .marquee-container {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll var(--marquee-speed, 30s) linear infinite;
+    will-change: transform;
+  }
+  
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  /* Pause on hover */
+  .stellar-marquee-section:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     MARQUEE CONTENT
+     ──────────────────────────────────────────────────────── */
+  
+  .marquee-content {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    white-space: nowrap;
+    padding-right: 3rem;
+  }
+  
+  .marquee-item {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--marquee-color, #00f0ff);
+    text-shadow: 0 0 20px currentColor;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     GLITCH EFFECT
+     ──────────────────────────────────────────────────────── */
+  
+  .marquee-item--glitch {
+    position: relative;
+  }
+  
+  .marquee-item--glitch:hover {
+    animation: glitch-text 0.3s ease-in-out;
+  }
+  
+  @keyframes glitch-text {
+    0%, 100% {
+      transform: translate(0);
+      text-shadow: 
+        0 0 20px currentColor,
+        2px 2px 0 #ff00ff,
+        -2px -2px 0 #00ffff;
+    }
+    25% {
+      transform: translate(-2px, 2px);
+      text-shadow: 
+        0 0 20px currentColor,
+        -2px -2px 0 #ff00ff,
+        2px 2px 0 #00ffff;
+    }
+    50% {
+      transform: translate(2px, -2px);
+      text-shadow: 
+        0 0 20px currentColor,
+        2px -2px 0 #ff00ff,
+        -2px 2px 0 #00ffff;
+    }
+    75% {
+      transform: translate(-2px, -2px);
+      text-shadow: 
+        0 0 20px currentColor,
+        -2px 2px 0 #ff00ff,
+        2px -2px 0 #00ffff;
+    }
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     SEPARATOR
+     ──────────────────────────────────────────────────────── */
+  
+  .marquee-separator {
+    font-size: 1rem;
+    color: var(--marquee-color, #00f0ff);
+    opacity: 0.5;
+    animation: pulse-separator 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-separator {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.2);
+    }
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     SCANLINES EFFECT (Optional)
+     ──────────────────────────────────────────────────────── */
+  
+  .marquee-scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.15) 3px
+    );
+    pointer-events: none;
+    opacity: 0.3;
+    animation: scanline-move 8s linear infinite;
+  }
+  
+  @keyframes scanline-move {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(10px);
+    }
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     RESPONSIVE
+     ──────────────────────────────────────────────────────── */
+  
+  @media (max-width: 768px) {
+    .stellar-marquee-section {
+      padding: 1.5rem 0;
+    }
+    
+    .marquee-container {
+      height: 50px;
+    }
+    
+    .marquee-content {
+      gap: 2rem;
+      padding-right: 2rem;
+    }
+    
+    .marquee-item {
+      font-size: clamp(1rem, 4vw, 1.25rem);
+    }
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     ACCESSIBILITY
+     ──────────────────────────────────────────────────────── */
+  
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+    
+    .marquee-item--glitch:hover {
+      animation: none;
+    }
+    
+    .marquee-separator {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const section = document.querySelector('[data-section-type="scarcity-marquee"]');
+    if (!section) return;
+    
+    const track = section.querySelector('[data-marquee-track]');
+    if (!track) return;
+    
+    // Calculate optimal animation duration based on content width
+    function updateMarqueeSpeed() {
+      const contentWidth = track.scrollWidth / 2; // Divide by 2 since content is duplicated
+      const viewportWidth = window.innerWidth;
+      const pixelsPerSecond = 50; // Adjust for speed
+      const duration = contentWidth / pixelsPerSecond;
+      
+      section.style.setProperty('--marquee-speed', `${duration}s`);
+    }
+    
+    // Update on load and resize
+    updateMarqueeSpeed();
+    window.addEventListener('resize', updateMarqueeSpeed);
+    
+    // Optional: Add analytics tracking for interactions
+    const items = section.querySelectorAll('.marquee-item');
+    items.forEach(item => {
+      item.addEventListener('click', function() {
+        // Track click event
+        if (typeof window.stellarAnalytics !== 'undefined') {
+          window.stellarAnalytics.track('marquee_item_clicked', {
+            message: this.textContent.trim()
+          });
+        }
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Scarcity Marquee",
+  "tag": "section",
+  "class": "section-scarcity-marquee",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Marquee Settings"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "label": "Scroll Speed (seconds)",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 30,
+      "info": "Lower = faster scroll"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_separator",
+      "label": "Show separators between messages",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "separator_icon",
+      "label": "Separator Icon",
+      "default": "◆",
+      "info": "Character or emoji between messages"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_glitch",
+      "label": "Enable glitch effect on hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scanlines",
+      "label": "Show CRT scanline effect",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#00f0ff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Marquee Message",
+      "settings": [
+        {
+          "type": "text",
+          "id": "message",
+          "label": "Message Text",
+          "default": "LIMITED TRANSMISSION",
+          "info": "Keep messages short and impactful"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scarcity Marquee",
+      "blocks": [
+        {
+          "type": "message",
+          "settings": {
+            "message": "⚡ ONLY 20 CAPSULES LEFT"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "message": "📡 NEW TRANSMISSION INCOMING"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "message": "🔐 EXCLUSIVE DROP"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "message": "⏰ 48 HOURS ONLY"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "message": "🌌 COSMIC ARCHIVE EXPANDING"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

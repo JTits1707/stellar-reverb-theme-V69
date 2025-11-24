@@ -1,0 +1,618 @@
+{% comment %}
+  Stellar Reverb Floating Elements Snippet
+  Cosmic floating elements including neon cassettes and musical symbols
+{% endcomment %}
+
+<div class="floating-elements-container">
+  
+  <!-- Neon Cassettes -->
+  <div class="floating-element cassette cassette-1">
+    <div class="cassette-body">
+      <div class="cassette-window cassette-window-left"></div>
+      <div class="cassette-window cassette-window-right"></div>
+      <div class="cassette-reel cassette-reel-left"></div>
+      <div class="cassette-reel cassette-reel-right"></div>
+    </div>
+  </div>
+  
+  <div class="floating-element cassette cassette-2">
+    <div class="cassette-body">
+      <div class="cassette-window cassette-window-left"></div>
+      <div class="cassette-window cassette-window-right"></div>
+      <div class="cassette-reel cassette-reel-left"></div>
+      <div class="cassette-reel cassette-reel-right"></div>
+    </div>
+  </div>
+  
+  <div class="floating-element cassette cassette-3">
+    <div class="cassette-body">
+      <div class="cassette-window cassette-window-left"></div>
+      <div class="cassette-window cassette-window-right"></div>
+      <div class="cassette-reel cassette-reel-left"></div>
+      <div class="cassette-reel cassette-reel-right"></div>
+    </div>
+  </div>
+  
+  <!-- Musical Symbols -->
+  <div class="floating-element musical-note note-1">♪</div>
+  <div class="floating-element musical-note note-2">♫</div>
+  <div class="floating-element musical-note note-3">♬</div>
+  <div class="floating-element musical-note note-4">♩</div>
+  <div class="floating-element musical-note note-5">♭</div>
+  <div class="floating-element musical-note note-6">♯</div>
+  
+  <!-- Waveform Elements -->
+  <div class="floating-element waveform waveform-1">
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+  </div>
+  
+  <div class="floating-element waveform waveform-2">
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+  </div>
+  
+  <!-- Cosmic Particles -->
+  <div class="floating-element particle particle-1"></div>
+  <div class="floating-element particle particle-2"></div>
+  <div class="floating-element particle particle-3"></div>
+  <div class="floating-element particle particle-4"></div>
+  <div class="floating-element particle particle-5"></div>
+  <div class="floating-element particle particle-6"></div>
+  <div class="floating-element particle particle-7"></div>
+  <div class="floating-element particle particle-8"></div>
+  
+  <!-- Geometric Shapes -->
+  <div class="floating-element geometric triangle-1"></div>
+  <div class="floating-element geometric triangle-2"></div>
+  <div class="floating-element geometric circle-1"></div>
+  <div class="floating-element geometric circle-2"></div>
+  <div class="floating-element geometric square-1"></div>
+  <div class="floating-element geometric square-2"></div>
+  
+</div>
+
+<style>
+  .floating-elements-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 2;
+  }
+  
+  .floating-element {
+    position: absolute;
+    opacity: 0.6;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  
+  /* Neon Cassettes */
+  .cassette {
+    width: 60px;
+    height: 40px;
+  }
+  
+  .cassette-body {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--neon-magenta), var(--cosmic-purple));
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 0 0 20px var(--neon-magenta);
+    border: 1px solid var(--electric-yellow);
+  }
+  
+  .cassette-window {
+    position: absolute;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 2px;
+    border: 1px solid var(--cyan-blue);
+  }
+  
+  .cassette-window-left {
+    left: 8px;
+  }
+  
+  .cassette-window-right {
+    right: 8px;
+  }
+  
+  .cassette-reel {
+    position: absolute;
+    top: 10px;
+    width: 12px;
+    height: 12px;
+    background: var(--electric-yellow);
+    border-radius: 50%;
+    animation: spin 3s linear infinite;
+  }
+  
+  .cassette-reel-left {
+    left: 10px;
+  }
+  
+  .cassette-reel-right {
+    right: 10px;
+  }
+  
+  .cassette-1 {
+    top: 15%;
+    left: 10%;
+    animation: float-cassette-1 8s ease-in-out infinite;
+  }
+  
+  .cassette-2 {
+    top: 60%;
+    right: 15%;
+    animation: float-cassette-2 10s ease-in-out infinite;
+  }
+  
+  .cassette-3 {
+    top: 80%;
+    left: 70%;
+    animation: float-cassette-3 12s ease-in-out infinite;
+  }
+  
+  /* Musical Notes */
+  .musical-note {
+    font-size: 2rem;
+    color: var(--radioactive-green);
+    text-shadow: 0 0 15px var(--radioactive-green);
+    font-weight: bold;
+  }
+  
+  .note-1 {
+    top: 20%;
+    left: 80%;
+    animation: float-note-1 6s ease-in-out infinite;
+  }
+  
+  .note-2 {
+    top: 40%;
+    left: 5%;
+    animation: float-note-2 7s ease-in-out infinite;
+  }
+  
+  .note-3 {
+    top: 70%;
+    right: 10%;
+    animation: float-note-3 8s ease-in-out infinite;
+  }
+  
+  .note-4 {
+    top: 10%;
+    left: 60%;
+    animation: float-note-4 9s ease-in-out infinite;
+  }
+  
+  .note-5 {
+    top: 85%;
+    left: 20%;
+    animation: float-note-5 5s ease-in-out infinite;
+  }
+  
+  .note-6 {
+    top: 50%;
+    right: 30%;
+    animation: float-note-6 11s ease-in-out infinite;
+  }
+  
+  /* Waveforms */
+  .waveform {
+    display: flex;
+    align-items: end;
+    gap: 2px;
+    height: 30px;
+  }
+  
+  .wave-bar {
+    width: 3px;
+    background: var(--cyan-blue);
+    border-radius: 1px;
+    animation: wave-pulse 1.5s ease-in-out infinite;
+  }
+  
+  .wave-bar:nth-child(1) { height: 10px; animation-delay: 0s; }
+  .wave-bar:nth-child(2) { height: 20px; animation-delay: 0.2s; }
+  .wave-bar:nth-child(3) { height: 30px; animation-delay: 0.4s; }
+  .wave-bar:nth-child(4) { height: 15px; animation-delay: 0.6s; }
+  .wave-bar:nth-child(5) { height: 8px; animation-delay: 0.8s; }
+  
+  .waveform-1 {
+    top: 30%;
+    left: 40%;
+    animation: float-waveform-1 7s ease-in-out infinite;
+  }
+  
+  .waveform-2 {
+    top: 75%;
+    right: 40%;
+    animation: float-waveform-2 9s ease-in-out infinite;
+  }
+  
+  /* Cosmic Particles */
+  .particle {
+    width: 4px;
+    height: 4px;
+    background: var(--electric-yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--electric-yellow);
+  }
+  
+  .particle-1 {
+    top: 25%;
+    left: 15%;
+    animation: float-particle-1 4s ease-in-out infinite;
+  }
+  
+  .particle-2 {
+    top: 45%;
+    right: 20%;
+    animation: float-particle-2 5s ease-in-out infinite;
+  }
+  
+  .particle-3 {
+    top: 65%;
+    left: 85%;
+    animation: float-particle-3 6s ease-in-out infinite;
+  }
+  
+  .particle-4 {
+    top: 15%;
+    left: 45%;
+    animation: float-particle-4 3s ease-in-out infinite;
+  }
+  
+  .particle-5 {
+    top: 80%;
+    right: 60%;
+    animation: float-particle-5 7s ease-in-out infinite;
+  }
+  
+  .particle-6 {
+    top: 35%;
+    left: 75%;
+    animation: float-particle-6 4.5s ease-in-out infinite;
+  }
+  
+  .particle-7 {
+    top: 55%;
+    left: 25%;
+    animation: float-particle-7 5.5s ease-in-out infinite;
+  }
+  
+  .particle-8 {
+    top: 90%;
+    right: 80%;
+    animation: float-particle-8 6.5s ease-in-out infinite;
+  }
+  
+  /* Geometric Shapes */
+  .geometric {
+    border: 2px solid var(--neon-magenta);
+    box-shadow: 0 0 15px var(--neon-magenta);
+  }
+  
+  .triangle-1,
+  .triangle-2 {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid var(--neon-magenta);
+    border-top: none;
+    box-shadow: 0 0 15px var(--neon-magenta);
+  }
+  
+  .triangle-1 {
+    top: 35%;
+    right: 5%;
+    animation: float-triangle-1 8s ease-in-out infinite;
+  }
+  
+  .triangle-2 {
+    top: 65%;
+    left: 5%;
+    animation: float-triangle-2 10s ease-in-out infinite;
+  }
+  
+  .circle-1,
+  .circle-2 {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: transparent;
+  }
+  
+  .circle-1 {
+    top: 20%;
+    left: 30%;
+    animation: float-circle-1 6s ease-in-out infinite;
+  }
+  
+  .circle-2 {
+    top: 75%;
+    right: 25%;
+    animation: float-circle-2 9s ease-in-out infinite;
+  }
+  
+  .square-1,
+  .square-2 {
+    width: 15px;
+    height: 15px;
+    background: transparent;
+    transform: rotate(45deg);
+  }
+  
+  .square-1 {
+    top: 40%;
+    right: 70%;
+    animation: float-square-1 7s ease-in-out infinite;
+  }
+  
+  .square-2 {
+    top: 85%;
+    left: 60%;
+    animation: float-square-2 11s ease-in-out infinite;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .floating-element {
+      opacity: 0.4;
+    }
+    
+    .cassette {
+      width: 40px;
+      height: 26px;
+    }
+    
+    .musical-note {
+      font-size: 1.5rem;
+    }
+    
+    .waveform {
+      height: 20px;
+    }
+    
+    .particle {
+      width: 3px;
+      height: 3px;
+    }
+  }
+  
+  /* Animations */
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  @keyframes wave-pulse {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1); }
+  }
+  
+  /* Cassette Animations */
+  @keyframes float-cassette-1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(20px, -15px) rotate(5deg); }
+    50% { transform: translate(-10px, -30px) rotate(-3deg); }
+    75% { transform: translate(15px, -20px) rotate(2deg); }
+  }
+  
+  @keyframes float-cassette-2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-25px, 20px) rotate(-8deg); }
+    66% { transform: translate(15px, -10px) rotate(4deg); }
+  }
+  
+  @keyframes float-cassette-3 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    20% { transform: translate(10px, -25px) rotate(6deg); }
+    40% { transform: translate(-20px, -15px) rotate(-4deg); }
+    60% { transform: translate(25px, 10px) rotate(8deg); }
+    80% { transform: translate(-15px, 20px) rotate(-2deg); }
+  }
+  
+  /* Note Animations */
+  @keyframes float-note-1 {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.1); }
+  }
+  
+  @keyframes float-note-2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(15px, -25px) rotate(15deg); }
+  }
+  
+  @keyframes float-note-3 {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-15px); }
+    75% { transform: translateX(10px); }
+  }
+  
+  @keyframes float-note-4 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-10px, -15px) scale(0.9); }
+    66% { transform: translate(20px, 10px) scale(1.1); }
+  }
+  
+  @keyframes float-note-5 {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(180deg) translateY(-15px); }
+  }
+  
+  @keyframes float-note-6 {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(20px, -10px); }
+    50% { transform: translate(-15px, -20px); }
+    75% { transform: translate(10px, 15px); }
+  }
+  
+  /* Waveform Animations */
+  @keyframes float-waveform-1 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+  }
+  
+  @keyframes float-waveform-2 {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(-20px, 15px); }
+    66% { transform: translate(25px, -10px); }
+  }
+  
+  /* Particle Animations */
+  @keyframes float-particle-1 {
+    0%, 100% { transform: translate(0, 0); opacity: 0.6; }
+    50% { transform: translate(30px, -40px); opacity: 1; }
+  }
+  
+  @keyframes float-particle-2 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-50px); }
+  }
+  
+  @keyframes float-particle-3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-40px, 20px) scale(1.5); }
+  }
+  
+  @keyframes float-particle-4 {
+    0%, 100% { transform: rotate(0deg) translate(0, 0); }
+    50% { transform: rotate(180deg) translate(20px, -30px); }
+  }
+  
+  @keyframes float-particle-5 {
+    0%, 100% { transform: translateX(0); opacity: 0.6; }
+    25% { transform: translateX(-25px); opacity: 1; }
+    75% { transform: translateX(35px); opacity: 0.8; }
+  }
+  
+  @keyframes float-particle-6 {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(15px, -25px); }
+    66% { transform: translate(-20px, 10px); }
+  }
+  
+  @keyframes float-particle-7 {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-35px) scale(0.8); }
+  }
+  
+  @keyframes float-particle-8 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-15px, -20px) rotate(90deg); }
+    50% { transform: translate(25px, -10px) rotate(180deg); }
+    75% { transform: translate(10px, 15px) rotate(270deg); }
+  }
+  
+  /* Geometric Animations */
+  @keyframes float-triangle-1 {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(120deg) translateY(-25px); }
+  }
+  
+  @keyframes float-triangle-2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(20px, -15px) rotate(60deg); }
+    66% { transform: translate(-15px, 10px) rotate(-60deg); }
+  }
+  
+  @keyframes float-circle-1 {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    50% { transform: scale(1.3) translate(15px, -20px); }
+  }
+  
+  @keyframes float-circle-2 {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-20px); }
+    75% { transform: translateY(15px); }
+  }
+  
+  @keyframes float-square-1 {
+    0%, 100% { transform: rotate(45deg) scale(1); }
+    50% { transform: rotate(225deg) scale(1.2); }
+  }
+  
+  @keyframes float-square-2 {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); }
+    33% { transform: rotate(135deg) translate(-20px, 15px); }
+    66% { transform: rotate(315deg) translate(25px, -10px); }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add random delays to floating elements for more organic movement
+    const floatingElements = document.querySelectorAll('.floating-element');
+    
+    floatingElements.forEach((element, index) => {
+      // Add random animation delay
+      const randomDelay = Math.random() * 2;
+      element.style.animationDelay = `${randomDelay}s`;
+      
+      // Add slight random position variations
+      const randomX = (Math.random() - 0.5) * 10;
+      const randomY = (Math.random() - 0.5) * 10;
+      element.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    });
+    
+    // Pause animations when not in viewport for performance
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const elements = entry.target.querySelectorAll('.floating-element');
+        if (entry.isIntersecting) {
+          elements.forEach(el => el.style.animationPlayState = 'running');
+        } else {
+          elements.forEach(el => el.style.animationPlayState = 'paused');
+        }
+      });
+    });
+    
+    const container = document.querySelector('.floating-elements-container');
+    if (container) {
+      observer.observe(container.parentElement);
+    }
+    
+    // Add mouse interaction for subtle parallax effect
+    let mouseX = 0;
+    let mouseY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+    });
+    
+    function updateParallax() {
+      floatingElements.forEach((element, index) => {
+        const speed = (index % 3 + 1) * 0.5; // Different speeds for different elements
+        const x = mouseX * speed;
+        const y = mouseY * speed;
+        
+        element.style.transform += ` translate(${x}px, ${y}px)`;
+      });
+      
+      requestAnimationFrame(updateParallax);
+    }
+    
+    // Start parallax effect only on desktop
+    if (window.innerWidth > 768) {
+      updateParallax();
+    }
+  });
+</script>

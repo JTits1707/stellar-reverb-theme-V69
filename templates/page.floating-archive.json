@@ -1,0 +1,12 @@
+{
+  "name": "Floating Archive",
+  "sections": {
+    "main": {
+      "type": "floating-archive-main",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

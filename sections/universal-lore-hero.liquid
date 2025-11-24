@@ -1,0 +1,127 @@
+{% comment %}
+  Universal Lore – Hero Section
+  Cosmic intro + loader + optional hero image
+{% endcomment %}
+
+{% render 'universal-lore-styles' %}
+
+<section class="universal-lore-page universal-lore-hero" data-section-id="{{ section.id }}">
+
+  {%- comment -%} Loader overlay {%- endcomment -%}
+  <div id="loreLoader" class="lore-loader-overlay" aria-hidden="true">
+    <div class="sacred-triangle"></div>
+    <p class="orbitron text-magenta" style="letter-spacing:0.18em;text-transform:uppercase;font-size:0.75rem;">
+      INITIALIZING · UNIVERSAL LORE
+    </p>
+  </div>
+
+  {%- comment -%} Cosmic particles hook for your JS {%- endcomment -%}
+  <div id="loreParticles"></div>
+
+  <div class="lore-section">
+    <div class="universal-lore-hero__inner" style="display:grid;gap:2rem;align-items:center;">
+      <div class="universal-lore-hero__copy">
+        <h1 class="section-title">
+          {{ section.settings.heading | default: 'UNIVERSAL LORE · SIGNALS FROM THE VOID' }}
+        </h1>
+
+        {% if section.settings.subheading != blank %}
+          <p style="max-width:640px;margin:1.25rem auto 0;font-size:0.95rem;color:#ddd;">
+            {{ section.settings.subheading }}
+          </p>
+        {% endif %}
+
+        {% if section.settings.body != blank %}
+          <div style="max-width:720px;margin:1.5rem auto 0;font-size:0.9rem;color:#ccc;line-height:1.8;">
+            {{ section.settings.body }}
+          </div>
+        {% endif %}
+
+        <div style="margin-top:2rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+          <a href="#universal-lore-timeline" class="lore-signup__btn">
+            {{ section.settings.primary_cta_label | default: 'ENTER THE TRANSMISSION ARCHIVE' }}
+          </a>
+
+          {% if section.settings.secondary_cta_label != blank and section.settings.secondary_cta_link != blank %}
+            <a href="{{ section.settings.secondary_cta_link }}" class="lore-signup__btn" style="background:transparent;border:1px solid rgba(255,255,255,0.3);color:#fff;box-shadow:none;">
+              {{ section.settings.secondary_cta_label }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if section.settings.hero_image != blank %}
+        <div class="universal-lore-hero__visual" style="justify-self:center;max-width:420px;">
+          <div style="border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,0.15);box-shadow:var(--glow-lg) rgba(225,60,250,0.35);">
+            {{ section.settings.hero_image | image_url: width: 900 | image_tag:
+              alt: section.settings.hero_image_alt,
+              loading: 'lazy'
+            }}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {%- comment -%} Include your lore JS engine once here {%- endcomment -%}
+  <script src="{{ 'universal-lore.js' | asset_url }}" defer></script>
+</section>
+
+{% schema %}
+{
+  "name": "Universal Lore · Hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "UNIVERSAL LORE · SIGNALS FROM THE VOID"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "A living archive of capsules, glitches, and mythic transmissions. This is where the story fractures and your signal enters."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body copy",
+      "default": "<p>Every capsule is a broadcast from a different edge of reality. Scroll to trace the transmissions, or dive directly into the vault.</p>"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary CTA label",
+      "default": "Enter the Transmission Archive"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary CTA label",
+      "default": "Shop All Relics"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Secondary CTA link"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "hero_image_alt",
+      "label": "Hero image alt text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Universal Lore · Hero"
+    }
+  ]
+}
+{% endschema %}

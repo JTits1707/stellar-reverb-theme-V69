@@ -1,0 +1,88 @@
+{% comment %}
+  Universal Lore – Hidden Door Signup
+  Newsletter gate for Signal Seekers
+{% endcomment %}
+
+<section class="lore-section" data-section-id="{{ section.id }}">
+  <h2 class="section-title">
+    {{ section.settings.title | default: 'UNLOCK THE HIDDEN DOOR' }}
+  </h2>
+
+  {% if section.settings.subheading != blank %}
+    <p style="max-width:640px;margin:1.25rem auto 0;text-align:center;font-size:0.95rem;color:#ddd;">
+      {{ section.settings.subheading }}
+    </p>
+  {% endif %}
+
+  <div class="lore-signup__form">
+    {% form 'customer', id: 'universal-lore-signup-form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter, universal-lore, signal-seeker">
+
+      <div class="lore-signup__row">
+        <input
+          class="lore-signup__input"
+          type="email"
+          name="contact[email]"
+          required
+          placeholder="{{ section.settings.placeholder | default: 'ENTER YOUR EMAIL TO RECEIVE FUTURE TRANSMISSIONS' }}"
+        >
+
+        <button class="lore-signup__btn" type="submit">
+          {{ section.settings.button_label | default: 'JOIN THE SIGNAL SEEKERS' }}
+        </button>
+      </div>
+
+      <div class="lore-signup__status">
+        {% if form.posted_successfully? %}
+          {{ section.settings.success_message | default: 'Signal received. Check your inbox for the first echo.' }}
+        {% elsif form.errors %}
+          {{ form.errors | default_errors }}
+        {% endif %}
+      </div>
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Universal Lore · Signup",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section heading",
+      "default": "Unlock the Hidden Door"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Drop your coordinates and we’ll beam you private transmissions: early capsule drops, hidden relics, and lore fragments that never hit the main feed."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Email placeholder text",
+      "default": "Enter your email to receive future transmissions"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Join the Signal Seekers"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Signal received. Check your inbox for the first echo."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Universal Lore · Signup"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,115 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - BASIC PAGE TEMPLATE
+  ═══════════════════════════════════════════════════════════
+  
+  Standard page template for About, Contact, FAQ, etc.
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<div class="page-standard">
+  
+  <div class="container">
+
+    {%- comment -%} Page Header {%- endcomment -%}
+    <div class="page-header">
+      
+      <h1 class="page-title">
+        {{ page.title }}
+      </h1>
+
+      {% if page.metafields.custom.subtitle != blank %}
+        <p class="page-subtitle">
+          {{ page.metafields.custom.subtitle }}
+        </p>
+      {% endif %}
+
+    </div>
+
+    {%- comment -%} Page Content {%- endcomment -%}
+    <div class="page-content">
+      
+      {% if page.content != blank %}
+        <div class="rte">
+          {{ page.content }}
+        </div>
+      {% endif %}
+
+    </div>
+
+    {%- comment -%} Optional CTA Section {%- endcomment -%}
+    {% if page.metafields.custom.show_cta %}
+      <div class="page-cta">
+        {% render 'signal-seeker-cta' %}
+      </div>
+    {% endif %}
+
+  </div>
+
+</div>
+
+<style>
+  .page-standard {
+    padding: var(--spacing-xl, 4rem) 0;
+    min-height: 60vh;
+  }
+
+  /* Page Header */
+  .page-header {
+    max-width: 900px;
+    margin: 0 auto var(--spacing-xl, 4rem);
+    text-align: center;
+  }
+
+  .page-title {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-md, 1.5rem);
+    background: linear-gradient(135deg, var(--neon-magenta, #E13CFA), var(--cyan-blue, #28A8D6));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .page-subtitle {
+    font-family: var(--font-body, "Montserrat", sans-serif);
+    font-size: 1.25rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+  }
+
+  /* Page Content */
+  .page-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-content .rte {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+  }
+
+  /* Page CTA */
+  .page-cta {
+    max-width: 800px;
+    margin: var(--spacing-xl, 4rem) auto 0;
+    padding-top: var(--spacing-xl, 4rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page-standard {
+      padding: var(--spacing-lg, 2.5rem) 0;
+    }
+
+    .page-content .rte {
+      font-size: 1rem;
+    }
+  }
+</style>

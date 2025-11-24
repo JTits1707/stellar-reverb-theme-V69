@@ -1,0 +1,683 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - SIGNAL SEEKER EMAIL CAPTURE
+  ═══════════════════════════════════════════════════════════
+  
+  Purpose: Newsletter signup with cosmic/mystical theming
+  Features:
+    - Animated triangle icon (Signal Seeker badge)
+    - Terminal-style input field
+    - Glitch text effects
+    - Form validation
+    - Success/error states
+  
+  Usage: Add to homepage footer area for newsletter signups
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% liquid
+  assign form_id = 'signal-seeker-form-' | append: section.id
+  assign show_triangle = section.settings.show_triangle_icon | default: true
+%}
+
+<section 
+  class="signal-seeker-section" 
+  data-section-id="{{ section.id }}"
+  data-section-type="signal-seeker"
+>
+  
+  <div class="container">
+    
+    {%- comment -%} Signal Seeker Badge/Icon {%- endcomment -%}
+    {% if show_triangle %}
+      <div class="signal-seeker-icon" aria-hidden="true">
+        <svg class="triangle-icon" viewBox="0 0 200 200" fill="none">
+          {%- comment -%} Outer Triangle {%- endcomment -%}
+          <path 
+            d="M100 20 L180 160 L20 160 Z" 
+            stroke="url(#triangle-gradient)" 
+            stroke-width="3" 
+            fill="none"
+            class="triangle-outer"
+          />
+          
+          {%- comment -%} Inner Concentric Circles {%- endcomment -%}
+          <circle cx="100" cy="100" r="40" stroke="rgba(0,240,255,0.6)" stroke-width="2" fill="none" class="circle-1"/>
+          <circle cx="100" cy="100" r="30" stroke="rgba(0,240,255,0.4)" stroke-width="2" fill="none" class="circle-2"/>
+          <circle cx="100" cy="100" r="20" stroke="rgba(0,240,255,0.3)" stroke-width="2" fill="none" class="circle-3"/>
+          
+          {%- comment -%} Center Eye/Waveform {%- endcomment -%}
+          <ellipse cx="100" cy="100" rx="25" ry="8" stroke="#00f0ff" stroke-width="2" fill="none" class="eye"/>
+          <path d="M85 100 Q92 95 100 100 Q108 105 115 100" stroke="#00f0ff" stroke-width="2" fill="none" class="wave"/>
+          
+          {%- comment -%} Cassette Tape at Bottom {%- endcomment -%}
+          <rect x="85" y="135" width="30" height="20" rx="2" stroke="#ff00ff" stroke-width="2" fill="none" class="cassette"/>
+          <circle cx="92" cy="145" r="3" fill="#ff00ff" class="cassette-hole-1"/>
+          <circle cx="108" cy="145" r="3" fill="#ff00ff" class="cassette-hole-2"/>
+          
+          {%- comment -%} Gradient Definition {%- endcomment -%}
+          <defs>
+            <linearGradient id="triangle-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:1" />
+              <stop offset="50%" style="stop-color:#ff00ff;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#00f0ff;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    {% endif %}
+    
+    {%- comment -%} Content Container {%- endcomment -%}
+    <div class="seeker-content">
+      
+      {%- comment -%} Heading {%- endcomment -%}
+      <h2 class="seeker-heading">
+        {{ section.settings.heading | default: 'BECOME A SIGNAL SEEKER' }}
+      </h2>
+      
+      {%- comment -%} Description {%- endcomment -%}
+      {% if section.settings.description != blank %}
+        <p class="seeker-description">
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+      
+      {%- comment -%} Newsletter Form {%- endcomment -%}
+      <div class="seeker-form-container">
+        
+        {% form 'customer', id: form_id, class: 'seeker-form' %}
+          
+          {%- comment -%} Success Message {%- endcomment -%}
+          {% if form.posted_successfully? %}
+            <div class="form-message form-message--success">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="22 4 12 14.01 9 11.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>{{ section.settings.success_message | default: 'Signal received. You're now in the transmission loop.' }}</span>
+            </div>
+          {% endif %}
+          
+          {%- comment -%} Error Messages {%- endcomment -%}
+          {% if form.errors %}
+            <div class="form-message form-message--error">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                <line x1="12" y1="8" x2="12" y2="12" stroke-width="2" stroke-linecap="round"/>
+                <line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span>{{ form.errors.messages[0] }}</span>
+            </div>
+          {% endif %}
+          
+          {%- comment -%} Input Group {%- endcomment -%}
+          <div class="input-group">
+            
+            <div class="input-wrapper">
+              <label for="email-{{ section.id }}" class="visually-hidden">Email Address</label>
+              <input 
+                type="email" 
+                name="contact[email]" 
+                id="email-{{ section.id }}"
+                class="seeker-input"
+                placeholder="{{ section.settings.placeholder | default: 'your@email.signal' }}"
+                required
+                autocomplete="email"
+                aria-label="Email address"
+              >
+              <span class="input-cursor" aria-hidden="true">_</span>
+            </div>
+            
+            <button 
+              type="submit" 
+              class="seeker-submit"
+              aria-label="Subscribe to newsletter"
+            >
+              <span class="submit-text">{{ section.settings.button_text | default: 'TRANSMIT' }}</span>
+              <svg class="submit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                <path d="M5 10h10M10 5l5 5-5 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            
+          </div>
+          
+          {%- comment -%} Privacy Note {%- endcomment -%}
+          {% if section.settings.show_privacy_note %}
+            <p class="privacy-note">
+              {{ section.settings.privacy_note | default: 'Your signal is encrypted. No spam. Ever.' }}
+            </p>
+          {% endif %}
+          
+        {% endform %}
+        
+      </div>
+      
+    </div>
+    
+  </div>
+  
+  {%- comment -%} Background Effects {%- endcomment -%}
+  <div class="seeker-background" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="bg-pulse"></div>
+  </div>
+  
+</section>
+
+<style>
+  .signal-seeker-section {
+    position: relative;
+    padding: 8rem 0;
+    background: linear-gradient(180deg, #000000 0%, #0a0a15 100%);
+    overflow: hidden;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     SIGNAL SEEKER ICON (Triangle Badge)
+     ──────────────────────────────────────────────────────── */
+  
+  .signal-seeker-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+  
+  .triangle-icon {
+    width: 200px;
+    height: 200px;
+    filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.5));
+    animation: icon-float 6s ease-in-out infinite;
+  }
+  
+  @keyframes icon-float {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-10px) rotate(2deg);
+    }
+    50% {
+      transform: translateY(0) rotate(0deg);
+    }
+    75% {
+      transform: translateY(-10px) rotate(-2deg);
+    }
+  }
+  
+  /* Triangle pulse */
+  .triangle-outer {
+    animation: triangle-pulse 3s ease-in-out infinite;
+  }
+  
+  @keyframes triangle-pulse {
+    0%, 100% {
+      stroke-opacity: 1;
+      stroke-width: 3;
+    }
+    50% {
+      stroke-opacity: 0.6;
+      stroke-width: 4;
+    }
+  }
+  
+  /* Circles rotation */
+  .circle-1 {
+    animation: rotate-slow 20s linear infinite;
+    transform-origin: center;
+  }
+  
+  .circle-2 {
+    animation: rotate-slow 15s linear infinite reverse;
+    transform-origin: center;
+  }
+  
+  .circle-3 {
+    animation: rotate-slow 10s linear infinite;
+    transform-origin: center;
+  }
+  
+  @keyframes rotate-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Eye pulse */
+  .eye {
+    animation: eye-pulse 4s ease-in-out infinite;
+  }
+  
+  @keyframes eye-pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
+  }
+  
+  /* Cassette holes spin */
+  .cassette-hole-1,
+  .cassette-hole-2 {
+    animation: cassette-spin 2s linear infinite;
+    transform-origin: center;
+  }
+  
+  @keyframes cassette-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     CONTENT
+     ──────────────────────────────────────────────────────── */
+  
+  .seeker-content {
+    text-align: center;
+  }
+  
+  .seeker-heading {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    margin: 0 0 1.5rem;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #00f0ff 0%, #ff00ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glitch-heading 5s ease-in-out infinite;
+  }
+  
+  @keyframes glitch-heading {
+    0%, 90%, 100% {
+      transform: translate(0);
+      text-shadow: none;
+    }
+    92% {
+      transform: translate(-2px, 2px);
+      text-shadow: 2px -2px 0 #ff00ff, -2px 2px 0 #00ffff;
+    }
+    94% {
+      transform: translate(2px, -2px);
+      text-shadow: -2px 2px 0 #ff00ff, 2px -2px 0 #00ffff;
+    }
+  }
+  
+  .seeker-description {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     FORM
+     ──────────────────────────────────────────────────────── */
+  
+  .seeker-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .form-message {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    animation: slideDown 0.4s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .form-message--success {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    color: #00ff88;
+  }
+  
+  .form-message--error {
+    background: rgba(255, 0, 85, 0.1);
+    border: 1px solid rgba(255, 0, 85, 0.3);
+    color: #ff0055;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     INPUT GROUP
+     ──────────────────────────────────────────────────────── */
+  
+  .input-group {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .input-wrapper {
+    position: relative;
+    flex: 1;
+  }
+  
+  .seeker-input {
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    font-size: 1rem;
+    font-family: 'Courier New', monospace;
+    color: #00f0ff;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(0, 240, 255, 0.3);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .seeker-input:focus {
+    outline: none;
+    border-color: #00f0ff;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .seeker-input::placeholder {
+    color: rgba(0, 240, 255, 0.4);
+  }
+  
+  /* Terminal cursor effect */
+  .input-cursor {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00f0ff;
+    font-family: 'Courier New', monospace;
+    font-size: 1.25rem;
+    animation: cursor-blink 1s step-end infinite;
+    pointer-events: none;
+    opacity: 0;
+  }
+  
+  .seeker-input:focus + .input-cursor {
+    opacity: 1;
+  }
+  
+  @keyframes cursor-blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     SUBMIT BUTTON
+     ──────────────────────────────────────────────────────── */
+  
+  .seeker-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #000000;
+    background: linear-gradient(135deg, #00f0ff 0%, #00d4e0 100%);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+  
+  .seeker-submit:hover {
+    background: linear-gradient(135deg, #00d4e0 0%, #00b8c7 100%);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+    transform: translateY(-2px);
+  }
+  
+  .seeker-submit:active {
+    transform: translateY(0);
+  }
+  
+  .submit-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .seeker-submit:hover .submit-icon {
+    transform: translateX(4px);
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     PRIVACY NOTE
+     ──────────────────────────────────────────────────────── */
+  
+  .privacy-note {
+    margin-top: 1.5rem;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     BACKGROUND EFFECTS
+     ──────────────────────────────────────────────────────── */
+  
+  .seeker-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .bg-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.3;
+  }
+  
+  .bg-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, transparent 70%);
+    animation: pulse-bg 4s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-bg {
+    0%, 100% {
+      opacity: 0.3;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     RESPONSIVE
+     ──────────────────────────────────────────────────────── */
+  
+  @media (max-width: 768px) {
+    .signal-seeker-section {
+      padding: 5rem 0;
+    }
+    
+    .triangle-icon {
+      width: 150px;
+      height: 150px;
+    }
+    
+    .signal-seeker-icon {
+      margin-bottom: 2rem;
+    }
+    
+    .input-group {
+      flex-direction: column;
+    }
+    
+    .seeker-submit {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     ACCESSIBILITY
+     ──────────────────────────────────────────────────────── */
+  
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .triangle-icon,
+    .triangle-outer,
+    .circle-1,
+    .circle-2,
+    .circle-3,
+    .eye,
+    .cassette-hole-1,
+    .cassette-hole-2,
+    .seeker-heading,
+    .input-cursor,
+    .bg-pulse {
+      animation: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Signal Seeker Email Capture",
+  "tag": "section",
+  "class": "section-signal-seeker",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "BECOME A SIGNAL SEEKER"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Join the transmission loop. Get early access to new capsules, exclusive drops, and cosmic updates delivered to your inbox."
+    },
+    {
+      "type": "header",
+      "content": "Form Settings"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input Placeholder",
+      "default": "your@email.signal"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "TRANSMIT"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "Signal received. You're now in the transmission loop."
+    },
+    {
+      "type": "header",
+      "content": "Privacy"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_privacy_note",
+      "label": "Show privacy note",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "privacy_note",
+      "label": "Privacy Note",
+      "default": "Your signal is encrypted. No spam. Ever."
+    },
+    {
+      "type": "header",
+      "content": "Display Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_triangle_icon",
+      "label": "Show triangle icon",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Signal Seeker Email Capture"
+    }
+  ]
+}
+{% endschema %}

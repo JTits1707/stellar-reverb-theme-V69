@@ -1,0 +1,497 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Stellar Reverb",
+    "theme_version": "1.0.0",
+    "theme_author": "Stellar Reverb",
+    "theme_documentation_url": "https://stellarreverb.com/docs",
+    "theme_support_url": "https://stellarreverb.com/support"
+  },
+  {
+    "name": "🎨 Brand Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Primary Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_neon_magenta",
+        "label": "Neon Magenta",
+        "default": "#E13CFA",
+        "info": "Primary brand color"
+      },
+      {
+        "type": "color",
+        "id": "color_cyan_blue",
+        "label": "Cyan Blue",
+        "default": "#28A8D6",
+        "info": "Secondary brand color"
+      },
+      {
+        "type": "color",
+        "id": "color_void_black",
+        "label": "Void Black",
+        "default": "#0D0D0D",
+        "info": "Background color"
+      },
+      {
+        "type": "header",
+        "content": "Accent Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_cosmic_purple",
+        "label": "Cosmic Purple",
+        "default": "#6C24B3"
+      },
+      {
+        "type": "color",
+        "id": "color_radioactive_green",
+        "label": "Radioactive Green",
+        "default": "#00F0AC"
+      },
+      {
+        "type": "color",
+        "id": "color_electric_yellow",
+        "label": "Electric Yellow",
+        "default": "#F4FF30"
+      },
+      {
+        "type": "color",
+        "id": "color_chrome_silver",
+        "label": "Chrome Silver",
+        "default": "#B0B0B0"
+      }
+    ]
+  },
+  {
+    "name": "🖼️ Logo & Branding",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image",
+        "info": "Recommended: 400x80px PNG with transparent background"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 80,
+        "max": 300,
+        "step": 10,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 180
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Will be scaled down to 32x32px. Recommended: 64x64px PNG"
+      },
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Social sharing image",
+        "info": "Used when sharing on social media. Recommended: 1200x630px"
+      },
+      {
+        "type": "text",
+        "id": "footer_tagline",
+        "label": "Footer tagline",
+        "default": "Sound. Style. Transmissions of Cosmic Identity.",
+        "info": "Appears in footer below logo"
+      }
+    ]
+  },
+  {
+    "name": "🔤 Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Font Settings"
+      },
+      {
+        "type": "paragraph",
+        "content": "Stellar Reverb uses Orbitron (titles) and Montserrat (body) from Google Fonts by default. These are loaded automatically."
+      },
+      {
+        "type": "range",
+        "id": "base_font_size",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Base font size",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "min": 1,
+        "max": 2,
+        "step": 0.1,
+        "label": "Heading size scale",
+        "default": 1.3,
+        "info": "Multiplier for heading sizes"
+      }
+    ]
+  },
+  {
+    "name": "🧭 Navigation",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "main_menu",
+        "label": "Main menu",
+        "default": "main-menu",
+        "info": "Appears in header navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_shop_menu",
+        "label": "Footer shop menu",
+        "default": "footer",
+        "info": "Appears in footer 'Shop' column"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_about_menu",
+        "label": "Footer about menu",
+        "default": "footer",
+        "info": "Appears in footer 'About' column"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sticky_header",
+        "label": "Enable sticky header",
+        "default": true,
+        "info": "Header stays visible when scrolling"
+      }
+    ]
+  },
+  {
+    "name": "🔍 Search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_header_search",
+        "label": "Show search in header",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_predictive_search",
+        "label": "Enable predictive search",
+        "default": true,
+        "info": "Shows search suggestions as you type"
+      }
+    ]
+  },
+  {
+    "name": "🛒 Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_cart_drawer",
+        "label": "Enable cart drawer",
+        "default": true,
+        "info": "Opens cart in a side panel instead of going to cart page"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart_note",
+        "label": "Enable cart note",
+        "default": true,
+        "info": "Allow customers to add a note to their order"
+      },
+      {
+        "type": "text",
+        "id": "cart_note_placeholder",
+        "label": "Cart note placeholder",
+        "default": "Add transmission notes..."
+      }
+    ]
+  },
+  {
+    "name": "📱 Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social Media Links"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_url",
+        "label": "Twitter URL",
+        "info": "https://twitter.com/yourusername"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_url",
+        "label": "Instagram URL",
+        "info": "https://instagram.com/yourusername"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_url",
+        "label": "Facebook URL",
+        "info": "https://facebook.com/yourpage"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_url",
+        "label": "TikTok URL",
+        "info": "https://tiktok.com/@yourusername"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_url",
+        "label": "YouTube URL",
+        "info": "https://youtube.com/@yourusername"
+      },
+      {
+        "type": "text",
+        "id": "social_spotify_url",
+        "label": "Spotify URL",
+        "info": "https://open.spotify.com/artist/..."
+      }
+    ]
+  },
+  {
+    "name": "✉️ Newsletter",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "newsletter_text",
+        "label": "Newsletter description",
+        "default": "Get early access to new capsule drops and hidden relics.",
+        "info": "Appears above newsletter form in footer"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_success_message",
+        "label": "Success message",
+        "default": "Thanks for joining the signal! Check your inbox."
+      }
+    ]
+  },
+  {
+    "name": "📡 Signal Seekers",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Signal Seekers Community"
+      },
+      {
+        "type": "page",
+        "id": "signal_seekers_page",
+        "label": "Signal Seekers page",
+        "info": "Select the page that explains the Signal Seekers program"
+      },
+      {
+        "type": "text",
+        "id": "signal_seekers_cta_text",
+        "label": "CTA button text",
+        "default": "Signal Seekers"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_signal_cta_header",
+        "label": "Show Signal CTA in header",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_signal_cta_footer",
+        "label": "Show Signal CTA in footer sections",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "💳 Payment & Trust",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons in footer",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_trust_badges",
+        "label": "Show trust badges",
+        "default": false,
+        "info": "SSL, satisfaction guarantee, etc."
+      }
+    ]
+  },
+  {
+    "name": "🎬 Animations",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_cosmic_background",
+        "label": "Enable cosmic background",
+        "default": true,
+        "info": "Animated gradient + constellation dots"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_scroll_effects",
+        "label": "Enable scroll effects",
+        "default": true,
+        "info": "Parallax and fade-in animations"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_hover_effects",
+        "label": "Enable hover effects",
+        "default": true,
+        "info": "Card lifts, glows, etc."
+      },
+      {
+        "type": "select",
+        "id": "animation_speed",
+        "label": "Animation speed",
+        "options": [
+          {
+            "value": "slow",
+            "label": "Slow"
+          },
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "fast",
+            "label": "Fast"
+          }
+        ],
+        "default": "normal"
+      }
+    ]
+  },
+  {
+    "name": "📊 Analytics",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Tracking & Analytics"
+      },
+      {
+        "type": "text",
+        "id": "google_analytics_id",
+        "label": "Google Analytics ID",
+        "info": "Format: G-XXXXXXXXXX or UA-XXXXXXXX-X"
+      },
+      {
+        "type": "text",
+        "id": "facebook_pixel_id",
+        "label": "Facebook Pixel ID",
+        "info": "Your Facebook Pixel ID number"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_stellar_analytics",
+        "label": "Enable Stellar Analytics",
+        "default": true,
+        "info": "Track capsule views, card impressions, etc."
+      }
+    ]
+  },
+  {
+    "name": "🔧 Advanced",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Custom Code"
+      },
+      {
+        "type": "html",
+        "id": "custom_head_code",
+        "label": "Custom code (head)",
+        "info": "Add custom HTML, CSS, or JS to <head>. Use for tracking pixels, custom fonts, etc."
+      },
+      {
+        "type": "html",
+        "id": "custom_body_code",
+        "label": "Custom code (body)",
+        "info": "Add custom HTML or JS before </body>. Use for chat widgets, analytics, etc."
+      },
+      {
+        "type": "header",
+        "content": "Performance"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_lazy_loading",
+        "label": "Enable lazy loading",
+        "default": true,
+        "info": "Images load only when needed (improves speed)"
+      },
+      {
+        "type": "checkbox",
+        "id": "minify_css",
+        "label": "Minify CSS",
+        "default": false,
+        "info": "Reduces file size (requires theme rebuild)"
+      }
+    ]
+  },
+  {
+    "name": "📱 Mobile",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_mobile_menu",
+        "label": "Enable mobile menu drawer",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "mobile_menu_position",
+        "label": "Mobile menu position",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      }
+    ]
+  },
+  {
+    "name": "♿ Accessibility",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_skip_to_content",
+        "label": "Enable 'Skip to content' link",
+        "default": true,
+        "info": "Helps keyboard users navigate"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_focus_outlines",
+        "label": "Show focus outlines",
+        "default": true,
+        "info": "Visual indicator for keyboard navigation"
+      },
+      {
+        "type": "checkbox",
+        "id": "reduce_motion",
+        "label": "Respect reduced motion preferences",
+        "default": true,
+        "info": "Disables animations for users who prefer reduced motion"
+      }
+    ]
+  }
+]

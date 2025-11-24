@@ -1,0 +1,76 @@
+{% comment %}
+  Universal Lore – Myth Toggle (Human / AI)
+{% endcomment %}
+
+<section class="lore-section" data-section-id="{{ section.id }}" data-myth-root>
+  <h2 class="section-title">
+    {{ section.settings.title | default: 'THE MYTH' }}
+  </h2>
+
+  <div style="text-align:center;margin-top:1.5rem;">
+    <div class="myth-toggle">
+      <button
+        type="button"
+        class="myth-toggle__btn myth-toggle__btn--active"
+        data-target="human"
+      >
+        Human Myth
+      </button>
+      <button
+        type="button"
+        class="myth-toggle__btn"
+        data-target="ai"
+      >
+        AI Myth
+      </button>
+    </div>
+  </div>
+
+  <div class="myth-content" style="margin-top:1.5rem;">
+    <div
+      class="myth-content__version myth-content__version--active"
+      data-version="human"
+    >
+      {{ section.settings.human_myth | default: '<p>This is the analog, spoken-word version of the Stellar Reverb origin myth.</p>' }}
+    </div>
+
+    <div
+      class="myth-content__version"
+      data-version="ai"
+    >
+      {{ section.settings.ai_myth | default: '<p>This is the machine-dreamt variant: a distorted echo of the same story, rewritten in synthetic tongues.</p>' }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Universal Lore · Myth",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section heading",
+      "default": "The Myth"
+    },
+    {
+      "type": "richtext",
+      "id": "human_myth",
+      "label": "Human myth content",
+      "default": "<p>Before the first waveform fractured, there was only the hum of the void. Someone pressed record.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "ai_myth",
+      "label": "AI myth content",
+      "default": "<p>The archive insists the universe began as a compression artifact. The machines disagree—because they remember writing the first tape.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Universal Lore · Myth"
+    }
+  ]
+}
+{% endschema %}

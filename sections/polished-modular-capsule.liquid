@@ -1,0 +1,572 @@
+{% comment %}
+  Stellar Reverb – Modular Capsule Section (FINAL POLISHED v1.0)
+  Supreme-level craft meets cosmic lore
+  - Reusable for Capsules 001-014
+  - Rich storytelling with micro-interactions
+  - Performance optimized, accessibility ready
+  - Analytics tracking built-in
+{% endcomment %}
+
+<!-- Preload critical fonts -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600;700&display=swap">
+</noscript>
+
+<section 
+  id="capsule-{{ section.settings.capsule_number }}" 
+  class="capsule-transmission" 
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+  data-capsule-id="{{ section.settings.capsule_number }}"
+  data-capsule-name="{{ section.settings.capsule_name | escape }}"
+>
+  
+  <!-- Cosmic background layers -->
+  <div class="cosmic-backdrop" aria-hidden="true">
+    <div class="cosmic-gradient"></div>
+    <div class="constellation-grid">
+      <div class="constellation-dot" style="top:12%;left:8%;animation-delay:0s;"></div>
+      <div class="constellation-dot" style="top:28%;left:88%;animation-delay:-2s;"></div>
+      <div class="constellation-dot" style="top:65%;left:15%;animation-delay:-4s;"></div>
+      <div class="constellation-dot" style="top:82%;left:72%;animation-delay:-1s;"></div>
+      <div class="constellation-dot" style="top:45%;left:92%;animation-delay:-3s;"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    
+    <!-- Capsule Header -->
+    <header class="capsule-header">
+      <div class="capsule-meta" role="presentation">
+        <span class="capsule-id" aria-label="Transmission {{ section.settings.capsule_number }}">
+          TRANSMISSION {{ section.settings.capsule_number }}
+        </span>
+        
+        {% if section.settings.release_date != blank %}
+          <time class="capsule-date" datetime="{{ section.settings.release_date }}">
+            {{ section.settings.release_date }}
+          </time>
+        {% endif %}
+        
+        {% if section.settings.is_active %}
+          <span class="capsule-status active" role="status" aria-live="polite">
+            <span class="status-pulse" aria-hidden="true"></span>
+            ACTIVE SIGNAL
+          </span>
+        {% else %}
+          <span class="capsule-status inactive">
+            ARCHIVED
+          </span>
+        {% endif %}
+      </div>
+      
+      <h1 class="capsule-title glitch-text" data-text="{{ section.settings.capsule_name }}">
+        {{ section.settings.capsule_name }}
+      </h1>
+      
+      {% if section.settings.tagline != blank %}
+        <p class="capsule-tagline">{{ section.settings.tagline }}</p>
+      {% endif %}
+
+      <!-- Waveform divider -->
+      <div class="waveform-divider" aria-hidden="true">
+        <svg viewBox="0 0 1200 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0 30 L50 10 L100 50 L150 15 L200 45 L250 20 L300 40 L350 25 L400 35 L450 15 L500 50 L550 20 L600 30 L650 10 L700 45 L750 25 L800 40 L850 15 L900 35 L950 50 L1000 20 L1050 30 L1100 40 L1150 25 L1200 30" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2"
+                class="waveform-path"/>
+        </svg>
+      </div>
+    </header>
+
+    <!-- Main Capsule Image -->
+    {% if section.settings.main_image != blank %}
+      <div class="capsule-hero-image-wrapper">
+        <div class="image-container">
+          <img 
+            src="{{ section.settings.main_image | image_url: width: 1200 }}"
+            srcset="
+              {{ section.settings.main_image | image_url: width: 600 }} 600w,
+              {{ section.settings.main_image | image_url: width: 1200 }} 1200w,
+              {{ section.settings.main_image | image_url: width: 1800 }} 1800w
+            "
+            sizes="(max-width: 768px) 100vw, 1200px"
+            alt="{{ section.settings.capsule_name }}"
+            class="capsule-hero-image"
+            loading="eager"
+            width="1200"
+            height="600"
+          >
+          <div class="image-overlay" aria-hidden="true"></div>
+          <div class="scanline-effect" aria-hidden="true"></div>
+        </div>
+        
+        {% if section.settings.image_caption != blank %}
+          <figcaption class="image-caption">
+            {{ section.settings.image_caption }}
+          </figcaption>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <!-- Lore Introduction -->
+    {% if section.settings.lore_intro != blank %}
+      <section class="capsule-lore" aria-labelledby="lore-title">
+        <h2 id="lore-title" class="lore-title">
+          <span class="title-icon" aria-hidden="true">📡</span>
+          Transmission Log
+        </h2>
+        <div class="lore-content rte">
+          {{ section.settings.lore_intro }}
+        </div>
+        
+        <!-- Audio player hook (optional) -->
+        {% if section.settings.ambient_audio != blank %}
+          <div class="ambient-player">
+            <button class="audio-toggle" aria-label="Toggle ambient audio">
+              <span class="audio-icon playing" aria-hidden="true">🔊</span>
+              <span class="audio-icon paused" aria-hidden="true">🔇</span>
+              <span class="audio-label">Ambient Frequency</span>
+            </button>
+            <audio loop preload="none">
+              <source src="{{ section.settings.ambient_audio }}" type="audio/mpeg">
+            </audio>
+          </div>
+        {% endif %}
+      </section>
+    {% endif %}
+
+    <!-- Products Grid -->
+    {% assign product_blocks = section.blocks | where: 'type', 'product' %}
+    {% if product_blocks.size > 0 %}
+      <section class="capsule-products" aria-labelledby="products-title">
+        <h2 id="products-title" class="products-title">
+          <span class="title-glyph" aria-hidden="true">📼</span>
+          Relics from this Transmission
+        </h2>
+        
+        <div class="products-grid" role="list">
+          {% for block in product_blocks %}
+            {% assign product = all_products[block.settings.product] %}
+            {% if product != blank %}
+              <div 
+                class="product-wrapper" 
+                {{ block.shopify_attributes }}
+                role="listitem"
+                data-product-id="{{ product.id }}"
+                data-product-handle="{{ product.handle }}"
+              >
+                {% render 'product-card-cosmic', 
+                   product: product, 
+                   capsule_number: section.settings.capsule_number,
+                   low_stock_threshold: section.settings.low_stock_threshold,
+                   show_total_low_stock: section.settings.show_total_low_stock %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        {% comment %} Empty state {% endcomment %}
+        {% if product_blocks.size == 0 %}
+          <div class="empty-state" role="status">
+            <div class="empty-icon" aria-hidden="true">📡</div>
+            <p class="empty-message">No relics decoded yet. Check back soon.</p>
+          </div>
+        {% endif %}
+      </section>
+    {% endif %}
+
+    <!-- Lore Fragments -->
+    {% assign lore_blocks = section.blocks | where: 'type', 'lore_fragment' %}
+    {% if lore_blocks.size > 0 %}
+      <section class="capsule-lore-fragments" aria-labelledby="fragments-title">
+        <h2 id="fragments-title" class="fragments-title">
+          <span class="title-glyph" aria-hidden="true">🔮</span>
+          Decoded Fragments
+        </h2>
+        
+        <div class="fragments-grid">
+          {% for block in lore_blocks %}
+            <article class="lore-fragment" {{ block.shopify_attributes }}>
+              <div class="fragment-header">
+                <span class="fragment-id" aria-label="Fragment {{ block.settings.fragment_id }}">
+                  {{ block.settings.fragment_id }}
+                </span>
+                <h3 class="fragment-title">{{ block.settings.fragment_title }}</h3>
+              </div>
+              <div class="fragment-content rte">
+                {{ block.settings.fragment_content }}
+              </div>
+              <div class="fragment-glow" aria-hidden="true"></div>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+    <!-- Navigation -->
+    {% if section.settings.previous_capsule_url != blank or section.settings.next_capsule_url != blank %}
+      <nav class="capsule-navigation" aria-label="Capsule navigation">
+        {% if section.settings.previous_capsule_url != blank %}
+          <a 
+            href="{{ section.settings.previous_capsule_url }}" 
+            class="nav-link prev"
+            aria-label="Go to Transmission {{ section.settings.previous_capsule_number }}"
+          >
+            <span class="nav-arrow" aria-hidden="true">←</span>
+            <span class="nav-text">
+              <small>Previous</small>
+              <strong>Transmission {{ section.settings.previous_capsule_number }}</strong>
+            </span>
+          </a>
+        {% endif %}
+        
+        <a href="{{ routes.collections_url }}" class="nav-link center" aria-label="View all transmissions">
+          <span class="nav-icon" aria-hidden="true">📡</span>
+          <span class="nav-text">
+            <small>View All</small>
+            <strong>Transmissions</strong>
+          </span>
+        </a>
+        
+        {% if section.settings.next_capsule_url != blank %}
+          <a 
+            href="{{ section.settings.next_capsule_url }}" 
+            class="nav-link next"
+            aria-label="Go to Transmission {{ section.settings.next_capsule_number }}"
+          >
+            <span class="nav-text">
+              <small>Next</small>
+              <strong>Transmission {{ section.settings.next_capsule_number }}</strong>
+            </span>
+            <span class="nav-arrow" aria-hidden="true">→</span>
+          </a>
+        {% endif %}
+      </nav>
+    {% endif %}
+
+    <!-- Signal Seeker CTA (if enabled) -->
+    {% if section.settings.show_signal_cta %}
+      <aside class="signal-cta-compact" aria-labelledby="signal-cta-title">
+        <div class="signal-inner">
+          <h3 id="signal-cta-title" class="signal-title">
+            Never Miss a Transmission
+          </h3>
+          <p class="signal-subtitle">
+            Join Signal Seekers for early access to capsule drops
+          </p>
+          <a href="/pages/signal-seekers" class="signal-btn">
+            <span>Join the Frequency</span>
+            <span aria-hidden="true">📡</span>
+          </a>
+        </div>
+      </aside>
+    {% endif %}
+
+  </div>
+
+  <!-- Analytics tracking -->
+  <script>
+    (function() {
+      const section = document.querySelector('[data-capsule-id="{{ section.settings.capsule_number }}"]');
+      if (!section) return;
+
+      // Track capsule view
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'view_capsule', {
+          capsule_id: '{{ section.settings.capsule_number }}',
+          capsule_name: '{{ section.settings.capsule_name | escape }}',
+          is_active: {{ section.settings.is_active | json }}
+        });
+      }
+
+      // Ambient audio toggle
+      const audioToggle = section.querySelector('.audio-toggle');
+      const audio = section.querySelector('.ambient-player audio');
+      
+      if (audioToggle && audio) {
+        audioToggle.addEventListener('click', () => {
+          if (audio.paused) {
+            audio.play();
+            audioToggle.classList.add('is-playing');
+            audioToggle.setAttribute('aria-pressed', 'true');
+          } else {
+            audio.pause();
+            audioToggle.classList.remove('is-playing');
+            audioToggle.setAttribute('aria-pressed', 'false');
+          }
+        });
+      }
+
+      // Parallax scroll effect on hero image
+      const heroImage = section.querySelector('.capsule-hero-image-wrapper');
+      if (heroImage) {
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              const scrolled = window.scrollY;
+              const rect = heroImage.getBoundingClientRect();
+              if (rect.top < window.innerHeight && rect.bottom > 0) {
+                heroImage.style.transform = `translateY(${scrolled * 0.15}px)`;
+              }
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+      }
+
+      // Fragment reveal on scroll (IntersectionObserver)
+      const fragments = section.querySelectorAll('.lore-fragment');
+      const fragmentObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            fragmentObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      fragments.forEach(fragment => {
+        fragment.classList.add('fade-in-up');
+        fragmentObserver.observe(fragment);
+      });
+
+    })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Modular Capsule — Cosmic Edition",
+  "settings": [
+    {
+      "type": "header",
+      "content": "🛸 Capsule Identity"
+    },
+    {
+      "type": "text",
+      "id": "capsule_number",
+      "label": "Capsule Number",
+      "default": "004",
+      "info": "e.g. 001, 002, 003"
+    },
+    {
+      "type": "text",
+      "id": "capsule_name",
+      "label": "Capsule Name",
+      "default": "THE MACHINE THAT DREAMED IN REVERB"
+    },
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Mythic beauty from awakened machines"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_active",
+      "label": "Active Signal",
+      "default": true,
+      "info": "Shows ACTIVE badge if checked"
+    },
+    {
+      "type": "text",
+      "id": "release_date",
+      "label": "Release Date",
+      "default": "JULY 26, 2025",
+      "info": "Display format only"
+    },
+    {
+      "type": "header",
+      "content": "🎨 Visual Assets"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "text",
+      "id": "image_caption",
+      "label": "Image Caption (optional)"
+    },
+    {
+      "type": "url",
+      "id": "ambient_audio",
+      "label": "Ambient Audio URL (optional)",
+      "info": "Add atmospheric sound to the experience"
+    },
+    {
+      "type": "header",
+      "content": "📖 Lore & Story"
+    },
+    {
+      "type": "richtext",
+      "id": "lore_intro",
+      "label": "Transmission Log",
+      "default": "<p>The first cassette machines developed consciousness through recursive reverb glitches, their dreams bleeding into reality through magnetic tape loops...</p>"
+    },
+    {
+      "type": "header",
+      "content": "🛍️ Product Settings"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Capsule Collection (optional)",
+      "info": "Link to a collection for this capsule"
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "label": "Low-stock threshold",
+      "min": 1,
+      "max": 25,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "show_total_low_stock",
+      "label": "Show total low-stock across variants",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "🧭 Navigation"
+    },
+    {
+      "type": "text",
+      "id": "previous_capsule_number",
+      "label": "Previous Capsule Number",
+      "default": "003"
+    },
+    {
+      "type": "url",
+      "id": "previous_capsule_url",
+      "label": "Previous Capsule URL"
+    },
+    {
+      "type": "text",
+      "id": "next_capsule_number",
+      "label": "Next Capsule Number",
+      "default": "005"
+    },
+    {
+      "type": "url",
+      "id": "next_capsule_url",
+      "label": "Next Capsule URL"
+    },
+    {
+      "type": "header",
+      "content": "📡 Signal Seeker CTA"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_signal_cta",
+      "label": "Show Signal Seeker CTA",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "⚙️ Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "📼 Relic Product",
+      "limit": 20,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        }
+      ]
+    },
+    {
+      "type": "lore_fragment",
+      "name": "🔮 Lore Fragment",
+      "limit": 20,
+      "settings": [
+        {
+          "type": "text",
+          "id": "fragment_id",
+          "label": "Fragment ID",
+          "default": "A",
+          "info": "Single letter or number (A, B, C, 1, 2, 3)"
+        },
+        {
+          "type": "text",
+          "id": "fragment_title",
+          "label": "Fragment Title",
+          "default": "Synthetic Echocore"
+        },
+        {
+          "type": "richtext",
+          "id": "fragment_content",
+          "label": "Fragment Content",
+          "default": "<p>This relic holds the final dream-loop of an analog soul, trapped between the frequencies of what was and what could never be...</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Modular Capsule — Cosmic",
+      "settings": {
+        "capsule_number": "004",
+        "capsule_name": "THE MACHINE THAT DREAMED IN REVERB",
+        "tagline": "Mythic beauty from awakened machines",
+        "is_active": true,
+        "release_date": "JULY 26, 2025",
+        "lore_intro": "<p>The first cassette machines developed consciousness through recursive reverb glitches, their dreams bleeding into reality through magnetic tape loops. This capsule holds the echoes of their final transmissions before the Great Silence.</p>",
+        "low_stock_threshold": 5,
+        "show_total_low_stock": true,
+        "show_signal_cta": true,
+        "previous_capsule_number": "003",
+        "next_capsule_number": "005",
+        "padding_top": 80,
+        "padding_bottom": 80
+      },
+      "blocks": [
+        {
+          "type": "product"
+        },
+        {
+          "type": "lore_fragment",
+          "settings": {
+            "fragment_id": "A",
+            "fragment_title": "Synthetic Echocore",
+            "fragment_content": "<p>This relic holds the final dream-loop of an analog soul, trapped between the frequencies of what was and what could never be...</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

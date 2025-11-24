@@ -1,0 +1,189 @@
+{% comment %}
+  STELLAR REVERB - FLOATING ARCHIVE (GATED)
+  OS 2.0 Section version
+{% endcomment %}
+
+{% assign has_access = false %}
+
+{% if customer %}
+  {% if customer.tags contains 'signal-seeker' or customer.tags contains 'floating-archive-access' %}
+    {% assign has_access = true %}
+  {% endif %}
+{% endif %}
+
+{% render 'floating-archive-styles' %}
+
+<div class="floating-archive-page" data-section-id="{{ section.id }}">
+  {% if has_access %}
+    {%- comment -%} ✅ USER HAS ACCESS - SHOW CONTENT {%- endcomment -%}
+    <div class="archive-unlocked">
+      <div class="cosmic-floating-wrapper">
+        {% render 'floating-elements' %}
+      </div>
+
+      <div class="container">
+        <div class="archive-header">
+          <div class="status-badge">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2l2.5 5 5.5.7-4 3.9 1 5.4-5-2.6-5 2.6 1-5.4-4-3.9 5.5-.7z" fill="currentColor"/>
+            </svg>
+            <span>{{ 'signal_seekers.members_only' | t | default: 'Signal Seeker Access' }}</span>
+          </div>
+
+          <h1 class="archive-title">
+            {{ page.title | default: 'Floating Archive' }}
+          </h1>
+
+          {% if page.content != blank %}
+            <div class="archive-intro rte">
+              {{ page.content }}
+            </div>
+          {% endif %}
+        </div>
+
+        {%- comment -%} Archive Grid (rendered snippet) {%- endcomment -%}
+        {% render 'archive-grid' %}
+      </div>
+    </div>
+
+  {% else %}
+    {%- comment -%} 🔒 GATED - SHOW EMAIL CAPTURE {%- endcomment -%}
+    <div class="archive-locked">
+      <div class="lock-backdrop">
+        <div class="lock-gradient"></div>
+        <div class="lock-particles">
+          {% for i in (1..20) %}
+            <div class="particle"></div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="lock-content">
+          <div class="lock-icon">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
+              <rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+              <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="12" cy="16" r="1" fill="currentColor"/>
+            </svg>
+          </div>
+
+          <h1 class="lock-title">
+            {{ 'floating_archive.locked' | t | default: 'This Archive is Protected' }}
+          </h1>
+
+          <p class="lock-message">
+            {{ 'floating_archive.unlock_message' | t | default: 'Join the Signal Seekers to access exclusive hidden relics from the cosmic archive.' }}
+          </p>
+
+          <div class="unlock-form-wrapper">
+            {% form 'customer', id: 'floating-archive-unlock', class: 'unlock-form' %}
+              <input type="hidden" name="contact[tags]" value="signal-seeker,floating-archive-interest">
+
+              <div class="form-field">
+                <label for="unlock-email" class="visually-hidden">
+                  {{ 'signal_seekers.email_placeholder' | t }}
+                </label>
+                <input
+                  type="email"
+                  id="unlock-email"
+                  name="contact[email]"
+                  class="email-input"
+                  placeholder="{{ 'signal_seekers.email_placeholder' | t | default: 'your@email.com' }}"
+                  required
+                >
+              </div>
+
+              <button type="submit" class="btn btn-primary unlock-btn">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path d="M10 2v8m0 0l3-3m-3 3l-3-3" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M3 12l2 5h10l2-5" stroke-width="2"/>
+                </svg>
+                {{ 'signal_seekers.unlock' | t | default: 'Unlock Transmission' }}
+              </button>
+            {% endform %}
+
+            <p class="form-notice">
+              ✨ Get instant access + early drops + exclusive relics
+            </p>
+          </div>
+
+          <div class="already-member">
+            <p>
+              {{ 'signal_seekers.already_member' | t | default: 'Already a Signal Seeker?' }}
+              <a href="/account/login">{{ 'customer.login.title' | t | default: 'Sign In' }}</a>
+            </p>
+          </div>
+
+          <div class="learn-more">
+            <a href="/pages/signal-seekers" class="signal-link">
+              Learn about Signal Seekers →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+(function() {
+  const form = document.getElementById('floating-archive-unlock');
+  
+  if (!form) return;
+  
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const emailInput = form.querySelector('#unlock-email');
+    const btn = form.querySelector('.unlock-btn');
+    if (!emailInput || !btn) return;
+
+    const formData = new FormData(form);
+
+    btn.disabled = true;
+    btn.innerHTML = '<span>Unlocking...</span>';
+
+    fetch(form.action || window.location.pathname, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'text/html'
+      }
+    })
+    .then(function(response) {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      // Optionally set a front-end cookie (not read by Liquid, but can be used by JS later)
+      document.cookie = 'floating_archive_access=true; path=/; max-age=2592000';
+
+      btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Access Granted!';
+      btn.style.background = 'linear-gradient(135deg, var(--radioactive-green), var(--cyan-blue))';
+
+      setTimeout(function() {
+        window.location.reload();
+      }, 1500);
+    })
+    .catch(function(error) {
+      console.error('Error:', error);
+      btn.disabled = false;
+      btn.innerHTML = 'Try Again';
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Floating Archive · Gated",
+  "tag": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Floating Archive · Gated"
+    }
+  ]
+}
+{% endschema %}

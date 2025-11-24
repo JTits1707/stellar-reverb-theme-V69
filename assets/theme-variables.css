@@ -1,0 +1,330 @@
+/* ═══════════════════════════════════════════════════════════
+   STELLAR REVERB - CSS CUSTOM PROPERTIES
+   ═══════════════════════════════════════════════════════════
+   
+   Design tokens and theme variables
+   
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─────────────────────────────────────────────────────────
+     BRAND COLORS
+     ───────────────────────────────────────────────────────── */
+  --neon-magenta: #E13CFA;
+  --cyan-blue: #28A8D6;
+  --void-black: #0D0D0D;
+  --cosmic-purple: #6C24B3;
+  --radioactive-green: #00F0AC;
+  --electric-yellow: #F4FF30;
+  --chrome-silver: #B0B0B0;
+
+  /* ─────────────────────────────────────────────────────────
+     TYPOGRAPHY
+     ───────────────────────────────────────────────────────── */
+  --font-title: "Orbitron", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  --font-size-5xl: 3rem;      /* 48px */
+  
+  --font-weight-normal: 400;
+  --font-weight-medium: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+  
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+  
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.1em;
+  --letter-spacing-wider: 0.15em;
+
+  /* ─────────────────────────────────────────────────────────
+     SPACING SYSTEM
+     ───────────────────────────────────────────────────────── */
+  --spacing-xs: 0.5rem;    /* 8px */
+  --spacing-sm: 1rem;      /* 16px */
+  --spacing-md: 1.5rem;    /* 24px */
+  --spacing-lg: 2.5rem;    /* 40px */
+  --spacing-xl: 4rem;      /* 64px */
+  --spacing-2xl: 6rem;     /* 96px */
+
+  /* ─────────────────────────────────────────────────────────
+     LAYOUT
+     ───────────────────────────────────────────────────────── */
+  --container-max: 1400px;
+  --container-padding: var(--spacing-md);
+  
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 18px;
+  --border-radius-xl: 24px;
+  --border-radius-pill: 999px;
+
+  /* ─────────────────────────────────────────────────────────
+     SHADOWS & GLOWS
+     ───────────────────────────────────────────────────────── */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 16px 60px rgba(0, 0, 0, 0.7);
+  
+  --glow-magenta: 0 0 20px rgba(225, 60, 250, 0.7);
+  --glow-cyan: 0 0 20px rgba(40, 168, 214, 0.7);
+  --glow-green: 0 0 20px rgba(0, 240, 172, 0.7);
+  --glow-yellow: 0 0 20px rgba(244, 255, 48, 0.7);
+
+  /* ─────────────────────────────────────────────────────────
+     TRANSITIONS & ANIMATIONS
+     ───────────────────────────────────────────────────────── */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --easing-accelerate: cubic-bezier(0.4, 0, 1, 1);
+
+  /* ─────────────────────────────────────────────────────────
+     Z-INDEX SYSTEM
+     ───────────────────────────────────────────────────────── */
+  --z-cosmic-bg: -2;
+  --z-constellations: -1;
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-modal-backdrop: 50;
+  --z-modal: 60;
+  --z-drawer: 70;
+  --z-header: 100;
+  --z-notification: 200;
+
+  /* ─────────────────────────────────────────────────────────
+     THEME GRADIENTS
+     ───────────────────────────────────────────────────────── */
+  --gradient-cyan-magenta: linear-gradient(135deg, var(--cyan-blue), var(--neon-magenta));
+  --gradient-purple-cyan: linear-gradient(135deg, var(--cosmic-purple), var(--cyan-blue));
+  --gradient-green-cyan: linear-gradient(135deg, var(--radioactive-green), var(--cyan-blue));
+  --gradient-magenta-purple: linear-gradient(135deg, var(--neon-magenta), var(--cosmic-purple));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COSMIC BACKGROUND (Site-wide)
+   ═══════════════════════════════════════════════════════════ */
+
+.cosmic-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-cosmic-bg);
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.cosmic-gradient {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(108, 36, 179, 0.9) 0%, transparent 55%),
+    radial-gradient(circle at 80% 20%, rgba(40, 168, 214, 0.8) 0%, transparent 55%),
+    radial-gradient(circle at 40% 40%, rgba(225, 60, 250, 0.6) 0%, transparent 55%);
+  transform-origin: center;
+  transition: transform 0.5s ease-out;
+}
+
+.constellation-grid {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-constellations);
+}
+
+.constellation-dot {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--cyan-blue);
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
+  opacity: 0.5;
+}
+
+@keyframes twinkle {
+  0%, 100% { 
+    opacity: 0.3; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.9; 
+    transform: scale(1.4);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════ */
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.skip-to-content-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  z-index: 9999;
+  padding: 1rem 2rem;
+  background: var(--neon-magenta);
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--font-title);
+  font-weight: var(--font-weight-bold);
+  border-radius: 0 0 var(--border-radius-md) 0;
+  transition: top var(--transition-fast);
+}
+
+.skip-to-content-link:focus {
+  top: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GLITCH TEXT EFFECT
+   ═══════════════════════════════════════════════════════════ */
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch-text::before {
+  animation: glitch-before 3s infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  color: var(--cyan-blue);
+}
+
+.glitch-text::after {
+  animation: glitch-after 2.5s infinite;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  color: var(--neon-magenta);
+}
+
+@keyframes glitch-before {
+  0%, 90%, 100% {
+    transform: translate(0);
+  }
+  91% {
+    transform: translate(-2px, 2px);
+  }
+  93% {
+    transform: translate(2px, -2px);
+  }
+  95% {
+    transform: translate(-1px, 1px);
+  }
+}
+
+@keyframes glitch-after {
+  0%, 85%, 100% {
+    transform: translate(0);
+  }
+  87% {
+    transform: translate(3px, -3px);
+  }
+  89% {
+    transform: translate(-3px, 3px);
+  }
+  91% {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-3xl: 1.5rem;   /* 24px */
+    --font-size-4xl: 1.875rem; /* 30px */
+    --font-size-5xl: 2.25rem;  /* 36px */
+    
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-2xl: 4rem;
+    
+    --container-padding: var(--spacing-sm);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .constellation-dot {
+    animation: none;
+  }
+  
+  .cosmic-gradient {
+    transition: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRINT STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+@media print {
+  .cosmic-backdrop,
+  .constellation-grid,
+  .stellar-header,
+  .stellar-footer {
+    display: none !important;
+  }
+  
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+}

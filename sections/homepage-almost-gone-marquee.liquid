@@ -1,0 +1,420 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - ALMOST GONE MARQUEE (SECTION)
+  ═══════════════════════════════════════════════════════════
+  
+  Purpose: Infinite scrolling scarcity/urgency banner
+  Features:
+    - Smooth infinite scroll animation
+    - Neon glow effects
+    - Customizable message
+    - Optional: Pull from low-stock products dynamically
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<section 
+  class="almost-gone-marquee" 
+  data-section-id="{{ section.id }}"
+  data-section-type="almost-gone-marquee"
+>
+  
+  <div class="marquee-container">
+    <div class="marquee-track" data-speed="{{ section.settings.scroll_speed | default: 50 }}">
+      
+      {%- comment -%} First Instance {%- endcomment -%}
+      <div class="marquee-content">
+        
+        {% if section.settings.use_dynamic_products and section.settings.collection != blank %}
+          
+          {%- comment -%} Dynamic: Pull from low-stock products {%- endcomment -%}
+          {% assign low_stock_collection = collections[section.settings.collection] %}
+          {% assign product_count = 0 %}
+          
+          {% for product in low_stock_collection.products limit: 10 %}
+            {% if product.available and product.selected_or_first_available_variant.inventory_quantity <= section.settings.low_stock_threshold %}
+              {% assign product_count = product_count | plus: 1 %}
+              
+              <span class="marquee-item">
+                <span class="marquee-icon">⚠️</span>
+                <span class="marquee-text">
+                  {{ product.title | upcase }} - ONLY {{ product.selected_or_first_available_variant.inventory_quantity }} LEFT
+                </span>
+                <span class="marquee-separator">✦</span>
+              </span>
+              
+            {% endif %}
+          {% endfor %}
+          
+          {%- comment -%} Fallback if no low-stock products {%- endcomment -%}
+          {% if product_count == 0 %}
+            <span class="marquee-item">
+              <span class="marquee-icon">🔥</span>
+              <span class="marquee-text">{{ section.settings.default_message | default: 'LIMITED TRANSMISSIONS AVAILABLE' | upcase }}</span>
+              <span class="marquee-separator">✦</span>
+            </span>
+          {% endif %}
+          
+        {% else %}
+          
+          {%- comment -%} Static: Use custom message {%- endcomment -%}
+          <span class="marquee-item">
+            <span class="marquee-icon">{{ section.settings.icon | default: '⚠️' }}</span>
+            <span class="marquee-text">{{ section.settings.message | default: 'LIMITED TRANSMISSIONS AVAILABLE - ACT FAST' | upcase }}</span>
+            <span class="marquee-separator">✦</span>
+          </span>
+          
+          {%- comment -%} Repeat message multiple times for seamless loop {%- endcomment -%}
+          {% for i in (1..5) %}
+            <span class="marquee-item">
+              <span class="marquee-icon">{{ section.settings.icon | default: '⚠️' }}</span>
+              <span class="marquee-text">{{ section.settings.message | default: 'LIMITED TRANSMISSIONS AVAILABLE - ACT FAST' | upcase }}</span>
+              <span class="marquee-separator">✦</span>
+            </span>
+          {% endfor %}
+          
+        {% endif %}
+        
+      </div>
+      
+      {%- comment -%} Duplicate for seamless loop {%- endcomment -%}
+      <div class="marquee-content" aria-hidden="true">
+        
+        {% if section.settings.use_dynamic_products and section.settings.collection != blank %}
+          
+          {% assign low_stock_collection = collections[section.settings.collection] %}
+          
+          {% for product in low_stock_collection.products limit: 10 %}
+            {% if product.available and product.selected_or_first_available_variant.inventory_quantity <= section.settings.low_stock_threshold %}
+              
+              <span class="marquee-item">
+                <span class="marquee-icon">⚠️</span>
+                <span class="marquee-text">
+                  {{ product.title | upcase }} - ONLY {{ product.selected_or_first_available_variant.inventory_quantity }} LEFT
+                </span>
+                <span class="marquee-separator">✦</span>
+              </span>
+              
+            {% endif %}
+          {% endfor %}
+          
+        {% else %}
+          
+          <span class="marquee-item">
+            <span class="marquee-icon">{{ section.settings.icon | default: '⚠️' }}</span>
+            <span class="marquee-text">{{ section.settings.message | default: 'LIMITED TRANSMISSIONS AVAILABLE - ACT FAST' | upcase }}</span>
+            <span class="marquee-separator">✦</span>
+          </span>
+          
+          {% for i in (1..5) %}
+            <span class="marquee-item">
+              <span class="marquee-icon">{{ section.settings.icon | default: '⚠️' }}</span>
+              <span class="marquee-text">{{ section.settings.message | default: 'LIMITED TRANSMISSIONS AVAILABLE - ACT FAST' | upcase }}</span>
+              <span class="marquee-separator">✦</span>
+            </span>
+          {% endfor %}
+          
+        {% endif %}
+        
+      </div>
+      
+    </div>
+  </div>
+  
+</section>
+
+{% schema %}
+{
+  "name": "Almost Gone Marquee",
+  "tag": "section",
+  "class": "section-almost-gone-marquee",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_dynamic_products",
+      "label": "Use dynamic low-stock products",
+      "default": false,
+      "info": "Pull messages from products with low inventory"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection for low-stock products",
+      "info": "Only used if dynamic products is enabled"
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "label": "Low stock threshold",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5,
+      "info": "Products with this many or fewer in stock will be shown"
+    },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Static message",
+      "default": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+      "info": "Used if dynamic products is disabled"
+    },
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "Icon emoji",
+      "default": "⚠️"
+    },
+    {
+      "type": "text",
+      "id": "default_message",
+      "label": "Fallback message",
+      "default": "LIMITED TRANSMISSIONS AVAILABLE",
+      "info": "Shown if no low-stock products found"
+    },
+    {
+      "type": "header",
+      "content": "Animation Settings"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll speed",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "default": 50,
+      "unit": "s",
+      "info": "Lower = faster"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "magenta",
+          "label": "Neon Magenta"
+        },
+        {
+          "value": "cyan",
+          "label": "Cyan Blue"
+        },
+        {
+          "value": "yellow",
+          "label": "Electric Yellow"
+        },
+        {
+          "value": "green",
+          "label": "Radioactive Green"
+        }
+      ],
+      "default": "yellow"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Almost Gone Marquee"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  /* ════════════════════════════════════════
+     ALMOST GONE MARQUEE STYLES
+     ════════════════════════════════════════ */
+  
+  .almost-gone-marquee {
+    background: linear-gradient(90deg, 
+      var(--void-black) 0%, 
+      rgba(244, 255, 48, 0.1) 50%, 
+      var(--void-black) 100%);
+    border-top: 2px solid var(--electric-yellow);
+    border-bottom: 2px solid var(--electric-yellow);
+    padding: 1.25rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Color scheme variations */
+  .almost-gone-marquee[data-color-scheme="magenta"] {
+    background: linear-gradient(90deg, 
+      var(--void-black) 0%, 
+      rgba(225, 60, 250, 0.1) 50%, 
+      var(--void-black) 100%);
+    border-color: var(--neon-magenta);
+  }
+  
+  .almost-gone-marquee[data-color-scheme="cyan"] {
+    background: linear-gradient(90deg, 
+      var(--void-black) 0%, 
+      rgba(40, 168, 214, 0.1) 50%, 
+      var(--void-black) 100%);
+    border-color: var(--cyan-blue);
+  }
+  
+  .almost-gone-marquee[data-color-scheme="green"] {
+    background: linear-gradient(90deg, 
+      var(--void-black) 0%, 
+      rgba(0, 240, 172, 0.1) 50%, 
+      var(--void-black) 100%);
+    border-color: var(--radioactive-green);
+  }
+  
+  .marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .marquee-track {
+    display: flex;
+    width: fit-content;
+    animation: marquee-scroll var(--scroll-speed, 50s) linear infinite;
+    will-change: transform;
+  }
+  
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .marquee-content {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 0 2rem;
+  }
+  
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 2rem;
+  }
+  
+  .marquee-icon {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 10px var(--electric-yellow));
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  .marquee-text {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--electric-yellow);
+    text-shadow: 0 0 15px var(--electric-yellow);
+  }
+  
+  .marquee-separator {
+    color: var(--electric-yellow);
+    opacity: 0.5;
+    font-size: 1rem;
+  }
+  
+  /* Color scheme text colors */
+  .almost-gone-marquee[data-color-scheme="magenta"] .marquee-icon,
+  .almost-gone-marquee[data-color-scheme="magenta"] .marquee-text,
+  .almost-gone-marquee[data-color-scheme="magenta"] .marquee-separator {
+    color: var(--neon-magenta);
+    text-shadow: 0 0 15px var(--neon-magenta);
+    filter: drop-shadow(0 0 10px var(--neon-magenta));
+  }
+  
+  .almost-gone-marquee[data-color-scheme="cyan"] .marquee-icon,
+  .almost-gone-marquee[data-color-scheme="cyan"] .marquee-text,
+  .almost-gone-marquee[data-color-scheme="cyan"] .marquee-separator {
+    color: var(--cyan-blue);
+    text-shadow: 0 0 15px var(--cyan-blue);
+    filter: drop-shadow(0 0 10px var(--cyan-blue));
+  }
+  
+  .almost-gone-marquee[data-color-scheme="green"] .marquee-icon,
+  .almost-gone-marquee[data-color-scheme="green"] .marquee-text,
+  .almost-gone-marquee[data-color-scheme="green"] .marquee-separator {
+    color: var(--radioactive-green);
+    text-shadow: 0 0 15px var(--radioactive-green);
+    filter: drop-shadow(0 0 10px var(--radioactive-green));
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+      filter: drop-shadow(0 0 10px currentColor);
+    }
+    50% {
+      opacity: 0.7;
+      filter: drop-shadow(0 0 20px currentColor);
+    }
+  }
+  
+  /* Pause on hover */
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .almost-gone-marquee {
+      padding: 1rem 0;
+    }
+    
+    .marquee-text {
+      font-size: 0.9375rem;
+      letter-spacing: 0.1em;
+    }
+    
+    .marquee-icon {
+      font-size: 1.25rem;
+    }
+    
+    .marquee-item {
+      padding: 0 1.5rem;
+      gap: 0.75rem;
+    }
+  }
+  
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+    
+    .marquee-content {
+      animation: none;
+    }
+    
+    .marquee-icon {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Set scroll speed from section settings
+  (function() {
+    const marqueeSection = document.querySelector('.almost-gone-marquee');
+    if (!marqueeSection) return;
+    
+    const marqueeTrack = marqueeSection.querySelector('.marquee-track');
+    if (!marqueeTrack) return;
+    
+    const speed = marqueeTrack.dataset.speed || 50;
+    marqueeTrack.style.setProperty('--scroll-speed', speed + 's');
+    
+    // Set color scheme
+    const colorScheme = '{{ section.settings.color_scheme }}';
+    marqueeSection.setAttribute('data-color-scheme', colorScheme);
+  })();
+</script>

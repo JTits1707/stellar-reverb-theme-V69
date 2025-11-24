@@ -1,0 +1,476 @@
+/* ═══════════════════════════════════════════════════════════
+   STELLAR REVERB - ARCHIVE CARD STYLES
+   ═══════════════════════════════════════════════════════════
+   
+   Theme Colors:
+   - cyan-magenta
+   - gold-cyan
+   - vintage-amber
+   - cosmic-purple
+   
+   ═══════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────────────────────
+   CSS CUSTOM PROPERTIES (THEME VARIABLES)
+   ──────────────────────────────────────────────────────────── */
+
+:root {
+  /* Cyan-Magenta Theme */
+  --theme-cyan-magenta-primary: #00f0ff;
+  --theme-cyan-magenta-secondary: #ff00ff;
+  --theme-cyan-magenta-gradient: linear-gradient(135deg, #00f0ff 0%, #ff00ff 100%);
+  
+  /* Gold-Cyan Theme */
+  --theme-gold-cyan-primary: #ffd700;
+  --theme-gold-cyan-secondary: #00f0ff;
+  --theme-gold-cyan-gradient: linear-gradient(135deg, #ffd700 0%, #00f0ff 100%);
+  
+  /* Vintage-Amber Theme */
+  --theme-vintage-amber-primary: #ff8c00;
+  --theme-vintage-amber-secondary: #ffb347;
+  --theme-vintage-amber-gradient: linear-gradient(135deg, #ff8c00 0%, #ffb347 100%);
+  
+  /* Cosmic-Purple Theme */
+  --theme-cosmic-purple-primary: #9d00ff;
+  --theme-cosmic-purple-secondary: #4a00e0;
+  --theme-cosmic-purple-gradient: linear-gradient(135deg, #9d00ff 0%, #4a00e0 100%);
+  
+  /* Card Spacing */
+  --card-padding: 1.5rem;
+  --card-border-radius: 12px;
+  --card-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ────────────────────────────────────────────────────────────
+   BASE CARD STRUCTURE
+   ──────────────────────────────────────────────────────────── */
+
+.archive-card {
+  position: relative;
+  border-radius: var(--card-border-radius);
+  overflow: hidden;
+  background: #1a1a1a;
+  transition: var(--card-transition);
+  cursor: pointer;
+  aspect-ratio: 4 / 5;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.archive-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.archive-card:active {
+  transform: translateY(-4px);
+}
+
+/* ────────────────────────────────────────────────────────────
+   IMAGE CONTAINER
+   ──────────────────────────────────────────────────────────── */
+
+.archive-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.archive-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--card-transition);
+}
+
+.archive-card:hover .archive-image img {
+  transform: scale(1.05);
+}
+
+/* ────────────────────────────────────────────────────────────
+   OVERLAY (Creates dark gradient for text readability)
+   ──────────────────────────────────────────────────────────── */
+
+.archive-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.7) 60%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+  z-index: 2;
+  transition: var(--card-transition);
+}
+
+.archive-card:hover .archive-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.8) 50%,
+    rgba(0, 0, 0, 0.98) 100%
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+   CONTENT CONTAINER
+   ──────────────────────────────────────────────────────────── */
+
+.archive-content {
+  position: relative;
+  z-index: 3;
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: #ffffff;
+}
+
+/* ────────────────────────────────────────────────────────────
+   HEADER (Top badge)
+   ──────────────────────────────────────────────────────────── */
+
+.archive-header {
+  margin-bottom: auto;
+}
+
+.archive-id {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+}
+
+/* ────────────────────────────────────────────────────────────
+   CAPSULE NUMBER
+   ──────────────────────────────────────────────────────────── */
+
+.archive-number {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.archive-number .number {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-left: 0.25rem;
+}
+
+/* ────────────────────────────────────────────────────────────
+   TITLE
+   ──────────────────────────────────────────────────────────── */
+
+.archive-title {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ────────────────────────────────────────────────────────────
+   DESCRIPTION (Optional)
+   ──────────────────────────────────────────────────────────── */
+
+.archive-description {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+  display: none; /* Hidden by default, shows on hover */
+}
+
+.archive-card:hover .archive-description {
+  display: block;
+}
+
+/* ────────────────────────────────────────────────────────────
+   FOOTER & CTA BUTTON
+   ──────────────────────────────────────────────────────────── */
+
+.archive-footer {
+  margin-top: auto;
+}
+
+.archive-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  transition: var(--card-transition);
+  backdrop-filter: blur(10px);
+}
+
+.archive-cta:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateX(4px);
+}
+
+.archive-cta-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.archive-cta:hover .archive-cta-icon {
+  transform: translateX(4px);
+}
+
+/* ────────────────────────────────────────────────────────────
+   BADGES (Featured, Date, etc.)
+   ──────────────────────────────────────────────────────────── */
+
+.archive-badge {
+  position: absolute;
+  top: 1rem;
+  z-index: 4;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.5rem 1rem;
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.archive-badge--date {
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.archive-badge--featured {
+  right: 1rem;
+  background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+  color: #000000;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   THEME VARIATIONS
+   ──────────────────────────────────────────────────────────── */
+
+/* Cyan-Magenta Theme */
+.archive-card[data-theme="cyan-magenta"]:hover .archive-title {
+  background: var(--theme-cyan-magenta-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.archive-card[data-theme="cyan-magenta"]:hover .archive-cta {
+  border-image: var(--theme-cyan-magenta-gradient) 1;
+  background: rgba(0, 240, 255, 0.1);
+}
+
+/* Gold-Cyan Theme */
+.archive-card[data-theme="gold-cyan"]:hover .archive-title {
+  background: var(--theme-gold-cyan-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.archive-card[data-theme="gold-cyan"]:hover .archive-cta {
+  border-image: var(--theme-gold-cyan-gradient) 1;
+  background: rgba(255, 215, 0, 0.1);
+}
+
+/* Vintage-Amber Theme */
+.archive-card[data-theme="vintage-amber"]:hover .archive-title {
+  background: var(--theme-vintage-amber-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.archive-card[data-theme="vintage-amber"]:hover .archive-cta {
+  border-image: var(--theme-vintage-amber-gradient) 1;
+  background: rgba(255, 140, 0, 0.1);
+}
+
+/* Cosmic-Purple Theme */
+.archive-card[data-theme="cosmic-purple"]:hover .archive-title {
+  background: var(--theme-cosmic-purple-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.archive-card[data-theme="cosmic-purple"]:hover .archive-cta {
+  border-image: var(--theme-cosmic-purple-gradient) 1;
+  background: rgba(157, 0, 255, 0.1);
+}
+
+/* ────────────────────────────────────────────────────────────
+   FEATURED CARD VARIANT
+   ──────────────────────────────────────────────────────────── */
+
+.archive-card--featured {
+  grid-column: span 2;
+  aspect-ratio: 16 / 9;
+}
+
+@media (max-width: 768px) {
+  .archive-card--featured {
+    grid-column: span 1;
+    aspect-ratio: 4 / 5;
+  }
+}
+
+.archive-card--featured .archive-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.archive-card--featured .archive-description {
+  display: block;
+}
+
+/* ────────────────────────────────────────────────────────────
+   ACCESSIBILITY & FOCUS STATES
+   ──────────────────────────────────────────────────────────── */
+
+.archive-card:focus-within {
+  outline: 3px solid rgba(0, 240, 255, 0.5);
+  outline-offset: 4px;
+}
+
+.archive-cta:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* ────────────────────────────────────────────────────────────
+   LOADING STATE
+   ──────────────────────────────────────────────────────────── */
+
+.archive-card.is-loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.archive-card.is-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  z-index: 10;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN
+   ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  :root {
+    --card-padding: 1.25rem;
+    --card-border-radius: 8px;
+  }
+  
+  .archive-number {
+    font-size: 0.75rem;
+  }
+  
+  .archive-number .number {
+    font-size: 1rem;
+  }
+  
+  .archive-cta {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.8125rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .archive-card,
+  .archive-image img,
+  .archive-overlay,
+  .archive-cta {
+    transition: none;
+  }
+  
+  .archive-card:hover {
+    transform: none;
+  }
+  
+  .archive-badge--featured {
+    animation: none;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   PRINT STYLES
+   ──────────────────────────────────────────────────────────── */
+
+@media print {
+  .archive-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  .archive-overlay {
+    display: none;
+  }
+  
+  .archive-cta {
+    display: none;
+  }
+}

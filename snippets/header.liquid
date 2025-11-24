@@ -1,0 +1,421 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - SITE HEADER
+  ═══════════════════════════════════════════════════════════
+  
+  Features:
+  - Logo (text or image)
+  - Main navigation menu
+  - Signal Seeker glowing CTA
+  - Cart icon with item count
+  - Mobile hamburger menu
+  - Sticky on scroll
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<style>
+  :root {
+    --header-height: 80px;
+    --header-bg: rgba(13, 13, 13, 0.96);
+    --header-border: rgba(108, 36, 179, 0.6);
+  }
+
+  .stellar-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--header-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--header-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease;
+  }
+
+  .stellar-header.is-scrolled {
+    --header-height: 64px;
+    box-shadow: 0 8px 40px rgba(225, 60, 250, 0.3);
+  }
+
+  .header-inner {
+    max-width: var(--container-max, 1400px);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md, 1.5rem);
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md, 1.5rem);
+  }
+
+  /* Logo */
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .logo-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--neon-magenta, #E13CFA), var(--cyan-blue, #28A8D6));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(225, 60, 250, 0.7);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .stellar-header.is-scrolled .logo-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo-icon:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 30px rgba(40, 168, 214, 0.9);
+  }
+
+  .logo-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+  }
+
+  .logo-text {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: 0.15em;
+    background: linear-gradient(135deg, var(--neon-magenta, #E13CFA), var(--cyan-blue, #28A8D6));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+  }
+
+  .stellar-header.is-scrolled .logo-text {
+    font-size: 1.25rem;
+  }
+
+  /* Logo Image (if uploaded) */
+  .logo-image {
+    max-height: 48px;
+    width: auto;
+    transition: max-height 0.3s ease;
+  }
+
+  .stellar-header.is-scrolled .logo-image {
+    max-height: 40px;
+  }
+
+  /* Navigation */
+  .header-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-menu {
+    display: flex;
+    gap: var(--spacing-sm, 1rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item a {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    display: block;
+  }
+
+  .nav-item a:hover,
+  .nav-item a.is-active {
+    color: var(--cyan-blue, #28A8D6);
+    border-color: rgba(40, 168, 214, 0.6);
+    background: rgba(40, 168, 214, 0.1);
+    box-shadow: 0 0 16px rgba(40, 168, 214, 0.5);
+  }
+
+  /* Signal Seeker CTA (Glowing) */
+  .signal-cta {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(135deg, var(--radioactive-green, #00F0AC), var(--cyan-blue, #28A8D6));
+    color: var(--void-black, #0D0D0D);
+    box-shadow: 0 0 20px rgba(0, 240, 172, 0.7);
+    animation: signalPulse 2.5s ease-in-out infinite;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .signal-cta:hover {
+    filter: brightness(1.1) contrast(1.05);
+    box-shadow: 0 0 30px rgba(40, 168, 214, 0.9);
+    transform: translateY(-2px);
+  }
+
+  @keyframes signalPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 240, 172, 0.5); }
+    50% { box-shadow: 0 0 35px rgba(225, 60, 250, 0.8); }
+  }
+
+  /* Actions (Cart, Search, etc.) */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 1rem);
+    flex-shrink: 0;
+  }
+
+  .action-btn {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .action-btn:hover {
+    border-color: var(--cyan-blue, #28A8D6);
+    background: rgba(40, 168, 214, 0.15);
+    box-shadow: 0 0 16px rgba(40, 168, 214, 0.5);
+  }
+
+  .action-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: rgba(255, 255, 255, 0.9);
+  }
+
+  .cart-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 10px;
+    background: var(--neon-magenta, #E13CFA);
+    color: #fff;
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 12px rgba(225, 60, 250, 0.8);
+  }
+
+  /* Mobile Menu Toggle */
+  .mobile-toggle {
+    display: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .header-nav {
+      display: none;
+    }
+
+    .signal-cta {
+      display: none;
+    }
+
+    .mobile-toggle {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .header-inner {
+      padding: 0 var(--spacing-sm, 1rem);
+    }
+
+    .logo-text {
+      font-size: 1.1rem;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>
+
+<header class="stellar-header" id="StellarHeader">
+  <div class="header-inner">
+
+    <!-- Logo -->
+    <a href="{{ routes.root_url }}" class="header-logo">
+      {% if settings.logo != blank %}
+        <img
+          src="{{ settings.logo | image_url: width: 200 }}"
+          alt="{{ shop.name }}"
+          class="logo-image"
+          width="200"
+          height="auto"
+          loading="eager"
+        >
+      {% else %}
+        <div class="logo-icon">
+          <!-- Cassette Icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+            <rect x="6" y="9" width="3" height="2" rx="0.5"></rect>
+            <rect x="15" y="9" width="3" height="2" rx="0.5"></rect>
+            <circle cx="9" cy="14" r="1.3"></circle>
+            <circle cx="15" cy="14" r="1.3"></circle>
+          </svg>
+        </div>
+        <span class="logo-text">{{ shop.name | default: 'Stellar Reverb' }}</span>
+      {% endif %}
+    </a>
+
+    <!-- Main Navigation -->
+    <nav class="header-nav" aria-label="Main navigation">
+      <ul class="nav-menu" role="list">
+        {% for link in linklists.main-menu.links %}
+          <li class="nav-item">
+            <a 
+              href="{{ link.url }}"
+              {% if link.active %}class="is-active"{% endif %}
+            >
+              {{ link.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <!-- Actions -->
+    <div class="header-actions">
+      
+      <!-- Signal Seeker CTA -->
+      <a href="/pages/signal-seekers" class="signal-cta">
+        <span>Signal Seekers</span>
+        <span aria-hidden="true">📡</span>
+      </a>
+
+      <!-- Search (optional) -->
+      {% if settings.enable_header_search %}
+        <button 
+          type="button" 
+          class="action-btn" 
+          aria-label="Open search"
+          data-search-toggle
+        >
+          <svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      {% endif %}
+
+      <!-- Cart -->
+      <a 
+        href="{{ routes.cart_url }}" 
+        class="action-btn"
+        aria-label="Open cart ({{ cart.item_count }} items)"
+        {% if settings.enable_cart_drawer %}data-cart-drawer-toggle{% endif %}
+      >
+        <svg viewBox="0 0 24 24">
+          <path d="M9 2a1 1 0 00-.894.553L6.382 6H4a1 1 0 00-1 1v11a2 2 0 002 2h14a2 2 0 002-2V7a1 1 0 00-1-1h-2.382l-1.724-3.447A1 1 0 0015 2H9z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M10 11v-1a2 2 0 114 0v1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="cart-count">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+
+      <!-- Mobile Menu Toggle -->
+      <button 
+        type="button"
+        class="action-btn mobile-toggle"
+        aria-label="Open menu"
+        data-mobile-menu-toggle
+      >
+        <svg viewBox="0 0 24 24">
+          <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+    </div>
+
+  </div>
+</header>
+
+<script>
+(function() {
+  const header = document.getElementById('StellarHeader');
+  if (!header) return;
+
+  // Add 'is-scrolled' class on scroll
+  let lastScrollY = window.pageYOffset;
+  
+  window.addEventListener('scroll', function() {
+    const scrollY = window.pageYOffset;
+    
+    if (scrollY > 80) {
+      header.classList.add('is-scrolled');
+    } else {
+      header.classList.remove('is-scrolled');
+    }
+    
+    lastScrollY = scrollY;
+  }, { passive: true });
+
+  // Cart drawer toggle (if enabled)
+  const cartDrawerToggle = document.querySelector('[data-cart-drawer-toggle]');
+  if (cartDrawerToggle) {
+    cartDrawerToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.body.classList.add('cart-drawer-open');
+    });
+  }
+
+  // Mobile menu toggle (if enabled)
+  const mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
+  if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', function() {
+      document.body.classList.toggle('mobile-menu-open');
+    });
+  }
+
+  // Search toggle (if enabled)
+  const searchToggle = document.querySelector('[data-search-toggle]');
+  if (searchToggle) {
+    searchToggle.addEventListener('click', function() {
+      document.body.classList.toggle('search-open');
+    });
+  }
+})();
+</script>

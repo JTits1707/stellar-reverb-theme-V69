@@ -1,0 +1,175 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - ARCHIVE CARD COMPONENT (LIQUID SNIPPET)
+  ═══════════════════════════════════════════════════════════
+  
+  Purpose: Reusable card component for displaying capsule archives
+  
+  Parameters:
+    - capsule: Metaobject (full capsule data) OR individual fields below
+    - capsule_number: String (e.g., "001")
+    - theme: String (theme color scheme)
+    - image: Image object or URL
+    - title: String (capsule title)
+    - url: String (link destination)
+    - description: String (optional, for SEO/hover)
+    - featured: Boolean (optional, highlights card)
+    - release_date: String (optional, shows date badge)
+  
+  Usage Examples:
+    
+    {% render 'archive-card', capsule: metaobject %}
+    
+    {% render 'archive-card',
+      capsule_number: '001',
+      theme: 'cyan-magenta',
+      image: 'capsule-001-bg.jpg',
+      title: 'PAST THE SINGULARITY',
+      url: '/pages/capsule-001',
+      featured: true
+    %}
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% liquid
+  # Handle both metaobject and individual parameters
+  if capsule
+    assign capsule_number = capsule.capsule_number.value | default: capsule.capsule_number
+    assign theme = capsule.theme_color.value | default: capsule.theme_color | default: 'cyan-magenta'
+    assign image = capsule.featured_image.value | default: capsule.featured_image
+    assign title = capsule.title.value | default: capsule.title
+    assign url = capsule.page_url.value | default: capsule.page_url
+    assign description = capsule.description.value | default: capsule.description
+    assign release_date = capsule.release_date.value | default: capsule.release_date
+  else
+    assign capsule_number = capsule_number | default: '000'
+    assign theme = theme | default: 'cyan-magenta'
+    assign title = title | default: 'Untitled Capsule'
+    assign url = url | default: '#'
+    assign description = description | default: ''
+    assign release_date = release_date | default: ''
+  endif
+  
+  # Generate unique ID for analytics
+  assign card_id = 'capsule-' | append: capsule_number
+  
+  # Set featured class
+  assign featured_class = ''
+  if featured
+    assign featured_class = ' archive-card--featured'
+  endif
+  
+  # Handle image - support both Shopify image objects and URLs
+  assign image_url = ''
+  if image.src
+    assign image_url = image | image_url: width: 800
+  elsif image
+    assign image_url = image | asset_url
+  else
+    assign image_url = 'placeholder-capsule.jpg' | asset_url
+  endif
+%}
+
+<article 
+  class="archive-card{{ featured_class }}" 
+  data-capsule="{{ capsule_number }}" 
+  data-theme="{{ theme }}"
+  data-card-id="{{ card_id }}"
+  itemscope 
+  itemtype="https://schema.org/CreativeWork"
+>
+  
+  {%- comment -%} Image Container {%- endcomment -%}
+  <div class="archive-image">
+    <img 
+      src="{{ image_url }}" 
+      alt="Stellar Reverb Capsule {{ capsule_number }} - {{ title }}"
+      loading="lazy"
+      width="800"
+      height="600"
+      itemprop="image"
+    >
+    
+    {%- comment -%} Optional: Release Date Badge {%- endcomment -%}
+    {% if release_date != blank %}
+      <div class="archive-badge archive-badge--date">
+        {{ release_date | date: "%b %Y" }}
+      </div>
+    {% endif %}
+    
+    {%- comment -%} Optional: Featured Badge {%- endcomment -%}
+    {% if featured %}
+      <div class="archive-badge archive-badge--featured">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0l2.163 5.459L16 6.327l-4.364 3.634L13.09 16 8 12.864 2.91 16l1.454-5.039L0 6.327l5.837-.868z"/>
+        </svg>
+        FEATURED
+      </div>
+    {% endif %}
+  </div>
+  
+  {%- comment -%} Overlay for hover effects {%- endcomment -%}
+  <div class="archive-overlay"></div>
+  
+  {%- comment -%} Content Container {%- endcomment -%}
+  <div class="archive-content">
+    
+    <div class="archive-header">
+      <span class="archive-id" itemprop="genre">TRANSMISSION</span>
+    </div>
+    
+    <div class="archive-number">
+      CAPSULE <span class="number">{{ capsule_number }}</span>
+    </div>
+    
+    <h3 class="archive-title" itemprop="name">
+      {{ title | upcase }}
+    </h3>
+    
+    {%- comment -%} Optional: Description for SEO/accessibility {%- endcomment -%}
+    {% if description != blank %}
+      <p class="archive-description" itemprop="description">
+        {{ description | truncate: 120 }}
+      </p>
+    {% endif %}
+    
+    <div class="archive-footer">
+      <a 
+        href="{{ url }}" 
+        class="archive-cta"
+        data-capsule-link="{{ capsule_number }}"
+        aria-label="Explore Capsule {{ capsule_number }}: {{ title }}"
+        itemprop="url"
+      >
+        EXPLORE TRANSMISSION
+        <svg class="archive-cta-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+          <path d="M5 10h10M10 5l5 5-5 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    
+  </div>
+  
+  {%- comment -%} Hidden metadata for analytics {%- endcomment -%}
+  <meta itemprop="identifier" content="{{ card_id }}">
+  <meta itemprop="datePublished" content="{{ release_date | default: 'now' | date: '%Y-%m-%d' }}">
+  
+</article>
+
+{%- comment -%}
+  Analytics Tracking: This data-attribute allows Make.com/analytics to track card interactions
+  You can capture this with JavaScript and send to your analytics tools
+{%- endcomment -%}
+
+<script>
+  // Track card impression (can be sent to Make.com webhook)
+  if (typeof window.stellarAnalytics !== 'undefined') {
+    window.stellarAnalytics.trackCardImpression({
+      capsule: '{{ capsule_number }}',
+      title: '{{ title | escape }}',
+      theme: '{{ theme }}',
+      cardId: '{{ card_id }}'
+    });
+  }
+</script>

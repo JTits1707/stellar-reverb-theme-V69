@@ -1,0 +1,21 @@
+{
+  "name": "Capsule collection",
+  "layout": "theme",
+  "sections": {
+    "main": {
+      "type": "sr-capsule",
+      "settings": {
+        "capsule_override": "",
+        "show_status": true,
+        "show_resonance": true,
+        "show_release_date": true,
+        "show_short_description": true,
+        "show_lore": true,
+        "products_per_page": 24
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "Universal Lore",
+  "sections": {
+    "hero": {
+      "type": "universal-lore-hero",
+      "settings": {}
+    },
+    "myth": {
+      "type": "universal-lore-myth",
+      "settings": {}
+    },
+    "timeline": {
+      "type": "universal-lore-timeline",
+      "settings": {}
+    },
+    "vault": {
+      "type": "universal-lore-vault",
+      "settings": {}
+    },
+    "signals": {
+      "type": "universal-lore-signals",
+      "settings": {}
+    },
+    "signup": {
+      "type": "universal-lore-signup",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "myth",
+    "timeline",
+    "vault",
+    "signals",
+    "signup"
+  ]
+}

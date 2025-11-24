@@ -1,0 +1,614 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FOOTER SECTION
+  ═══════════════════════════════════════════════════════════
+  
+  Purpose: 3-column footer with capsule links, info, and social
+  Structure:
+    Column 1: Capsules (dynamic list from metaobjects)
+    Column 2: Info (FAQ, Contact, Shipping, etc.)
+    Column 3: Connect (Social media links)
+  
+  Features:
+    - Dynamic capsule list
+    - Optional Signal Seeker badge
+    - Social media icons
+    - Copyright info
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% liquid
+  # Fetch all published capsules from metaobjects
+  assign all_capsules = shop.metaobjects.capsule_archive.values | sort: 'capsule_number'
+  
+  # Footer settings
+  assign show_signal_badge = section.settings.show_signal_badge | default: true
+  assign copyright_text = section.settings.copyright_text | default: '© 2025 Stellar Reverb. All transmissions encrypted.'
+%}
+
+<footer 
+  class="stellar-footer" 
+  data-section-id="{{ section.id }}"
+  role="contentinfo"
+>
+  
+  <div class="container">
+    
+    {%- comment -%} Main Footer Grid {%- endcomment -%}
+    <div class="footer-grid">
+      
+      {%- comment -%} COLUMN 1: CAPSULES {%- endcomment -%}
+      <div class="footer-column footer-column--capsules">
+        <h3 class="footer-heading">CAPSULES</h3>
+        
+        <ul class="footer-list">
+          {% if all_capsules.size > 0 %}
+            {% for capsule in all_capsules limit: 10 %}
+              <li class="footer-list-item">
+                <a 
+                  href="{{ capsule.page_url.value }}" 
+                  class="footer-link"
+                  data-capsule="{{ capsule.capsule_number.value }}"
+                >
+                  <span class="capsule-number">{{ capsule.capsule_number.value }}</span>
+                  <span class="capsule-title">{{ capsule.title.value }}</span>
+                </a>
+              </li>
+            {% endfor %}
+            
+            {% if all_capsules.size > 10 %}
+              <li class="footer-list-item">
+                <a href="/pages/archives" class="footer-link footer-link--all">
+                  View All Capsules →
+                </a>
+              </li>
+            {% endif %}
+          {% else %}
+            {%- comment -%} Fallback if no metaobjects {%- endcomment -%}
+            <li class="footer-list-item">
+              <a href="/pages/capsule-001" class="footer-link">
+                <span class="capsule-number">001</span>
+                <span class="capsule-title">On The Event Horizon</span>
+              </a>
+            </li>
+            <li class="footer-list-item">
+              <a href="/pages/capsule-002" class="footer-link">
+                <span class="capsule-number">002</span>
+                <span class="capsule-title">Past The Singularity</span>
+              </a>
+            </li>
+            <li class="footer-list-item">
+              <a href="/pages/archives" class="footer-link footer-link--all">
+                View All Capsules →
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+      
+      {%- comment -%} COLUMN 2: INFO {%- endcomment -%}
+      <div class="footer-column footer-column--info">
+        <h3 class="footer-heading">INFO</h3>
+        
+        <ul class="footer-list">
+          {% for block in section.blocks %}
+            {% if block.type == 'info_link' %}
+              <li class="footer-list-item">
+                <a 
+                  href="{{ block.settings.link_url }}" 
+                  class="footer-link"
+                  {{ block.shopify_attributes }}
+                >
+                  {{ block.settings.link_text }}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      
+      {%- comment -%} COLUMN 3: CONNECT {%- endcomment -%}
+      <div class="footer-column footer-column--connect">
+        <h3 class="footer-heading">CONNECT</h3>
+        
+        <ul class="footer-list footer-social-list">
+          {% for block in section.blocks %}
+            {% if block.type == 'social_link' %}
+              <li class="footer-list-item">
+                <a 
+                  href="{{ block.settings.social_url }}" 
+                  class="footer-link footer-social-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="{{ block.settings.platform }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {%- comment -%} Social Icons {%- endcomment -%}
+                  <span class="social-icon">
+                    {% case block.settings.platform %}
+                      {% when 'instagram' %}
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                      {% when 'pinterest' %}
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.690 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.350-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/>
+                        </svg>
+                      {% when 'x' %}
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                      {% when 'tiktok' %}
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                        </svg>
+                      {% else %}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                          <path d="M12 8v8M8 12h8" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    {% endcase %}
+                  </span>
+                  <span class="social-label">{{ block.settings.platform | capitalize }}</span>
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      
+    </div>
+    
+    {%- comment -%} Footer Bottom {%- endcomment -%}
+    <div class="footer-bottom">
+      
+      {%- comment -%} Optional Signal Seeker Badge {%- endcomment -%}
+      {% if show_signal_badge %}
+        <div class="signal-seeker-badge">
+          <svg class="badge-icon" width="40" height="40" viewBox="0 0 100 100" fill="none">
+            <path d="M50 15 L80 75 L20 75 Z" stroke="url(#footer-gradient)" stroke-width="2" fill="none"/>
+            <circle cx="50" cy="50" r="15" stroke="rgba(0,240,255,0.4)" stroke-width="1.5" fill="none"/>
+            <defs>
+              <linearGradient id="footer-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#ff00ff;stop-opacity:0.8" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      {% endif %}
+      
+      {%- comment -%} Copyright {%- endcomment -%}
+      <p class="copyright">{{ copyright_text }}</p>
+      
+      {%- comment -%} Payment Icons (optional) {%- endcomment -%}
+      {% if section.settings.show_payment_icons %}
+        <div class="payment-icons">
+          {{ shop.enabled_payment_types | payment_type_svg_tag }}
+        </div>
+      {% endif %}
+      
+    </div>
+    
+  </div>
+  
+  {%- comment -%} Background Scanlines {%- endcomment -%}
+  <div class="footer-scanlines" aria-hidden="true"></div>
+  
+</footer>
+
+<style>
+  .stellar-footer {
+    position: relative;
+    padding: 6rem 0 3rem;
+    background: linear-gradient(180deg, #0a0a15 0%, #000000 100%);
+    border-top: 1px solid rgba(0, 240, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+  }
+  
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     FOOTER GRID (3 Columns)
+     ──────────────────────────────────────────────────────── */
+  
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+    margin-bottom: 4rem;
+  }
+  
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     COLUMN HEADINGS
+     ──────────────────────────────────────────────────────── */
+  
+  .footer-heading {
+    font-size: 1.125rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #00f0ff;
+    margin: 0;
+    text-transform: uppercase;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(0, 240, 255, 0.2);
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     FOOTER LISTS
+     ──────────────────────────────────────────────────────── */
+  
+  .footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .footer-list-item {
+    line-height: 1.6;
+  }
+  
+  .footer-link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .footer-link::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #00f0ff;
+    transition: width 0.3s ease;
+  }
+  
+  .footer-link:hover {
+    color: #00f0ff;
+  }
+  
+  .footer-link:hover::before {
+    width: 100%;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     CAPSULE LINKS (Column 1)
+     ──────────────────────────────────────────────────────── */
+  
+  .capsule-number {
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    color: rgba(0, 240, 255, 0.6);
+    min-width: 2.5rem;
+  }
+  
+  .capsule-title {
+    flex: 1;
+  }
+  
+  .footer-link--all {
+    margin-top: 0.5rem;
+    font-weight: 600;
+    color: #00f0ff;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     SOCIAL LINKS (Column 3)
+     ──────────────────────────────────────────────────────── */
+  
+  .footer-social-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .social-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 240, 255, 0.7);
+    transition: all 0.3s ease;
+  }
+  
+  .social-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .footer-social-link:hover .social-icon {
+    color: #00f0ff;
+    transform: scale(1.1) rotate(5deg);
+  }
+  
+  .social-label {
+    font-size: 0.9375rem;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     FOOTER BOTTOM
+     ──────────────────────────────────────────────────────── */
+  
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    flex-wrap: wrap;
+  }
+  
+  .signal-seeker-badge {
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+  }
+  
+  .stellar-footer:hover .signal-seeker-badge {
+    opacity: 0.6;
+  }
+  
+  .badge-icon {
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.3));
+  }
+  
+  .copyright {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    font-family: 'Courier New', monospace;
+  }
+  
+  .payment-icons {
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0.5;
+  }
+  
+  .payment-icons svg {
+    height: 24px;
+    width: auto;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     SCANLINES EFFECT
+     ──────────────────────────────────────────────────────── */
+  
+  .footer-scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.1) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.1) 3px
+    );
+    pointer-events: none;
+    opacity: 0.3;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     RESPONSIVE
+     ──────────────────────────────────────────────────────── */
+  
+  @media (max-width: 1024px) {
+    .footer-grid {
+      gap: 3rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .stellar-footer {
+      padding: 4rem 0 2rem;
+    }
+    
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    
+    .footer-bottom {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     ACCESSIBILITY
+     ──────────────────────────────────────────────────────── */
+  
+  .footer-link:focus {
+    outline: 2px solid #00f0ff;
+    outline-offset: 2px;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .footer-link,
+    .social-icon,
+    .signal-seeker-badge {
+      transition: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Stellar Footer",
+  "tag": "section",
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Footer Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_signal_badge",
+      "label": "Show Signal Seeker badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "© 2025 Stellar Reverb. All transmissions encrypted."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment icons",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info_link",
+      "name": "Info Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text",
+          "default": "FAQ"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    },
+    {
+      "type": "social_link",
+      "name": "Social Link",
+      "settings": [
+        {
+          "type": "select",
+          "id": "platform",
+          "label": "Platform",
+          "options": [
+            { "value": "instagram", "label": "Instagram" },
+            { "value": "pinterest", "label": "Pinterest" },
+            { "value": "x", "label": "X (Twitter)" },
+            { "value": "tiktok", "label": "TikTok" },
+            { "value": "other", "label": "Other" }
+          ],
+          "default": "instagram"
+        },
+        {
+          "type": "url",
+          "id": "social_url",
+          "label": "URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stellar Footer",
+      "blocks": [
+        {
+          "type": "info_link",
+          "settings": {
+            "link_text": "F.A.Q.",
+            "link_url": "/pages/faq"
+          }
+        },
+        {
+          "type": "info_link",
+          "settings": {
+            "link_text": "Contact",
+            "link_url": "/pages/contact"
+          }
+        },
+        {
+          "type": "info_link",
+          "settings": {
+            "link_text": "Shipping Info",
+            "link_url": "/pages/shipping"
+          }
+        },
+        {
+          "type": "info_link",
+          "settings": {
+            "link_text": "Sizing Guide",
+            "link_url": "/pages/sizing"
+          }
+        },
+        {
+          "type": "info_link",
+          "settings": {
+            "link_text": "Privacy Policy",
+            "link_url": "/pages/privacy-policy"
+          }
+        },
+        {
+          "type": "info_link",
+          "settings": {
+            "link_text": "Terms of Service",
+            "link_url": "/pages/terms-of-service"
+          }
+        },
+        {
+          "type": "social_link",
+          "settings": {
+            "platform": "instagram",
+            "social_url": "https://instagram.com/stellarreverb"
+          }
+        },
+        {
+          "type": "social_link",
+          "settings": {
+            "platform": "pinterest",
+            "social_url": "https://pinterest.com/stellarreverb"
+          }
+        },
+        {
+          "type": "social_link",
+          "settings": {
+            "platform": "x",
+            "social_url": "https://x.com/stellarreverb"
+          }
+        },
+        {
+          "type": "social_link",
+          "settings": {
+            "platform": "tiktok",
+            "social_url": "https://tiktok.com/@stellarreverb"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
