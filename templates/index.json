@@ -1,13 +1,55 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
-  "sections": {},
-  "order": []
-}
+  "sections": {
+    "hero": {
+      "type": "cosmic-hero",
+      "settings": {}
+    },
+    "featured_transmission": {
+      "type": "featured-transmission",
+      "settings": {}
+    },
+    "featured_capsules": {
+      "type": "featured-capsules",
+      "settings": {}
+    },
+    "scarcity_marquee": {
+      "type": "stellar-scarcity-marquee",
+      "settings": {}
+    },
+    "signal_seeker_cta": {
+      "type": "stellar-signal-seeker-cta",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter-cosmic",
+      "settings": {}
+    },
+    "timeline": {
+      "type": "stellar-timeline",
+      "settings": {}
+    },
+    "featured_spotlight": {
+      "type": "stellar-featured-spotlight",
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "testimonials-cosmic",
+      "settings": {}
+    },
+    "footer": {
+      "type": "stellar-footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "featured_transmission",
+    "featured_capsules",
+    "scarcity_marquee",
+    "signal_seeker_cta",
+    "newsletter",
+    "timeline",
+    "featured_spotlight",
+    "testimonials",
+    "footer"
+  ]
