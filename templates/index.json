@@ -1,7 +1,16 @@
 {
   "sections": {
+<<<<<<< HEAD
     "hero": {
       "type": "cosmic-hero",
+=======
+    "hero_cosmic": {
+      "type": "hero-cosmic",
+      "settings": {}
+    },
+    "stellar_navigation_matrix": {
+      "type": "stellar-navigation-matrix",
+>>>>>>> 8d85670 (replaced index.liquid with index.json)
       "settings": {}
     },
     "featured_transmission": {
@@ -16,6 +25,7 @@
       "type": "stellar-scarcity-marquee",
       "settings": {}
     },
+<<<<<<< HEAD
     "signal_seeker_cta": {
       "type": "stellar-signal-seeker-cta",
       "settings": {}
@@ -53,3 +63,30 @@
     "testimonials",
     "footer"
   ]
+=======
+    "stellar_timeline": {
+      "type": "stellar-timeline",
+      "settings": {}
+    },
+    "newsletter_cosmic": {
+      "type": "newsletter-cosmic",
+      "settings": {}
+    },
+    "stellar_footer_cta": {
+      "type": "stellar-signal-seeker-cta",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero_cosmic",
+    "stellar_navigation_matrix",
+    "featured_transmission",
+    "featured_capsules",
+    "scarcity_marquee",
+    "stellar_timeline",
+    "newsletter_cosmic",
+    "stellar_footer_cta"
+  ]
+}
+}
+>>>>>>> 8d85670 (replaced index.liquid with index.json)
