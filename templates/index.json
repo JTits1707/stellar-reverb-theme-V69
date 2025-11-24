@@ -1,17 +1,45 @@
 {
   "sections": {
-<<<<<<< HEAD
-    "hero": {
-      "type": "cosmic-hero",
-=======
-    "hero_cosmic": {
-      "type": "hero-cosmic",
-      "settings": {}
+    "announcement_bar_w6Aaa8": {
+      "type": "announcement-bar",
+      "name": "Announcement bar",
+      "settings": {
+        "message": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
+        "color_scheme": "accent-1",
+        "show_announcement": true
+      }
     },
-    "stellar_navigation_matrix": {
-      "type": "stellar-navigation-matrix",
->>>>>>> 8d85670 (replaced index.liquid with index.json)
-      "settings": {}
+    "hero": {
+      "type": "hero-cosmic",
+      "settings": {
+        "section_height": 90,
+        "text_alignment": "center",
+        "eyebrow_text": "New Capsule Drop",
+        "eyebrow_icon": "📡",
+        "eyebrow_color": "#0D0D0D",
+        "eyebrow_background": "linear-gradient(135deg, #00F0AC, #28A8D6)",
+        "heading": "Transmissions from the Cosmic Archive",
+        "title_size_desktop": 5,
+        "title_size_mobile": 8,
+        "title_letter_spacing": 0.1,
+        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
+        "enable_glitch": false,
+        "subheading": "Sound. Style. Signals of Identity.",
+        "subtitle_color": "#FFFFFF",
+        "primary_button_text": "Explore Capsules",
+        "primary_button_url": "/collections/all",
+        "secondary_button_text": "Join Signal Seekers",
+        "secondary_button_url": "/pages/signal-seekers",
+        "show_features": true,
+        "feature_1_text": "Free Shipping on Orders $50+",
+        "feature_2_text": "Exclusive Limited Editions",
+        "feature_3_text": "Early Access for Signal Seekers",
+        "show_floating_elements": true,
+        "gradient_color_1": "#6C24B3",
+        "gradient_color_2": "#28A8D6",
+        "show_scroll_indicator": true,
+        "scroll_text": "Scroll to Explore"
+      }
     },
     "featured_transmission": {
       "type": "featured-transmission",
@@ -25,7 +53,6 @@
       "type": "stellar-scarcity-marquee",
       "settings": {}
     },
-<<<<<<< HEAD
     "signal_seeker_cta": {
       "type": "stellar-signal-seeker-cta",
       "settings": {}
@@ -52,6 +79,7 @@
     }
   },
   "order": [
+    "announcement_bar_w6Aaa8",
     "hero",
     "featured_transmission",
     "featured_capsules",
@@ -63,30 +91,4 @@
     "testimonials",
     "footer"
   ]
-=======
-    "stellar_timeline": {
-      "type": "stellar-timeline",
-      "settings": {}
-    },
-    "newsletter_cosmic": {
-      "type": "newsletter-cosmic",
-      "settings": {}
-    },
-    "stellar_footer_cta": {
-      "type": "stellar-signal-seeker-cta",
-      "settings": {}
-    }
-  },
-  "order": [
-    "hero_cosmic",
-    "stellar_navigation_matrix",
-    "featured_transmission",
-    "featured_capsules",
-    "scarcity_marquee",
-    "stellar_timeline",
-    "newsletter_cosmic",
-    "stellar_footer_cta"
-  ]
 }
-}
->>>>>>> 8d85670 (replaced index.liquid with index.json)
