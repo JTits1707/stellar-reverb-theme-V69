@@ -55,7 +55,7 @@
       "stellar-navigation-matrix": {
         "type": "stellar-navigation-matrix",
         "settings": {
-          "show_heading": true,
+          "show_heading": false,
           "heading": "NAVIGATE THE SIGNAL",
           "subheading": "",
           "grid_columns": 4
