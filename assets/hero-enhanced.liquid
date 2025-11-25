@@ -1,0 +1,516 @@
+/* ═══════════════════════════════════════════════════════════
+   STELLAR REVERB - HERO DECODING ANIMATION (CSS ENHANCED)
+   ═══════════════════════════════════════════════════════════
+   
+   Add this to your hero.cosmic section CSS
+   
+   Features:
+   - Pure CSS glitch/decode effect
+   - Multiple text color combos
+   - Scanline overlay
+   - Cyberpunk terminal aesthetic
+   
+   ═══════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────────────────────
+   CORE DECODING TEXT EFFECT
+   ──────────────────────────────────────────────────────────── */
+
+.hero-cosmic {
+  position: relative;
+  min-height: 100vh;
+  background: #000000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main title with decoding effect */
+.cosmic-title {
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+  position: relative;
+  font-family: 'Courier New', monospace;
+  white-space: nowrap;
+}
+
+/* ────────────────────────────────────────────────────────────
+   COLOR COMBO OPTIONS (Choose your favorite!)
+   ──────────────────────────────────────────────────────────── */
+
+/* OPTION 1: Cyan-Magenta (Your Brand) - RECOMMENDED ⭐ */
+.cosmic-title.combo-cyan-magenta {
+  color: #00f0ff;
+  text-shadow: 
+    0 0 10px #00f0ff,
+    0 0 20px #00f0ff,
+    0 0 40px #ff00ff,
+    0 0 80px #ff00ff;
+  animation: glitch-cyan-magenta 3s infinite;
+}
+
+@keyframes glitch-cyan-magenta {
+  0%, 90%, 100% {
+    color: #00f0ff;
+    text-shadow: 
+      0 0 10px #00f0ff,
+      0 0 20px #00f0ff,
+      0 0 40px #ff00ff;
+  }
+  92% {
+    color: #ff00ff;
+    text-shadow: 
+      -2px 0 #00f0ff,
+      2px 0 #ff00ff,
+      0 0 20px #ff00ff;
+    transform: translate(-2px, 1px);
+  }
+  94% {
+    color: #00f0ff;
+    text-shadow: 
+      2px 0 #ff00ff,
+      -2px 0 #00f0ff,
+      0 0 20px #00f0ff;
+    transform: translate(2px, -1px);
+  }
+}
+
+/* OPTION 2: Gold-Cyan (Luxury Vibes) */
+.cosmic-title.combo-gold-cyan {
+  color: #ffd700;
+  text-shadow: 
+    0 0 10px #ffd700,
+    0 0 20px #ffd700,
+    0 0 40px #00f0ff,
+    0 0 80px #00f0ff;
+  animation: glitch-gold-cyan 3s infinite;
+}
+
+@keyframes glitch-gold-cyan {
+  0%, 90%, 100% {
+    color: #ffd700;
+    text-shadow: 
+      0 0 10px #ffd700,
+      0 0 20px #ffd700,
+      0 0 40px #00f0ff;
+  }
+  92% {
+    color: #00f0ff;
+    text-shadow: 
+      -2px 0 #ffd700,
+      2px 0 #00f0ff,
+      0 0 20px #00f0ff;
+    transform: translate(-2px, 1px);
+  }
+}
+
+/* OPTION 3: Neon Green-Purple (Matrix/Cyberpunk) */
+.cosmic-title.combo-green-purple {
+  color: #00ff41;
+  text-shadow: 
+    0 0 10px #00ff41,
+    0 0 20px #00ff41,
+    0 0 40px #9d00ff,
+    0 0 80px #9d00ff;
+  animation: glitch-green-purple 3s infinite;
+}
+
+@keyframes glitch-green-purple {
+  0%, 90%, 100% {
+    color: #00ff41;
+    text-shadow: 
+      0 0 10px #00ff41,
+      0 0 20px #00ff41,
+      0 0 40px #9d00ff;
+  }
+  92% {
+    color: #9d00ff;
+    text-shadow: 
+      -2px 0 #00ff41,
+      2px 0 #9d00ff;
+    transform: translate(-2px, 1px);
+  }
+}
+
+/* OPTION 4: Orange-Blue (Retro Sci-Fi) */
+.cosmic-title.combo-orange-blue {
+  color: #ff6b35;
+  text-shadow: 
+    0 0 10px #ff6b35,
+    0 0 20px #ff6b35,
+    0 0 40px #004e98,
+    0 0 80px #004e98;
+  animation: glitch-orange-blue 3s infinite;
+}
+
+@keyframes glitch-orange-blue {
+  0%, 90%, 100% {
+    color: #ff6b35;
+    text-shadow: 
+      0 0 10px #ff6b35,
+      0 0 20px #ff6b35,
+      0 0 40px #004e98;
+  }
+  92% {
+    color: #004e98;
+    text-shadow: 
+      -2px 0 #ff6b35,
+      2px 0 #004e98;
+  }
+}
+
+/* OPTION 5: Red-White (Aggressive/Bold) */
+.cosmic-title.combo-red-white {
+  color: #ff0000;
+  text-shadow: 
+    0 0 10px #ff0000,
+    0 0 20px #ff0000,
+    0 0 40px #ffffff,
+    0 0 80px #ffffff;
+  animation: glitch-red-white 3s infinite;
+}
+
+@keyframes glitch-red-white {
+  0%, 90%, 100% {
+    color: #ff0000;
+    text-shadow: 
+      0 0 10px #ff0000,
+      0 0 20px #ff0000,
+      0 0 40px #ffffff;
+  }
+  92% {
+    color: #ffffff;
+    text-shadow: 
+      -2px 0 #ff0000,
+      2px 0 #ffffff;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   DECODING CHARACTER EFFECT (CSS Only)
+   ──────────────────────────────────────────────────────────── */
+
+/* Add data-text attribute to your element with the same text */
+.cosmic-title::before,
+.cosmic-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Glitch layer 1 - RGB split */
+.cosmic-title::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00ff;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim-1 5s infinite linear alternate-reverse;
+}
+
+/* Glitch layer 2 - RGB split opposite */
+.cosmic-title::after {
+  left: -2px;
+  text-shadow: -2px 0 #00f0ff, 2px 2px #ff00ff;
+  animation: glitch-anim-2 1s infinite linear alternate-reverse;
+}
+
+/* Random glitch animations */
+@keyframes glitch-anim-1 {
+  0% {
+    clip: rect(97px, 9999px, 28px, 0);
+    transform: skew(0.08deg);
+  }
+  5% {
+    clip: rect(61px, 9999px, 15px, 0);
+    transform: skew(0.81deg);
+  }
+  10% {
+    clip: rect(84px, 9999px, 98px, 0);
+    transform: skew(0.32deg);
+  }
+  15% {
+    clip: rect(40px, 9999px, 4px, 0);
+    transform: skew(0.58deg);
+  }
+  20% {
+    clip: rect(29px, 9999px, 83px, 0);
+    transform: skew(0.95deg);
+  }
+  25% {
+    clip: rect(3px, 9999px, 91px, 0);
+    transform: skew(0.14deg);
+  }
+  30% {
+    clip: rect(76px, 9999px, 19px, 0);
+    transform: skew(0.73deg);
+  }
+  35% {
+    clip: rect(50px, 9999px, 66px, 0);
+    transform: skew(0.41deg);
+  }
+  40% {
+    clip: rect(11px, 9999px, 45px, 0);
+    transform: skew(0.89deg);
+  }
+  45% {
+    clip: rect(68px, 9999px, 7px, 0);
+    transform: skew(0.26deg);
+  }
+  50% {
+    clip: rect(35px, 9999px, 52px, 0);
+    transform: skew(0.64deg);
+  }
+  55% {
+    clip: rect(90px, 9999px, 23px, 0);
+    transform: skew(0.17deg);
+  }
+  60% {
+    clip: rect(8px, 9999px, 75px, 0);
+    transform: skew(0.92deg);
+  }
+  65% {
+    clip: rect(57px, 9999px, 38px, 0);
+    transform: skew(0.35deg);
+  }
+  70% {
+    clip: rect(72px, 9999px, 12px, 0);
+    transform: skew(0.78deg);
+  }
+  75% {
+    clip: rect(19px, 9999px, 61px, 0);
+    transform: skew(0.49deg);
+  }
+  80% {
+    clip: rect(46px, 9999px, 88px, 0);
+    transform: skew(0.86deg);
+  }
+  85% {
+    clip: rect(25px, 9999px, 33px, 0);
+    transform: skew(0.21deg);
+  }
+  90% {
+    clip: rect(81px, 9999px, 55px, 0);
+    transform: skew(0.67deg);
+  }
+  95% {
+    clip: rect(14px, 9999px, 70px, 0);
+    transform: skew(0.44deg);
+  }
+  100% {
+    clip: rect(63px, 9999px, 2px, 0);
+    transform: skew(0.93deg);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip: rect(65px, 9999px, 100px, 0);
+    transform: skew(0.5deg);
+  }
+  10% {
+    clip: rect(30px, 9999px, 65px, 0);
+    transform: skew(0.3deg);
+  }
+  20% {
+    clip: rect(90px, 9999px, 25px, 0);
+    transform: skew(0.8deg);
+  }
+  30% {
+    clip: rect(10px, 9999px, 80px, 0);
+    transform: skew(0.2deg);
+  }
+  40% {
+    clip: rect(55px, 9999px, 45px, 0);
+    transform: skew(0.6deg);
+  }
+  50% {
+    clip: rect(75px, 9999px, 15px, 0);
+    transform: skew(0.4deg);
+  }
+  60% {
+    clip: rect(20px, 9999px, 70px, 0);
+    transform: skew(0.7deg);
+  }
+  70% {
+    clip: rect(85px, 9999px, 35px, 0);
+    transform: skew(0.1deg);
+  }
+  80% {
+    clip: rect(40px, 9999px, 95px, 0);
+    transform: skew(0.9deg);
+  }
+  90% {
+    clip: rect(60px, 9999px, 50px, 0);
+    transform: skew(0.5deg);
+  }
+  100% {
+    clip: rect(5px, 9999px, 85px, 0);
+    transform: skew(0.3deg);
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   SCANLINE OVERLAY
+   ──────────────────────────────────────────────────────────── */
+
+.hero-cosmic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 10;
+  animation: scanlines 8s linear infinite;
+}
+
+@keyframes scanlines {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   CHROMATIC ABERRATION (RGB Split)
+   ──────────────────────────────────────────────────────────── */
+
+.cosmic-title.chromatic {
+  position: relative;
+}
+
+.cosmic-title.chromatic::before {
+  content: attr(data-text);
+  position: absolute;
+  left: -2px;
+  color: #ff00ff;
+  opacity: 0.8;
+  mix-blend-mode: screen;
+  animation: chromatic-left 0.5s infinite;
+}
+
+.cosmic-title.chromatic::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  color: #00f0ff;
+  opacity: 0.8;
+  mix-blend-mode: screen;
+  animation: chromatic-right 0.5s infinite;
+}
+
+@keyframes chromatic-left {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-3px); }
+}
+
+@keyframes chromatic-right {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   VHS NOISE OVERLAY (Optional)
+   ──────────────────────────────────────────────────────────── */
+
+.hero-cosmic::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.03) 2px,
+      rgba(255, 255, 255, 0.03) 4px
+    );
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 5;
+  animation: vhs-noise 0.2s infinite;
+}
+
+@keyframes vhs-noise {
+  0%, 100% { 
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+  50% { 
+    opacity: 0.3;
+    transform: translateY(2px);
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   BLINKING CURSOR (Terminal Effect)
+   ──────────────────────────────────────────────────────────── */
+
+.cosmic-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background: currentColor;
+  margin-left: 0.1em;
+  animation: blink 1s infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ────────────────────────────────────────────────────────────
+   RESPONSIVE ADJUSTMENTS
+   ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .cosmic-title {
+    font-size: clamp(2rem, 8vw, 4rem);
+  }
+  
+  /* Reduce glitch intensity on mobile for performance */
+  .cosmic-title::before,
+  .cosmic-title::after {
+    animation-duration: 8s;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   ACCESSIBILITY
+   ──────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .cosmic-title,
+  .cosmic-title::before,
+  .cosmic-title::after,
+  .hero-cosmic::before,
+  .hero-cosmic::after,
+  .cosmic-cursor {
+    animation: none !important;
+  }
+  
+  .cosmic-title {
+    text-shadow: 0 0 10px currentColor;
+  }
+}
