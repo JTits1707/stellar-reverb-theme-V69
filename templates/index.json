@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "announcement_bar_w6Aaa8": {
@@ -9,86 +18,21 @@
         "show_announcement": true
       }
     },
-    "hero": {
+    "hero_cosmic_cDjFLy": {
       "type": "hero-cosmic",
+      "name": "Cosmic Hero",
       "settings": {
-        "section_height": 90,
-        "text_alignment": "center",
-        "eyebrow_text": "New Capsule Drop",
-        "eyebrow_icon": "📡",
-        "eyebrow_color": "#0D0D0D",
-        "eyebrow_background": "linear-gradient(135deg, #00F0AC, #28A8D6)",
-        "heading": "Transmissions from the Cosmic Archive",
-        "title_size_desktop": 5,
-        "title_size_mobile": 8,
-        "title_letter_spacing": 0.1,
-        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "enable_glitch": false,
-        "subheading": "Sound. Style. Signals of Identity.",
-        "subtitle_color": "#FFFFFF",
-        "primary_button_text": "Explore Capsules",
-        "primary_button_url": "/collections/all",
-        "secondary_button_text": "Join Signal Seekers",
-        "secondary_button_url": "/pages/signal-seekers",
-        "show_features": true,
-        "feature_1_text": "Free Shipping on Orders $50+",
-        "feature_2_text": "Exclusive Limited Editions",
-        "feature_3_text": "Early Access for Signal Seekers",
-        "show_floating_elements": true,
-        "gradient_color_1": "#6C24B3",
-        "gradient_color_2": "#28A8D6",
-        "show_scroll_indicator": true,
-        "scroll_text": "Scroll to Explore"
+        "hero_background": "shopify://shop_images/homepage-hero-image-main-page.jpg",
+        "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
+        "hero_title": "STELLAR REVERB",
+        "hero_subtitle": "Sound. Style. Transmissions Of Cosmic Identity.",
+        "decode_text": "DECODING: ECHO SIGNAL MATCHED.",
+        "cta_text": "INITIATE SIGNAL LOCK"
       }
-    },
-    "featured_transmission": {
-      "type": "featured-transmission",
-      "settings": {}
-    },
-    "featured_capsules": {
-      "type": "featured-capsules",
-      "settings": {}
-    },
-    "scarcity_marquee": {
-      "type": "stellar-scarcity-marquee",
-      "settings": {}
-    },
-    "signal_seeker_cta": {
-      "type": "stellar-signal-seeker-cta",
-      "settings": {}
-    },
-    "newsletter": {
-      "type": "newsletter-cosmic",
-      "settings": {}
-    },
-    "timeline": {
-      "type": "stellar-timeline",
-      "settings": {}
-    },
-    "featured_spotlight": {
-      "type": "stellar-featured-spotlight",
-      "settings": {}
-    },
-    "testimonials": {
-      "type": "testimonials-cosmic",
-      "settings": {}
-    },
-    "footer": {
-      "type": "stellar-footer",
-      "settings": {}
     }
   },
   "order": [
     "announcement_bar_w6Aaa8",
-    "hero",
-    "featured_transmission",
-    "featured_capsules",
-    "scarcity_marquee",
-    "signal_seeker_cta",
-    "newsletter",
-    "timeline",
-    "featured_spotlight",
-    "testimonials",
-    "footer"
+    "hero_cosmic_cDjFLy"
   ]
 }
