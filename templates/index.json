@@ -14,7 +14,7 @@
       "name": "Announcement bar",
       "settings": {
         "message": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
-        "color_scheme": "accent-1",
+        "color_scheme": "background-1",
         "show_announcement": true
       }
     },
@@ -85,15 +85,16 @@
     },
     "stellar_timeline_FYdW8c": {
       "type": "stellar-timeline",
+      "custom_css": [],
       "name": "Stellar Timeline",
       "settings": {
         "show_heading": true,
         "heading": "COSMIC TRANSMISSION TIMELINE",
-        "subtitle": "Journey through the capsule drops across space and time",
-        "show_scroll_controls": false,
-        "enable_sound": false,
+        "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
+        "show_scroll_controls": true,
+        "enable_sound": true,
         "padding_top": 64,
-        "padding_bottom": 64
+        "padding_bottom": 72
       }
     },
     "homepage_almost_gone_marquee_BdMHpw": {
