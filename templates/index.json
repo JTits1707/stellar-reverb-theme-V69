@@ -85,6 +85,7 @@
     },
     "stellar_timeline_FYdW8c": {
       "type": "stellar-timeline",
+      "custom_css": [],
       "name": "Stellar Timeline",
       "settings": {
         "show_heading": true,
