@@ -10,7 +10,7 @@
 {
   "current": {
     "color_neon_magenta": "#E13CFA",
-    "color_cyan_blue": "#28A8D6",
+    "color_cyan_blue": "#00f0ff",
     "color_void_black": "#0D0D0D",
     "color_cosmic_purple": "#6C24B3",
     "color_radioactive_green": "#00F0AC",
@@ -42,7 +42,7 @@
     "enable_cosmic_background": true,
     "enable_scroll_effects": true,
     "enable_hover_effects": true,
-    "animation_speed": "normal",
+    "animation_speed": "slow",
     "enable_stellar_analytics": true,
     "enable_lazy_loading": true,
     "minify_css": false,
