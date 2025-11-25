@@ -3,7 +3,8 @@
 <style>
   .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('{{ section.settings.hero_background | image_url: width: 1920 }}');
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
+      url('{{ section.settings.hero_background | image_url: width: 1920 }}');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -12,17 +13,22 @@
     align-items: center;
     position: relative;
     overflow: hidden;
+    padding: 0 1.5rem;
   }
 
   .hero::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, transparent 48%, var(--color-neon-magenta) 49%, var(--color-neon-magenta) 51%, transparent 52%);
-    opacity: 0.1;
+    inset: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 48%,
+      var(--neon-magenta, #E13CFA) 49%,
+      var(--neon-magenta, #E13CFA) 51%,
+      transparent 52%
+    );
+    opacity: 0.12;
+    pointer-events: none;
     animation: glitch-overlay 3s ease-in-out infinite;
   }
 
@@ -36,51 +42,62 @@
   .hero-content {
     text-align: center;
     z-index: 5;
+    max-width: 900px;
   }
 
   .transmission-text {
     font-family: 'Orbitron', monospace;
-    color: var(--color-radioactive-green);
-    font-size: 1.2rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     margin-bottom: 1rem;
+    color: var(--hero-transmission-color, #00F0AC);
     animation: glitch-reveal 2s ease-out;
+    white-space: nowrap;
   }
 
   .hero h1 {
     font-family: 'Orbitron', monospace;
-    font-size: 4rem;
+    font-size: clamp(2.6rem, 6vw, 4rem);
     font-weight: 900;
-    background: linear-gradient(45deg, var(--color-neon-magenta), var(--color-cyan-blue));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     margin-bottom: 1rem;
-    text-shadow: 0 0 30px var(--color-neon-magenta);
+    color: var(--hero-headline-color, #FFFFFF);
+    text-shadow: 0 0 30px rgba(225, 60, 250, 0.6);
   }
 
   .hero p {
-    font-size: 1.5rem;
-    color: var(--color-cyan-blue);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--hero-subtitle-color, #C7D2FE);
+  }
+
+  .decode-text {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
     margin-bottom: 2rem;
+    color: var(--hero-decode-color, #E13CFA);
   }
 
   .initiate-button {
-    background: linear-gradient(45deg, var(--color-radioactive-green), var(--color-cyan-blue));
-    color: white;
+    background: var(--hero-cta-bg, #00F0AC);
+    color: var(--hero-cta-text, #0D0D0D);
     border: none;
-    padding: 1rem 2.5rem;
-    border-radius: 2rem;
+    padding: 1rem 2.75rem;
+    border-radius: 999px;
     font-family: 'Orbitron', monospace;
-    font-size: 1.2rem;
+    font-size: 0.95rem;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.18em;
   }
 
   .initiate-button:hover {
-    box-shadow: 0 0 40px var(--color-radioactive-green);
+    box-shadow: 0 0 40px rgba(0, 240, 172, 0.6);
     transform: translateY(-3px);
   }
 
@@ -91,15 +108,57 @@
     60% { opacity: 0.9; transform: translateX(3px); }
     100% { opacity: 1; transform: translateX(0); }
   }
+
+  @media (max-width: 768px) {
+    .hero {
+      height: 90vh;
+      padding: 0 1.25rem;
+    }
+
+    .transmission-text,
+    .decode-text {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      white-space: normal;
+    }
+
+    .hero p {
+      font-size: 1rem;
+    }
+  }
 </style>
 
-<section class="hero">
+<section
+  class="hero"
+  style="
+    --hero-headline-color: {{ section.settings.headline_color }};
+    --hero-subtitle-color: {{ section.settings.subtitle_color }};
+    --hero-transmission-color: {{ section.settings.transmission_color }};
+    --hero-decode-color: {{ section.settings.decode_color }};
+    --hero-cta-bg: {{ section.settings.cta_bg_color }};
+    --hero-cta-text: {{ section.settings.cta_text_color }};
+  "
+>
   <div class="hero-content">
-    <div class="transmission-text">{{ section.settings.transmission_text | default: 'TRANSMISSION: SYNAPSE_INIT' }}</div>
-    <h1>{{ section.settings.hero_title | default: 'STELLAR REVERB' }}</h1>
-    <p>{{ section.settings.hero_subtitle | default: 'Sound. Style. Transmissions Of Cosmic Identity.' }}</p>
-    <div class="decode-text">{{ section.settings.decode_text | default: 'DECODING: ECHO SIGNAL MATCHED.' }}</div>
-    <button class="initiate-button">{{ section.settings.cta_text | default: 'INITIATE SIGNAL LOCK' }}</button>
+    <div class="transmission-text">
+      {{ section.settings.transmission_text | default: 'TRANSMISSION: SYNAPSE_INIT' }}
+    </div>
+
+    <h1>
+      {{ section.settings.hero_title | default: 'STELLAR REVERB' }}
+    </h1>
+
+    <p>
+      {{ section.settings.hero_subtitle | default: 'Sound. Style. Transmissions Of Cosmic Identity.' }}
+    </p>
+
+    <div class="decode-text">
+      {{ section.settings.decode_text | default: 'DECODING: ECHO SIGNAL MATCHED.' }}
+    </div>
+
+    <button class="initiate-button" type="button">
+      {{ section.settings.cta_text | default: 'INITIATE SIGNAL LOCK' }}
+    </button>
   </div>
 </section>
 
@@ -141,6 +200,42 @@
       "id": "cta_text",
       "label": "CTA Button Text",
       "default": "INITIATE SIGNAL LOCK"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#C7D2FE"
+    },
+    {
+      "type": "color",
+      "id": "transmission_color",
+      "label": "Transmission Text Color",
+      "default": "#00F0AC"
+    },
+    {
+      "type": "color",
+      "id": "decode_color",
+      "label": "Decode Line Color",
+      "default": "#E13CFA"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "CTA Background",
+      "default": "#00F0AC"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "CTA Text Color",
+      "default": "#000000"
     }
   ],
   "presets": [
