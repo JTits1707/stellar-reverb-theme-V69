@@ -1,0 +1,279 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - HERO COSMIC SECTION
+  ═══════════════════════════════════════════════════════════
+  
+  Save this as: sections/hero-cosmic.liquid
+  Then add to your homepage via Theme Editor
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{{ 'hero-cosmic.css' | asset_url | stylesheet_tag }}
+
+<section class="hero-cosmic {% if section.settings.extended_version %}hero-cosmic--extended{% endif %}">
+  
+  {% if section.settings.show_terminal_header %}
+    <div class="terminal-header">
+      <span class="terminal-user">{{ section.settings.terminal_user }}</span>
+      <span class="terminal-path">{{ section.settings.terminal_path }}</span>
+      <span class="terminal-prompt">$</span>
+    </div>
+  {% endif %}
+  
+  <div class="hero-content">
+    
+    {% if section.settings.show_decode_status %}
+      <div class="decode-status">
+        <span class="decode-text">{{ section.settings.decode_text }}</span>
+        <span class="decode-dots">
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </span>
+      </div>
+    {% endif %}
+    
+    {% if section.settings.title != blank %}
+      <h1 
+        class="cosmic-title {{ section.settings.color_combo }} {% if section.settings.chromatic_effect %}chromatic{% endif %}" 
+        data-text="{{ section.settings.title }}"
+      >
+        {{ section.settings.title }}
+        {% if section.settings.show_cursor %}
+          <span class="cosmic-cursor"></span>
+        {% endif %}
+      </h1>
+    {% endif %}
+    
+    {% if section.settings.show_status_line %}
+      <div class="status-line">
+        <span class="status-item">
+          <span class="status-label">{{ section.settings.status_label_1 }}:</span>
+          <span class="status-value status-active">{{ section.settings.status_value_1 }}</span>
+        </span>
+        <span class="status-divider">|</span>
+        <span class="status-item">
+          <span class="status-label">{{ section.settings.status_label_2 }}:</span>
+          <span class="status-value">{{ section.settings.status_value_2 }}</span>
+        </span>
+        <span class="status-divider">|</span>
+        <span class="status-item">
+          <span class="status-label">{{ section.settings.status_label_3 }}:</span>
+          <span class="status-value">{{ section.settings.status_value_3 }}</span>
+        </span>
+      </div>
+    {% endif %}
+    
+    {% if section.settings.subtitle != blank %}
+      <p class="cosmic-subtitle">
+        <span class="typing-text">{{ section.settings.subtitle }}</span>
+      </p>
+    {% endif %}
+    
+    {% if section.settings.cta_text != blank and section.settings.cta_url != blank %}
+      <a href="{{ section.settings.cta_url }}" class="cosmic-cta">
+        {{ section.settings.cta_text }}
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+          <path d="M5 10h10M10 5l5 5-5 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    {% endif %}
+    
+  </div>
+  
+  {% if section.settings.show_scroll_indicator %}
+    <div class="scroll-indicator">
+      <span class="scroll-text">{{ section.settings.scroll_text }}</span>
+      <div class="scroll-arrow">▼</div>
+    </div>
+  {% endif %}
+  
+</section>
+
+{% schema %}
+{
+  "name": "Hero Cosmic",
+  "tag": "section",
+  "class": "section-hero-cosmic",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main Title"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "STELLAR REVERB"
+    },
+    {
+      "type": "select",
+      "id": "color_combo",
+      "label": "Color Combo",
+      "options": [
+        {
+          "value": "combo-cyan-magenta",
+          "label": "Cyan-Magenta (Brand)"
+        },
+        {
+          "value": "combo-gold-cyan",
+          "label": "Gold-Cyan (Luxury)"
+        },
+        {
+          "value": "combo-green-purple",
+          "label": "Green-Purple (Matrix)"
+        },
+        {
+          "value": "combo-orange-blue",
+          "label": "Orange-Blue (Retro)"
+        },
+        {
+          "value": "combo-red-white",
+          "label": "Red-White (Bold)"
+        }
+      ],
+      "default": "combo-cyan-magenta"
+    },
+    {
+      "type": "checkbox",
+      "id": "chromatic_effect",
+      "label": "Enable chromatic aberration (RGB split)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cursor",
+      "label": "Show blinking cursor",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "TRANSMITTING SIGNALS FROM THE VOID"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button Text",
+      "default": "ENTER THE ARCHIVE"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL",
+      "default": "/pages/archives"
+    },
+    {
+      "type": "header",
+      "content": "Extended Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "extended_version",
+      "label": "Enable extended version (more elements)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_terminal_header",
+      "label": "Show terminal header",
+      "default": false,
+      "info": "Requires extended version"
+    },
+    {
+      "type": "text",
+      "id": "terminal_user",
+      "label": "Terminal user",
+      "default": "root@stellar-reverb"
+    },
+    {
+      "type": "text",
+      "id": "terminal_path",
+      "label": "Terminal path",
+      "default": "~/transmissions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_decode_status",
+      "label": "Show 'DECODING' status",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "decode_text",
+      "label": "Decode status text",
+      "default": "DECODING"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_status_line",
+      "label": "Show status line",
+      "default": false,
+      "info": "Shows signal, frequency, capsules count"
+    },
+    {
+      "type": "text",
+      "id": "status_label_1",
+      "label": "Status label 1",
+      "default": "SIGNAL"
+    },
+    {
+      "type": "text",
+      "id": "status_value_1",
+      "label": "Status value 1",
+      "default": "ACTIVE"
+    },
+    {
+      "type": "text",
+      "id": "status_label_2",
+      "label": "Status label 2",
+      "default": "FREQUENCY"
+    },
+    {
+      "type": "text",
+      "id": "status_value_2",
+      "label": "Status value 2",
+      "default": "432 Hz"
+    },
+    {
+      "type": "text",
+      "id": "status_label_3",
+      "label": "Status label 3",
+      "default": "CAPSULES"
+    },
+    {
+      "type": "text",
+      "id": "status_value_3",
+      "label": "Status value 3",
+      "default": "014"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_indicator",
+      "label": "Show scroll indicator",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "scroll_text",
+      "label": "Scroll indicator text",
+      "default": "SCROLL TO EXPLORE"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Cosmic"
+    }
+  ]
+}
+{% endschema %}
