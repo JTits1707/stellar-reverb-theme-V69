@@ -1,0 +1,625 @@
+/* ════════════════════════════════════════════════════════════
+   STELLAR REVERB - FLOATING ELEMENTS STYLES (UPDATED)
+   ════════════════════════════════════════════════════════════
+   
+   Brand Colors:
+   - Cyan: #00f0ff
+   - Magenta: #ff00ff
+   - Electric Yellow: #f4ff30
+   - Void Black: #0d0d0d
+   
+   ════════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────────────────────
+   CONTAINER & BASE STYLES
+   ──────────────────────────────────────────────────────────── */
+
+.floating-elements-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+  opacity: 0.7; /* More subtle overall */
+}
+
+.floating-element {
+  position: absolute;
+  will-change: transform, opacity;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+/* ────────────────────────────────────────────────────────────
+   VHS SCAN LINES (NEW)
+   ──────────────────────────────────────────────────────────── */
+
+.vhs-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.05) 0px,
+    transparent 1px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.05) 3px
+  );
+  pointer-events: none;
+  opacity: 0.3;
+  animation: vhs-flicker 0.15s infinite;
+  z-index: 10;
+}
+
+@keyframes vhs-flicker {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.25; }
+  100% { opacity: 0.3; }
+}
+
+/* ────────────────────────────────────────────────────────────
+   NEON CASSETTES
+   ──────────────────────────────────────────────────────────── */
+
+.cassette {
+  width: 70px;
+  height: 45px;
+  opacity: 0.5; /* More subtle */
+}
+
+.cassette-body {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ff00ff 0%, #00f0ff 100%);
+  border-radius: 6px;
+  position: relative;
+  box-shadow: 
+    0 0 20px rgba(255, 0, 255, 0.6),
+    inset 0 0 10px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(0, 240, 255, 0.8);
+  animation: rgb-split 3s infinite;
+}
+
+/* RGB Split Effect on Cassettes */
+@keyframes rgb-split {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(255, 0, 255, 0.6),
+      inset 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: 
+      -2px 0 20px rgba(0, 255, 255, 0.8),
+      2px 0 20px rgba(255, 0, 255, 0.8),
+      inset 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.cassette-window {
+  position: absolute;
+  top: 10px;
+  width: 18px;
+  height: 18px;
+  background: rgba(13, 13, 13, 0.9);
+  border-radius: 3px;
+  border: 1px solid #00f0ff;
+  box-shadow: inset 0 0 5px #00f0ff;
+}
+
+.cassette-window-left {
+  left: 10px;
+}
+
+.cassette-window-right {
+  right: 10px;
+}
+
+.cassette-reel {
+  position: absolute;
+  top: 12px;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle, #f4ff30 30%, #ff00ff 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 8px #f4ff30;
+  animation: spin 4s linear infinite;
+}
+
+.cassette-reel-left {
+  left: 12px;
+}
+
+.cassette-reel-right {
+  right: 12px;
+}
+
+.cassette-label {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 900;
+  color: #0d0d0d;
+  font-family: 'Orbitron', monospace;
+  text-shadow: 0 0 3px #00f0ff;
+}
+
+/* Cassette Positions & Animations */
+.cassette-1 {
+  top: 20%;
+  left: 15%;
+  animation: float-cassette-1 12s ease-in-out infinite;
+}
+
+.cassette-2 {
+  top: 70%;
+  right: 20%;
+  animation: float-cassette-2 15s ease-in-out infinite;
+}
+
+@keyframes float-cassette-1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(15px, -20px) rotate(8deg); }
+  66% { transform: translate(-10px, -15px) rotate(-5deg); }
+}
+
+@keyframes float-cassette-2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-20px, 15px) rotate(-10deg); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   MUSICAL NOTES WITH GLITCH
+   ──────────────────────────────────────────────────────────── */
+
+.musical-note {
+  font-size: 2.5rem;
+  color: #00f0ff;
+  font-weight: 900;
+  opacity: 0.4; /* More subtle */
+  text-shadow: 0 0 15px #00f0ff;
+}
+
+/* Glitch Text Effect */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.glitch-text::before {
+  color: #ff00ff;
+  animation: glitch-1 4s infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.glitch-text::after {
+  color: #f4ff30;
+  animation: glitch-2 4s infinite;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-1 {
+  0%, 90%, 100% {
+    opacity: 0;
+    transform: translate(0);
+  }
+  91%, 95% {
+    opacity: 0.8;
+    transform: translate(-3px, 2px);
+  }
+}
+
+@keyframes glitch-2 {
+  0%, 90%, 100% {
+    opacity: 0;
+    transform: translate(0);
+  }
+  92%, 96% {
+    opacity: 0.8;
+    transform: translate(3px, -2px);
+  }
+}
+
+/* Note Positions */
+.note-1 {
+  top: 15%;
+  left: 75%;
+  animation: float-note-1 8s ease-in-out infinite;
+}
+
+.note-2 {
+  top: 45%;
+  left: 10%;
+  animation: float-note-2 10s ease-in-out infinite;
+}
+
+.note-3 {
+  top: 75%;
+  right: 15%;
+  animation: float-note-3 9s ease-in-out infinite;
+}
+
+.note-4 {
+  top: 30%;
+  left: 50%;
+  animation: float-note-4 11s ease-in-out infinite;
+}
+
+@keyframes float-note-1 {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
+  50% { transform: translateY(-25px) scale(1.15); opacity: 0.6; }
+}
+
+@keyframes float-note-2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(20px, -30px) rotate(20deg); }
+}
+
+@keyframes float-note-3 {
+  0%, 100% { transform: translateX(0); }
+  33% { transform: translateX(-20px); }
+  66% { transform: translateX(15px); }
+}
+
+@keyframes float-note-4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-15px, 20px) scale(0.85); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   WAVEFORM VISUALIZER
+   ──────────────────────────────────────────────────────────── */
+
+.waveform {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 35px;
+  opacity: 0.35; /* More subtle */
+}
+
+.wave-bar {
+  width: 4px;
+  background: linear-gradient(180deg, #00f0ff 0%, #ff00ff 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 8px currentColor;
+  animation: wave-pulse 1.2s ease-in-out infinite;
+}
+
+.wave-bar:nth-child(1) { height: 12px; animation-delay: 0s; }
+.wave-bar:nth-child(2) { height: 25px; animation-delay: 0.15s; }
+.wave-bar:nth-child(3) { height: 35px; animation-delay: 0.3s; }
+.wave-bar:nth-child(4) { height: 18px; animation-delay: 0.45s; }
+.wave-bar:nth-child(5) { height: 10px; animation-delay: 0.6s; }
+
+@keyframes wave-pulse {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+.waveform-1 {
+  top: 40%;
+  left: 40%;
+  animation: float-waveform 10s ease-in-out infinite;
+}
+
+@keyframes float-waveform {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-35px); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   COSMIC PARTICLES
+   ──────────────────────────────────────────────────────────── */
+
+.particle {
+  width: 5px;
+  height: 5px;
+  background: #f4ff30;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #f4ff30;
+  opacity: 0.35; /* More subtle */
+}
+
+.particle-1 {
+  top: 25%;
+  left: 20%;
+  animation: float-particle-1 5s ease-in-out infinite;
+}
+
+.particle-2 {
+  top: 50%;
+  right: 25%;
+  animation: float-particle-2 6s ease-in-out infinite;
+}
+
+.particle-3 {
+  top: 65%;
+  left: 80%;
+  animation: float-particle-3 7s ease-in-out infinite;
+}
+
+.particle-4 {
+  top: 15%;
+  left: 55%;
+  animation: float-particle-4 4.5s ease-in-out infinite;
+}
+
+.particle-5 {
+  top: 85%;
+  right: 55%;
+  animation: float-particle-5 8s ease-in-out infinite;
+}
+
+@keyframes float-particle-1 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.35; }
+  50% { transform: translate(30px, -40px); opacity: 0.6; }
+}
+
+@keyframes float-particle-2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-50px); }
+}
+
+@keyframes float-particle-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-40px, 20px) scale(1.5); }
+}
+
+@keyframes float-particle-4 {
+  0%, 100% { transform: rotate(0deg) translate(0, 0); }
+  50% { transform: rotate(180deg) translate(20px, -30px); }
+}
+
+@keyframes float-particle-5 {
+  0%, 100% { transform: translateX(0); }
+  33% { transform: translateX(-30px); }
+  66% { transform: translateX(40px); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   GEOMETRIC SHAPES
+   ──────────────────────────────────────────────────────────── */
+
+.geometric {
+  opacity: 0.25; /* Very subtle */
+}
+
+.triangle-1 {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 18px solid #ff00ff;
+  border-top: none;
+  top: 35%;
+  right: 10%;
+  animation: float-triangle 10s ease-in-out infinite;
+}
+
+@keyframes float-triangle {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  50% { transform: rotate(120deg) translateY(-30px); }
+}
+
+.circle-1 {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 3px solid #00f0ff;
+  top: 20%;
+  left: 35%;
+  animation: float-circle 8s ease-in-out infinite;
+}
+
+@keyframes float-circle {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.4) translate(20px, -25px); }
+}
+
+.square-1 {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #f4ff30;
+  transform: rotate(45deg);
+  top: 60%;
+  right: 65%;
+  animation: float-square 9s ease-in-out infinite;
+}
+
+@keyframes float-square {
+  0%, 100% { transform: rotate(45deg) scale(1); }
+  50% { transform: rotate(225deg) scale(1.3); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   SIGNAL BARS (NEW)
+   ──────────────────────────────────────────────────────────── */
+
+.signal-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  opacity: 0.3;
+}
+
+.signal-bar {
+  width: 5px;
+  background: #00f0ff;
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0 0 8px #00f0ff;
+  animation: signal-pulse 1.5s ease-in-out infinite;
+}
+
+.signal-bar:nth-child(1) { height: 10px; animation-delay: 0s; }
+.signal-bar:nth-child(2) { height: 20px; animation-delay: 0.2s; }
+.signal-bar:nth-child(3) { height: 30px; animation-delay: 0.4s; }
+
+@keyframes signal-pulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+.signal-1 {
+  top: 55%;
+  right: 40%;
+  animation: float-signal 11s ease-in-out infinite;
+}
+
+@keyframes float-signal {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-25px, 30px); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   RETRO GRID LINES (NEW)
+   ──────────────────────────────────────────────────────────── */
+
+.retro-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1; /* Very subtle */
+}
+
+.grid-line {
+  position: absolute;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #00f0ff 50%, 
+    transparent 100%);
+  animation: grid-scan 8s linear infinite;
+}
+
+.grid-line-h {
+  width: 100%;
+  height: 1px;
+  left: 0;
+}
+
+.grid-line-h:nth-child(1) {
+  top: 33%;
+}
+
+.grid-line-h:nth-child(2) {
+  top: 66%;
+  animation-delay: -4s;
+}
+
+.grid-line-v {
+  width: 1px;
+  height: 100%;
+  top: 0;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    #ff00ff 50%, 
+    transparent 100%);
+}
+
+.grid-line-v:nth-child(3) {
+  left: 33%;
+  animation-delay: -2s;
+}
+
+.grid-line-v:nth-child(4) {
+  left: 66%;
+  animation-delay: -6s;
+}
+
+@keyframes grid-scan {
+  0% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.1; }
+}
+
+/* ────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN
+   ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .floating-elements-container {
+    opacity: 0.5; /* Even more subtle on mobile */
+  }
+  
+  .floating-element {
+    opacity: 0.6 !important;
+  }
+  
+  .cassette {
+    width: 50px;
+    height: 32px;
+  }
+  
+  .musical-note {
+    font-size: 1.75rem;
+  }
+  
+  .waveform {
+    height: 25px;
+  }
+  
+  .particle {
+    width: 3px;
+    height: 3px;
+  }
+  
+  /* Hide some elements on mobile for performance */
+  .signal-bars,
+  .retro-grid,
+  .geometric {
+    display: none;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   ACCESSIBILITY
+   ──────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-element,
+  .wave-bar,
+  .cassette-reel,
+  .vhs-scanlines,
+  .grid-line {
+    animation: none !important;
+  }
+  
+  .floating-elements-container {
+    opacity: 0.3; /* Even more subtle */
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   PRINT STYLES
+   ──────────────────────────────────────────────────────────── */
+
+@media print {
+  .floating-elements-container {
+    display: none;
+  }
+}
