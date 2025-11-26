@@ -14,7 +14,7 @@
       "name": "Announcement bar",
       "settings": {
         "message": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
-        "color_scheme": "background-1",
+        "color_scheme": "accent-1",
         "show_announcement": true
       }
     },
@@ -30,10 +30,10 @@
         "decode_text": "DECODING: ECHO SIGNAL MATCHED.",
         "cta_text": "SHOP COLLECTION",
         "headline_color": "#00f0ff",
-        "subtitle_color": "#00f0ac",
+        "subtitle_color": "#f4ff30",
         "transmission_color": "#00f0ac",
         "decode_color": "#e13cfa",
-        "cta_bg_color": "#e13cfa",
+        "cta_bg_color": "#f4ff30",
         "cta_text_color": "#000000"
       }
     },
