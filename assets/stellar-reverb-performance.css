@@ -24,6 +24,7 @@
  */
 
 /* Performance Critical CSS Variables */
+<<<<<<< HEAD
 :root /* ==== STELLAR REVERB — COSMIC FONT SYSTEM ==== */
 --font-primary: 'Orbitron', 'Exo 2', sans-serif;
 --font-display: 'Orbitron', 'Exo 2', sans-serif;
@@ -32,6 +33,13 @@
 
 /* Force everything — no escape */
 font-family: 'Orbitron', 'Exo 2', sans-serif !important;
+=======
+:root {/* Typography */
+--font-primary: 'Orbitron', 'Exo 2', sans-serif;
+--font-display: 'Orbitron', 'Exo 2', sans-serif;
+--font-heading: 'Orbitron', 'Exo 2', sans-serif;
+--font-body:    'Exo 2', 'Orbitron', sans-serif;
+>>>>>>> 51bb2c5c2dbc51a96f4a9fef76bf1943ea252b99
     /* Color System */
     --void-black: #000000;
     --neon-magenta: #E13CFA;
