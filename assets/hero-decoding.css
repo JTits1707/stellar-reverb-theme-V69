@@ -318,7 +318,31 @@
 }
 
 /* Scroll Indicator */
-.scroll-indicator {
+/* ==== HERO FONT OVERRIDE — COSMIC LEVEL ==== */
+.shopify-section.hero .hero__title,
+.shopify-section.hero h1,
+.hero__title,
+.hero h1,
+.hero__heading,
+.rte h1,
+.hero__content h1,
+.hero__content .h1,
+section[id*="hero"] h1,
+section[id*="Hero"] h1,
+.hero__subtitle,
+.hero__description {
+  font-family: 'Orbitron', 'Exo 2', sans-serif !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+}
+
+/* Extra aggressive fallback in case your theme uses weird classes */
+[class*="hero"] h1,
+[class*="Hero"] h1,
+[class*="hero"] .h1,
+[class*="Hero"] .h1 {
+  font-family: 'Orbitron', 'Exo 2', sans-serif !important;
+}.scroll-indicator {
   position: absolute;
   bottom: 2rem;
   left: 50%;
