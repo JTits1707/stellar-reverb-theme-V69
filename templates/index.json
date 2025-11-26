@@ -70,7 +70,7 @@
       "settings": {
         "show_heading": true,
         "heading": "COSMIC TRANSMISSION TIMELINE",
-        "subtitle": "Journey through the capsule drops across space and time",
+        "subtitle": "",
         "show_scroll_controls": true,
         "enable_sound": true,
         "padding_top": 68,
