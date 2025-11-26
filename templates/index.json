@@ -37,52 +37,6 @@
         "cta_text_color": "#000000"
       }
     },
-    "featured_capsules_tfrJk6": {
-      "type": "featured-capsules",
-      "blocks": {
-        "product_6qXiJY": {
-          "type": "product",
-          "settings": {
-            "product": ""
-          }
-        },
-        "product_aGJCMp": {
-          "type": "product",
-          "settings": {
-            "product": ""
-          }
-        },
-        "product_tHXyQW": {
-          "type": "product",
-          "settings": {
-            "product": ""
-          }
-        }
-      },
-      "block_order": [
-        "product_6qXiJY",
-        "product_aGJCMp",
-        "product_tHXyQW"
-      ],
-      "name": "Featured Capsules",
-      "settings": {
-        "eyebrow_text": "Newest Drops",
-        "eyebrow_color": "#28a8d6",
-        "eyebrow_border": "#28a8d6",
-        "eyebrow_background": "rgba(40, 168, 214, 0.2)",
-        "heading": "Featured Capsules",
-        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "subheading": "Explore our latest cosmic transmissions",
-        "subtitle_color": "#ffffff",
-        "grid_columns": 3,
-        "image_ratio": "square",
-        "show_badges": true,
-        "show_quick_add": true,
-        "show_view_all": true,
-        "view_all_text": "View All Capsules",
-        "view_all_url": "shopify://collections/all"
-      }
-    },
     "stellar_timeline_FYdW8c": {
       "type": "stellar-timeline",
       "custom_css": [],
@@ -109,6 +63,19 @@
         "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
         "scroll_speed": 50,
         "color_scheme": "yellow"
+      }
+    },
+    "stellar_timeline_qyY4GX": {
+      "type": "stellar-timeline",
+      "name": "Stellar Timeline",
+      "settings": {
+        "show_heading": true,
+        "heading": "COSMIC TRANSMISSION TIMELINE",
+        "subtitle": "Journey through the capsule drops across space and time",
+        "show_scroll_controls": true,
+        "enable_sound": true,
+        "padding_top": 68,
+        "padding_bottom": 72
       }
     },
     "floating_archive_main_exp84J": {
@@ -267,9 +234,9 @@
   "order": [
     "announcement_bar_w6Aaa8",
     "hero_cosmic_cDjFLy",
-    "featured_capsules_tfrJk6",
     "stellar_timeline_FYdW8c",
     "homepage_almost_gone_marquee_BdMHpw",
+    "stellar_timeline_qyY4GX",
     "floating_archive_main_exp84J",
     "stellar_navigation_matrix_hghjpC",
     "stellar_footer_ktCA48"

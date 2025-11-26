@@ -134,7 +134,7 @@
     </script>
   </head>
 
-  <body
+  <body{% include 'floating-elements' %}
     class="
       template-{{ template.name | handle }}
       template-{{ template | replace: '.', '-' | replace: '/', '-' }}
