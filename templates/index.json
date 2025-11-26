@@ -22,16 +22,16 @@
       "type": "hero-cosmic",
       "name": "Cosmic Hero",
       "settings": {
-        "hero_background": "shopify://shop_images/homepage-hero-image-main-page_7465447c-72f7-45cc-904c-4378d9b12ab5.jpg",
+        "hero_background": "shopify://shop_images/homepage-hero-image-main-page_2e498b6f-cd97-4aab-a033-77858a8008d8.jpg",
         "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
         "hero_title": "STELLAR REVERB",
         "hero_subtitle": "Sound. Style. Transmissions Of Cosmic Identity.",
         "decode_text": "DECODING: ECHO SIGNAL MATCHED.",
         "cta_text": "INITIATE SIGNAL LOCK",
         "headline_color": "#df49f5",
-        "subtitle_color": "#00f0ac",
-        "transmission_color": "#00F0AC",
-        "decode_color": "#f4ff30",
+        "subtitle_color": "#00f0ff",
+        "transmission_color": "#00f0ac",
+        "decode_color": "#00f0ff",
         "cta_bg_color": "#00f0ac",
         "cta_text_color": "#000000"
       }
