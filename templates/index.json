@@ -14,7 +14,7 @@
       "name": "Announcement bar",
       "settings": {
         "message": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
-        "color_scheme": "background-1",
+        "color_scheme": "accent-1",
         "show_announcement": true
       }
     },
