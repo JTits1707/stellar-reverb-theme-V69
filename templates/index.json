@@ -36,26 +36,6 @@
         "cta_text_color": "#000000"
       }
     },
-    "hero_cosmic_cDjFLy": {
-      "type": "hero-cosmic",
-      "disabled": true,
-      "custom_css": [],
-      "name": "Cosmic Hero",
-      "settings": {
-        "hero_background": "shopify://shop_images/homepage-hero-image-main-page_7465447c-72f7-45cc-904c-4378d9b12ab5.jpg",
-        "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
-        "hero_title": "STELLAR REVERB",
-        "hero_subtitle": "Sound. Style. Transmissions Of Cosmic Identity.",
-        "decode_text": "DECODING: ECHO SIGNAL MATCHED.",
-        "cta_text": "SHOP COLLECTION",
-        "headline_color": "#00f0ff",
-        "subtitle_color": "#f4ff30",
-        "transmission_color": "#00f0ac",
-        "decode_color": "#e13cfa",
-        "cta_bg_color": "#f4ff30",
-        "cta_text_color": "#000000"
-      }
-    },
     "stellar_timeline_FYdW8c": {
       "type": "stellar-timeline",
       "custom_css": [],
@@ -253,7 +233,6 @@
   "order": [
     "announcement_bar_w6Aaa8",
     "hero_cosmic_Hb4LxK",
-    "hero_cosmic_cDjFLy",
     "stellar_timeline_FYdW8c",
     "homepage_almost_gone_marquee_BdMHpw",
     "stellar_timeline_qyY4GX",
