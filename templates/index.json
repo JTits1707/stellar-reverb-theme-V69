@@ -64,20 +64,6 @@
         "color_scheme": "yellow"
       }
     },
-    "stellar_timeline_LUPjBh": {
-      "type": "stellar-timeline",
-      "custom_css": [],
-      "name": "Stellar Timeline",
-      "settings": {
-        "show_heading": true,
-        "heading": "COSMIC TRANSMISSION TIMELINE",
-        "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
-        "show_scroll_controls": true,
-        "enable_sound": true,
-        "padding_top": 68,
-        "padding_bottom": 68
-      }
-    },
     "floating_archive_main_exp84J": {
       "type": "floating-archive-main",
       "name": "Floating Archive · Gated",
@@ -236,7 +222,6 @@
     "hero_cosmic_Hb4LxK",
     "stellar_timeline_FYdW8c",
     "homepage_almost_gone_marquee_BdMHpw",
-    "stellar_timeline_LUPjBh",
     "floating_archive_main_exp84J",
     "stellar_navigation_matrix_hghjpC",
     "stellar_footer_ktCA48"
