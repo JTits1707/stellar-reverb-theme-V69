@@ -4,6 +4,7 @@
  * ═══════════════════════════════════════════════════════════
  */
 
+
 (function() {
   const modal = document.getElementById('lore-modal');
   const modalTitle = document.getElementById('lore-modal-title');

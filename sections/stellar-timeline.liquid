@@ -1,13 +1,5 @@
+```liquid
 {% comment %}
-  ═══════════════════════════════════════════════════════════
-  STELLAR REVERB - STELLAR TIMELINE SECTION
-  ═══════════════════════════════════════════════════════════
-{% endcomment %}
-
-{{ 'lore-popup-modal.css' | asset_url | stylesheet_tag }}
-{{ 'lore-popup-modal.js' | asset_url | script_tag }}
-
-<section c{% comment %}
   ═══════════════════════════════════════════════════════════
   STELLAR REVERB - STELLAR TIMELINE SECTION
   ═══════════════════════════════════════════════════════════
@@ -75,63 +67,7 @@
     }
   ]
 }
-{% endschema %}lass="stellar-timeline">
-  
-  <!-- Your timeline content -->
-  <div class="timeline-container">
-    
-    <!-- Timeline items with lore buttons -->
-    {% for item in section.blocks %}
-      <div class="timeline-item">
-        <h3>{{ item.settings.title }}</h3>
-        
-        <!-- Button that opens modal -->
-        <button 
-          class="lore-trigger" 
-          data-lore-id="{{ item.id }}"
-          data-lore-title="{{ item.settings.title }}"
-          data-lore-content="{{ item.settings.lore_content }}"
-        >
-          View Lore
-        </button>
-      </div>
-    {% endfor %}
-    
-  </div>
-  
-  <!-- Include the modal snippet -->
-  {% render 'lore-popup-modal' %}
-  
-</section>
-
-{% schema %}
-{
-  "name": "Stellar Timeline",
-  "tag": "section",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Section Heading"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "timeline_item",
-      "name": "Timeline Item",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title"
-        },
-        {
-          "type": "textarea",
-          "id": "lore_content",
-          "label": "Lore Content"
-        }
-      ]
-    }
-  ]
-}
 {% endschema %}
+```
+
+---
