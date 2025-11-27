@@ -215,6 +215,28 @@
         "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
         "show_payment_icons": true
       }
+    },
+    "featured_transmission_fEYcyE": {
+      "type": "featured-transmission",
+      "name": "Featured Transmission",
+      "settings": {
+        "capsule_number": "008",
+        "capsule_title": "GLITCHWAVE ORACLE",
+        "subtitle": "The latest transmission from the cosmic void",
+        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
+        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
+        "release_date": "2024.10",
+        "theme": "Neon Magenta",
+        "product_count": "12",
+        "primary_cta_text": "EXPLORE CAPSULE",
+        "primary_cta_link": "",
+        "show_secondary_cta": true,
+        "secondary_cta_text": "READ LORE",
+        "secondary_cta_link": "",
+        "image_position": "left",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
@@ -224,6 +246,7 @@
     "homepage_almost_gone_marquee_BdMHpw",
     "floating_archive_main_exp84J",
     "stellar_navigation_matrix_hghjpC",
-    "stellar_footer_ktCA48"
+    "stellar_footer_ktCA48",
+    "featured_transmission_fEYcyE"
   ]
 }
