@@ -149,4 +149,4 @@ a.button {
 /* ───── RESPECT REDUCED MOTION ───── */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; }
-}
+}* { font-family: 'Orbitron', 'Exo 2', sans-serif !important; } /* nuclear option — remove after testing */
