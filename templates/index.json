@@ -40,11 +40,18 @@
       "type": "stellar-timeline",
       "name": "Stellar Timeline",
       "settings": {
-        "heading": "COSMIC TRANSMISSION TIMELINE"
+        "show_heading": true,
+        "heading": "COSMIC TRANSMISSION TIMELINE",
+        "subtitle": "Journey through the capsule drops across space and time",
+        "show_scroll_controls": false,
+        "enable_sound": false,
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "homepage_almost_gone_marquee_BdMHpw": {
       "type": "homepage-almost-gone-marquee",
+      "disabled": true,
       "name": "Almost Gone Marquee",
       "settings": {
         "use_dynamic_products": false,
@@ -94,6 +101,7 @@
         },
         "nav_item_QEfBG8": {
           "type": "nav_item",
+          "disabled": true,
           "settings": {
             "title": "Shop",
             "link_url": "/collections/all",
