@@ -43,6 +43,7 @@
     "enable_scroll_effects": true,
     "enable_hover_effects": true,
     "animation_speed": "fast",
+    "google_analytics_id": "G-38MFLDFQV6",
     "enable_stellar_analytics": true,
     "enable_lazy_loading": true,
     "minify_css": false,
