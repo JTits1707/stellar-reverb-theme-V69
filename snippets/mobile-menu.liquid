@@ -1,0 +1,596 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - MOBILE MENU SNIPPET
+  ═══════════════════════════════════════════════════════════
+  
+  Mobile navigation drawer
+  
+  Usage:
+  {% render 'mobile-menu' %}
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  
+  {%- comment -%} Overlay {%- endcomment -%}
+  <div class="mobile-menu-overlay" aria-hidden="true"></div>
+
+  {%- comment -%} Drawer {%- endcomment -%}
+  <div class="mobile-menu-drawer" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    
+    {%- comment -%} Header {%- endcomment -%}
+    <div class="mobile-menu-header">
+      
+      <div class="menu-logo">
+        {% if section.settings.logo %}
+          <img 
+            src="{{ section.settings.logo | image_url: width: 180 }}" 
+            alt="{{ shop.name }}"
+            width="180"
+            height="auto"
+            loading="eager"
+          >
+        {% else %}
+          <span class="menu-logo-text">{{ shop.name }}</span>
+        {% endif %}
+      </div>
+
+      <button 
+        type="button" 
+        class="menu-close" 
+        aria-label="Close menu"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M6 6l12 12M18 6L6 18" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+    </div>
+
+    {%- comment -%} Content {%- endcomment -%}
+    <div class="mobile-menu-content">
+
+      {%- comment -%} Account Links {%- endcomment -%}
+      <div class="menu-account">
+        {% if customer %}
+          <a href="/account" class="account-link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <circle cx="10" cy="7" r="4" stroke-width="2"/>
+              <path d="M3 17c0-3.5 3-5.5 7-5.5s7 2 7 5.5" stroke-width="2"/>
+            </svg>
+            <span>{{ 'customer.account.title' | t | default: customer.first_name | default: 'Account' }}</span>
+          </a>
+          <a href="/account/logout" class="account-link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <path d="M13 3h3a2 2 0 012 2v10a2 2 0 01-2 2h-3M8 15l-5-5 5-5M3 10h11" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>{{ 'customer.log_out' | t | default: 'Log out' }}</span>
+          </a>
+        {% else %}
+          <a href="/account/login" class="account-link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <circle cx="10" cy="7" r="4" stroke-width="2"/>
+              <path d="M3 17c0-3.5 3-5.5 7-5.5s7 2 7 5.5" stroke-width="2"/>
+            </svg>
+            <span>{{ 'customer.login.title' | t | default: 'Sign in' }}</span>
+          </a>
+          <a href="/account/register" class="account-link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <circle cx="10" cy="10" r="8" stroke-width="2"/>
+              <path d="M10 6v8M6 10h8" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>{{ 'customer.register.title' | t | default: 'Create account' }}</span>
+          </a>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Main Navigation {%- endcomment -%}
+      <nav class="menu-nav" aria-label="Mobile navigation">
+        <ul class="menu-list">
+          
+          {%- comment -%} Shop All {%- endcomment -%}
+          <li class="menu-item">
+            <a href="/collections/all" class="menu-link">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                <rect x="2" y="2" width="7" height="7" rx="1" stroke-width="2"/>
+                <rect x="11" y="2" width="7" height="7" rx="1" stroke-width="2"/>
+                <rect x="2" y="11" width="7" height="7" rx="1" stroke-width="2"/>
+                <rect x="11" y="11" width="7" height="7" rx="1" stroke-width="2"/>
+              </svg>
+              <span>{{ 'navigation.shop_all' | t | default: 'Shop All' }}</span>
+            </a>
+          </li>
+
+          {%- comment -%} Collections {%- endcomment -%}
+          {% for link in linklists.main-menu.links %}
+            <li class="menu-item">
+              {% if link.links != blank %}
+                {%- comment -%} Has submenu {%- endcomment -%}
+                <button 
+                  type="button" 
+                  class="menu-link menu-toggle" 
+                  aria-expanded="false"
+                  data-target="submenu-{{ forloop.index }}"
+                >
+                  <span>{{ link.title }}</span>
+                  <svg class="toggle-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor">
+                    <path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+
+                <ul class="menu-submenu" id="submenu-{{ forloop.index }}" hidden>
+                  {% for child_link in link.links %}
+                    <li class="submenu-item">
+                      <a href="{{ child_link.url }}" class="submenu-link">
+                        {{ child_link.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                {%- comment -%} Simple link {%- endcomment -%}
+                <a href="{{ link.url }}" class="menu-link">
+                  <span>{{ link.title }}</span>
+                </a>
+              {% endif %}
+            </li>
+          {% endfor %}
+
+          {%- comment -%} Signal Seekers {%- endcomment -%}
+          <li class="menu-item menu-item-featured">
+            <a href="/pages/signal-seekers" class="menu-link">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 2l2.5 5 5.5.7-4 3.9 1 5.4-5-2.6-5 2.6 1-5.4-4-3.9 5.5-.7z"/>
+              </svg>
+              <span>{{ 'navigation.signal_seekers' | t | default: 'Signal Seekers' }}</span>
+              <span class="menu-badge">{{ 'navigation.join' | t | default: 'Join' }}</span>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+
+      {%- comment -%} Utility Links {%- endcomment -%}
+      <div class="menu-utility">
+        <ul class="utility-list">
+          <li>
+            <a href="/pages/about" class="utility-link">
+              {{ 'navigation.about' | t | default: 'About' }}
+            </a>
+          </li>
+          <li>
+            <a href="/pages/contact" class="utility-link">
+              {{ 'navigation.contact' | t | default: 'Contact' }}
+            </a>
+          </li>
+          <li>
+            <a href="/pages/faq" class="utility-link">
+              {{ 'navigation.faq' | t | default: 'FAQ' }}
+            </a>
+          </li>
+          <li>
+            <a href="/pages/shipping" class="utility-link">
+              {{ 'navigation.shipping' | t | default: 'Shipping' }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      {%- comment -%} Social Links {%- endcomment -%}
+      <div class="menu-social">
+        <p class="social-title">{{ 'social.follow' | t | default: 'Follow the Signal' }}</p>
+        <div class="social-links">
+          {% if settings.social_instagram_link != blank %}
+            <a href="{{ settings.social_instagram_link }}" class="social-link" aria-label="Instagram">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="2"/>
+                <circle cx="17.5" cy="6.5" r="1.5" fill="white"/>
+              </svg>
+            </a>
+          {% endif %}
+
+          {% if settings.social_twitter_link != blank %}
+            <a href="{{ settings.social_twitter_link }}" class="social-link" aria-label="Twitter">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+              </svg>
+            </a>
+          {% endif %}
+
+          {% if settings.social_facebook_link != blank %}
+            <a href="{{ settings.social_facebook_link }}" class="social-link" aria-label="Facebook">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+              </svg>
+            </a>
+          {% endif %}
+
+          {% if settings.social_tiktok_link != blank %}
+            <a href="{{ settings.social_tiktok_link }}" class="social-link" aria-label="TikTok">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+              </svg>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    visibility: hidden;
+    transition: visibility 0.3s ease;
+  }
+
+  .mobile-menu[aria-hidden="false"] {
+    visibility: visible;
+  }
+
+  /* Overlay */
+  .mobile-menu-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .mobile-menu[aria-hidden="false"] .mobile-menu-overlay {
+    opacity: 1;
+  }
+
+  /* Drawer */
+  .mobile-menu-drawer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(85vw, 400px);
+    background: var(--void-black, #0D0D0D);
+    border-right: 2px solid rgba(40, 168, 214, 0.4);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.8);
+  }
+
+  .mobile-menu[aria-hidden="false"] .mobile-menu-drawer {
+    transform: translateX(0);
+  }
+
+  /* Header */
+  .mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md, 1.5rem);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .menu-logo {
+    max-width: 140px;
+  }
+
+  .menu-logo img {
+    width: 100%;
+    height: auto;
+  }
+
+  .menu-logo-text {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 1.25rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--neon-magenta, #E13CFA), var(--cyan-blue, #28A8D6));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .menu-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-md, 12px);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .menu-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--cyan-blue, #28A8D6);
+  }
+
+  /* Content */
+  .mobile-menu-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-md, 1.5rem);
+  }
+
+  /* Account Links */
+  .menu-account {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: var(--spacing-md, 1.5rem);
+    padding-bottom: var(--spacing-md, 1.5rem);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .account-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius-md, 12px);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .account-link:hover {
+    background: rgba(40, 168, 214, 0.15);
+    color: var(--cyan-blue, #28A8D6);
+  }
+
+  .account-link svg {
+    color: var(--cyan-blue, #28A8D6);
+    flex-shrink: 0;
+  }
+
+  /* Navigation */
+  .menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--spacing-md, 1.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .menu-item {
+    position: relative;
+  }
+
+  .menu-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: var(--font-body, "Montserrat", sans-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .menu-link:hover {
+    color: var(--cyan-blue, #28A8D6);
+  }
+
+  .menu-link svg:first-child {
+    color: var(--cyan-blue, #28A8D6);
+    flex-shrink: 0;
+  }
+
+  .toggle-icon {
+    margin-left: auto;
+    transition: transform 0.2s ease;
+  }
+
+  .menu-toggle[aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Featured Item */
+  .menu-item-featured .menu-link {
+    background: linear-gradient(135deg, rgba(108, 36, 179, 0.2), rgba(40, 168, 214, 0.2));
+    border: 1px solid rgba(0, 240, 172, 0.4);
+    border-radius: var(--border-radius-md, 12px);
+  }
+
+  .menu-item-featured .menu-link svg {
+    color: var(--radioactive-green, #00F0AC);
+  }
+
+  .menu-badge {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--border-radius-pill, 999px);
+    background: var(--radioactive-green, #00F0AC);
+    color: var(--void-black, #0D0D0D);
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-left: auto;
+  }
+
+  /* Submenu */
+  .menu-submenu {
+    list-style: none;
+    padding: 0.5rem 0 0 2.75rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .submenu-link {
+    display: block;
+    padding: 0.6rem 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .submenu-link:hover {
+    color: var(--cyan-blue, #28A8D6);
+  }
+
+  /* Utility Links */
+  .menu-utility {
+    padding: var(--spacing-md, 1.5rem) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: var(--spacing-md, 1.5rem);
+  }
+
+  .utility-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+  }
+
+  .utility-link {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .utility-link:hover {
+    color: var(--cyan-blue, #28A8D6);
+  }
+
+  /* Social Links */
+  .menu-social {
+    text-align: center;
+  }
+
+  .social-title {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: var(--spacing-sm, 1rem);
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--cyan-blue, #28A8D6);
+    transition: all 0.2s ease;
+  }
+
+  .social-link:hover {
+    background: var(--cyan-blue, #28A8D6);
+    color: var(--void-black, #0D0D0D);
+    transform: scale(1.1);
+  }
+
+  /* Scrollbar */
+  .mobile-menu-content::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .mobile-menu-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .mobile-menu-content::-webkit-scrollbar-thumb {
+    background: var(--cyan-blue, #28A8D6);
+    border-radius: 3px;
+  }
+
+  /* Desktop hide */
+  @media (min-width: 1025px) {
+    .mobile-menu {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+(function() {
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (!mobileMenu) return;
+
+  const overlay = mobileMenu.querySelector('.mobile-menu-overlay');
+  const closeBtn = mobileMenu.querySelector('.menu-close');
+  const toggles = mobileMenu.querySelectorAll('.menu-toggle');
+
+  // Open menu (called from header hamburger)
+  window.openMobileMenu = function() {
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  // Close menu
+  function closeMobileMenu() {
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Close on overlay click
+  overlay.addEventListener('click', closeMobileMenu);
+
+  // Close on close button
+  closeBtn.addEventListener('click', closeMobileMenu);
+
+  // Close on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.getAttribute('aria-hidden') === 'false') {
+      closeMobileMenu();
+    }
+  });
+
+  // Submenu toggles
+  toggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      const targetId = this.dataset.target;
+      const submenu = document.getElementById(targetId);
+
+      this.setAttribute('aria-expanded', !isExpanded);
+      submenu.hidden = isExpanded;
+    });
+  });
+})();
+</script>
