@@ -42,7 +42,7 @@
     "enable_cosmic_background": true,
     "enable_scroll_effects": true,
     "enable_hover_effects": true,
-    "animation_speed": "normal",
+    "animation_speed": "fast",
     "enable_stellar_analytics": true,
     "enable_lazy_loading": true,
     "minify_css": false,
@@ -71,7 +71,7 @@
       "header": {
         "type": "header",
         "custom_css": [
-          "/* Cosmic Product Grid overrides */.cosmic-product-grid h2 {font-family: 'Orbitron', sans-serif; font-size: 32px; color: var(--neon-magenta); text-shadow: 0 0 15px var(--neon-magenta), 0 0 30px var(--cyan-blue);}",
+          "/* Cosmic Product Grid overrides */.cosmic-product-grid h2 {font-family: \"Orbitron\", sans-serif; font-size: 32px; color: var(--neon-magenta); text-shadow: 0 0 15px var(--neon-magenta), 0 0 30px var(--cyan-blue);}",
           ".cosmic-product-grid .price {color: var(--radioactive-green); font-weight: bold;}",
           ".cosmic-product-grid .card:hover {transform: scale(1.05); box-shadow: 0 0 30px var(--cyan-blue);}"
         ],
