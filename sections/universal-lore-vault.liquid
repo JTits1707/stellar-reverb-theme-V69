@@ -1,183 +1,90 @@
-{%- comment -%}
-STELLAR REVERB - UNIVERSAL LORE VAULT SECTION
-Glyph vault with collection or manual settings:
-- Preserved JS hooks: .glyph-item, data-glyph, data-product-id
-- Collection-based or manual glyph configuration
-- Glitch particle containers for animations
-{%- endcomment -%}
+{% comment %}
+Lore Vault – glyph grid
+Relies on:
+- .glyph-item for JS animation
+- .glitch-particles container for particle system
+Metafields:
+- product.metafields.lore.glyph_type
+- product.metafields.lore.description
+{% endcomment %}
 
-{%- liquid
-  assign section_title = section.settings.section_title
-  assign section_description = section.settings.section_description
-  assign glyph_collection = collections[section.settings.glyph_collection]
-  assign use_collection = section.settings.use_collection
-  assign max_glyphs = section.settings.max_glyphs | default: 6
--%}
+{% assign glyph_collection = collections[section.settings.glyph_collection] %}
 
-<section class="vault-section section-{{ section.id }}" 
-         data-section-id="{{ section.id }}" 
-         data-section-type="lore-vault">
-    
-    <div class="container">
-        <h2 class="section-title orbitron">
-            {{ section_title | default: 'THE GLYPH VAULT' }}
-        </h2>
-        
-        {% if section_description != blank %}
-        <p class="vault-description">
-            {{ section_description }}
-        </p>
-        {% endif %}
-        
-        <div class="glyph-grid" id="glyphGrid">
-            {% if use_collection and glyph_collection.products_count > 0 %}
-                <!-- Collection-based glyphs -->
-                {% for product in glyph_collection.products limit: max_glyphs %}
-                    {%- liquid
-                      assign glyph_type = product.metafields.custom.glyph_type | default: 'echo-prism'
-                      assign glyph_description = product.metafields.custom.glyph_description | default: product.description | strip_html | truncate: 80
-                      assign product_url = product.url
-                      assign product_id = product.handle
-                    -%}
-                    
-                    <!-- Required classes and data attributes for universal-lore.js -->
-                    <div class="glyph-item" 
-                         data-glyph="{{ glyph_type }}" 
-                         data-product-id="{{ product_id }}"
-                         data-product-url="{{ product_url }}"
-                         tabindex="0" 
-                         role="button"
-                         aria-label="Glyph: {{ product.title }}">
-                        
-                        <div class="glyph-visual" aria-hidden="true">
-                            {% if product.featured_image %}
-                                <img src="{{ product.featured_image | image_url: width: 300 }}" 
-                                     alt="{{ product.title }}"
-                                     loading="lazy"
-                                     class="glyph-image">
-                            {% else %}
-                                <div class="glyph-shape {{ glyph_type }}">
-                                    <div class="glyph-symbol">{{ glyph_type | slice: 0, 1 | upcase }}</div>
-                                </div>
-                            {% endif %}
-                        </div>
-                        
-                        <div class="glyph-info">
-                            <h3 class="glyph-title orbitron">{{ product.title | upcase }}</h3>
-                            <p class="glyph-description">{{ glyph_description }}</p>
-                            
-                            {% if product.available and product.price > 0 %}
-                                <div class="glyph-price">
-                                    <span class="price">{{ product.price | money }}</span>
-                                    {% if product.compare_at_price > product.price %}
-                                        <span class="compare-price">{{ product.compare_at_price | money }}</span>
-                                    {% endif %}
-                                </div>
-                            {% endif %}
-                        </div>
-                        
-                        <!-- Required for glitch particle animations in universal-lore.js -->
-                        <div class="glitch-particles" aria-hidden="true"></div>
-                    </div>
-                {% endfor %}
-                
+<section
+  class="vault-section section-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="lore-vault"
+>
+  <div class="container">
+    <h2 class="section-title orbitron mb-2">
+      {{ section.settings.section_title | default: 'THE GLYPH VAULT' }}
+    </h2>
+
+    <p class="vault-description mb-4 text-sm text-muted">
+      {{ section.settings.section_description | default: 'Each glyph is a key to a different dimension of the Stellar Reverb universe. Hover to reveal its meaning; click to access its associated capsule.' }}
+    </p>
+
+    <div class="glyph-grid" id="glyphGrid">
+      {% for product in glyph_collection.products limit: 6 %}
+        {% assign glyph_type = product.metafields.lore.glyph_type | default: 'echo-prism' %}
+        {% assign glyph_description = product.metafields.lore.description | default: product.description | strip_html | truncate: 60 %}
+
+        <div
+          class="glyph-item"
+          data-glyph="{{ glyph_type }}"
+          data-product-id="{{ product.variants.first.id }}"
+          tabindex="0"
+          role="button"
+          aria-label="Glyph: {{ product.title }}"
+        >
+          <div class="glyph-visual" aria-hidden="true">
+            {% if product.featured_image %}
+              <img
+                src="{{ product.featured_image | img_url: '300x300' }}"
+                alt="{{ product.title }}"
+                loading="lazy"
+                class="glyph-image"
+              >
             {% else %}
-                <!-- Manual glyphs from section blocks -->
-                {% for block in section.blocks %}
-                    {%- liquid
-                      assign glyph_type = block.settings.glyph_type
-                      assign glyph_title = block.settings.glyph_title
-                      assign glyph_description = block.settings.glyph_description
-                      assign glyph_image = block.settings.glyph_image
-                      assign link_url = block.settings.link_url
-                      assign product_handle = block.settings.product_handle
-                    -%}
-                    
-                    <!-- Required classes and data attributes for universal-lore.js -->
-                    <div class="glyph-item" 
-                         data-glyph="{{ glyph_type }}" 
-                         {% if product_handle != blank %}data-product-id="{{ product_handle }}"{% endif %}
-                         {% if link_url != blank %}data-product-url="{{ link_url }}"{% endif %}
-                         tabindex="0" 
-                         role="button"
-                         aria-label="Glyph: {{ glyph_title }}"
-                         {{ block.shopify_attributes }}>
-                        
-                        <div class="glyph-visual" aria-hidden="true">
-                            {% if glyph_image %}
-                                <img src="{{ glyph_image | image_url: width: 300 }}" 
-                                     alt="{{ glyph_title }}"
-                                     loading="lazy"
-                                     class="glyph-image">
-                            {% else %}
-                                <div class="glyph-shape {{ glyph_type }}">
-                                    <div class="glyph-symbol">
-                                        {% case glyph_type %}
-                                            {% when 'echo-prism' %}
-                                                ◊
-                                            {% when 'void-harmonic' %}
-                                                ∞
-                                            {% when 'quantum-thread' %}
-                                                ⟡
-                                            {% when 'astral-cassette' %}
-                                                ◈
-                                            {% when 'cosmic-antenna' %}
-                                                ⟢
-                                            {% when 'signal-nexus' %}
-                                                ◎
-                                            {% else %}
-                                                ●
-                                        {% endcase %}
-                                    </div>
-                                </div>
-                            {% endif %}
-                        </div>
-                        
-                        <div class="glyph-info">
-                            <h3 class="glyph-title orbitron">{{ glyph_title | upcase }}</h3>
-                            {% if glyph_description != blank %}
-                                <p class="glyph-description">{{ glyph_description }}</p>
-                            {% endif %}
-                        </div>
-                        
-                        <!-- Required for glitch particle animations in universal-lore.js -->
-                        <div class="glitch-particles" aria-hidden="true"></div>
-                    </div>
-                {% endfor %}
+              <div class="glyph-shape {{ glyph_type }}"></div>
             {% endif %}
-        </div>
+          </div>
 
-        <!-- Vault ambient effects -->
-        <div class="vault-effects" aria-hidden="true">
-            <!-- Energy grid -->
-            <div class="energy-grid">
-                {% for i in (1..25) %}
-                    <div class="grid-point" 
-                         style="--grid-delay: {{ forloop.index | times: 0.1 }}s;">
-                    </div>
-                {% endfor %}
-            </div>
-            
-            <!-- Floating energy orbs -->
-            <div class="energy-orbs">
-                {% for i in (1..5) %}
-                    <div class="energy-orb" 
-                         style="--orb-delay: {{ forloop.index | times: 2 }}s; --orb-duration: {{ forloop.index | plus: 10 }}s;">
-                    </div>
-                {% endfor %}
-            </div>
+          <div class="glyph-info">
+            <h3 class="orbitron text-sm mb-1">
+              {{ product.title | upcase }}
+            </h3>
+            <p class="text-sm mb-2">
+              {{ glyph_description }}
+            </p>
+
+            {% if product.available %}
+              <div class="glyph-price text-sm flex items-baseline gap-2">
+                <span class="price">
+                  {{ product.price | money }}
+                </span>
+                {% if product.compare_at_price > product.price %}
+                  <span class="compare-price text-xs">
+                    {{ product.compare_at_price | money }}
+                  </span>
+                {% endif %}
+              </div>
+            {% else %}
+              <p class="text-xs text-muted">Archived glyph · Sold out</p>
+            {% endif %}
+          </div>
+
+          <div class="glitch-particles" aria-hidden="true"></div>
         </div>
+      {% endfor %}
     </div>
+  </div>
 </section>
 
 {% schema %}
 {
-  "name": "Universal Lore Vault",
+  "name": "Lore Vault",
   "settings": [
-    {
-      "type": "header",
-      "content": "Vault Settings"
-    },
     {
       "type": "text",
       "id": "section_title",
@@ -185,120 +92,21 @@ Glyph vault with collection or manual settings:
       "default": "THE GLYPH VAULT"
     },
     {
-      "type": "richtext",
+      "type": "textarea",
       "id": "section_description",
       "label": "Section Description",
-      "default": "<p>Each glyph is a key to a different dimension of the Stellar Reverb universe. Hover to reveal its meaning, click to access its associated capsule collection.</p>"
-    },
-    {
-      "type": "header",
-      "content": "Content Source"
-    },
-    {
-      "type": "checkbox",
-      "id": "use_collection",
-      "label": "Use Product Collection",
-      "default": true,
-      "info": "Toggle off to use manual glyph blocks instead"
+      "default": "Each glyph is a key to a different dimension of the Stellar Reverb universe."
     },
     {
       "type": "collection",
       "id": "glyph_collection",
-      "label": "Glyph Collection",
-      "info": "Collection of products representing glyphs (used when 'Use Product Collection' is enabled)"
-    },
-    {
-      "type": "range",
-      "id": "max_glyphs",
-      "min": 3,
-      "max": 12,
-      "step": 1,
-      "label": "Maximum Glyphs to Display",
-      "default": 6
-    }
-  ],
-  "blocks": [
-    {
-      "type": "glyph",
-      "name": "Glyph",
-      "settings": [
-        {
-          "type": "select",
-          "id": "glyph_type",
-          "label": "Glyph Type",
-          "options": [
-            {"value": "echo-prism", "label": "Echo Prism"},
-            {"value": "void-harmonic", "label": "Void Harmonic"},
-            {"value": "quantum-thread", "label": "Quantum Thread"},
-            {"value": "astral-cassette", "label": "Astral Cassette"},
-            {"value": "cosmic-antenna", "label": "Cosmic Antenna"},
-            {"value": "signal-nexus", "label": "Signal Nexus"}
-          ],
-          "default": "echo-prism"
-        },
-        {
-          "type": "text",
-          "id": "glyph_title",
-          "label": "Glyph Title",
-          "default": "Echo Prism"
-        },
-        {
-          "type": "textarea",
-          "id": "glyph_description",
-          "label": "Glyph Description",
-          "default": "Amplifies dimensional echoes through crystalline resonance matrices."
-        },
-        {
-          "type": "image_picker",
-          "id": "glyph_image",
-          "label": "Glyph Image",
-          "info": "Optional. Leave empty to use generated symbol."
-        },
-        {
-          "type": "url",
-          "id": "link_url",
-          "label": "Link URL",
-          "info": "Where this glyph should navigate when clicked"
-        },
-        {
-          "type": "text",
-          "id": "product_handle",
-          "label": "Product Handle",
-          "info": "Optional product handle for tracking (e.g., 'echo-prism-tee')"
-        }
-      ]
+      "label": "Glyph Collection"
     }
   ],
   "presets": [
     {
-      "name": "Universal Lore Vault",
-      "category": "Stellar Reverb",
-      "blocks": [
-        {
-          "type": "glyph",
-          "settings": {
-            "glyph_type": "echo-prism",
-            "glyph_title": "Echo Prism",
-            "glyph_description": "Amplifies dimensional echoes through crystalline resonance matrices."
-          }
-        },
-        {
-          "type": "glyph",
-          "settings": {
-            "glyph_type": "void-harmonic",
-            "glyph_title": "Void Harmonic",
-            "glyph_description": "Channels the infinite silence between cosmic transmissions."
-          }
-        },
-        {
-          "type": "glyph",
-          "settings": {
-            "glyph_type": "quantum-thread",
-            "glyph_title": "Quantum Thread",
-            "glyph_description": "Weaves probability streams into wearable reality anchors."
-          }
-        }
-      ]
+      "name": "Lore Vault",
+      "category": "Stellar Reverb"
     }
   ]
 }

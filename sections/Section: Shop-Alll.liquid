@@ -1,0 +1,579 @@
+{% comment %}
+  STELLAR REVERB – COSMIC PRODUCT VAULT / SHOP ALL
+  Section: stellar-shop-all.liquid
+
+  Fuses:
+  - Hero + brand icon (from stellar_shop.html)
+  - Transmission strip + sticky filter bar (from shop-all-V1-fix-stick-bar.html)
+  - Motif chips / visual tags (from cosmic_product_vault.html)
+  - Dynamic product grid with:
+      • Capsule tags
+      • Limited / exclusive / signal-seeker badges
+      • FOMO inventory messaging
+  - Cross-sell / upsell block
+  - Signal CTA at bottom
+
+  Expected CSS hooks (map to your existing CSS/base.css):
+  - .cosmic-bg, .cosmic-particles, .stellar-vault, .filter-pills, .filter-pill
+  - .product-grid, .product-card, .product-image
+  - .badge, .badge-limited, .badge-exclusive, .badge-signal-seeker, .badge-new
+  - .chip, .chip-soft, .chip-outline, .chip-sale
+  - .sticky-filters for sticky capsule bar
+{% endcomment %}
+
+{% assign collection_handle = collection.handle %}
+{% assign all_products = collection.products %}
+
+<section
+  class="stellar-vault cosmic-bg"
+  data-section-id="{{ section.id }}"
+  data-section-type="stellar-shop-all"
+>
+  <div class="cosmic-particles" aria-hidden="true"></div>
+
+  {%- comment -%}
+    HERO AREA – Brand icon, headline, subcopy
+  {%- endcomment -%}
+  <header class="stellar-hero container mx-auto px-6 pt-12 pb-8 text-center relative">
+    <div class="hero-inner inline-block relative">
+      {% if section.settings.hero_show_brand_icon %}
+        <div class="hero-brand-icon mb-4 flex justify-center">
+          {%- comment -%}
+            Use your existing logo or capsule icon. Replace 'stellar-logo.png' with your asset.
+          {%- endcomment -%}
+          <img
+            src="{{ 'stellar-logo.png' | asset_url }}"
+            alt="{{ shop.name }} logo"
+            class="h-12 w-auto hero-logo"
+          >
+        </div>
+      {% endif %}
+
+      {% if section.settings.hero_kicker != blank %}
+        <p class="hero-kicker orbitron text-xs tracking-[0.2em] uppercase mb-2 text-gray-400">
+          {{ section.settings.hero_kicker }}
+        </p>
+      {% endif %}
+
+      <h1
+        class="hero-title orbitron text-4xl md:text-5xl lg:text-6xl font-bold mb-3 glitch"
+      >
+        {{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}
+      </h1>
+
+      <p class="hero-subtitle text-base md:text-lg text-gray-300 max-w-2xl mx-auto mb-5">
+        {{ section.settings.hero_subtitle
+          | default: 'Artifacts from every capsule — tees, hoodies, hats, and relics pulled from the void into one gravitational grid.' }}
+      </p>
+
+      <div class="hero-meta flex flex-wrap justify-center gap-2 text-xs text-gray-400">
+        <span class="chip chip-soft">
+          🛰 {{ collection.all_products_count }} relics in orbit
+        </span>
+        <span class="chip chip-soft">
+          📼 Multi-capsule transmissions
+        </span>
+        <span class="chip chip-soft">
+          ⚡ Limited runs · Signal Seeker exclusives
+        </span>
+      </div>
+    </div>
+  </header>
+
+  {%- comment -%}
+    TRANSMISSION STRIP – Inspired by featured-transmission strip
+  {%- endcomment -%}
+  {% if section.settings.transmission_strip_enabled %}
+    <div class="featured-transmission container mx-auto px-6 mb-8">
+      <div class="transmission-text text-center text-sm md:text-base font-medium flex items-center justify-center gap-2">
+        <i class="fas fa-broadcast-tower"></i>
+        <span>{{ section.settings.transmission_text }}</span>
+        <i class="fas fa-satellite-dish"></i>
+      </div>
+    </div>
+  {% endif %}
+
+  {%- comment -%}
+    STICKY FILTER BAR – Capsule filters + type/motif filters
+    JS can hook into:
+      - .filter-pill[data-filter-group="capsule"] with data-filter-value
+      - .filter-pill[data-filter-group="type"] ...
+      - .filter-pill[data-filter-group="tag"] ...
+    Product cards expose data-* attributes accordingly.
+  {%- endcomment -%}
+
+  <div class="sticky-filters container mx-auto px-6 mb-6">
+    {% if section.settings.show_capsule_filters %}
+      <div class="filter-pills mb-4" data-filter-group="capsule">
+        <button
+          class="filter-pill is-active"
+          data-filter-value="all"
+        >
+          <i class="fas fa-globe mr-1"></i> All Transmissions
+        </button>
+
+        {%- comment -%}
+          Hard-coded capsules; you can adjust to match active capsules.
+          JS will match against data-capsule on product cards.
+        {%- endcomment -%}
+        <button class="filter-pill" data-filter-value="cap-001">Capsule 001</button>
+        <button class="filter-pill" data-filter-value="cap-002">Capsule 002</button>
+        <button class="filter-pill" data-filter-value="cap-003">Capsule 003</button>
+        <button class="filter-pill" data-filter-value="cap-004">Capsule 004</button>
+        <button class="filter-pill" data-filter-value="cap-005">Capsule 005</button>
+        <button class="filter-pill" data-filter-value="cap-006">Capsule 006</button>
+        <button class="filter-pill" data-filter-value="cap-007">Capsule 007</button>
+        <button class="filter-pill" data-filter-value="cap-008">Capsule 008</button>
+        <button class="filter-pill" data-filter-value="floating-archive">
+          Floating Archive
+        </button>
+        <button class="filter-pill" data-filter-value="signal-seeker">
+          Signal Seeker Exclusives
+        </button>
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_motif_filters %}
+      <div class="filter-pills motif-pills text-xs" data-filter-group="motif">
+        <button class="filter-pill is-active" data-filter-value="all">All Motifs</button>
+        <button class="filter-pill" data-filter-value="cassette">
+          🧬 Cassette Relics
+        </button>
+        <button class="filter-pill" data-filter-value="astronaut">
+          👨‍🚀 Astronaut Echoes
+        </button>
+        <button class="filter-pill" data-filter-value="waveform">
+          🔊 Waveform Hearts
+        </button>
+        <button class="filter-pill" data-filter-value="glitch">
+          ⚡ Glitch Variants
+        </button>
+        <button class="filter-pill" data-filter-value="archive">
+          🌀 Memory Vault
+        </button>
+      </div>
+    {% endif %}
+  </div>
+
+  {%- comment -%}
+    PRODUCT GRID – Paginated, dynamic, brand-charged
+  {%- endcomment -%}
+
+  {% paginate all_products by section.settings.products_per_page | default: 24 %}
+    <div class="product-grid container mx-auto px-6 pb-10">
+      {% for product in paginate.items %}
+        {%- assign capsule_code = '' -%}
+        {%- assign capsule_tag = '' -%}
+
+        {%- comment -%}
+          Pull capsule code from metafield if available, else check tags like 'CAP-001'
+        {%- endcomment -%}
+        {% if product.metafields.custom.capsule_code != blank %}
+          {% assign capsule_code = product.metafields.custom.capsule_code | downcase %}
+        {% else %}
+          {% for tag in product.tags %}
+            {% if tag contains 'CAP-' or tag contains 'Cap-' or tag contains 'cap-' %}
+              {% assign capsule_code = tag | downcase %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
+        {% if capsule_code != '' %}
+          {% assign capsule_tag = capsule_code | replace: ' ', '-' | replace: '_', '-' %}
+        {% endif %}
+
+        {%- comment -%}
+          Motif detection via tags (loosely mapped)
+        {%- endcomment -%}
+        {% assign motif_tag = '' %}
+        {% for tag in product.tags %}
+          {% assign lower_tag = tag | downcase %}
+          {% if lower_tag contains 'cassette' %}
+            {% assign motif_tag = 'cassette' %}
+          {% elsif lower_tag contains 'astronaut' %}
+            {% assign motif_tag = 'astronaut' %}
+          {% elsif lower_tag contains 'waveform' or lower_tag contains 'heart' %}
+            {% assign motif_tag = 'waveform' %}
+          {% elsif lower_tag contains 'glitch' %}
+            {% assign motif_tag = 'glitch' %}
+          {% elsif lower_tag contains 'archive' %}
+            {% assign motif_tag = 'archive' %}
+          {% endif %}
+        {% endfor %}
+
+        {%- comment -%}
+          FOMO / badge logic
+        {%- endcomment -%}
+        {% assign badge_limited = false %}
+        {% assign badge_exclusive = false %}
+        {% assign badge_signal_seeker = false %}
+        {% assign badge_new = false %}
+
+        {% if product.tags contains 'limited' or product.tags contains 'Limited' %}
+          {% assign badge_limited = true %}
+        {% endif %}
+        {% if product.tags contains 'exclusive' or product.tags contains 'Exclusive' %}
+          {% assign badge_exclusive = true %}
+        {% endif %}
+        {% if product.tags contains 'signal-seeker' or product.tags contains 'Signal Seeker' %}
+          {% assign badge_signal_seeker = true %}
+        {% endif %}
+        {% if product.tags contains 'new' or product.tags contains 'New' %}
+          {% assign badge_new = true %}
+        {% endif %}
+
+        {%- comment -%}
+          Inventory-based FOMO (uses first available variant)
+        {%- endcomment -%}
+        {% assign first_variant = product.selected_or_first_available_variant %}
+        {% assign inventory_qty = first_variant.inventory_quantity | default: 9999 %}
+        {% assign fomo_threshold = section.settings.fomo_inventory_threshold | default: 5 %}
+        {% assign show_fomo = false %}
+        {% if inventory_qty > 0 and inventory_qty <= fomo_threshold %}
+          {% assign show_fomo = true %}
+        {% endif %}
+
+        <article
+          class="product-card"
+          data-capsule="{{ capsule_tag | default: 'uncategorized' }}"
+          data-motif="{{ motif_tag | default: 'none' }}"
+          data-product-type="{{ product.product_type | handle }}"
+        >
+          {%- comment -%}
+            BADGES – top left stack
+          {%- endcomment -%}
+          <div class="product-badges">
+            {% if badge_new %}
+              <span class="product-badge badge-new">NEW SIGNAL</span>
+            {% endif %}
+            {% if badge_limited %}
+              <span class="product-badge badge-limited">LIMITED TRANSMISSION</span>
+            {% endif %}
+            {% if badge_exclusive %}
+              <span class="product-badge badge-exclusive">EXCLUSIVE RELIC</span>
+            {% endif %}
+            {% if badge_signal_seeker %}
+              <span class="product-badge badge-signal-seeker">SIGNAL SEEKER ONLY</span>
+            {% endif %}
+          </div>
+
+          {%- comment -%}
+            IMAGE
+          {%- endcomment -%}
+          <a href="{{ product.url }}" class="block mb-3">
+            {% if product.featured_image %}
+              <img
+                src="{{ product.featured_image | img_url: '600x600' }}"
+                alt="{{ product.title | escape }}"
+                class="product-image"
+                loading="lazy"
+              >
+            {% else %}
+              <div class="product-image placeholder flex items-center justify-center text-xs text-gray-500">
+                IMAGE INCOMING
+              </div>
+            {% endif %}
+          </a>
+
+          {%- comment -%}
+            CAPSULE TAG
+          {%- endcomment -%}
+          <div class="capsule-tag text-xs uppercase tracking-[0.16em] mb-1 text-gray-400">
+            {% if capsule_tag != '' %}
+              {{ capsule_tag | upcase | replace: '-', ' ' }}
+            {% else %}
+              FLOATING ARCHIVE RELIC
+            {% endif %}
+          </div>
+
+          {%- comment -%}
+            TITLE & SHORT LORE
+          {%- endcomment -%}
+          <h3 class="product-title text-lg font-semibold mb-2" style="font-family: 'Orbitron', monospace;">
+            <a href="{{ product.url }}">{{ product.title }}</a>
+          </h3>
+
+          <p class="product-description text-sm text-gray-300 mb-3">
+            {% if product.metafields.custom.lore_snippet != blank %}
+              {{ product.metafields.custom.lore_snippet | truncate: 140 }}
+            {% else %}
+              {{ product.description | strip_html | truncate: 140 }}
+            {% endif %}
+          </p>
+
+          {%- comment -%}
+            TAGS / MOTIFS PILLS
+          {%- endcomment -%}
+          <div class="product-tags flex flex-wrap gap-1 mb-3">
+            {% if motif_tag != '' and motif_tag != 'none' %}
+              <span class="tag-pill">#{{ motif_tag }}</span>
+            {% endif %}
+            {% for tag in product.tags limit: 3 %}
+              <span class="tag-pill">#{{ tag | handle }}</span>
+            {% endfor %}
+          </div>
+
+          {%- comment -%}
+            PRICE + FOMO / STATUS
+          {%- endcomment -%}
+          <div class="product-footer flex items-center justify-between">
+            <div class="product-price text-xl font-bold text-cyan-400">
+              {% if product.compare_at_price_max > product.price %}
+                <span class="line-through text-gray-500 text-sm mr-1">
+                  {{ product.compare_at_price_max | money }}
+                </span>
+              {% endif %}
+              <span>{{ product.price | money }}</span>
+            </div>
+
+            <div class="product-status text-xs text-right">
+              {% if show_fomo %}
+                <span class="chip chip-sale">
+                  Decay level critical – {{ inventory_qty }} left
+                </span>
+              {% elsif product.available %}
+                <span class="chip chip-soft">
+                  In transmission
+                </span>
+              {% else %}
+                <span class="chip chip-soft">
+                  Archived · Sold out
+                </span>
+              {% endif %}
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    {%- comment -%}
+      PAGINATION
+    {%- endcomment -%}
+    {% if paginate.pages > 1 %}
+      <div class="pagination container mx-auto px-6 pb-10 flex justify-center">
+        <nav class="pagination-nav flex items-center gap-2 text-sm">
+          {% if paginate.previous %}
+            <a href="{{ paginate.previous.url }}" class="page-link">&larr; Prev</a>
+          {% endif %}
+          <span class="page-status">Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+          {% if paginate.next %}
+            <a href="{{ paginate.next.url }}" class="page-link">Next &rarr;</a>
+          {% endif %}
+        </nav>
+      </div>
+    {% endif %}
+  {% endpaginate %}
+
+  {%- comment -%}
+    UPSELL / CROSS-SELL BLOCK
+  {%- endcomment -%}
+  {% if section.settings.upsell_heading != blank %}
+    {% assign upsell_collection = collections[section.settings.upsell_collection] %}
+    {% assign upsell_limit = section.settings.upsell_limit | default: 4 %}
+
+    {% if upsell_collection != blank and upsell_collection.products_count > 0 %}
+      <section class="upsell-block container mx-auto px-6 pb-12 mt-4">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-4">
+          <div>
+            <h2 class="section-title orbitron text-xl md:text-2xl">
+              {{ section.settings.upsell_heading }}
+            </h2>
+            {% if section.settings.upsell_subheading != blank %}
+              <p class="text-sm text-gray-400 mt-1">
+                {{ section.settings.upsell_subheading }}
+              </p>
+            {% endif %}
+          </div>
+          <div class="text-xs text-gray-500">
+            Curated from: {{ upsell_collection.title }}
+          </div>
+        </div>
+
+        <div class="product-grid upsell-grid">
+          {% for product in upsell_collection.products limit: upsell_limit %}
+            <article class="product-card product-card--compact">
+              <a href="{{ product.url }}" class="block mb-2">
+                {% if product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | img_url: '400x400' }}"
+                    alt="{{ product.title | escape }}"
+                    class="product-image"
+                    loading="lazy"
+                  >
+                {% endif %}
+              </a>
+              <h3 class="product-title text-sm font-semibold mb-1">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              <div class="text-sm text-cyan-400 mb-1">
+                {{ product.price | money }}
+              </div>
+              <p class="text-xs text-gray-400">
+                {% if product.metafields.custom.lore_snippet != blank %}
+                  {{ product.metafields.custom.lore_snippet | truncate: 80 }}
+                {% else %}
+                  {{ product.description | strip_html | truncate: 80 }}
+                {% endif %}
+              </p>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  {% endif %}
+
+  {%- comment -%}
+    SIGNAL CTA – end-of-page lore-flavored call to action
+  {%- endcomment -%}
+  <section class="signal-cta container mx-auto px-6 pb-16">
+    <div class="newsletter-section">
+      <h2 class="orbitron text-xl md:text-2xl mb-2">
+        {{ section.settings.signal_cta_heading | default: 'Join The Signal Network' }}
+      </h2>
+      <p class="text-sm md:text-base text-gray-300 mb-4 max-w-xl mx-auto">
+        {{ section.settings.signal_cta_subheading
+          | default: 'Tap into early access transmissions, hidden relics, and encrypted drop intel before it hits the main frequency.' }}
+      </p>
+
+      {% if section.settings.signal_cta_link != blank %}
+        <a
+          href="{{ section.settings.signal_cta_link }}"
+          class="signal-cta-button orbitron inline-flex items-center justify-center px-6 py-3 mt-2"
+        >
+          {{ section.settings.signal_cta_button_text | default: 'TUNE INTO FUTURE DROPS' }}
+        </a>
+      {% endif %}
+    </div>
+  </section>
+</section>
+
+{% schema %}
+{
+  "name": "Stellar Shop All – Cosmic Product Vault",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_kicker",
+      "label": "Hero Kicker",
+      "default": "SHOP ALL TRANSMISSIONS"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "COSMIC PRODUCT VAULT"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "default": "Every capsule. Every relic. Every glitch in the fabric of reality streaming into one grid."
+    },
+    {
+      "type": "checkbox",
+      "id": "hero_show_brand_icon",
+      "label": "Show Brand Icon Above Title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "transmission_strip_enabled",
+      "label": "Enable Transmission Strip",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "transmission_text",
+      "label": "Transmission Strip Text",
+      "default": "INCOMING TRANSMISSION: New capsule drops materializing from the void... Stand by for manifestation..."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_capsule_filters",
+      "label": "Show Capsule Filters",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_motif_filters",
+      "label": "Show Motif Filters",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products Per Page",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "fomo_inventory_threshold",
+      "label": "Inventory Threshold for FOMO Message",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "upsell_heading",
+      "label": "Upsell Heading",
+      "default": "You May Also Be Receiving These Signals"
+    },
+    {
+      "type": "text",
+      "id": "upsell_subheading",
+      "label": "Upsell Subheading",
+      "default": "Curated relics that vibrate on a similar frequency."
+    },
+    {
+      "type": "collection",
+      "id": "upsell_collection",
+      "label": "Upsell Collection"
+    },
+    {
+      "type": "range",
+      "id": "upsell_limit",
+      "label": "Upsell Products Limit",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "signal_cta_heading",
+      "label": "Signal CTA Heading",
+      "default": "Join The Signal Network"
+    },
+    {
+      "type": "textarea",
+      "id": "signal_cta_subheading",
+      "label": "Signal CTA Subheading",
+      "default": "Get early access to hidden relics, incoming capsules, and encrypted lore."
+    },
+    {
+      "type": "text",
+      "id": "signal_cta_button_text",
+      "label": "Signal CTA Button Text",
+      "default": "TUNE INTO FUTURE DROPS"
+    },
+    {
+      "type": "url",
+      "id": "signal_cta_link",
+      "label": "Signal CTA Link",
+      "default": "/pages/signal-seekers"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stellar Shop All – Cosmic Product Vault",
+      "category": "Stellar Reverb"
+    }
+  ]
+}
+{% endschema %}

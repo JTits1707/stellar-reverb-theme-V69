@@ -1,97 +1,212 @@
 {% comment %}
-  Universal Lore – Capsule Timeline
-  Powered by capsule metaobjects
+Lore Timeline – interactive capsule timeline
+Relies on:
+- .timeline-section[data-section-type="lore-timeline"]
+- .timeline-node for JS hover/click/audio
+- #timelineDesktop / #timelineMobile for responsive modes
+Metafields:
+- product.metafields.lore.capsule_id
+- product.metafields.lore.audio_preview
+- product.metafields.lore.teaser
 {% endcomment %}
 
-<section id="universal-lore-timeline" class="lore-section" data-section-id="{{ section.id }}">
-  <h2 class="section-title">
-    {{ section.settings.title | default: 'TRANSMISSION ARCHIVE' }}
-  </h2>
+{% assign timeline_collection = collections[section.settings.collection] %}
 
-  {% assign capsules = shop.metaobjects['capsule'].values | sort: 'capsule_number' %}
-
-  {% if capsules.size > 0 %}
-    <div class="lore-timeline">
-      <div class="lore-timeline__list">
-        {% for capsule in capsules %}
-          {% assign status = capsule.status | default: 'active' %}
-
-          {% if section.settings.hide_incoming and status == 'incoming' %}
-            {% continue %}
-          {% endif %}
-
-          <article
-            class="timeline-node"
-            data-capsule="{{ capsule.capsule_number | escape }}"
-          >
-            <div class="timeline-node__meta">
-              Capsule {{ capsule.capsule_number | escape }}
-              {% if status != blank and status != 'active' %}
-                · {{ status | upcase }}
-              {% endif %}
-            </div>
-
-            <h3 class="timeline-node__title">
-              {{ capsule.capsule_title | default: 'Untitled Transmission' }}
-            </h3>
-
-            {% assign lore_snippet = capsule.capsule_lore | strip_html | truncate: 160 %}
-
-            {% if lore_snippet != blank %}
-              <p class="timeline-node__teaser">
-                {{ lore_snippet }}
-              </p>
-            {% endif %}
-
-            {% if section.settings.show_read_more %}
-              <div style="margin-top:0.85rem;font-size:0.8rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.7);">
-                {{ section.settings.read_more_label | default: 'OPEN CAPSULE' }}
-              </div>
-            {% endif %}
-          </article>
-        {% endfor %}
+<section
+  class="timeline-section section-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="lore-timeline"
+>
+  <div class="container">
+    <div class="flex justify-between items-end gap-4 mb-4">
+      <div>
+        <h2 class="section-title orbitron">
+          {{ section.settings.section_title | default: 'TRANSMISSION ARCHIVE' }}
+        </h2>
+        <p class="text-sm text-muted mt-1">
+          Scroll the signal line. Each node is a capsule echo: part lore, part product, part glitch in the fabric.
+        </p>
+      </div>
+      <div class="hidden md:block text-xs text-right text-muted">
+        <span class="chip chip-outline">
+          Live capsule feed · {{ timeline_collection.products_count | default: 0 }} entries
+        </span>
       </div>
     </div>
-  {% else %}
-    <p style="text-align:center;color:#aaa;font-size:0.9rem;margin-top:1.5rem;">
-      No capsules are configured yet. Add entries to the <strong>capsule</strong> metaobject to populate this timeline.
-    </p>
-  {% endif %}
+
+    <!-- Desktop Timeline -->
+    <div class="timeline-desktop hide-mobile" id="timelineDesktop">
+      <div class="timeline-line" aria-hidden="true"></div>
+
+      {% for product in timeline_collection.products limit: section.settings.max_items %}
+        {% assign capsule_id = product.metafields.lore.capsule_id | default: forloop.index0 %}
+        {% assign audio_file = product.metafields.lore.audio_preview %}
+        {% assign teaser_text = product.metafields.lore.teaser | default: product.description | strip_html | truncate: 110 %}
+
+        <div
+          class="timeline-node"
+          tabindex="0"
+          role="button"
+          data-capsule="{{ capsule_id }}"
+          data-audio="{{ audio_file }}"
+          data-product-url="{{ product.url }}"
+          aria-label="Open transmission {{ product.title }}"
+        >
+          <div class="node-marker{% if forloop.first %} active{% endif %}"></div>
+
+          <div class="node-content">
+            {% assign padded_index = forloop.index | prepend: '00' | slice: -3, 3 %}
+            <h3 class="orbitron text-sm">
+              {{ padded_index }}: {{ product.title | upcase }}
+            </h3>
+
+            <p class="node-teaser text-sm">
+              {{ teaser_text }}
+            </p>
+
+            <time class="node-date text-xs">
+              {{ product.created_at | date: '%Y.%m.%d' }}
+            </time>
+
+            <div class="node-geometry" aria-hidden="true"></div>
+
+            <div class="node-meta-row text-xs mt-1 flex flex-wrap gap-2">
+              {% if product.available %}
+                <span class="chip chip-soft">
+                  {{ product.price | money }} · Live in the vault
+                </span>
+              {% else %}
+                <span class="chip chip-soft">
+                  Archived relic · Sold out
+                </span>
+              {% endif %}
+              {% if product.compare_at_price > product.price %}
+                <span class="chip chip-soft chip-sale">Signal distortion · On special</span>
+              {% endif %}
+            </div>
+          </div>
+
+          <div
+            class="audio-preview"
+            aria-label="Audio preview for {{ product.title }}"
+          ></div>
+        </div>
+      {% endfor %}
+
+      <!-- Incoming Signal Node -->
+      <div
+        class="timeline-node future-signal"
+        tabindex="0"
+        role="button"
+        data-capsule="incoming"
+        aria-label="Incoming capsule signal"
+      >
+        <div class="node-marker pulse-active"></div>
+        <div class="node-content">
+          <h3 class="orbitron">
+            {{ section.settings.future_signal_title | default: '010: INCOMING SIGNAL DETECTED' }}
+          </h3>
+          <p class="node-teaser">
+            {{ section.settings.future_signal_text | default: 'New transmission incoming... decryption in progress...' }}
+          </p>
+          <time class="node-date">
+            {{ 'now' | date: '%Y.%m.%d' }}
+          </time>
+          <div class="node-geometry active" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Timeline (Accordion) -->
+    <div class="timeline-mobile show-mobile" id="timelineMobile">
+      {% for product in timeline_collection.products limit: section.settings.max_items %}
+        {% assign padded_index = forloop.index | prepend: '00' | slice: -3, 3 %}
+
+        <div class="accordion-item">
+          <button
+            class="accordion-header"
+            data-target="capsule-{{ forloop.index }}"
+            aria-expanded="false"
+            aria-controls="capsule-{{ forloop.index }}"
+          >
+            <span class="orbitron text-sm">
+              {{ padded_index }}: {{ product.title | upcase }}
+            </span>
+            <i class="icon-expand" aria-hidden="true">+</i>
+          </button>
+
+          <div class="accordion-content" id="capsule-{{ forloop.index }}">
+            <p class="mb-2">
+              {{ product.metafields.lore.teaser | default: product.description | strip_html | truncate: 150 }}
+            </p>
+            <time class="text-xs block mb-2">
+              {{ product.created_at | date: '%Y.%m.%d' }}
+            </time>
+
+            <div class="capsule-actions flex flex-wrap gap-2">
+              <a href="{{ product.url }}" class="btn-capsule">
+                VIEW CAPSULE
+              </a>
+              {% if product.available %}
+                <button
+                  class="btn-add-to-cart"
+                  data-product-id="{{ product.variants.first.id }}"
+                  type="button"
+                >
+                  ADD TO CART – {{ product.price | money }}
+                </button>
+              {% else %}
+                <span class="btn-capsule disabled">SOLD OUT</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 
 {% schema %}
 {
-  "name": "Universal Lore · Timeline",
-  "tag": "section",
+  "name": "Lore Timeline",
   "settings": [
     {
       "type": "text",
-      "id": "title",
-      "label": "Section heading",
-      "default": "Transmission Archive"
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "TRANSMISSION ARCHIVE"
     },
     {
-      "type": "checkbox",
-      "id": "hide_incoming",
-      "label": "Hide capsules with status \"incoming\"",
-      "default": false
+      "type": "collection",
+      "id": "collection",
+      "label": "Timeline Collection"
     },
     {
-      "type": "checkbox",
-      "id": "show_read_more",
-      "label": "Show \"open capsule\" microcopy",
-      "default": true
+      "type": "range",
+      "id": "max_items",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "label": "Maximum Timeline Items",
+      "default": 5
     },
     {
       "type": "text",
-      "id": "read_more_label",
-      "label": "\"Read more\" label",
-      "default": "Open Capsule"
+      "id": "future_signal_title",
+      "label": "Future Signal Title",
+      "default": "010: INCOMING SIGNAL DETECTED"
+    },
+    {
+      "type": "textarea",
+      "id": "future_signal_text",
+      "label": "Future Signal Description",
+      "default": "New transmission incoming... decryption in progress..."
     }
   ],
   "presets": [
     {
-      "name": "Universal Lore · Timeline"
+      "name": "Lore Timeline",
+      "category": "Stellar Reverb"
     }
   ]
 }

@@ -1,0 +1,505 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - TESTIMONIALS SECTION
+  ═══════════════════════════════════════════════════════════
+  
+  Customer reviews with cosmic styling
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<section class="testimonials-cosmic" id="testimonials-{{ section.id }}">
+  
+  <div class="container">
+
+    {%- comment -%} Section Header {%- endcomment -%}
+    <div class="section-header">
+      
+      {% if section.settings.eyebrow_text != blank %}
+        <div class="section-eyebrow">
+          {{ section.settings.eyebrow_text }}
+        </div>
+      {% endif %}
+
+      <h2 class="section-title">
+        {{ section.settings.heading | default: 'Signal Seeker Reviews' }}
+      </h2>
+
+      {% if section.settings.subheading != blank %}
+        <p class="section-subtitle">
+          {{ section.settings.subheading }}
+        </p>
+      {% endif %}
+
+    </div>
+
+    {%- comment -%} Testimonials Grid {%- endcomment -%}
+    <div class="testimonials-grid testimonials-grid--{{ section.settings.columns }}">
+      
+      {% for block in section.blocks %}
+        {% if block.type == 'testimonial' %}
+          
+          <div class="testimonial-card" {{ block.shopify_attributes }}>
+            
+            {%- comment -%} Star Rating {%- endcomment -%}
+            {% if block.settings.rating > 0 %}
+              <div class="testimonial-rating">
+                {% for i in (1..5) %}
+                  <svg class="star{% if i <= block.settings.rating %} star-filled{% endif %}" 
+                       width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 2l2.5 5 5.5.7-4 3.9 1 5.4-5-2.6-5 2.6 1-5.4-4-3.9 5.5-.7z" 
+                          fill="{% if i <= block.settings.rating %}currentColor{% else %}none{% endif %}"
+                          stroke="currentColor" stroke-width="1"/>
+                  </svg>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            {%- comment -%} Review Text {%- endcomment -%}
+            <blockquote class="testimonial-quote">
+              {{ block.settings.quote }}
+            </blockquote>
+
+            {%- comment -%} Author Info {%- endcomment -%}
+            <div class="testimonial-author">
+              
+              {% if block.settings.author_image != blank %}
+                <div class="author-image">
+                  <img 
+                    src="{{ block.settings.author_image | image_url: width: 80 }}" 
+                    alt="{{ block.settings.author_name }}"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+
+              <div class="author-info">
+                {% if block.settings.author_name != blank %}
+                  <div class="author-name">{{ block.settings.author_name }}</div>
+                {% endif %}
+                
+                {% if block.settings.author_title != blank %}
+                  <div class="author-title">{{ block.settings.author_title }}</div>
+                {% endif %}
+
+                {% if block.settings.verified %}
+                  <div class="verified-badge">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M8 1l1.5 3 3.5.5-2.5 2.5.5 3.5-3-1.5-3 1.5.5-3.5L3 5l3.5-.5z" 
+                            fill="currentColor"/>
+                    </svg>
+                    <span>Verified Buyer</span>
+                  </div>
+                {% endif %}
+              </div>
+
+            </div>
+
+            {%- comment -%} Product Reference (optional) {%- endcomment -%}
+            {% if block.settings.product != blank %}
+              <div class="testimonial-product">
+                <span class="product-label">Purchased:</span>
+                <a href="{{ block.settings.product.url }}" class="product-link">
+                  {{ block.settings.product.title }}
+                </a>
+              </div>
+            {% endif %}
+
+          </div>
+
+        {% endif %}
+      {% endfor %}
+
+    </div>
+
+    {%- comment -%} Optional CTA {%- endcomment -%}
+    {% if section.settings.show_cta %}
+      <div class="section-cta">
+        <a 
+          href="{{ section.settings.cta_url | default: '/collections/all' }}" 
+          class="btn btn-primary"
+        >
+          {{ section.settings.cta_text | default: 'Explore Capsules' }}
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>
+
+<style>
+  #testimonials-{{ section.id }} {
+    padding: var(--spacing-xl, 4rem) 0;
+    background: {{ section.settings.section_background | default: 'transparent' }};
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xl, 4rem);
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--border-radius-pill, 999px);
+    background: rgba(225, 60, 250, 0.2);
+    border: 1px solid var(--neon-magenta, #E13CFA);
+    color: var(--neon-magenta, #E13CFA);
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-sm, 1rem);
+  }
+
+  .section-title {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-sm, 1rem);
+    background: linear-gradient(135deg, var(--neon-magenta, #E13CFA), var(--cyan-blue, #28A8D6));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  /* Testimonials Grid */
+  .testimonials-grid {
+    display: grid;
+    gap: var(--spacing-lg, 2.5rem);
+    margin-bottom: var(--spacing-xl, 4rem);
+  }
+
+  .testimonials-grid--2 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
+  }
+
+  .testimonials-grid--3 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+  }
+
+  /* Testimonial Card */
+  .testimonial-card {
+    background: rgba(13, 13, 13, 0.8);
+    border: 2px solid rgba(225, 60, 250, 0.3);
+    border-radius: var(--border-radius-lg, 18px);
+    padding: var(--spacing-lg, 2.5rem);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--neon-magenta, #E13CFA), var(--cyan-blue, #28A8D6));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    border-color: var(--neon-magenta, #E13CFA);
+    box-shadow: 0 8px 40px rgba(225, 60, 250, 0.4);
+    transform: translateY(-4px);
+  }
+
+  .testimonial-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Rating */
+  .testimonial-rating {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: var(--spacing-sm, 1rem);
+  }
+
+  .star {
+    color: rgba(255, 255, 255, 0.3);
+    transition: color 0.2s ease;
+  }
+
+  .star-filled {
+    color: var(--electric-yellow, #F4FF30);
+  }
+
+  /* Quote */
+  .testimonial-quote {
+    font-family: var(--font-body, "Montserrat", sans-serif);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 var(--spacing-md, 1.5rem);
+    font-style: italic;
+  }
+
+  .testimonial-quote::before {
+    content: '"';
+    font-size: 2rem;
+    color: var(--cyan-blue, #28A8D6);
+    line-height: 0;
+    vertical-align: -0.4em;
+    margin-right: 0.25rem;
+  }
+
+  /* Author */
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 1rem);
+    padding-top: var(--spacing-md, 1.5rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .author-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--cyan-blue, #28A8D6);
+    flex-shrink: 0;
+  }
+
+  .author-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .author-info {
+    flex: 1;
+  }
+
+  .author-name {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+
+  .author-title {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--border-radius-pill, 999px);
+    background: rgba(0, 240, 172, 0.15);
+    border: 1px solid var(--radioactive-green, #00F0AC);
+    color: var(--radioactive-green, #00F0AC);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .verified-badge svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Product Reference */
+  .testimonial-product {
+    margin-top: var(--spacing-sm, 1rem);
+    padding-top: var(--spacing-sm, 1rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+  }
+
+  .product-label {
+    color: rgba(255, 255, 255, 0.6);
+    margin-right: 0.5rem;
+  }
+
+  .product-link {
+    color: var(--cyan-blue, #28A8D6);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .product-link:hover {
+    color: var(--neon-magenta, #E13CFA);
+    text-decoration: underline;
+  }
+
+  /* Section CTA */
+  .section-cta {
+    text-align: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    #testimonials-{{ section.id }} {
+      padding: var(--spacing-lg, 2.5rem) 0;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .testimonial-card {
+      padding: var(--spacing-md, 1.5rem);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Testimonials - Cosmic",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow text",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Signal Seeker Reviews"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Hear what our community has to say"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 2,
+      "max": 3,
+      "step": 1,
+      "label": "Desktop columns",
+      "default": 3
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#0D0D0D"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Explore Capsules"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL",
+      "default": "/collections/all"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "label": "Star rating",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review text",
+          "default": "The quality and design of these shirts is absolutely stellar! Love the cosmic vibes."
+        },
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author image"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author name",
+          "default": "Alex Martinez"
+        },
+        {
+          "type": "text",
+          "id": "author_title",
+          "label": "Author title/location",
+          "default": "Los Angeles, CA"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Show verified badge",
+          "default": true
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials - Cosmic",
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" }
+      ]
+    }
+  ]
+}
+{% endschema %}

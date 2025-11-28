@@ -1,126 +1,112 @@
 {% comment %}
-  Universal Lore – Hero Section
-  Cosmic intro + loader + optional hero image
+Lore Hero – Universal Lore entry point
+Uses:
+- #particles for JS particle engine
+- .hero-title / .hero-subtitle for animated text
 {% endcomment %}
 
-{% render 'universal-lore-styles' %}
+{% assign hero_image = section.settings.hero_image | default: 'cosmic-hero-bg.jpg' %}
+{% assign hero_title = section.settings.hero_title | default: 'UNIVERSAL LORE: SIGNALS FROM THE VOID' %}
+{% assign hero_subtitle = section.settings.hero_subtitle | default: 'Distort reality, wear the echo.' %}
 
-<section class="universal-lore-page universal-lore-hero" data-section-id="{{ section.id }}">
+<section
+  class="hero lore-hero section-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="lore-hero"
+  style="background-image: url('{{ hero_image | asset_url }}');"
+>
+  <div class="hero-overlay"></div>
 
-  {%- comment -%} Loader overlay {%- endcomment -%}
-  <div id="loreLoader" class="lore-loader-overlay" aria-hidden="true">
-    <div class="sacred-triangle"></div>
-    <p class="orbitron text-magenta" style="letter-spacing:0.18em;text-transform:uppercase;font-size:0.75rem;">
-      INITIALIZING · UNIVERSAL LORE
+  <div class="hero-content container">
+    <p class="hero-kicker orbitron text-xs tracking-widest mb-2">
+      ✶ UNIVERSAL INDEX · STELLAR REVERB LORE SYSTEM
     </p>
-  </div>
 
-  {%- comment -%} Cosmic particles hook for your JS {%- endcomment -%}
-  <div id="loreParticles"></div>
+    <h1 class="hero-title orbitron animate-title-pulse">
+      {{ hero_title }}
+    </h1>
 
-  <div class="lore-section">
-    <div class="universal-lore-hero__inner" style="display:grid;gap:2rem;align-items:center;">
-      <div class="universal-lore-hero__copy">
-        <h1 class="section-title">
-          {{ section.settings.heading | default: 'UNIVERSAL LORE · SIGNALS FROM THE VOID' }}
-        </h1>
+    <p class="hero-subtitle animate-fade-in-delay">
+      {{ hero_subtitle }}
+    </p>
 
-        {% if section.settings.subheading != blank %}
-          <p style="max-width:640px;margin:1.25rem auto 0;font-size:0.95rem;color:#ddd;">
-            {{ section.settings.subheading }}
-          </p>
-        {% endif %}
-
-        {% if section.settings.body != blank %}
-          <div style="max-width:720px;margin:1.5rem auto 0;font-size:0.9rem;color:#ccc;line-height:1.8;">
-            {{ section.settings.body }}
-          </div>
-        {% endif %}
-
-        <div style="margin-top:2rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
-          <a href="#universal-lore-timeline" class="lore-signup__btn">
-            {{ section.settings.primary_cta_label | default: 'ENTER THE TRANSMISSION ARCHIVE' }}
-          </a>
-
-          {% if section.settings.secondary_cta_label != blank and section.settings.secondary_cta_link != blank %}
-            <a href="{{ section.settings.secondary_cta_link }}" class="lore-signup__btn" style="background:transparent;border:1px solid rgba(255,255,255,0.3);color:#fff;box-shadow:none;">
-              {{ section.settings.secondary_cta_label }}
-            </a>
-          {% endif %}
-        </div>
-      </div>
-
-      {% if section.settings.hero_image != blank %}
-        <div class="universal-lore-hero__visual" style="justify-self:center;max-width:420px;">
-          <div style="border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,0.15);box-shadow:var(--glow-lg) rgba(225,60,250,0.35);">
-            {{ section.settings.hero_image | image_url: width: 900 | image_tag:
-              alt: section.settings.hero_image_alt,
-              loading: 'lazy'
-            }}
-          </div>
-        </div>
-      {% endif %}
+    <!-- Meta chips – echoing the Shop All vibe -->
+    <div class="hero-meta flex flex-wrap gap-2 mt-4 text-xs">
+      <span class="chip chip-soft">
+        🛰 Live transmissions from every capsule
+      </span>
+      <span class="chip chip-soft">
+        📼 Analog mysticism · digital glitch
+      </span>
+      <span class="chip chip-soft">
+        ⚡ Interactive lore · sound-reactive visuals
+      </span>
     </div>
+
+    <button
+      class="cta-primary animate-bounce-in mt-6"
+      id="enterVoid"
+      aria-label="Enter the universal lore"
+    >
+      {{ section.settings.cta_text | default: 'DECODE THE SIGNAL' }}
+    </button>
   </div>
 
-  {%- comment -%} Include your lore JS engine once here {%- endcomment -%}
-  <script src="{{ 'universal-lore.js' | asset_url }}" defer></script>
+  <!-- CSS Particles Background for JS engine -->
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <!-- Ambient Audio Toggle (optional) -->
+  {% if section.settings.enable_ambient_audio %}
+    <button
+      class="sound-toggle"
+      id="soundToggle"
+      aria-label="Toggle ambient audio"
+    >
+      <svg class="sound-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M3 9v6h4l5 5V4L7 9H3z" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </button>
+  {% endif %}
 </section>
 
 {% schema %}
 {
-  "name": "Universal Lore · Hero",
-  "tag": "section",
+  "name": "Lore Hero",
   "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "UNIVERSAL LORE · SIGNALS FROM THE VOID"
-    },
-    {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "A living archive of capsules, glitches, and mythic transmissions. This is where the story fractures and your signal enters."
-    },
-    {
-      "type": "richtext",
-      "id": "body",
-      "label": "Body copy",
-      "default": "<p>Every capsule is a broadcast from a different edge of reality. Scroll to trace the transmissions, or dive directly into the vault.</p>"
-    },
-    {
-      "type": "text",
-      "id": "primary_cta_label",
-      "label": "Primary CTA label",
-      "default": "Enter the Transmission Archive"
-    },
-    {
-      "type": "text",
-      "id": "secondary_cta_label",
-      "label": "Secondary CTA label",
-      "default": "Shop All Relics"
-    },
-    {
-      "type": "url",
-      "id": "secondary_cta_link",
-      "label": "Secondary CTA link"
-    },
     {
       "type": "image_picker",
       "id": "hero_image",
-      "label": "Hero image"
+      "label": "Hero Background Image"
     },
     {
       "type": "text",
-      "id": "hero_image_alt",
-      "label": "Hero image alt text"
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "UNIVERSAL LORE: SIGNALS FROM THE VOID"
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "default": "Distort reality, wear the echo."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "DECODE THE SIGNAL"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_ambient_audio",
+      "label": "Enable Ambient Audio",
+      "default": false
     }
   ],
   "presets": [
     {
-      "name": "Universal Lore · Hero"
+      "name": "Lore Hero",
+      "category": "Stellar Reverb"
     }
   ]
 }

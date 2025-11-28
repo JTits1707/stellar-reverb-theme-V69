@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "shop_all_cosmic_main": {
+      "type": "shop-all-cosmic",
+      "settings": {
+        "hero_title": "Shop All Relics",
+        "hero_subtitle": "Every signal we’ve decoded from the Stellar Reverb archive — capsules, floating relics, and limited signals.",
+        "show_product_count": true,
+        "enable_tag_filters": true,
+        "show_sort": true,
+        "products_per_page": 24,
+        "show_limited_strip": true,
+        "low_stock_threshold": 5,
+        "max_limited_items": 6,
+        "show_total_low_stock": true,
+        "show_signal_cta": true,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "shop_all_cosmic_main"
+  ]
+}

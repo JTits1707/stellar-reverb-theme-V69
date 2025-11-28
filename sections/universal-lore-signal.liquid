@@ -1,0 +1,176 @@
+{% comment %}
+Lore Signal – hidden door email/signup
+Relies on:
+- .signal-section[data-section-type="lore-signal"]
+- .signal-door for JS animations
+- #formStatus for JS feedback
+- Optional external service hook
+{% endcomment %}
+
+<section
+  class="signal-section section-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="lore-signal"
+>
+  <div class="container">
+    <div class="signal-door">
+      <h2 class="door-title orbitron">
+        {{ section.settings.door_title | default: 'THE HIDDEN DOOR' }}
+      </h2>
+
+      <p class="door-subtitle">
+        {{ section.settings.door_subtitle | default: 'Only the tuned may proceed.' }}
+      </p>
+
+      <div class="phrase-cycler" id="phraseCycler">
+        {% assign phrases = section.settings.rotating_phrases | split: '|' %}
+        {% for phrase in phrases %}
+          <span class="phrase{% if forloop.first %} active{% endif %}">
+            {{ phrase }}
+          </span>
+        {% endfor %}
+      </div>
+
+      {% form 'customer', class: 'signal-form', id: 'signalForm' %}
+        {% if form.posted_successfully? %}
+          <div class="form-status success">
+            <p>{{ 'customer.register.success' | t }}</p>
+          </div>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="form-status error">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="input-group">
+          <input
+            type="email"
+            name="customer[email]"
+            id="CustomerEmail"
+            placeholder="{{ section.settings.email_placeholder | default: 'Enter your frequency...' }}"
+            required
+            class="signal-input"
+            aria-label="Email address"
+            autocomplete="email"
+          >
+
+          <button
+            type="submit"
+            class="signal-submit orbitron"
+            aria-label="Submit email to join transmission"
+          >
+            {{ section.settings.submit_text | default: 'TUNE IN' }}
+          </button>
+        </div>
+
+        <!-- Hidden fields for customer creation -->
+        <input type="hidden" name="customer[first_name]" value="Signal">
+        <input type="hidden" name="customer[last_name]" value="Seeker">
+        <input type="hidden" name="customer[tags]" value="lore-subscriber,cosmic-frequency">
+
+        {% if section.settings.enable_newsletter %}
+          <div class="newsletter-opt-in">
+            <label class="checkbox-label">
+              <input type="checkbox" name="customer[accepts_marketing]" checked>
+              <span class="checkmark"></span>
+              {{ section.settings.newsletter_text | default: 'Receive cosmic transmissions and product updates' }}
+            </label>
+          </div>
+        {% endif %}
+
+        <div class="form-status" id="formStatus" aria-live="polite"></div>
+      {% endform %}
+
+      {% if section.settings.use_external_service %}
+        <form
+          class="signal-form external-signup"
+          data-service="{{ section.settings.email_service }}"
+          data-list-id="{{ section.settings.list_id }}"
+        >
+          <!-- External ESP integration (Klaviyo / Mailchimp) goes here -->
+        </form>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lore Signal",
+  "settings": [
+    {
+      "type": "text",
+      "id": "door_title",
+      "label": "Door Title",
+      "default": "THE HIDDEN DOOR"
+    },
+    {
+      "type": "text",
+      "id": "door_subtitle",
+      "label": "Door Subtitle",
+      "default": "Only the tuned may proceed."
+    },
+    {
+      "type": "text",
+      "id": "rotating_phrases",
+      "label": "Rotating Phrases (separated by |)",
+      "default": "Decode the future|Receive signal keys|Unlock the vault|Join the transmission"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder Text",
+      "default": "Enter your frequency..."
+    },
+    {
+      "type": "text",
+      "id": "submit_text",
+      "label": "Submit Button Text",
+      "default": "TUNE IN"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_newsletter",
+      "label": "Enable Newsletter Signup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter Opt-in Text",
+      "default": "Receive cosmic transmissions and product updates"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_external_service",
+      "label": "Use External Email Service",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "email_service",
+      "label": "Email Service",
+      "options": [
+        { "value": "klaviyo", "label": "Klaviyo" },
+        { "value": "mailchimp", "label": "Mailchimp" },
+        { "value": "shopify", "label": "Shopify Native" }
+      ],
+      "default": "shopify"
+    },
+    {
+      "type": "text",
+      "id": "list_id",
+      "label": "External Service List ID",
+      "default": ""
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lore Signal",
+      "category": "Stellar Reverb"
+    }
+  ]
+}
+{% endschema %}
