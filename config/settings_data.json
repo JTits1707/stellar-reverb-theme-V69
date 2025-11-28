@@ -70,8 +70,13 @@
       },
       "header": {
         "type": "header",
+        "custom_css": [
+          "/* Cosmic Product Grid overrides */.cosmic-product-grid h2 {font-family: 'Orbitron', sans-serif; font-size: 32px; color: var(--neon-magenta); text-shadow: 0 0 15px var(--neon-magenta), 0 0 30px var(--cyan-blue);}",
+          ".cosmic-product-grid .price {color: var(--radioactive-green); font-weight: bold;}",
+          ".cosmic-product-grid .card:hover {transform: scale(1.05); box-shadow: 0 0 30px var(--cyan-blue);}"
+        ],
         "settings": {
-          "show_announcement": false,
+          "show_announcement": true,
           "announcement_text": "COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS",
           "logo": "shopify://shop_images/504A6C7C-9332-4661-BE0B-018D2E2A2012_7969b816-307b-4481-8a11-b17402f777f9.jpg"
         }
