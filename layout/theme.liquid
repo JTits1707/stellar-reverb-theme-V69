@@ -1,10 +1,18 @@
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}">
+<html
+  class="no-js"
+  lang="{{ request.locale.iso_code }}"
+>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+    >
 
-    {%- comment -%} SEO / Title {%- endcomment -%}
+    {%- comment -%}
+      SEO / Title
+    {%- endcomment -%}
     <title>
       {%- if page_title == blank -%}
         {{ 'general.meta.title' | t: shop_name: shop.name }}
@@ -14,28 +22,47 @@
     </title>
 
     {%- if page_description -%}
-      <meta name="description" content="{{ page_description | escape }}">
+      <meta
+        name="description"
+        content="{{ page_description | escape }}"
+      >
     {%- else -%}
-      <meta name="description" content="Stellar Reverb – cosmic apparel, analog mysticism, and wearable soundscapes broadcasting from the edge of reality.">
+      <meta
+        name="description"
+        content="Stellar Reverb – cosmic apparel, analog mysticism, and wearable soundscapes broadcasting from the edge of reality."
+      >
     {%- endif -%}
 
     <meta name="theme-color" content="#0D0D0D">
 
-    {%- comment -%} Favicon {%- endcomment -%}
-    <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+    {%- comment -%}
+      Favicon (update file name as needed)
+    {%- endcomment -%}
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ 'favicon.png' | asset_url }}"
+    >
 
-    {%- comment -%} Preconnects {%- endcomment -%}
+    {%- comment -%}
+      Preconnects for performance
+    {%- endcomment -%}
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    {%- comment -%} Fonts – Orbitron / Montserrat (keep for now) {%- endcomment -%}
+    {%- comment -%}
+      Fonts – Orbitron / Exo / Montserrat / Inter
+      If you're using Shopify font settings, you can remove this and rely on {{ settings.typography_* }}
+    {%- endcomment -%}
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
     >
 
-    {%- comment -%} Design tokens as CSS variables {%- endcomment -%}
+    {%- comment -%}
+      CSS Variables from Theme Settings (Brand Tokens)
+    {%- endcomment -%}
     <style>
       :root {
         --void-black: {{ settings.color_void_black | default: '#0D0D0D' }};
@@ -52,40 +79,35 @@
 
       html {
         font-family: var(--font-body);
-        background-color: --void-black;
+        background-color: var(--void-black);
         color: #f9fafb;
-      }
-
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-      }
-
-      .focus\:not-sr-only:focus {
-        position: static;
-        width: auto;
-        height: auto;
-        margin: 0;
-        overflow: visible;
-        clip: auto;
-        white-space: normal;
       }
     </style>
 
-    {%- comment -%} Core CSS {%- endcomment -%}
-    {{ 'base.css' | asset_url | stylesheet_tag }}
-    {{ 'stellar-reverb-performance.css' | asset_url | stylesheet_tag }}
+    {%- comment -%}
+      Core CSS – order matters:
+      1) Critical (above-the-fold, if you have it)
+      2) Base / theme
+      3) Stellar Reverb performance / lore styling
+    {%- endcomment -%}
+    {% if 'stellar-reverb-critical.css' | asset_url %}
+      {{ 'stellar-reverb-critical.css' | asset_url | stylesheet_tag }}
+    {% endif %}
 
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    {% if 'stellar-reverb-performance.css' | asset_url %}
+      {{ 'stellar-reverb-performance.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+    {%- comment -%}
+      Shopify required, apps, analytics, etc.
+    {%- endcomment -%}
     {{ content_for_header }}
 
-    {%- comment -%} Basic Org schema {%- endcomment -%}
+    {%- comment -%}
+      JSON-LD baseline schema (you can expand later)
+    {%- endcomment -%}
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -106,37 +128,69 @@
       template-{{ template | replace: '.', '-' | replace: '/', '-' }}
     "
   >
-    {%- comment -%} Accessibility skip link {%- endcomment -%}
-    <a class="skip-to-content sr-only focus:not-sr-only" href="#MainContent">
+    {%- comment -%}
+      Accessibility: skip link
+    {%- endcomment -%}
+    <a
+      class="skip-to-content sr-only focus:not-sr-only"
+      href="#MainContent"
+    >
       {{ 'accessibility.skip_to_content' | t | default: 'Skip to main content' }}
     </a>
 
-    {%- comment -%} Floating cassette / glitch layer {%- endcomment -%}
-    {% render 'floating-elements' %}
+    {%- comment -%}
+      Header (navigation, logo, cart, etc.)
+      Use your existing header section handle here (likely 'header')
+    {%- endcomment -%}
+    {% section 'header' %}
 
-    {%- comment -%} Global header/nav section {%- endcomment -%}
-    {% section 'header-enhanced' %}
-
-    <main id="MainContent" role="main" tabindex="-1" class="main-content">
+    {%- comment -%}
+      Page main content
+    {%- endcomment -%}
+    <main
+      id="MainContent"
+      role="main"
+      tabindex="-1"
+      class="main-content"
+    >
       {{ content_for_layout }}
     </main>
 
-    {%- comment -%} Global footer section {%- endcomment -%}
-    {% section 'stellar-footer' %}
+    {%- comment -%}
+      Footer (global)
+    {%- endcomment -%}
+    {% section 'footer' %}
 
-    {%- comment -%} Global JS (if present) {%- endcomment -%}
-    <script src="{{ 'global.js' | asset_url }}" defer></script>
+    {%- comment -%}
+      Core JS – global theme logic
+    {%- endcomment -%}
+    {% if 'global.js' | asset_url %}
+      <script src="{{ 'global.js' | asset_url }}" defer></script>
+    {% endif %}
 
-    {%- comment -%} Lore engine (optional) {%- endcomment -%}
+    {%- comment -%}
+      Page-specific JS:
+      Lore engine for universal lore pages / sections
+      Shopify template check keeps it light where unused.
+    {%- endcomment -%}
     {% if template contains 'universal-lore' or template contains 'lore' %}
-      <script src="{{ 'stellar-reverb-lore.js' | asset_url }}" defer></script>
+      {% if 'stellar-reverb-lore.js' | asset_url %}
+        <script src="{{ 'stellar-reverb-lore.js' | asset_url }}" defer></script>
+      {% endif %}
     {% endif %}
 
-    {%- comment -%} Shop All filters (optional) {%- endcomment -%}
+    {%- comment -%}
+      Optional: Shop All filters / interactions
+    {%- endcomment -%}
     {% if template contains 'collection.shop-all' %}
-      <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
+      {% if 'stellar-shop-all.js' | asset_url %}
+        <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
+      {% endif %}
     {% endif %}
 
+    {%- comment -%}
+      Optional: service worker for PWA-ish feel
+    {%- endcomment -%}
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker
