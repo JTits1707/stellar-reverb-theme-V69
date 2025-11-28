@@ -34,6 +34,7 @@
       "name": "Stellar Timeline",
       "settings": {
 <<<<<<< HEAD
+<<<<<<< HEAD
         "show_heading": true,
         "heading": "COSMIC TRANSMISSION TIMELINE",
         "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
@@ -44,11 +45,21 @@
 =======
         "heading": "COSMIC TRANSMISSION TIMELINE"
 >>>>>>> eae62734619e75abdfebb5642bb43710477a742c
+=======
+        "show_heading": true,
+        "heading": "COSMIC TRANSMISSION TIMELINE",
+        "subtitle": "Journey through the capsule drops across space and time",
+        "show_scroll_controls": false,
+        "enable_sound": false,
+        "padding_top": 64,
+        "padding_bottom": 64
+>>>>>>> 9cdc0bdefaf2771709c8e49f54c31abbff746719
       }
     },
 
     "homepage_almost_gone_marquee_BdMHpw": {
       "type": "homepage-almost-gone-marquee",
+      "disabled": true,
       "name": "Almost Gone Marquee",
       "settings": {
         "use_dynamic_products": false,
@@ -69,7 +80,7 @@
     },
 
     "stellar_navigation_matrix_hghjpC": {
-      "type": "stellar-navigation-matrix",
+      "type": "navigation-matrix",
       "blocks": {
         "nav_item_jC4FdU": {
           "type": "nav_item",
@@ -100,6 +111,7 @@
         },
         "nav_item_QEfBG8": {
           "type": "nav_item",
+          "disabled": true,
           "settings": {
             "title": "Shop",
             "link_url": "/collections/all",

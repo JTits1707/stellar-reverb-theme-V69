@@ -1,27 +1,3 @@
-/* ==== HERO FONT OVERRIDE — COSMIC LEVEL ==== */
-.shopify-section.hero .hero__title,
-.shopify-section.hero h1,
-.hero__title,
-.hero h1,
-.hero__heading,
-.rte h1,
-.hero__content h1,
-.hero__content .h1,
-section[id*="hero"] h1,
-section[id*="Hero"] h1,
-.hero__subtitle,
-.hero__description {
-  font-family: 'Orbitron', 'Exo 2', sans-serif !important;
-  letter-spacing: 0.05em !important;
-  text-transform: uppercase !important;
-}
-
-/* Extra aggressive fallback in case your theme uses weird classes */
-[class*="hero"] h1,
-[class*="Hero"] h1,
-[class*="hero"] .h1,
-[class*="Hero"] .h1 {
-  font-family: 'Orbitron', 'Exo 2', sans-serif !important;{% comment %}
   ═══════════════════════════════════════════════════════════
   STELLAR REVERB - FOOTER SECTION
   ═══════════════════════════════════════════════════════════
@@ -37,10 +13,6 @@ section[id*="Hero"] h1,
     - Optional Signal Seeker badge
     - Social media icons
     - Copyright info
-  
-  ═══════════════════════════════════════════════════════════
-{% endcomment %}
-
 {% liquid
   # Fetch all published capsules from metaobjects
   assign all_capsules = shop.metaobjects.capsule_archive.values | sort: 'capsule_number'

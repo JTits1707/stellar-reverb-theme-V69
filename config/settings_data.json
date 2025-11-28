@@ -68,6 +68,14 @@
           "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
           "show_payment_icons": true
         }
+      },
+      "header-enhanced": {
+        "type": "header-enhanced",
+        "settings": {
+          "show_announcement": false,
+          "announcement_text": "FREE SHIPPING ALL WEEK, & GET 20% DISC.",
+          "logo": "shopify://shop_images/stellar-reverb-transparent-brand-logo.png"
+        }
       }
     },
     "content_for_index": []
