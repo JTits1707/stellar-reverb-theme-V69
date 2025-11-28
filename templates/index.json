@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "announcement_bar_w6Aaa8": {
@@ -18,6 +9,7 @@
         "show_announcement": true
       }
     },
+
     "hero_cosmic_Hb4LxK": {
       "type": "hero-cosmic",
       "name": "Cosmic Hero",
@@ -36,9 +28,9 @@
         "cta_text_color": "#000000"
       }
     },
+
     "stellar_timeline_FYdW8c": {
       "type": "stellar-timeline",
-      "custom_css": [],
       "name": "Stellar Timeline",
       "settings": {
         "show_heading": true,
@@ -46,10 +38,11 @@
         "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
         "show_scroll_controls": true,
         "enable_sound": true,
-        "padding_top": 68,
-        "padding_bottom": 60
+        "padding_top": 84,
+        "padding_bottom": 84
       }
     },
+
     "homepage_almost_gone_marquee_BdMHpw": {
       "type": "homepage-almost-gone-marquee",
       "name": "Almost Gone Marquee",
@@ -64,11 +57,13 @@
         "color_scheme": "yellow"
       }
     },
+
     "floating_archive_main_exp84J": {
       "type": "floating-archive-main",
       "name": "Floating Archive · Gated",
       "settings": {}
     },
+
     "stellar_navigation_matrix_hghjpC": {
       "type": "stellar-navigation-matrix",
       "blocks": {
@@ -76,7 +71,7 @@
           "type": "nav_item",
           "settings": {
             "title": "All Capsules",
-            "link_url": "",
+            "link_url": "/collections/capsules",
             "icon_type": "spiral",
             "glow_color": "cyan"
           }
@@ -85,7 +80,7 @@
           "type": "nav_item",
           "settings": {
             "title": "About",
-            "link_url": "",
+            "link_url": "/pages/about",
             "icon_type": "brain",
             "glow_color": "magenta"
           }
@@ -94,7 +89,7 @@
           "type": "nav_item",
           "settings": {
             "title": "Lore",
-            "link_url": "",
+            "link_url": "/pages/lore",
             "icon_type": "infinity",
             "glow_color": "purple"
           }
@@ -103,7 +98,7 @@
           "type": "nav_item",
           "settings": {
             "title": "Shop",
-            "link_url": "",
+            "link_url": "/collections/all",
             "icon_type": "diamond",
             "glow_color": "gold"
           }
@@ -123,6 +118,7 @@
         "grid_columns": 4
       }
     },
+
     "stellar_footer_ktCA48": {
       "type": "stellar-footer",
       "blocks": {
@@ -215,31 +211,9 @@
         "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
         "show_payment_icons": true
       }
-    },
-    "featured_transmission_fEYcyE": {
-      "type": "featured-transmission",
-      "name": "Featured Transmission",
-      "settings": {
-        "capsule_number": "006",
-        "capsule_title": "THE MIXTAPE THAT MADE THE MULTIVERSE",
-        "subtitle": "Creation myth of sound, mixtape as cosmic genesis.",
-        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
-        "featured_image": "shopify://shop_images/capsule006-image-tag_a36ba2d7-085b-4b90-9283-ef0e36968ee7.jpg",
-        "lore_preview": "Before there was cosmos, there was mixtape — one recording, infinite loops, birthing multiverses through sound. This capsule holds the origin track of all realities.",
-        "release_date": "2024.10",
-        "theme": "Neon Magenta",
-        "product_count": "12",
-        "primary_cta_text": "EXPLORE CAPSULE",
-        "primary_cta_link": "",
-        "show_secondary_cta": true,
-        "secondary_cta_text": "READ LORE",
-        "secondary_cta_link": "",
-        "image_position": "left",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
     }
   },
+
   "order": [
     "announcement_bar_w6Aaa8",
     "hero_cosmic_Hb4LxK",
@@ -247,7 +221,6 @@
     "homepage_almost_gone_marquee_BdMHpw",
     "floating_archive_main_exp84J",
     "stellar_navigation_matrix_hghjpC",
-    "stellar_footer_ktCA48",
-    "featured_transmission_fEYcyE"
+    "stellar_footer_ktCA48"
   ]
 }

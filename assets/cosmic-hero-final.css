@@ -1,0 +1,179 @@
+/* ===================================================================
+   STELLAR REVERB — COSMIC HERO TERMINAL BREACH: FINAL UNIFIED
+   One file. One truth. One transmission.
+   =================================================================== */
+
+/* ───── NUCLEAR FONT LOCK — ORBITRON/EXO 2 EVERYWHERE ───── */
+.shopify-section.hero *,
+.hero__content *,
+.hero__title,
+h1, h2, p, .cosmic-title, .terminal-header, .decode-status {
+  font-family: 'Orbitron', 'Exo 2', sans-serif !important;
+}
+
+/* ───── HERO CONTAINER + CRT SCANLINES + VHS NOISE ───── */
+.hero-cosmic,
+section.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+/* Scanlines */
+.hero-cosmic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(40,168,214,0.06) 2px, transparent 4px);
+  animation: crt-drift 6s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* VHS static */
+.hero-cosmic::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, transparent 4px);
+  opacity: 0.4;
+  animation: vhs-noise 0.2s infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes crt-drift { to { transform: translateY(4px); } }
+@keyframes vhs-noise { 0%,100% { opacity: 0.4; } 50% { opacity: 0.25; } }
+
+/* ───── TERMINAL HEADER ───── */
+.terminal-header {
+  position: absolute;
+  top: 2rem; left: 2rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: #00f0ff;
+  z-index: 30;
+}
+.terminal-prompt { color: #E13CFA; animation: blink 1s infinite; }
+
+/* ───── DECRYPTING STATUS ───── */
+.decode-status {
+  font-family: 'Exo 2', monospace;
+  color: #00F0AC;
+  letter-spacing: 0.3em;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  z-index: 30;
+}
+.decode-dots span {
+  animation: dot-pulse 1.5s infinite;
+}
+.decode-dots span:nth-child(2) { animation-delay: 0.3s; }
+.decode-dots span:nth-child(3) { animation-delay: 0.6s; }
+@keyframes dot-pulse { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
+
+/* ───── MAIN TITLE — GLITCH + CURSOR ───── */
+.cosmic-title {
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #28A8D6;
+  text-shadow: 0 0 30px #28A8D6, 0 0 60px #E13CFA;
+  position: relative;
+  display: inline-block;
+}
+.cosmic-title::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 2px;
+  color: #E13CFA;
+  animation: glitch1 2s infinite;
+}
+.cosmic-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: -2px;
+  color: #00F0AC;
+  animation: glitch2 1.6s infinite;
+}
+.cosmic-cursor {
+  display: inline-block;
+  width: 4px;
+  height: 1em;
+  background: #E13CFA;
+  margin-left: 0.1em;
+  animation: blink 0.8s infinite;
+  vertical-align: middle;
+}
+
+/* ───── TYPING SUBTITLE ───── */
+.cosmic-subtitle .typing-text {
+  display: inline-block;
+  color: #F4FF30;
+  font-family: 'Exo 2', monospace;
+  letter-spacing: 0.15em;
+  border-right: 3px solid #00F0AC;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 3.5s steps(40) 1s forwards, blink 0.8s infinite;
+}
+
+/* ───── STATUS LINE ───── */
+.status-line {
+  font-family: 'Courier New', monospace;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+.status-value { color: #00F0AC; font-weight: 700; }
+
+/* ───── CTA BUTTON ───── */
+.cosmic-cta {
+  background: #F4FF30;
+  color: #000;
+  font-family: 'Orbitron', sans-serif !important;
+  font-weight: 900;
+  padding: 1rem 2.5rem;
+  border: 3px solid #28A8D6;
+  box-shadow: 0 0 25px #F4FF30;
+  animation: pulse 2s infinite alternate;
+}
+.cosmic-cta:hover {
+  transform: translateY(-5px) skew(-5deg);
+  box-shadow: 0 0 50px #E13CFA, 10px 10px 0 #00F0AC;
+}
+
+/* ───── SCROLL INDICATOR ───── */
+.scroll-indicator {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.5);
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+}
+.scroll-arrow { color: #00F0AC; animation: bounce 2s infinite; }
+
+/* ───── KEYFRAMES ───── */
+@keyframes typing    { to { width: 100%; } }
+@keyframes blink     { 50% { opacity: 0; } }
+@keyframes glitch1   { 0%,100% { transform: translate(0); } 20% { transform: translate(-5px, -3px); } 40% { transform: translate(5px, 3px); } }
+@keyframes glitch2   { 0%,100% { transform: translate(0); } 30% { transform: translate(4px, -4px); } 70% { transform: translate(-4px, 4px); } }
+@keyframes pulse     { to { box-shadow: 0 0 40px #F4FF30, 0 0 20px #E13CFA; } }
+@keyframes bounce    { 0%,100% { transform: translateY(0); } 50% { transform: translateY(12px); } }
+
+/* ───── MOBILE & ACCESSIBILITY ───── */
+@media (max-width: 768px) {
+  .terminal-header, .decode-status { font-size: 0.8rem; top: 1rem; left: 1rem; }
+  .cosmic-title { font-size: 3rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; }
+}
