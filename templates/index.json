@@ -20,6 +20,7 @@
     },
     "hero_cosmic_Hb4LxK": {
       "type": "hero-cosmic",
+      "custom_css": [],
       "name": "Cosmic Hero",
       "settings": {
         "hero_background": "shopify://shop_images/homepage-hero-image-main-page_2e498b6f-cd97-4aab-a033-77858a8008d8.jpg",
