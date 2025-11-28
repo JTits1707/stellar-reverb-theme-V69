@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "announcement_bar_w6Aaa8": {
@@ -9,9 +18,13 @@
         "show_announcement": true
       }
     },
-
     "hero_cosmic_Hb4LxK": {
       "type": "hero-cosmic",
+      "custom_css": [
+        "/* Cosmic Product Grid overrides */.cosmic-product-grid h2 {font-family: 'Orbitron', sans-serif; font-size: 32px; color: var(--neon-magenta); text-shadow: 0 0 15px var(--neon-magenta), 0 0 30px var(--cyan-blue);}",
+        ".cosmic-product-grid .price {color: var(--radioactive-green); font-weight: bold;}",
+        ".cosmic-product-grid .card:hover {transform: scale(1.05); box-shadow: 0 0 30px var(--cyan-blue);}"
+      ],
       "name": "Cosmic Hero",
       "settings": {
         "hero_background": "shopify://shop_images/homepage-hero-image-main-page_2e498b6f-cd97-4aab-a033-77858a8008d8.jpg",
@@ -28,23 +41,9 @@
         "cta_text_color": "#000000"
       }
     },
-
-    "stellar_timeline_FYdW8c": {
-      "type": "stellar-timeline",
-      "name": "Stellar Timeline",
-      "settings": {
-        "show_heading": true,
-        "heading": "COSMIC TRANSMISSION TIMELINE",
-        "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
-        "show_scroll_controls": true,
-        "enable_sound": true,
-        "padding_top": 84,
-        "padding_bottom": 84
-      }
-    },
-
     "homepage_almost_gone_marquee_BdMHpw": {
       "type": "homepage-almost-gone-marquee",
+      "disabled": true,
       "name": "Almost Gone Marquee",
       "settings": {
         "use_dynamic_products": false,
@@ -57,15 +56,26 @@
         "color_scheme": "yellow"
       }
     },
-
     "floating_archive_main_exp84J": {
       "type": "floating-archive-main",
       "name": "Floating Archive · Gated",
       "settings": {}
     },
-
+    "stellar_timeline_7ezzDL": {
+      "type": "stellar-timeline",
+      "name": "Stellar Timeline",
+      "settings": {
+        "show_heading": true,
+        "heading": "COSMIC TRANSMISSION TIMELINE",
+        "subtitle": "Journey through the capsule drops across space and time",
+        "show_scroll_controls": false,
+        "enable_sound": false,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
     "stellar_navigation_matrix_hghjpC": {
-      "type": "stellar-navigation-matrix",
+      "type": "navigation-matrix",
       "blocks": {
         "nav_item_jC4FdU": {
           "type": "nav_item",
@@ -96,6 +106,7 @@
         },
         "nav_item_QEfBG8": {
           "type": "nav_item",
+          "disabled": true,
           "settings": {
             "title": "Shop",
             "link_url": "/collections/all",
@@ -118,7 +129,6 @@
         "grid_columns": 4
       }
     },
-
     "stellar_footer_ktCA48": {
       "type": "stellar-footer",
       "blocks": {
@@ -213,13 +223,12 @@
       }
     }
   },
-
   "order": [
     "announcement_bar_w6Aaa8",
     "hero_cosmic_Hb4LxK",
-    "stellar_timeline_FYdW8c",
     "homepage_almost_gone_marquee_BdMHpw",
     "floating_archive_main_exp84J",
+    "stellar_timeline_7ezzDL",
     "stellar_navigation_matrix_hghjpC",
     "stellar_footer_ktCA48"
   ]
