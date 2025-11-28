@@ -70,7 +70,7 @@
       "settings": {}
     },
     "stellar_navigation_matrix_hghjpC": {
-      "type": "stellar-navigation-matrix",
+      "type": "navigation-matrix",
       "blocks": {
         "nav_item_jC4FdU": {
           "type": "nav_item",

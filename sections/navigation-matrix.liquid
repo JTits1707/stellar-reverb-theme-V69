@@ -1,674 +1,550 @@
-{% comment %}
   ═══════════════════════════════════════════════════════════
   STELLAR REVERB - NAVIGATION MATRIX SECTION
   ═══════════════════════════════════════════════════════════
   
-  Purpose: 3-card grid navigation to key site areas
-  Cards:
-    1. Join Signal Seekers - Email opt-in CTA
-    2. View All Capsules - Transmission archive
-    3. Universal Lore - Deep mythos library
-  
+  Purpose: Grid-based navigation with icon badges
   Features:
-    - Cosmic hover effects
-    - Neon glow interactions
-    - Icon animations
-    - Customizable via Theme Editor
+    - Customizable icon grid
+    - Hover effects with glow
+    - Flexible 2-6 column layout
+    - Icon + text combinations
+    - Theme color variations
+  
+  Usage: Add to homepage for quick navigation to key pages
   
   ═══════════════════════════════════════════════════════════
-{% endcomment %}
+
+{% liquid
+  assign grid_columns = section.settings.grid_columns | default: 4
+  assign show_heading = section.settings.show_heading | default: true
+%}
 
 <section 
   class="navigation-matrix" 
   data-section-id="{{ section.id }}"
   data-section-type="navigation-matrix"
+  style="--grid-columns: {{ grid_columns }};"
 >
   
-  {%- comment -%} Section Header {%- endcomment -%}
-  <div class="nav-matrix-header container">
-    {% if section.settings.show_heading %}
-      <h2 class="nav-matrix-title orbitron">
-        {{ section.settings.heading | default: 'EXPLORE THE STELLAR REVERB UNIVERSE' }}
-      </h2>
+  <div class="container">
+    
+    {%- comment -%} Section Header {%- endcomment -%}
+    {% if show_heading %}
+      <div class="matrix-header">
+        <h2 class="matrix-heading">
+          {{ section.settings.heading | default: 'NAVIGATE THE SIGNAL' }}
+        </h2>
+        {% if section.settings.subheading != blank %}
+          <p class="matrix-subheading">{{ section.settings.subheading }}</p>
+        {% endif %}
+      </div>
     {% endif %}
     
-    {% if section.settings.subtitle != blank %}
-      <p class="nav-matrix-subtitle">{{ section.settings.subtitle }}</p>
-    {% endif %}
-  </div>
-  
-  {%- comment -%} Navigation Cards Grid {%- endcomment -%}
-  <div class="nav-matrix-grid container">
-    
-    {%- comment -%} CARD 1: SIGNAL SEEKERS {%- endcomment -%}
-    <div class="nav-card" data-card="signal-seekers">
-      <div class="nav-card-inner">
-        
-        {%- comment -%} Icon {%- endcomment -%}
-        <div class="nav-card-icon">
-          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="2"/>
-            <circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="2"/>
-            <circle cx="32" cy="32" r="12" stroke="currentColor" stroke-width="2"/>
-            <circle cx="32" cy="32" r="4" fill="currentColor"/>
-            <path d="M32 4 L32 12 M32 52 L32 60 M4 32 L12 32 M52 32 L60 32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        
-        {%- comment -%} Content {%- endcomment -%}
-        <h3 class="nav-card-title orbitron">
-          {{ section.settings.card_1_title | default: 'JOIN SIGNAL SEEKERS' }}
-        </h3>
-        
-        <p class="nav-card-description">
-          {{ section.settings.card_1_description | default: 'Become part of the cosmic network. Receive exclusive transmissions and early access to hidden relics.' }}
-        </p>
-        
+    {%- comment -%} Navigation Grid {%- endcomment -%}
+    <div class="matrix-grid">
+      
+      {% for block in section.blocks %}
         <a 
-          href="{{ section.settings.card_1_url | default: '/pages/signal-seekers' }}" 
-          class="nav-card-cta"
+          href="{{ block.settings.link_url }}" 
+          class="matrix-item"
+          data-block-id="{{ block.id }}"
+          data-glow-color="{{ block.settings.glow_color }}"
+          {{ block.shopify_attributes }}
         >
-          {{ section.settings.card_1_cta | default: 'JOIN NOW' }}
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 10h10M10 5l5 5-5 5"/>
-          </svg>
+          
+          {%- comment -%} Icon Container {%- endcomment -%}
+          <div class="matrix-icon">
+            {% if block.settings.custom_icon != blank %}
+              <img 
+                src="{{ block.settings.custom_icon | image_url: width: 200 }}" 
+                alt="{{ block.settings.title }}"
+                loading="lazy"
+                class="icon-image"
+              >
+            {% else %}
+              {%- comment -%} Default SVG Icons {%- endcomment -%}
+              {% case block.settings.icon_type %}
+                {% when 'spiral' %}
+                  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M50 50 Q60 30 70 30 Q80 30 80 40 Q80 50 70 50 Q60 50 55 55 Q50 60 45 60 Q35 60 30 50 Q25 40 35 30 Q45 20 55 20 Q70 20 80 30" stroke-linecap="round"/>
+                  </svg>
+                {% when 'brain' %}
+                  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M30 50 Q30 30 45 25 Q50 23 55 25 Q70 30 70 50 M50 25 L50 75 M35 40 Q35 35 40 35 M65 40 Q65 35 60 35" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                {% when 'infinity' %}
+                  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M20 50 Q30 30 40 30 Q50 30 50 40 Q50 50 40 50 Q30 50 20 70 M80 50 Q70 70 60 70 Q50 70 50 60 Q50 50 60 50 Q70 50 80 30" stroke-linecap="round"/>
+                  </svg>
+                {% when 'moon' %}
+                  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M70 25 Q55 25 45 35 Q35 45 35 60 Q35 75 45 85 Q55 95 70 95 Q80 95 85 85 Q90 75 85 60" stroke-linecap="round"/>
+                  </svg>
+                {% when 'robot' %}
+                  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <rect x="30" y="35" width="40" height="45" rx="5"/>
+                    <circle cx="42" cy="50" r="4"/>
+                    <circle cx="58" cy="50" r="4"/>
+                    <path d="M40 65 L60 65 M50 20 L50 35 M20 50 L30 50 M70 50 L80 50"/>
+                  </svg>
+                {% when 'lines' %}
+                  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+                    <line x1="25" y1="35" x2="75" y2="35" stroke-linecap="round"/>
+                    <line x1="25" y1="50" x2="75" y2="50" stroke-linecap="round"/>
+                    <line x1="25" y1="65" x2="75" y2="65" stroke-linecap="round"/>
+                  </svg>
+                {% when 'diamond' %}
+                  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M50 20 L75 50 L50 80 L25 50 Z" stroke-linejoin="round"/>
+                    <path d="M35 35 L65 35 L50 50 Z"/>
+                  </svg>
+                {% when 'skull' %}
+                  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <ellipse cx="50" cy="45" rx="20" ry="25"/>
+                    <circle cx="42" cy="40" r="4" fill="currentColor"/>
+                    <circle cx="58" cy="40" r="4" fill="currentColor"/>
+                    <rect x="45" y="55" width="10" height="15"/>
+                  </svg>
+                {% else %}
+                  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+                    <circle cx="50" cy="50" r="30" stroke-linecap="round"/>
+                    <path d="M50 35 L50 50 L60 60" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+              {% endcase %}
+            {% endif %}
+          </div>
+          
+          {%- comment -%} Label Text {%- endcomment -%}
+          <div class="matrix-label">
+            <span class="label-text">{{ block.settings.title | upcase }}</span>
+          </div>
+          
+          {%- comment -%} Hover Glow Effect {%- endcomment -%}
+          <div class="matrix-glow" aria-hidden="true"></div>
+          
         </a>
-        
-        {%- comment -%} Hover Glow Effect {%- endcomment -%}
-        <div class="nav-card-glow"></div>
-      </div>
-    </div>
-    
-    {%- comment -%} CARD 2: ALL CAPSULES {%- endcomment -%}
-    <div class="nav-card" data-card="all-capsules">
-      <div class="nav-card-inner">
-        
-        {%- comment -%} Icon {%- endcomment -%}
-        <div class="nav-card-icon">
-          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="12" y="12" width="40" height="40" rx="4" stroke="currentColor" stroke-width="2"/>
-            <line x1="12" y1="24" x2="52" y2="24" stroke="currentColor" stroke-width="2"/>
-            <line x1="24" y1="12" x2="24" y2="52" stroke="currentColor" stroke-width="2"/>
-            <line x1="40" y1="12" x2="40" y2="52" stroke="currentColor" stroke-width="2"/>
-            <line x1="12" y1="36" x2="52" y2="36" stroke="currentColor" stroke-width="2"/>
-          </svg>
-        </div>
-        
-        {%- comment -%} Content {%- endcomment -%}
-        <h3 class="nav-card-title orbitron">
-          {{ section.settings.card_2_title | default: 'VIEW ALL CAPSULES' }}
-        </h3>
-        
-        <p class="nav-card-description">
-          {{ section.settings.card_2_description | default: 'Explore the complete transmission archive. Each capsule contains unique stories from across the multiverse.' }}
-        </p>
-        
-        <a 
-          href="{{ section.settings.card_2_url | default: '/pages/transmission-archive' }}" 
-          class="nav-card-cta"
-        >
-          {{ section.settings.card_2_cta | default: 'EXPLORE ARCHIVE' }}
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 10h10M10 5l5 5-5 5"/>
-          </svg>
-        </a>
-        
-        {%- comment -%} Hover Glow Effect {%- endcomment -%}
-        <div class="nav-card-glow"></div>
-      </div>
-    </div>
-    
-    {%- comment -%} CARD 3: UNIVERSAL LORE {%- endcomment -%}
-    <div class="nav-card" data-card="universal-lore">
-      <div class="nav-card-inner">
-        
-        {%- comment -%} Icon {%- endcomment -%}
-        <div class="nav-card-icon">
-          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16 8 L16 56 L48 56 L48 20 L36 8 Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M36 8 L36 20 L48 20" stroke="currentColor" stroke-width="2"/>
-            <line x1="24" y1="28" x2="40" y2="28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="24" y1="36" x2="40" y2="36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="24" y1="44" x2="32" y2="44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        
-        {%- comment -%} Content {%- endcomment -%}
-        <h3 class="nav-card-title orbitron">
-          {{ section.settings.card_3_title | default: 'UNIVERSAL LORE' }}
-        </h3>
-        
-        <p class="nav-card-description">
-          {{ section.settings.card_3_description | default: 'Dive deep into the mythology and cosmic stories that power the Stellar Reverb universe.' }}
-        </p>
-        
-        <a 
-          href="{{ section.settings.card_3_url | default: '/pages/lore-index' }}" 
-          class="nav-card-cta"
-        >
-          {{ section.settings.card_3_cta | default: 'READ LORE' }}
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 10h10M10 5l5 5-5 5"/>
-          </svg>
-        </a>
-        
-        {%- comment -%} Hover Glow Effect {%- endcomment -%}
-        <div class="nav-card-glow"></div>
-      </div>
+      {% endfor %}
+      
     </div>
     
   </div>
   
 </section>
 
-{%- comment -%} Schema for Shopify Theme Editor {%- endcomment -%}
-{% schema %}
-{
-  "name": "Navigation Matrix",
-  "tag": "section",
-  "class": "section-navigation-matrix",
-  "settings": [
-    {
-      "type": "header",
-      "content": "Section Header"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_heading",
-      "label": "Show heading",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "EXPLORE THE STELLAR REVERB UNIVERSE"
-    },
-    {
-      "type": "textarea",
-      "id": "subtitle",
-      "label": "Subtitle",
-      "default": "Discover the cosmic network of transmissions, lore, and hidden relics"
-    },
-    {
-      "type": "header",
-      "content": "Card 1: Signal Seekers"
-    },
-    {
-      "type": "text",
-      "id": "card_1_title",
-      "label": "Card 1 Title",
-      "default": "JOIN SIGNAL SEEKERS"
-    },
-    {
-      "type": "textarea",
-      "id": "card_1_description",
-      "label": "Card 1 Description",
-      "default": "Become part of the cosmic network. Receive exclusive transmissions and early access to hidden relics."
-    },
-    {
-      "type": "text",
-      "id": "card_1_cta",
-      "label": "Card 1 Button Text",
-      "default": "JOIN NOW"
-    },
-    {
-      "type": "url",
-      "id": "card_1_url",
-      "label": "Card 1 Link",
-      "default": "/pages/signal-seekers"
-    },
-    {
-      "type": "header",
-      "content": "Card 2: All Capsules"
-    },
-    {
-      "type": "text",
-      "id": "card_2_title",
-      "label": "Card 2 Title",
-      "default": "VIEW ALL CAPSULES"
-    },
-    {
-      "type": "textarea",
-      "id": "card_2_description",
-      "label": "Card 2 Description",
-      "default": "Explore the complete transmission archive. Each capsule contains unique stories from across the multiverse."
-    },
-    {
-      "type": "text",
-      "id": "card_2_cta",
-      "label": "Card 2 Button Text",
-      "default": "EXPLORE ARCHIVE"
-    },
-    {
-      "type": "url",
-      "id": "card_2_url",
-      "label": "Card 2 Link",
-      "default": "/pages/transmission-archive"
-    },
-    {
-      "type": "header",
-      "content": "Card 3: Universal Lore"
-    },
-    {
-      "type": "text",
-      "id": "card_3_title",
-      "label": "Card 3 Title",
-      "default": "UNIVERSAL LORE"
-    },
-    {
-      "type": "textarea",
-      "id": "card_3_description",
-      "label": "Card 3 Description",
-      "default": "Dive deep into the mythology and cosmic stories that power the Stellar Reverb universe."
-    },
-    {
-      "type": "text",
-      "id": "card_3_cta",
-      "label": "Card 3 Button Text",
-      "default": "READ LORE"
-    },
-    {
-      "type": "url",
-      "id": "card_3_url",
-      "label": "Card 3 Link",
-      "default": "/pages/lore-index"
-    },
-    {
-      "type": "header",
-      "content": "Spacing"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "label": "Padding top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "default": 64
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "label": "Padding bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "default": 64
-    }
-  ],
-  "presets": [
-    {
-      "name": "Navigation Matrix"
-    }
-  ]
-}
-{% endschema %}
-
 <style>
-  /* ════════════════════════════════════════
-     NAVIGATION MATRIX STYLES
-     ════════════════════════════════════════ */
-  
   .navigation-matrix {
-    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
-    background: var(--void-black);
     position: relative;
+    padding: 6rem 0;
+    background: #000000;
     overflow: hidden;
   }
   
-  .navigation-matrix::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 50% 50%, rgba(225, 60, 250, 0.05) 0%, transparent 70%);
-    pointer-events: none;
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
   }
   
-  /* Header */
-  .nav-matrix-header {
+  /* ────────────────────────────────────────────────────────
+     SECTION HEADER
+     ──────────────────────────────────────────────────────── */
+  
+  .matrix-header {
     text-align: center;
     margin-bottom: 4rem;
-    padding: 0 1rem;
   }
   
-  .nav-matrix-title {
+  .matrix-heading {
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 900;
-    color: var(--cyan-blue);
-    margin-bottom: 1rem;
-    text-shadow: 0 0 20px var(--cyan-blue);
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #00f0ff 0%, #ff00ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
-  .nav-matrix-subtitle {
-    font-size: clamp(1rem, 2vw, 1.2rem);
+  .matrix-subheading {
+    font-size: 1.125rem;
     color: rgba(255, 255, 255, 0.7);
-  }
-  
-  /* Grid */
-  .nav-matrix-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 0 1rem;
   }
   
-  /* Card */
-  .nav-card {
+  /* ────────────────────────────────────────────────────────
+     MATRIX GRID
+     ──────────────────────────────────────────────────────── */
+  
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns, 4), 1fr);
+    gap: 2rem;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     MATRIX ITEMS
+     ──────────────────────────────────────────────────────── */
+  
+  .matrix-item {
     position: relative;
-    height: 100%;
-    min-height: 400px;
-  }
-  
-  .nav-card-inner {
-    height: 100%;
-    background: linear-gradient(135deg, 
-      rgba(225, 60, 250, 0.05) 0%, 
-      rgba(40, 168, 214, 0.05) 100%);
-    border: 2px solid rgba(40, 168, 214, 0.3);
-    border-radius: 12px;
-    padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 3rem 2rem;
+    aspect-ratio: 1;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.02);
+    border: 2px solid rgba(0, 240, 255, 0.2);
+    border-radius: 20px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    overflow: hidden;
   }
   
-  .nav-card:hover .nav-card-inner {
-    transform: translateY(-8px);
-    border-color: var(--cyan-blue);
-    box-shadow: 0 10px 40px rgba(40, 168, 214, 0.3);
+  .matrix-item:hover {
+    border-color: rgba(0, 240, 255, 0.6);
+    background: rgba(0, 240, 255, 0.05);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 240, 255, 0.3);
   }
   
-  /* Glow Effect */
-  .nav-card-glow {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, 
-      transparent, 
-      rgba(40, 168, 214, 0.1), 
-      transparent);
-    transition: left 0.6s ease;
-    pointer-events: none;
-  }
+  /* ────────────────────────────────────────────────────────
+     ICON CONTAINER
+     ──────────────────────────────────────────────────────── */
   
-  .nav-card:hover .nav-card-glow {
-    left: 100%;
-  }
-  
-  /* Icon */
-  .nav-card-icon {
+  .matrix-icon {
     width: 80px;
     height: 80px;
-    margin-bottom: 2rem;
-    color: var(--cyan-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00f0ff;
     transition: all 0.4s ease;
-    position: relative;
   }
   
-  .nav-card-icon svg {
+  .matrix-icon svg {
     width: 100%;
     height: 100%;
     filter: drop-shadow(0 0 10px currentColor);
   }
   
-  .nav-card:hover .nav-card-icon {
-    transform: scale(1.1) translateY(-4px);
-    color: var(--neon-magenta);
+  .icon-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.6));
+  }
+  
+  .matrix-item:hover .matrix-icon {
+    transform: scale(1.1) rotate(5deg);
+    color: #ffffff;
     filter: drop-shadow(0 0 20px currentColor);
   }
   
-  /* Specific card icon colors */
-  .nav-card[data-card="signal-seekers"]:hover .nav-card-icon {
-    color: var(--radioactive-green);
+  /* ────────────────────────────────────────────────────────
+     LABEL TEXT
+     ──────────────────────────────────────────────────────── */
+  
+  .matrix-label {
+    text-align: center;
   }
   
-  .nav-card[data-card="all-capsules"]:hover .nav-card-icon {
-    color: var(--neon-magenta);
-  }
-  
-  .nav-card[data-card="universal-lore"]:hover .nav-card-icon {
-    color: var(--electric-yellow);
-  }
-  
-  /* Title */
-  .nav-card-title {
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: var(--neon-magenta);
-    margin-bottom: 1rem;
-    letter-spacing: 0.05em;
-    transition: all 0.3s ease;
-  }
-  
-  .nav-card:hover .nav-card-title {
-    text-shadow: 0 0 20px currentColor;
-  }
-  
-  /* Description */
-  .nav-card-description {
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.7;
-    margin-bottom: 2rem;
-    flex-grow: 1;
-  }
-  
-  /* CTA Button */
-  .nav-card-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
-    font-size: 0.875rem;
+  .label-text {
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    color: var(--cyan-blue);
-    background: transparent;
-    border: 2px solid var(--cyan-blue);
-    border-radius: 6px;
-    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
     text-transform: uppercase;
-    font-family: 'Orbitron', monospace;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    transition: color 0.3s ease;
   }
   
-  .nav-card-cta::before {
-    content: '';
+  .matrix-item:hover .label-text {
+    color: #00f0ff;
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     GLOW EFFECT
+     ──────────────────────────────────────────────────────── */
+  
+  .matrix-glow {
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: var(--cyan-blue);
-    transition: left 0.4s ease;
-    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
   }
   
-  .nav-card-cta:hover::before {
-    left: 0;
+  .matrix-item:hover .matrix-glow {
+    opacity: 1;
   }
   
-  .nav-card-cta:hover {
-    color: var(--void-black);
-    border-color: var(--cyan-blue);
-    box-shadow: 0 0 30px var(--cyan-blue);
-    transform: translateX(4px);
+  /* Custom glow colors per item */
+  .matrix-item[data-glow-color="magenta"]:hover .matrix-glow {
+    background: radial-gradient(circle, rgba(255, 0, 255, 0.3) 0%, transparent 70%);
   }
   
-  .nav-card-cta svg {
-    transition: transform 0.3s ease;
+  .matrix-item[data-glow-color="gold"]:hover .matrix-glow {
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
   }
   
-  .nav-card-cta:hover svg {
-    transform: translateX(4px);
+  .matrix-item[data-glow-color="purple"]:hover .matrix-glow {
+    background: radial-gradient(circle, rgba(157, 0, 255, 0.3) 0%, transparent 70%);
   }
   
-  /* Specific card button colors */
-  .nav-card[data-card="signal-seekers"] .nav-card-cta {
-    border-color: var(--radioactive-green);
-    color: var(--radioactive-green);
+  .matrix-item[data-glow-color="green"]:hover .matrix-glow {
+    background: radial-gradient(circle, rgba(0, 255, 136, 0.3) 0%, transparent 70%);
   }
   
-  .nav-card[data-card="signal-seekers"] .nav-card-cta::before {
-    background: var(--radioactive-green);
-  }
+  /* ────────────────────────────────────────────────────────
+     RESPONSIVE
+     ──────────────────────────────────────────────────────── */
   
-  .nav-card[data-card="signal-seekers"]:hover .nav-card-inner {
-    border-color: var(--radioactive-green);
-  }
-  
-  .nav-card[data-card="all-capsules"] .nav-card-cta {
-    border-color: var(--neon-magenta);
-    color: var(--neon-magenta);
-  }
-  
-  .nav-card[data-card="all-capsules"] .nav-card-cta::before {
-    background: var(--neon-magenta);
-  }
-  
-  .nav-card[data-card="all-capsules"]:hover .nav-card-inner {
-    border-color: var(--neon-magenta);
-  }
-  
-  .nav-card[data-card="universal-lore"] .nav-card-cta {
-    border-color: var(--electric-yellow);
-    color: var(--electric-yellow);
-  }
-  
-  .nav-card[data-card="universal-lore"] .nav-card-cta::before {
-    background: var(--electric-yellow);
-  }
-  
-  .nav-card[data-card="universal-lore"]:hover .nav-card-inner {
-    border-color: var(--electric-yellow);
-  }
-  
-  /* Responsive */
   @media (max-width: 1024px) {
-    .nav-matrix-grid {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    .matrix-grid {
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
     }
   }
   
   @media (max-width: 768px) {
     .navigation-matrix {
-      padding: 3rem 0;
+      padding: 4rem 0;
     }
     
-    .nav-matrix-header {
-      margin-bottom: 2.5rem;
+    .matrix-header {
+      margin-bottom: 2rem;
     }
     
-    .nav-matrix-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
+    .matrix-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
     }
     
-    .nav-card {
-      min-height: 350px;
-    }
-    
-    .nav-card-inner {
+    .matrix-item {
       padding: 2rem 1.5rem;
     }
     
-    .nav-card-icon {
-      width: 64px;
-      height: 64px;
-      margin-bottom: 1.5rem;
+    .matrix-icon {
+      width: 60px;
+      height: 60px;
     }
     
-    .nav-card-title {
-      font-size: 1.25rem;
-    }
-    
-    .nav-card-description {
-      font-size: 0.9375rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .nav-card-cta {
-      padding: 0.875rem 1.5rem;
-      font-size: 0.8125rem;
+    .label-text {
+      font-size: 0.875rem;
     }
   }
   
-  /* Accessibility */
+  @media (max-width: 480px) {
+    .matrix-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* ────────────────────────────────────────────────────────
+     ACCESSIBILITY
+     ──────────────────────────────────────────────────────── */
+  
+  .matrix-item:focus {
+    outline: 3px solid #00f0ff;
+    outline-offset: 4px;
+  }
+  
   @media (prefers-reduced-motion: reduce) {
-    .nav-card-inner,
-    .nav-card-icon,
-    .nav-card-cta,
-    .nav-card-glow {
+    .matrix-item,
+    .matrix-icon,
+    .matrix-glow {
       transition: none;
       animation: none;
     }
     
-    .nav-card:hover .nav-card-inner {
+    .matrix-item:hover {
       transform: none;
     }
   }
 </style>
 
 <script>
-  // Navigation Matrix Enhancement
   (function() {
-    const cards = document.querySelectorAll('.nav-card');
+    const matrixItems = document.querySelectorAll('.matrix-item');
     
-    cards.forEach(card => {
-      // Add parallax effect on mouse move
-      card.addEventListener('mousemove', function(e) {
+    matrixItems.forEach(item => {
+      // Track navigation clicks
+      item.addEventListener('click', function(e) {
+        if (typeof window.stellarAnalytics !== 'undefined') {
+          window.stellarAnalytics.track('navigation_matrix_click', {
+            label: this.querySelector('.label-text')?.textContent.trim(),
+            destination: this.getAttribute('href')
+          });
+        }
+      });
+      
+      // Add parallax-style hover effect
+      item.addEventListener('mousemove', function(e) {
         const rect = this.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
         
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-        
-        const icon = this.querySelector('.nav-card-icon');
+        const icon = this.querySelector('.matrix-icon');
         if (icon) {
           icon.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.1)`;
         }
       });
       
-      card.addEventListener('mouseleave', function() {
-        const icon = this.querySelector('.nav-card-icon');
+      item.addEventListener('mouseleave', function() {
+        const icon = this.querySelector('.matrix-icon');
         if (icon) {
           icon.style.transform = '';
         }
       });
-      
-      // Track card interactions
-      const cta = card.querySelector('.nav-card-cta');
-      if (cta) {
-        cta.addEventListener('click', function() {
-          const cardType = card.dataset.card;
-          if (typeof window.stellarAnalytics !== 'undefined') {
-            window.stellarAnalytics.trackNavCardClick({
-              card: cardType,
-              destination: this.href
-            });
-          }
-        });
-      }
     });
   })();
 </script>
+
+{% schema %}
+{
+  "name": "Navigation Matrix",
+  "tag": "section",
+  "class": "section-navigation-matrix",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show section heading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "NAVIGATE THE SIGNAL"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "range",
+      "id": "grid_columns",
+      "label": "Columns (desktop)",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Navigation Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Archive"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "select",
+          "id": "icon_type",
+          "label": "Icon Type",
+          "options": [
+            { "value": "spiral", "label": "Spiral" },
+            { "value": "brain", "label": "Brain" },
+            { "value": "infinity", "label": "Infinity" },
+            { "value": "moon", "label": "Moon" },
+            { "value": "robot", "label": "Robot" },
+            { "value": "lines", "label": "Lines" },
+            { "value": "diamond", "label": "Diamond" },
+            { "value": "skull", "label": "Skull" },
+            { "value": "custom", "label": "Custom Image" }
+          ],
+          "default": "spiral"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon Image",
+          "info": "Upload icon if 'Custom Image' is selected"
+        },
+        {
+          "type": "select",
+          "id": "glow_color",
+          "label": "Hover Glow Color",
+          "options": [
+            { "value": "cyan", "label": "Cyan" },
+            { "value": "magenta", "label": "Magenta" },
+            { "value": "gold", "label": "Gold" },
+            { "value": "purple", "label": "Purple" },
+            { "value": "green", "label": "Green" }
+          ],
+          "default": "cyan"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Navigation Matrix",
+      "blocks": [
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "All Capsules",
+            "icon_type": "spiral",
+            "glow_color": "cyan"
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "About",
+            "icon_type": "brain",
+            "glow_color": "magenta"
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "Lore",
+            "icon_type": "infinity",
+            "glow_color": "purple"
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "Shop",
+            "icon_type": "diamond",
+            "glow_color": "gold"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
