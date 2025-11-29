@@ -64,11 +64,12 @@
     },
     "stellar_timeline_G4z9Ct": {
       "type": "stellar-timeline",
+      "custom_css": [],
       "name": "Stellar Timeline",
       "settings": {
         "show_heading": true,
         "heading": "COSMIC TRANSMISSION TIMELINE",
-        "subtitle": "Journey through the capsule drops across space and time",
+        "subtitle": "<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
         "show_scroll_controls": true,
         "enable_sound": true,
         "padding_top": 80,
