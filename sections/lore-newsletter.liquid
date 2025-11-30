@@ -1,0 +1,312 @@
+{% comment %}
+═══════════════════════════════════════════════════════════════════════════════
+  SECTION: Newsletter Signup (Klaviyo Integration)
+  Features: Cosmic styling, success/error states, list segmentation
+═══════════════════════════════════════════════════════════════════════════════
+{% endcomment %}
+
+<section class="lore-newsletter" id="newsletter">
+  <h2 class="lore-newsletter__title orbitron">{{ section.settings.section_title }}</h2>
+  <p class="lore-newsletter__subtitle montserrat">{{ section.settings.subtitle }}</p>
+  
+  <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSignup(event)">
+    <input 
+      type="email" 
+      class="email-input" 
+      name="email"
+      placeholder="{{ section.settings.placeholder }}" 
+      required 
+      id="emailInput"
+      aria-label="Email address"
+    >
+    <button type="submit" class="signup-btn">
+      <span id="btnText">{{ section.settings.button_text }}</span>
+    </button>
+  </form>
+  
+  <div class="newsletter-success" id="newsletterSuccess" style="display: none;">
+    ✓ {{ section.settings.success_message }}
+  </div>
+  
+  <div class="newsletter-error" id="newsletterError" style="display: none;">
+    ✗ {{ section.settings.error_message }}
+  </div>
+</section>
+
+<style>
+  .lore-newsletter {
+    padding: 10rem 2rem;
+    background: radial-gradient(circle at center, #0D0D0D 0%, #0A0A0A 100%);
+    text-align: center;
+    position: relative;
+  }
+  
+  .lore-newsletter__title {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: #E13CFA;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 20px currentColor;
+  }
+  
+  .lore-newsletter__subtitle {
+    font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 4rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+  
+  .newsletter-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .email-input {
+    flex: 1;
+    min-width: 300px;
+    padding: 1.25rem 1.5rem;
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border: 2px solid #28A8D6;
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .email-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .email-input:focus {
+    border-color: #E13CFA;
+    box-shadow: 0 0 20px rgba(225, 60, 250, 0.3);
+    background: rgba(26, 26, 26, 0.9);
+  }
+  
+  .signup-btn {
+    background: linear-gradient(135deg, #E13CFA, #6C24B3);
+    color: #fff;
+    border: none;
+    padding: 1.25rem 2rem;
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-width: 160px;
+  }
+  
+  .signup-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(225, 60, 250, 0.6);
+  }
+  
+  .signup-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  .newsletter-success,
+  .newsletter-error {
+    color: #00F0AC;
+    font-family: 'Orbitron', monospace;
+    font-weight: 600;
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
+    margin-top: 2rem;
+    text-shadow: 0 0 10px currentColor;
+    animation: fade-in 0.5s ease-out;
+  }
+  
+  .newsletter-error {
+    color: #FF4136;
+  }
+  
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .lore-newsletter {
+      padding: 6rem 1rem;
+    }
+    
+    .newsletter-form {
+      flex-direction: column;
+    }
+    
+    .email-input {
+      min-width: 100%;
+    }
+    
+    .signup-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  async function handleNewsletterSignup(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const email = form.email.value;
+    const btn = form.querySelector('.signup-btn');
+    const btnText = document.getElementById('btnText');
+    const success = document.getElementById('newsletterSuccess');
+    const error = document.getElementById('newsletterError');
+    
+    // Hide previous messages
+    success.style.display = 'none';
+    error.style.display = 'none';
+    
+    // Update button state
+    btn.disabled = true;
+    btnText.textContent = '{{ section.settings.loading_text | default: "TRANSMITTING..." }}';
+    
+    try {
+      // Klaviyo integration
+      const response = await fetch('/apps/klaviyo/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          list_id: '{{ section.settings.klaviyo_list_id }}',
+          source: 'universal_lore',
+          properties: {
+            $source: 'Universal Lore Page',
+            custom_field: '{{ section.settings.custom_field }}'
+          }
+        })
+      });
+      
+      if (response.ok) {
+        // Success
+        btnText.textContent = '{{ section.settings.success_button_text | default: "TRANSMITTED" }}';
+        success.style.display = 'block';
+        form.reset();
+        
+        // Analytics tracking
+        if (window.ga) {
+          ga('send', 'event', 'Newsletter', 'signup', 'universal-lore');
+        }
+        
+        // Reset after 3 seconds
+        setTimeout(() => {
+          btnText.textContent = '{{ section.settings.button_text }}';
+          btn.disabled = false;
+          success.style.display = 'none';
+        }, 3000);
+      } else {
+        throw new Error('Subscription failed');
+      }
+    } catch (err) {
+      // Error
+      btnText.textContent = '{{ section.settings.button_text }}';
+      error.style.display = 'block';
+      btn.disabled = false;
+      
+      setTimeout(() => {
+        error.style.display = 'none';
+      }, 5000);
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "JOIN THE TRANSMISSION"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Subscribe to receive cosmic frequencies, early access to new capsules, and exclusive signals from the void."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input Placeholder",
+      "default": "Enter your transmission coordinates..."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "TRANSMIT"
+    },
+    {
+      "type": "text",
+      "id": "loading_text",
+      "label": "Loading Text",
+      "default": "TRANSMITTING..."
+    },
+    {
+      "type": "text",
+      "id": "success_button_text",
+      "label": "Success Button Text",
+      "default": "TRANSMITTED"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "SIGNAL RECEIVED - WELCOME TO THE VOID"
+    },
+    {
+      "type": "text",
+      "id": "error_message",
+      "label": "Error Message",
+      "default": "TRANSMISSION FAILED - TRY AGAIN"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_list_id",
+      "label": "Klaviyo List ID",
+      "info": "Your Klaviyo list ID for newsletter subscriptions"
+    },
+    {
+      "type": "text",
+      "id": "custom_field",
+      "label": "Custom Field Value (Optional)",
+      "info": "Additional metadata to track subscription source"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lore Newsletter"
+    }
+  ]
+}
+{% endschema %}
