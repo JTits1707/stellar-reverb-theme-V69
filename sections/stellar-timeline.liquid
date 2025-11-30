@@ -878,55 +878,15 @@
   }
 </style>
 
-<script>
-  // Stellar Timeline JavaScript
-  (function() {
-    const timeline = document.getElementById('stellar-timeline-scroll');
-    if (!timeline) return;
-    
-    // Smooth scroll for arrow buttons
-    const prevBtn = document.querySelector('.timeline-scroll-btn--prev');
-    const nextBtn = document.querySelector('.timeline-scroll-btn--next');
-    
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        timeline.scrollBy({ left: -300, behavior: 'smooth' });
-      });
-    }
-    
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        timeline.scrollBy({ left: 300, behavior: 'smooth' });
-      });
-    }
-    
-    // Open lore modal on click (for released capsules)
-    const releasedNodes = document.querySelectorAll('.timeline-node[data-status="released"]');
-    
-    releasedNodes.forEach(node => {
-      node.addEventListener('click', function(e) {
-        if (e.target.classList.contains('node-cta')) return; // Don't trigger on CTA clicks
-        
-        const capsuleNumber = this.dataset.capsule;
-        const loreData = this.querySelector('.node-lore-data');
-        
-        if (loreData) {
-          // Trigger modal (modal script in lore-popup-modal.liquid)
-          const event = new CustomEvent('openLoreModal', {
-            detail: {
-              capsule: capsuleNumber,
-              content: loreData.innerHTML
-            }
-          });
-          document.dispatchEvent(event);
-        }
-      });
-    });
-    
-    // Optional: Atmospheric sound on hover
-    const enableSound = {{ section.settings.enable_sound | json }};
-    if (enableSound) {
-      // Audio implementation here (optional)
-    }
-  })();
-</script>
+<div 
+  class="timeline-node lore-trigger"  {# <--- Add .lore-trigger #}
+  data-capsule="{{ capsule.capsule_number }}" 
+  data-lore-title="{{ capsule.title | escape }}"  {# <--- Add for title #}
+  data-lore-content="{{ capsule.lore_snippet | escape }}"  {# <--- Your short blurb metafield #}
+  tabindex="0"
+  role="button"
+>
+  <!-- Your node content: title, image, teaser -->
+  <h3>{{ capsule.title }}</h3>
+  <p class="teaser">{{ capsule.teaser | truncate: 60 }}</p>  {# Hover teaser #}
+</div>

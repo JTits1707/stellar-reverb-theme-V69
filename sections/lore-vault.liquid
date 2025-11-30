@@ -1,0 +1,378 @@
+{% comment %}
+═══════════════════════════════════════════════════════════════════════════════
+  SECTION: Sonic Glyph Vault
+  Features: AR model-viewer, 3D product cards, interactive hover states
+═══════════════════════════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% assign glyph_collection = collections[section.settings.collection_handle] %}
+
+<section class="lore-vault" id="vault">
+  <h2 class="lore-vault__title orbitron">{{ section.settings.section_title }}</h2>
+  
+  <div class="glyph-grid">
+    {% for product in glyph_collection.products limit: section.settings.glyph_limit %}
+      {% assign glyph_name = product.metafields.custom.glyph_name | default: product.title %}
+      {% assign ar_model = product.media | where: "media_type", "model" | first %}
+      
+      <div class="glyph-card" 
+           data-product-id="{{ product.id }}"
+           data-glyph="{{ glyph_name | handleize }}">
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | img_url: '600x600' }}" 
+               alt="{{ glyph_name }} Glyph" 
+               class="glyph-image"
+               loading="lazy">
+        {% else %}
+          <div class="glyph-placeholder">{{ glyph_name | slice: 0 }}</div>
+        {% endif %}
+        
+        <div class="glyph-overlay">
+          <h3 class="glyph-name orbitron">{{ glyph_name | upcase }}</h3>
+          
+          {% if ar_model %}
+            <button class="ar-preview-btn" 
+                    onclick="launchAR('{{ product.id }}', '{{ ar_model.sources[0].url }}')" 
+                    aria-label="Preview {{ glyph_name }} in AR">
+              <span>👁️ AR PREVIEW</span>
+            </button>
+          {% endif %}
+          
+          <a href="{{ product.url }}" class="glyph-cta">
+            <span>EXPLORE</span>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  
+  {% comment %} === AR MODEL VIEWER MODAL === {% endcomment %}
+  <div class="ar-modal" id="arModal" style="display: none;">
+    <div class="ar-modal__overlay" onclick="closeARModal()"></div>
+    <div class="ar-modal__content">
+      <button class="ar-modal__close" onclick="closeARModal()" aria-label="Close AR viewer">×</button>
+      <div id="arContainer"></div>
+      <p class="ar-instructions">Tap the AR icon to view in your space</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lore-vault {
+    padding: 10rem 2rem;
+    background: linear-gradient(180deg, #0A0A0A 0%, #0D0D0D 100%);
+    position: relative;
+  }
+  
+  .lore-vault::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 25% 25%, rgba(108, 36, 179, 0.1), transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(0, 240, 172, 0.1), transparent 50%);
+    animation: vault-ambient 15s ease-in-out infinite;
+  }
+  
+  @keyframes vault-ambient {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+  }
+  
+  .lore-vault__title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: #28A8D6;
+    text-align: center;
+    margin-bottom: 6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 20px currentColor;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .glyph-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .glyph-card {
+    aspect-ratio: 1;
+    background: #1A1A1A;
+    border: 2px solid rgba(225, 60, 250, 0.3);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    perspective: 1000px;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .glyph-card:hover {
+    transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
+    border-color: #E13CFA;
+    box-shadow: 
+      0 20px 60px rgba(225, 60, 250, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+  
+  .glyph-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+    filter: grayscale(0.3) contrast(1.1);
+  }
+  
+  .glyph-card:hover .glyph-image {
+    transform: scale(1.1);
+    filter: grayscale(0) saturate(1.4) contrast(1.2) hue-rotate(10deg);
+  }
+  
+  .glyph-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', monospace;
+    font-size: 6rem;
+    font-weight: 900;
+    color: #E13CFA;
+    background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
+  }
+  
+  .glyph-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, 
+      rgba(225, 60, 250, 0.95), 
+      rgba(40, 168, 214, 0.95),
+      rgba(0, 240, 172, 0.95)
+    );
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    padding: 2rem;
+  }
+  
+  .glyph-card:hover .glyph-overlay {
+    opacity: 0.98;
+  }
+  
+  .glyph-name {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+  
+  .ar-preview-btn,
+  .glyph-cta {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(0.75rem, 1vw, 0.875rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  
+  .ar-preview-btn:hover,
+  .glyph-cta:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+  }
+  
+  /* === AR MODAL === */
+  .ar-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .ar-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+  }
+  
+  .ar-modal__content {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 900px;
+    height: 80vh;
+    background: #1A1A1A;
+    border: 2px solid #28A8D6;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+  
+  .ar-modal__close {
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+    width: 40px;
+    height: 40px;
+    background: #28A8D6;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+  
+  .ar-modal__close:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 0 20px #28A8D6;
+  }
+  
+  #arContainer {
+    width: 100%;
+    height: calc(100% - 3rem);
+  }
+  
+  model-viewer {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+  }
+  
+  .ar-instructions {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.875rem;
+    color: #28A8D6;
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .lore-vault {
+      padding: 6rem 1rem;
+    }
+    
+    .glyph-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .ar-modal__content {
+      height: 70vh;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .glyph-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Launch AR viewer
+  function launchAR(productId, modelUrl) {
+    const container = document.getElementById('arContainer');
+    container.innerHTML = `
+      <model-viewer 
+        src="${modelUrl}"
+        alt="3D Model"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        auto-rotate
+        shadow-intensity="1"
+        exposure="1"
+        environment-image="neutral"
+        poster="loading.png"
+        loading="eager">
+        <div class="progress-bar" slot="progress-bar"></div>
+      </model-viewer>
+    `;
+    document.getElementById('arModal').style.display = 'flex';
+  }
+  
+  function closeARModal() {
+    document.getElementById('arModal').style.display = 'none';
+    document.getElementById('arContainer').innerHTML = '';
+  }
+  
+  // Track AR interactions
+  document.addEventListener('DOMContentLoaded', function() {
+    const glyphCards = document.querySelectorAll('.glyph-card');
+    glyphCards.forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        // Analytics tracking
+        if (window.ga) {
+          ga('send', 'event', 'Glyph', 'hover', this.dataset.glyph);
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Glyph Vault",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "SONIC GLYPH VAULT"
+    },
+    {
+      "type": "collection",
+      "id": "collection_handle",
+      "label": "Glyph Collection",
+      "info": "Select the collection containing your glyph products"
+    },
+    {
+      "type": "range",
+      "id": "glyph_limit",
+      "label": "Number of Glyphs to Display",
+      "min": 3,
+      "max": 24,
+      "step": 3,
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lore Vault"
+    }
+  ]
+}
+{% endschema %}

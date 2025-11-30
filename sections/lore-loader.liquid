@@ -1,0 +1,132 @@
+{% comment %}
+═══════════════════════════════════════════════════════════════════════════════
+  SECTION: Sacred Triangle Loader
+  Enhanced with RGB glitch effects and cosmic animation
+═══════════════════════════════════════════════════════════════════════════════
+{% endcomment %}
+
+<div class="lore-loader" id="loreLoader">
+  <div class="sacred-triangle-container">
+    <div class="sacred-triangle sacred-triangle--main"></div>
+    <div class="sacred-triangle sacred-triangle--inner"></div>
+    <div class="loader-glitch" aria-hidden="true">{{ section.settings.loading_text }}</div>
+  </div>
+</div>
+
+<style>
+  .lore-loader {
+    position: fixed;
+    inset: 0;
+    background: #0A0A0A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+  }
+  
+  .lore-loader.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .sacred-triangle-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .sacred-triangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 69px solid #00F0AC;
+    animation: triangle-glow 2s linear infinite;
+    filter: drop-shadow(0 0 20px currentColor);
+  }
+  
+  .sacred-triangle--inner {
+    top: 23px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 52px solid #E13CFA;
+    animation: triangle-glow 2s linear infinite reverse;
+  }
+  
+  @keyframes triangle-glow {
+    0% { 
+      transform: rotate(0deg) scale(1);
+      border-bottom-color: #00F0AC;
+    }
+    33% { 
+      border-bottom-color: #E13CFA;
+    }
+    66% { 
+      border-bottom-color: #28A8D6;
+    }
+    100% { 
+      transform: rotate(360deg) scale(1);
+      border-bottom-color: #00F0AC;
+    }
+  }
+  
+  .loader-glitch {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.875rem;
+    color: #28A8D6;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+    animation: glitch-text 0.5s infinite;
+  }
+  
+  @keyframes glitch-text {
+    0%, 90%, 100% { transform: translateX(-50%); }
+    92% { transform: translateX(calc(-50% - 2px)); }
+    94% { transform: translateX(calc(-50% + 2px)); }
+  }
+</style>
+
+<script>
+  window.addEventListener('load', function() {
+    const loader = document.getElementById('loreLoader');
+    setTimeout(function() {
+      loader.classList.add('fade-out');
+      setTimeout(function() {
+        loader.style.display = 'none';
+      }, 500);
+    }, {{ section.settings.loader_duration | default: 1000 }});
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Loader",
+  "settings": [
+    {
+      "type": "text",
+      "id": "loading_text",
+      "label": "Loading Text",
+      "default": "INITIALIZING TRANSMISSION..."
+    },
+    {
+      "type": "range",
+      "id": "loader_duration",
+      "label": "Display Duration (ms)",
+      "min": 500,
+      "max": 3000,
+      "step": 100,
+      "default": 1000
+    }
+  ]
+}
+{% endschema %}

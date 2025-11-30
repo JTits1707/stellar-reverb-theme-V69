@@ -32,7 +32,9 @@
     "enable_cart_drawer": true,
     "show_cart_note": true,
     "cart_note_placeholder": "Add transmission notes...",
-    "newsletter_text": "Get early access to new capsule drops and hidden relics.",
+    "social_twitter_url": "https://x.com/stellar_reverb?s=21",
+    "social_instagram_url": "https://www.instagram.com/stellar_reverb?igsh=ajc1YWNkcDlpaWpv&utm_source=qr",
+    "newsletter_text": "",
     "newsletter_success_message": "Thanks for joining the signal! Check your inbox.",
     "signal_seekers_cta_text": "Signal Seekers",
     "show_signal_cta_header": true,
@@ -79,7 +81,7 @@
         "settings": {
           "show_announcement": true,
           "announcement_text": "COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS",
-          "logo": "shopify://shop_images/504A6C7C-9332-4661-BE0B-018D2E2A2012_7969b816-307b-4481-8a11-b17402f777f9.jpg"
+          "logo": "shopify://shop_images/brand-logo-transparent.png"
         }
       },
       "footer": {
