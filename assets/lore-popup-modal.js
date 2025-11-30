@@ -1,70 +1,100 @@
-/**
- * ═══════════════════════════════════════════════════════════
- * STELLAR REVERB - LORE POPUP MODAL (JAVASCRIPT vUPGRADED)
- * Now listens for CustomEvent 'openLoreModal' from timeline
- * ═══════════════════════════════════════════════════════════
- */
+// ════════════════════════════════════════
+// STELLAR REVERB - LORE MODAL FUNCTIONALITY
+// ════════════════════════════════════════
 
 (function() {
   const modal = document.getElementById('lore-modal');
+  const backdrop = document.getElementById('lore-modal-backdrop');
+  const closeBtn = document.getElementById('lore-modal-close');
+  const modalTag = document.getElementById('lore-modal-tag');
   const modalTitle = document.getElementById('lore-modal-title');
   const modalContent = document.getElementById('lore-modal-content');
-  const closeButtons = document.querySelectorAll('[data-modal-close]');
-
-  if (!modal) return; // Safety check
-
-  // Listen for cosmic event from timeline
-  document.addEventListener('openLoreModal', function(e) {
-    const { capsule, content } = e.detail;
+  const exploreBtn = document.getElementById('lore-modal-explore');
+  
+  if (!modal) return;
+  
+  let currentCapsuleUrl = '';
+  
+  // Open Modal
+  function openModal(capsuleData) {
+    const { capsule, content } = capsuleData;
     
-    modalTitle.textContent = `Capsule ${capsule}: Echo Transmission`;
+    // Set modal content
+    modalTag.textContent = `CAPSULE ${capsule}`;
     modalContent.innerHTML = content;
     
-    modal.classList.add('is-active');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('lore-modal-open'); // Prevent scroll
-    document.body.style.overflow = 'hidden';
+    // Extract title from content
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    const titleElement = tempDiv.querySelector('h3');
+    if (titleElement) {
+      modalTitle.textContent = titleElement.textContent;
+    }
     
-    // Optional: Trigger glitch particles or sound on open
-    // modal.querySelector('.glitch-particles').classList.add('active');
+    // Set explore button URL
+    currentCapsuleUrl = `/pages/capsule-${capsule}`;
+    
+    // Show modal
+    modal.classList.add('is-active');
+    document.body.classList.add('lore-modal-open');
+    
+    // Focus management for accessibility
+    closeBtn.focus();
+  }
+  
+  // Close Modal
+  function closeModal() {
+    modal.classList.remove('is-active');
+    document.body.classList.remove('lore-modal-open');
+    currentCapsuleUrl = '';
+  }
+  
+  // Event Listeners
+  
+  // Listen for custom event from timeline
+  document.addEventListener('openLoreModal', function(e) {
+    openModal(e.detail);
   });
-
-  // Close modal on button/overlay click
-  closeButtons.forEach(btn => {
-    btn.addEventListener('click', closeModal);
-  });
-
-  modal.addEventListener('click', function(e) {
-    if (e.target === modal) closeModal();
-  });
-
-  // Close on ESC
+  
+  // Close button
+  closeBtn.addEventListener('click', closeModal);
+  
+  // Backdrop click
+  backdrop.addEventListener('click', closeModal);
+  
+  // ESC key
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && modal.classList.contains('is-active')) {
       closeModal();
     }
   });
-
-  function closeModal() {
-    modal.classList.remove('is-active');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('lore-modal-open');
-    document.body.style.overflow = '';
-    
-    // Clean up
-    modalTitle.textContent = '';
-    modalContent.innerHTML = '';
-  }
-
-  // Backward compat for direct .lore-trigger clicks (if used elsewhere)
-  document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('lore-trigger')) {
-      const title = e.target.dataset.loreTitle || 'Unknown Transmission';
-      const content = e.target.dataset.loreContent || '';
-      
-      document.dispatchEvent(new CustomEvent('openLoreModal', {
-        detail: { capsule: 'Legacy', content: `<h3>${title}</h3><p>${content}</p>` }
-      }));
+  
+  // Explore button
+  exploreBtn.addEventListener('click', function() {
+    if (currentCapsuleUrl) {
+      window.location.href = currentCapsuleUrl;
     }
   });
+  
+  // Prevent modal content clicks from closing
+  const modalContainer = document.querySelector('.lore-modal-container');
+  if (modalContainer) {
+    modalContainer.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  }
+  
+  // Optional: Track modal views
+  modal.addEventListener('transitionend', function(e) {
+    if (e.target === modal && modal.classList.contains('is-active')) {
+      // Modal opened - could fire analytics event here
+      if (typeof window.stellarAnalytics !== 'undefined') {
+        window.stellarAnalytics.trackModalView({
+          type: 'lore_popup',
+          capsule: modalTag.textContent
+        });
+      }
+    }
+  });
+  
 })();
