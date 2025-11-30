@@ -1,87 +1,309 @@
-{% comment %}
-  Universal Lore – Hidden Door Signup
-  Newsletter gate for Signal Seekers
-{% endcomment %}
+{%- comment -%}
+STELLAR REVERB - UNIVERSAL LORE SIGNUP SECTION
+Email signup with multiple service options:
+- Preserved JS hooks: #signalForm, #formStatus
+- Shopify native + external service support
+- Form validation and UX maintained
+{%- endcomment -%}
 
-<section class="lore-section" data-section-id="{{ section.id }}">
-  <h2 class="section-title">
-    {{ section.settings.title | default: 'UNLOCK THE HIDDEN DOOR' }}
-  </h2>
+{%- liquid
+  assign section_title = section.settings.section_title
+  assign section_description = section.settings.section_description
+  assign email_placeholder = section.settings.email_placeholder
+  assign submit_text = section.settings.submit_text
+  assign newsletter_text = section.settings.newsletter_text
+  assign enable_newsletter = section.settings.enable_newsletter
+  assign use_external_service = section.settings.use_external_service
+  assign email_service = section.settings.email_service
+  assign success_message = section.settings.success_message
+  assign privacy_notice = section.settings.privacy_notice
+-%}
 
-  {% if section.settings.subheading != blank %}
-    <p style="max-width:640px;margin:1.25rem auto 0;text-align:center;font-size:0.95rem;color:#ddd;">
-      {{ section.settings.subheading }}
-    </p>
-  {% endif %}
+<section class="signup-section section-{{ section.id }}" 
+         data-section-id="{{ section.id }}" 
+         data-section-type="lore-signup">
+    
+    <div class="container">
+        <div class="signup-content">
+            <div class="signup-header">
+                {% if section_title != blank %}
+                <h2 class="signup-title orbitron">
+                    {{ section_title }}
+                </h2>
+                {% endif %}
+                
+                {% if section_description != blank %}
+                <div class="signup-description">
+                    {{ section_description }}
+                </div>
+                {% endif %}
+            </div>
 
-  <div class="lore-signup__form">
-    {% form 'customer', id: 'universal-lore-signup-form' %}
-      <input type="hidden" name="contact[tags]" value="newsletter, universal-lore, signal-seeker">
+            <div class="signup-form-wrapper">
+                {% unless use_external_service %}
+                    <!-- Shopify Native Customer Form -->
+                    {% form 'customer', class: 'shopify-form signal-form', id: 'signalForm', novalidate: 'novalidate' %}
+                        {% if form.posted_successfully? %}
+                            <div class="form-status success" id="formStatus">
+                                <div class="status-icon">✓</div>
+                                <p>{{ success_message | default: 'Signal received. Welcome to the transmission.' }}</p>
+                            </div>
+                        {% endif %}
 
-      <div class="lore-signup__row">
-        <input
-          class="lore-signup__input"
-          type="email"
-          name="contact[email]"
-          required
-          placeholder="{{ section.settings.placeholder | default: 'ENTER YOUR EMAIL TO RECEIVE FUTURE TRANSMISSIONS' }}"
-        >
+                        {% if form.errors %}
+                            <div class="form-status error" id="formStatus">
+                                <div class="status-icon">⚠</div>
+                                <div class="error-list">
+                                    {{ form.errors | default_errors }}
+                                </div>
+                            </div>
+                        {% endif %}
 
-        <button class="lore-signup__btn" type="submit">
-          {{ section.settings.button_label | default: 'JOIN THE SIGNAL SEEKERS' }}
-        </button>
-      </div>
+                        <div class="input-wrapper">
+                            <div class="input-group">
+                                <input type="email" 
+                                       name="customer[email]" 
+                                       id="CustomerEmail"
+                                       placeholder="{{ email_placeholder | default: 'Enter your frequency...' }}" 
+                                       required 
+                                       class="signal-input"
+                                       aria-label="Email address"
+                                       autocomplete="email"
+                                       {% if form.errors contains 'email' %}aria-describedby="email-error"{% endif %}>
+                                
+                                <button type="submit" 
+                                        class="signal-submit orbitron"
+                                        aria-label="Submit email to join transmission">
+                                    <span class="submit-text">{{ submit_text | default: 'TUNE IN' }}</span>
+                                    <span class="submit-loading">TUNING...</span>
+                                </button>
+                            </div>
 
-      <div class="lore-signup__status">
-        {% if form.posted_successfully? %}
-          {{ section.settings.success_message | default: 'Signal received. Check your inbox for the first echo.' }}
-        {% elsif form.errors %}
-          {{ form.errors | default_errors }}
-        {% endif %}
-      </div>
-    {% endform %}
-  </div>
+                            <!-- Shopify customer creation fields -->
+                            <input type="hidden" name="customer[first_name]" value="Signal">
+                            <input type="hidden" name="customer[last_name]" value="Seeker">
+                            <input type="hidden" name="customer[tags]" value="lore-subscriber,cosmic-frequency,{{ 'now' | date: '%Y-%m-%d' }}">
+
+                            <!-- Newsletter signup checkbox -->
+                            {% if enable_newsletter %}
+                                <div class="newsletter-opt-in">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" 
+                                               name="customer[accepts_marketing]" 
+                                               id="AcceptsMarketing"
+                                               checked>
+                                        <span class="checkmark" aria-hidden="true"></span>
+                                        <span class="checkbox-text">
+                                            {{ newsletter_text | default: 'Receive cosmic transmissions and product updates' }}
+                                        </span>
+                                    </label>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Status container for JS updates - Required ID for universal-lore.js -->
+                        {% unless form.posted_successfully? or form.errors %}
+                            <div class="form-status" id="formStatus" aria-live="polite"></div>
+                        {% endunless %}
+                    {% endform %}
+
+                {% else %}
+                    <!-- External Service Form (Klaviyo, Mailchimp, etc.) -->
+                    <form class="signal-form external-signup" 
+                          id="signalForm"
+                          data-service="{{ email_service }}"
+                          data-list-id="{{ section.settings.list_id }}"
+                          novalidate="novalidate">
+                        
+                        <div class="input-wrapper">
+                            <div class="input-group">
+                                <input type="email" 
+                                       name="email" 
+                                       id="CustomerEmail"
+                                       placeholder="{{ email_placeholder | default: 'Enter your frequency...' }}" 
+                                       required 
+                                       class="signal-input"
+                                       aria-label="Email address"
+                                       autocomplete="email">
+                                
+                                <button type="submit" 
+                                        class="signal-submit orbitron"
+                                        aria-label="Submit email to join transmission">
+                                    <span class="submit-text">{{ submit_text | default: 'TUNE IN' }}</span>
+                                    <span class="submit-loading">TUNING...</span>
+                                </button>
+                            </div>
+
+                            <!-- Newsletter opt-in for external services -->
+                            {% if enable_newsletter %}
+                                <div class="newsletter-opt-in">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" 
+                                               name="accepts_marketing" 
+                                               id="AcceptsMarketing"
+                                               checked>
+                                        <span class="checkmark" aria-hidden="true"></span>
+                                        <span class="checkbox-text">
+                                            {{ newsletter_text | default: 'Receive cosmic transmissions and product updates' }}
+                                        </span>
+                                    </label>
+                                </div>
+                            {% endif %}
+
+                            <!-- Hidden fields for external service tracking -->
+                            <input type="hidden" name="source" value="lore-page">
+                            <input type="hidden" name="campaign" value="universal-lore">
+                            <input type="hidden" name="tags" value="cosmic-frequency,lore-subscriber">
+                        </div>
+
+                        <!-- Status container for JS updates - Required ID for universal-lore.js -->
+                        <div class="form-status" id="formStatus" aria-live="polite"></div>
+                    </form>
+                {% endunless %}
+
+                <!-- Privacy notice -->
+                {% if privacy_notice != blank %}
+                <div class="privacy-notice">
+                    <small>{{ privacy_notice }}</small>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Signup visual effects -->
+            <div class="signup-effects" aria-hidden="true">
+                <!-- Signal waves -->
+                <div class="signal-waves">
+                    {% for i in (1..5) %}
+                        <div class="signal-wave" 
+                             style="--wave-delay: {{ forloop.index | times: 0.4 }}s; --wave-size: {{ forloop.index | times: 20 }}px;">
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Transmission lines -->
+                <div class="transmission-lines">
+                    {% for i in (1..10) %}
+                        <div class="transmission-line" 
+                             style="--line-delay: {{ forloop.index | times: 0.2 }}s; --line-width: {{ forloop.index | modulo: 3 | plus: 1 }}px;">
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Connection nodes -->
+                <div class="connection-nodes">
+                    {% for i in (1..6) %}
+                        <div class="connection-node" 
+                             style="--node-delay: {{ forloop.index | times: 0.6 }}s; --node-position: {{ forloop.index | times: 15 }}%;">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 {% schema %}
 {
-  "name": "Universal Lore · Signup",
-  "tag": "section",
+  "name": "Universal Lore Signup",
   "settings": [
     {
-      "type": "text",
-      "id": "title",
-      "label": "Section heading",
-      "default": "Unlock the Hidden Door"
-    },
-    {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Drop your coordinates and we’ll beam you private transmissions: early capsule drops, hidden relics, and lore fragments that never hit the main feed."
+      "type": "header",
+      "content": "Section Content"
     },
     {
       "type": "text",
-      "id": "placeholder",
-      "label": "Email placeholder text",
-      "default": "Enter your email to receive future transmissions"
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "JOIN THE TRANSMISSION"
+    },
+    {
+      "type": "richtext",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "<p>Become part of the cosmic frequency network. Receive exclusive access to new capsule releases, interdimensional transmissions, and analog mysteries.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Form Settings"
     },
     {
       "type": "text",
-      "id": "button_label",
-      "label": "Button label",
-      "default": "Join the Signal Seekers"
+      "id": "email_placeholder",
+      "label": "Email Placeholder Text",
+      "default": "Enter your frequency..."
+    },
+    {
+      "type": "text",
+      "id": "submit_text", 
+      "label": "Submit Button Text",
+      "default": "TUNE IN"
     },
     {
       "type": "text",
       "id": "success_message",
-      "label": "Success message",
-      "default": "Signal received. Check your inbox for the first echo."
+      "label": "Success Message",
+      "default": "Signal received. Welcome to the transmission."
+    },
+    {
+      "type": "header",
+      "content": "Newsletter Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_newsletter",
+      "label": "Enable Newsletter Signup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter Opt-in Text",
+      "default": "Receive cosmic transmissions and product updates"
+    },
+    {
+      "type": "header",
+      "content": "Service Integration"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_external_service",
+      "label": "Use External Email Service",
+      "default": false,
+      "info": "Toggle on to use Klaviyo, Mailchimp, etc. instead of Shopify native"
+    },
+    {
+      "type": "select",
+      "id": "email_service",
+      "label": "Email Service",
+      "options": [
+        {"value": "shopify", "label": "Shopify Native"},
+        {"value": "klaviyo", "label": "Klaviyo"},
+        {"value": "mailchimp", "label": "Mailchimp"},
+        {"value": "custom", "label": "Custom API"}
+      ],
+      "default": "shopify"
+    },
+    {
+      "type": "text",
+      "id": "list_id",
+      "label": "List/Audience ID",
+      "info": "Required for external services (Klaviyo List ID, Mailchimp Audience ID, etc.)"
+    },
+    {
+      "type": "header",
+      "content": "Privacy & Legal"
+    },
+    {
+      "type": "textarea",
+      "id": "privacy_notice",
+      "label": "Privacy Notice",
+      "default": "By subscribing, you agree to receive marketing communications. You can unsubscribe at any time. View our privacy policy for more information."
     }
   ],
   "presets": [
     {
-      "name": "Universal Lore · Signup"
+      "name": "Universal Lore Signup",
+      "category": "Stellar Reverb"
     }
   ]
 }

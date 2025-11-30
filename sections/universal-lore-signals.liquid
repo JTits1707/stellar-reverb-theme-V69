@@ -1,0 +1,204 @@
+{%- comment -%}
+STELLAR REVERB - UNIVERSAL LORE SIGNALS SECTION
+Hidden door CTA section with phrase cycler:
+- Preserved JS hooks: .signal-door, #phraseCycler
+- Visual emphasis for email signup transition
+{%- endcomment -%}
+
+{%- liquid
+  assign section_title = section.settings.section_title
+  assign section_subtitle = section.settings.section_subtitle
+  assign section_description = section.settings.section_description
+  assign cta_text = section.settings.cta_text
+  assign cta_url = section.settings.cta_url
+  assign rotating_phrases = section.settings.rotating_phrases
+  assign show_phrase_cycler = section.settings.show_phrase_cycler
+-%}
+
+<section class="signals-section section-{{ section.id }}" 
+         data-section-id="{{ section.id }}" 
+         data-section-type="lore-signals">
+    
+    <div class="container">
+        <!-- Required class for universal-lore.js -->
+        <div class="signal-door">
+            <div class="door-frame">
+                <div class="door-content">
+                    <h2 class="door-title orbitron">
+                        {{ section_title | default: 'THE HIDDEN DOOR' }}
+                    </h2>
+                    
+                    {% if section_subtitle != blank %}
+                    <p class="door-subtitle">
+                        {{ section_subtitle }}
+                    </p>
+                    {% endif %}
+                    
+                    {% if section_description != blank %}
+                    <div class="door-description">
+                        {{ section_description }}
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Required phrase cycler for universal-lore.js -->
+                    {% if show_phrase_cycler and rotating_phrases != blank %}
+                    <div class="phrase-cycler" id="phraseCycler">
+                        {% assign phrases = rotating_phrases | split: '|' %}
+                        {% for phrase in phrases %}
+                            <span class="phrase{% if forloop.first %} active{% endif %}" 
+                                  style="--phrase-index: {{ forloop.index0 }};">
+                                {{ phrase | strip }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    {% if cta_text != blank %}
+                    <div class="door-actions">
+                        {% if cta_url != blank %}
+                            <a href="{{ cta_url }}" class="door-cta orbitron">
+                                {{ cta_text }}
+                            </a>
+                        {% else %}
+                            <button class="door-cta orbitron" onclick="document.getElementById('signalForm')?.scrollIntoView({ behavior: 'smooth' })">
+                                {{ cta_text }}
+                            </button>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Door visual effects -->
+                <div class="door-effects" aria-hidden="true">
+                    <!-- Energy streams -->
+                    <div class="energy-streams">
+                        {% for i in (1..8) %}
+                            <div class="energy-stream" 
+                                 style="--stream-delay: {{ forloop.index | times: 0.3 }}s; --stream-angle: {{ forloop.index | times: 45 }}deg;">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Rotating glyphs -->
+                    <div class="door-glyphs">
+                        {% assign door_symbols = '◊,∞,⟡,◈,⟢,◎' | split: ',' %}
+                        {% for symbol in door_symbols %}
+                            <div class="door-glyph" 
+                                 style="--glyph-delay: {{ forloop.index | times: 0.5 }}s; --glyph-orbit: {{ forloop.index | times: 60 }}deg;">
+                                {{ symbol }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Pulsing energy core -->
+                    <div class="energy-core">
+                        <div class="core-inner"></div>
+                        <div class="core-outer"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Access indicator -->
+            <div class="access-indicator">
+                <div class="indicator-light"></div>
+                <span class="indicator-text orbitron">
+                    {{ section.settings.access_indicator_text | default: 'ACCESS RESTRICTED' }}
+                </span>
+            </div>
+        </div>
+        
+        <!-- Hidden message (revealed on hover/interaction) -->
+        {% if section.settings.hidden_message != blank %}
+        <div class="hidden-message">
+            <p class="hidden-text">
+                {{ section.settings.hidden_message }}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Universal Lore Signals",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Door Settings"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Door Title",
+      "default": "THE HIDDEN DOOR"
+    },
+    {
+      "type": "text",
+      "id": "section_subtitle",
+      "label": "Door Subtitle",
+      "default": "Only the tuned may proceed"
+    },
+    {
+      "type": "richtext",
+      "id": "section_description",
+      "label": "Door Description",
+      "info": "Optional description text below the title"
+    },
+    {
+      "type": "header",
+      "content": "Phrase Cycler"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phrase_cycler",
+      "label": "Show Phrase Cycler",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "rotating_phrases",
+      "label": "Rotating Phrases (separated by |)",
+      "default": "Decode the future | Receive signal keys | Unlock the vault | Join the transmission | Access restricted zones | Attune your frequency"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "REQUEST ACCESS"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA URL",
+      "info": "Leave empty to scroll to signup form"
+    },
+    {
+      "type": "header",
+      "content": "Visual Elements"
+    },
+    {
+      "type": "text",
+      "id": "access_indicator_text",
+      "label": "Access Indicator Text",
+      "default": "ACCESS RESTRICTED"
+    },
+    {
+      "type": "textarea",
+      "id": "hidden_message",
+      "label": "Hidden Message",
+      "info": "Secret message revealed on interaction",
+      "default": "The frequency is shifting... can you feel it?"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Universal Lore Signals",
+      "category": "Stellar Reverb"
+    }
+  ]
+}
+{% endschema %}

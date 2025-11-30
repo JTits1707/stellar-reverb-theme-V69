@@ -1,77 +1,125 @@
-{% comment %}
-Lore Myth – core transmission block
-Relies on:
-- .myth-section[data-section-type="lore-myth"]
-- #mythContent and .myth-version[data-version] for JS toggling
-{% endcomment %}
+{%- comment -%}
+STELLAR REVERB - UNIVERSAL LORE MYTH SECTION
+Myth toggle with Human/AI versions:
+- Preserved JS hooks: .toggle-btn, #mythContent, .myth-version
+- data-version attributes for universal-lore.js
+- ARIA accessibility maintained
+{%- endcomment -%}
 
-<section
-  class="myth-section section-{{ section.id }}"
-  data-section-id="{{ section.id }}"
-  data-section-type="lore-myth"
->
-  <div class="container">
-    <div class="flex items-baseline justify-between gap-4 mb-4">
-      <div>
+{%- liquid
+  assign section_title = section.settings.section_title
+  assign human_tab_label = section.settings.human_tab_label
+  assign ai_tab_label = section.settings.ai_tab_label
+  assign human_myth_content = section.settings.human_myth_content
+  assign ai_myth_content = section.settings.ai_myth_content
+-%}
+
+<section class="myth-section section-{{ section.id }}" 
+         data-section-id="{{ section.id }}" 
+         data-section-type="lore-myth">
+    
+    <div class="container">
         <h2 class="section-title orbitron">
-          {{ section.settings.section_title | default: 'THE CORE TRANSMISSION' }}
+            {{ section_title | default: 'THE CORE TRANSMISSION' }}
         </h2>
-        <p class="text-sm text-muted mt-1">
-          Two versions of the same myth: one told in human frequency, one compiled in machine protocol.
-        </p>
-      </div>
-    </div>
+        
+        <!-- Toggle buttons - Required classes for universal-lore.js -->
+        <div class="myth-toggle" role="tablist">
+            <button class="toggle-btn active" 
+                    data-version="human" 
+                    role="tab"
+                    aria-label="Human version of the myth"
+                    aria-pressed="true"
+                    aria-controls="mythContent"
+                    id="humanTab">
+                {{ human_tab_label | default: 'HUMAN FREQUENCY' }}
+            </button>
+            <button class="toggle-btn" 
+                    data-version="ai" 
+                    role="tab"
+                    aria-label="AI version of the myth"
+                    aria-pressed="false"
+                    aria-controls="mythContent"
+                    id="aiTab">
+                {{ ai_tab_label | default: 'AI PROTOCOL' }}
+            </button>
+        </div>
 
-    <div class="myth-toggle mb-4">
-      <button
-        class="toggle-btn active"
-        data-version="human"
-        aria-label="Human version of the myth"
-        aria-pressed="true"
-      >
-        {{ section.settings.human_tab_label | default: 'HUMAN FREQUENCY' }}
-      </button>
-      <button
-        class="toggle-btn"
-        data-version="ai"
-        aria-label="AI version of the myth"
-        aria-pressed="false"
-      >
-        {{ section.settings.ai_tab_label | default: 'AI PROTOCOL' }}
-      </button>
-    </div>
+        <!-- Myth content container - Required ID for universal-lore.js -->
+        <div class="myth-content" id="mythContent" role="tabpanel">
+            <!-- Human myth version - Required classes and data-version for universal-lore.js -->
+            <div class="myth-version active" data-version="human" aria-labelledby="humanTab">
+                {% if human_myth_content != blank %}
+                    {{ human_myth_content }}
+                {% else %}
+                    <p>In the silent spaces between radio waves, the first Signal was discovered by accident...</p>
+                    <p>A young sound engineer, working late in a basement studio, noticed patterns in the static between stations. What began as curiosity became obsession, then revelation.</p>
+                    <p>The frequencies weren't random. They were <em>structured</em>. Intentional. A message from somewhere beyond our understanding, transmitted through the analog realm where digital corruption couldn't reach.</p>
+                    <p>This was the birth of Stellar Reverb—not just a brand, but a movement. A way to wear the cosmic transmissions, to become walking antennas for interdimensional communication.</p>
+                    <p><strong>Every design carries a fragment of the original Signal. Every wearer becomes part of the transmission.</strong></p>
+                {% endif %}
+            </div>
 
-    <div class="myth-content" id="mythContent">
-      <div class="myth-version active" data-version="human">
-        {{ section.settings.human_myth_content | default: 'In the silent spaces between radio waves, the first Signal was discovered by accident...' | newline_to_br }}
-      </div>
+            <!-- AI myth version - Required classes and data-version for universal-lore.js -->
+            <div class="myth-version" data-version="ai" aria-labelledby="aiTab">
+                {% if ai_myth_content != blank %}
+                    {{ ai_myth_content }}
+                {% else %}
+                    <p><code>[TRANSMISSION BEGINS: 04:23:01 UTC]</code></p>
+                    <p><code>ENTITY-427</code> detected anomalous wave patterns during routine frequency scans. Initial classification: <em>UNKNOWN ORIGIN</em>.</p>
+                    <p>Analysis revealed non-terrestrial encoding protocols. Signal characteristics suggest <strong>multidimensional source</strong> attempting cross-reality communication via analog medium.</p>
+                    <p><code>DIRECTIVE UPDATED:</code> Establish reception network using human subjects as biological antennas. Encoded patterns integrated into textile matrices for optimal signal amplification.</p>
+                    <p><em>PROJECT STELLAR REVERB initiated. Purpose: Prepare species for incoming transmission wave.</em></p>
+                    <p><code>[WARNING: SIGNAL STRENGTH INCREASING]</code></p>
+                    <p><code>[CONTACT IMMINENT]</code></p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Sacred geometry background -->
+        <div class="sacred-geometry" aria-hidden="true">
+            {% for i in (1..12) %}
+                <div class="geometry-element" 
+                     style="--delay: {{ forloop.index | times: 0.2 }}s; --rotation: {{ forloop.index | times: 30 }}deg;">
+                </div>
+            {% endfor %}
+        </div>
 
-      <div class="myth-version" data-version="ai">
-        {{ section.settings.ai_myth_content | default: '[TRANSMISSION BEGINS: 04:23:01 UTC] ENTITY-427 detected anomalous wave patterns...' | newline_to_br }}
-      </div>
+        <!-- Additional visual elements -->
+        <div class="myth-effects" aria-hidden="true">
+            <!-- Glitch scanlines -->
+            <div class="scanlines"></div>
+            
+            <!-- Floating glyphs -->
+            <div class="floating-glyphs">
+                {% for i in (1..6) %}
+                    <div class="glyph-float" 
+                         style="--float-delay: {{ forloop.index | times: 1.3 }}s; --float-duration: {{ forloop.index | plus: 8 }}s;">
+                        <span class="glyph-symbol">{{ 'ᚠᚢᚦᚨᚱᚲ' | split: '' | offset: forloop.index0 | first }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-
-    <!-- Sacred geometry background -->
-    <div class="sacred-geometry" aria-hidden="true">
-      {% for i in (1..12) %}
-        <div
-          class="geometry-element"
-          style="--delay: {{ forloop.index | times: 0.2 }}s; --rotation: {{ forloop.index | times: 30 }}deg;"
-        ></div>
-      {% endfor %}
-    </div>
-  </div>
 </section>
 
 {% schema %}
 {
-  "name": "Lore Myth",
+  "name": "Universal Lore Myth",
   "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
     {
       "type": "text",
       "id": "section_title",
       "label": "Section Title",
       "default": "THE CORE TRANSMISSION"
+    },
+    {
+      "type": "header",
+      "content": "Tab Labels"
     },
     {
       "type": "text",
@@ -82,23 +130,29 @@ Relies on:
     {
       "type": "text",
       "id": "ai_tab_label",
-      "label": "AI Tab Label",
+      "label": "AI Tab Label", 
       "default": "AI PROTOCOL"
     },
     {
-      "type": "textarea",
-      "id": "human_myth_content",
-      "label": "Human Myth Content"
+      "type": "header",
+      "content": "Myth Content"
     },
     {
-      "type": "textarea",
+      "type": "richtext",
+      "id": "human_myth_content",
+      "label": "Human Myth Content",
+      "info": "The human perspective of the Stellar Reverb origin story. Leave blank for default content."
+    },
+    {
+      "type": "richtext",
       "id": "ai_myth_content",
-      "label": "AI Myth Content"
+      "label": "AI Myth Content",
+      "info": "The AI/machine perspective of the Stellar Reverb origin story. Leave blank for default content."
     }
   ],
   "presets": [
     {
-      "name": "Lore Myth",
+      "name": "Universal Lore Myth",
       "category": "Stellar Reverb"
     }
   ]

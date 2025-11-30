@@ -1,78 +1,105 @@
-{% comment %}
-Lore Hero – Universal Lore entry point
-Uses:
-- #particles for JS particle engine
-- .hero-title / .hero-subtitle for animated text
-{% endcomment %}
+{%- comment -%}
+STELLAR REVERB - UNIVERSAL LORE HERO SECTION
+Refactored to support Capsule metaobjects + static settings
+- Added featured capsule support
+- Preserved all JS hooks for universal-lore.js
+{%- endcomment -%}
 
-{% assign hero_image = section.settings.hero_image | default: 'cosmic-hero-bg.jpg' %}
-{% assign hero_title = section.settings.hero_title | default: 'UNIVERSAL LORE: SIGNALS FROM THE VOID' %}
-{% assign hero_subtitle = section.settings.hero_subtitle | default: 'Distort reality, wear the echo.' %}
+{%- liquid
+  # Featured Capsule Logic - if capsule number is set, pull from metaobjects
+  assign featured_capsule_number = section.settings.featured_capsule_number
+  assign featured_capsule = null
+  
+  if featured_capsule_number != blank
+    assign all_capsules = shop.metaobjects['capsule'].values
+    for capsule in all_capsules
+      if capsule.capsule_number == featured_capsule_number
+        assign featured_capsule = capsule
+        break
+      endif
+    endfor
+  endif
 
-<section
-  class="hero lore-hero section-{{ section.id }}"
-  data-section-id="{{ section.id }}"
-  data-section-type="lore-hero"
-  style="background-image: url('{{ hero_image | asset_url }}');"
->
-  <div class="hero-overlay"></div>
+  # Hero content - use capsule data if available, fallback to section settings
+  if featured_capsule
+    assign hero_title = featured_capsule.capsule_title | upcase
+    assign hero_subtitle = featured_capsule.capsule_lore | strip_html | truncate: 120
+    assign hero_richtext = featured_capsule.capsule_lore
+  else
+    assign hero_title = section.settings.hero_title
+    assign hero_subtitle = section.settings.hero_subtitle
+    assign hero_richtext = section.settings.hero_richtext
+  endif
 
-  <div class="hero-content container">
-    <p class="hero-kicker orbitron text-xs tracking-widest mb-2">
-      ✶ UNIVERSAL INDEX · STELLAR REVERB LORE SYSTEM
-    </p>
+  assign hero_image = section.settings.hero_image
+  assign cta_text = section.settings.cta_text
+-%}
 
-    <h1 class="hero-title orbitron animate-title-pulse">
-      {{ hero_title }}
-    </h1>
+<section class="hero section-{{ section.id }}" 
+         data-section-id="{{ section.id }}" 
+         data-section-type="lore-hero"
+         {% if hero_image %}style="background-image: url('{{ hero_image | image_url: width: 1920 }}');"{% endif %}>
+    
+    <div class="hero-content container">
+        <h1 class="hero-title orbitron animate-title-pulse">
+            {{ hero_title | default: 'UNIVERSAL LORE: SIGNALS FROM THE VOID' }}
+        </h1>
+        
+        <p class="hero-subtitle animate-fade-in-delay">
+            {{ hero_subtitle | default: 'Distort reality, wear the echo' }}
+        </p>
 
-    <p class="hero-subtitle animate-fade-in-delay">
-      {{ hero_subtitle }}
-    </p>
+        {% if hero_richtext != blank and hero_richtext != hero_subtitle %}
+            <div class="hero-description animate-fade-in-delay-2">
+                {{ hero_richtext }}
+            </div>
+        {% endif %}
+        
+        <button class="cta-primary animate-bounce-in" 
+                id="enterVoid" 
+                aria-label="Enter the universal lore">
+            {{ cta_text | default: 'DECODE THE SIGNAL' }}
+        </button>
 
-    <!-- Meta chips – echoing the Shop All vibe -->
-    <div class="hero-meta flex flex-wrap gap-2 mt-4 text-xs">
-      <span class="chip chip-soft">
-        🛰 Live transmissions from every capsule
-      </span>
-      <span class="chip chip-soft">
-        📼 Analog mysticism · digital glitch
-      </span>
-      <span class="chip chip-soft">
-        ⚡ Interactive lore · sound-reactive visuals
-      </span>
+        {% if featured_capsule %}
+            <div class="featured-capsule-info">
+                <span class="capsule-label">FEATURED CAPSULE</span>
+                <span class="capsule-number">{{ featured_capsule.capsule_number }}</span>
+            </div>
+        {% endif %}
     </div>
-
-    <button
-      class="cta-primary animate-bounce-in mt-6"
-      id="enterVoid"
-      aria-label="Enter the universal lore"
-    >
-      {{ section.settings.cta_text | default: 'DECODE THE SIGNAL' }}
+    
+    <!-- CSS Particles Background - Required for universal-lore.js -->
+    <div class="particles" id="particles" aria-hidden="true"></div>
+    
+    <!-- Audio Toggle - Required for universal-lore.js -->
+    {% if section.settings.enable_ambient_audio %}
+    <button class="sound-toggle" id="soundToggle" aria-label="Toggle ambient audio">
+        <svg class="sound-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M3 9v6h4l5 5V4L7 9H3z" stroke="currentColor" stroke-width="2"/>
+        </svg>
     </button>
-  </div>
-
-  <!-- CSS Particles Background for JS engine -->
-  <div class="particles" id="particles" aria-hidden="true"></div>
-
-  <!-- Ambient Audio Toggle (optional) -->
-  {% if section.settings.enable_ambient_audio %}
-    <button
-      class="sound-toggle"
-      id="soundToggle"
-      aria-label="Toggle ambient audio"
-    >
-      <svg class="sound-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M3 9v6h4l5 5V4L7 9H3z" stroke="currentColor" stroke-width="2"/>
-      </svg>
-    </button>
-  {% endif %}
+    {% endif %}
 </section>
 
 {% schema %}
 {
-  "name": "Lore Hero",
+  "name": "Universal Lore Hero",
   "settings": [
+    {
+      "type": "header",
+      "content": "Capsule Integration"
+    },
+    {
+      "type": "text",
+      "id": "featured_capsule_number",
+      "label": "Featured Capsule Number",
+      "info": "Enter a capsule number (e.g., '001') to pull content from capsule metaobjects. Leave empty to use static settings below."
+    },
+    {
+      "type": "header",
+      "content": "Static Hero Settings"
+    },
     {
       "type": "image_picker",
       "id": "hero_image",
@@ -88,13 +115,23 @@ Uses:
       "type": "text",
       "id": "hero_subtitle",
       "label": "Hero Subtitle",
-      "default": "Distort reality, wear the echo."
+      "default": "Distort reality, wear the echo"
+    },
+    {
+      "type": "richtext",
+      "id": "hero_richtext",
+      "label": "Hero Description (Rich Text)",
+      "info": "Optional longer description. Only shows if different from subtitle."
     },
     {
       "type": "text",
       "id": "cta_text",
       "label": "CTA Button Text",
       "default": "DECODE THE SIGNAL"
+    },
+    {
+      "type": "header",
+      "content": "Audio Settings"
     },
     {
       "type": "checkbox",
@@ -105,7 +142,7 @@ Uses:
   ],
   "presets": [
     {
-      "name": "Lore Hero",
+      "name": "Universal Lore Hero",
       "category": "Stellar Reverb"
     }
   ]
