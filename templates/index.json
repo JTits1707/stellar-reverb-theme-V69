@@ -23,7 +23,7 @@
       "custom_css": [],
       "name": "Hero · Decoding Terminal",
       "settings": {
-        "hero_background": "shopify://shop_images/homepage-hero-image-main-page_2e498b6f-cd97-4aab-a033-77858a8008d8.jpg",
+        "hero_background": "shopify://shop_images/homepage-hero-image-main-page_b0a66a3f-57b3-47b9-a5c1-3594ca40b781.jpg",
         "content_alignment": "left",
         "terminal_label": "STELLAR·REVERB/DECRYPT",
         "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
@@ -53,9 +53,10 @@
       "settings": {
         "capsule_number": "008",
         "capsule_title": "GLITCHWAVE ORACLE",
-        "subtitle": "The latest transmission from the cosmic void",
+        "subtitle": "The Future Fractures in Neon Prophecy.",
         "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
-        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
+        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag.jpg",
+        "lore_preview": "The Oracle speaks in glitch. Neon prophecies burst from corrupted signals, fragments of futures that never happened. Capsule 008 channels these visions into wearable prophecy: fractured waveforms, holographic cassettes, and visions of collapse hidden in every thread.",
         "release_date": "2024.10",
         "theme": "Neon Magenta",
         "product_count": "12",
