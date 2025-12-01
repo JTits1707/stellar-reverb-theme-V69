@@ -1,26 +1,4 @@
-@font-face {
-  font-family: 'Orbitron';
-  src: url('{{ "Orbitron-Regular.woff2" | asset_url }}') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Orbitron';
-  src: url('{{ "Orbitron-Bold.woff2" | asset_url }}') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Orbitron';
-  src: url('{{ "Orbitron-Black.woff2" | asset_url }}') format('woff2');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}/* ==== HERO FONT OVERRIDE — COSMIC LEVEL ==== */
+/* ==== HERO FONT OVERRIDE — COSMIC LEVEL ==== */
 .shopify-section.hero .hero__title,
 .shopify-section.hero h1,
 .hero__title,
@@ -33,58 +11,40 @@ section[id*="hero"] h1,
 section[id*="Hero"] h1,
 .hero__subtitle,
 .hero__description {
-  font-family: 'Orbitron', 'Exo 2', sans-serif !important;
-  letter-spacing: 0.05em !important;
-  text-transform: uppercase !important;
+  font-family: var(--font-title);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-/* Extra aggressive fallback in case your theme uses weird classes */
+/* Extra support for odd hero class names */
 [class*="hero"] h1,
 [class*="Hero"] h1,
 [class*="hero"] .h1,
 [class*="Hero"] .h1 {
-  font-family: 'Orbitron', 'Exo 2', sans-serif !important;
-}/* ==== STELLAR REVERB CUSTOM FONTS — VAULT-LEVEL OVERRIDE ==== */
-@font-face {
-  font-family: 'Orbitron';
-  src: url('{{ "Orbitron-Black.woff2" | asset_url }}') format('woff2'),
-       url('{{ "Orbitron-Black.woff" | asset_url }}') format('woff');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
+  font-family: var(--font-title);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-@font-face {
-  font-family: 'Orbitron';
-  src: url('{{ "Orbitron-Bold.woff2" | asset_url }}') format('woff2'),
-       url('{{ "Orbitron-Bold.woff" | asset_url }}') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+/* Global typography bindings */
+body {
+  font-family: var(--font-body);
 }
 
-@font-face {
-  font-family: 'Exo 2';
-  src: url('{{ "Exo2-ExtraBold.woff2" | asset_url }}') format('woff2'),
-       url('{{ "Exo2-ExtraBold.woff" | asset_url }}') format('woff');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
+h1,
+h2,
+h3,
+.capsule-tag {
+  font-family: var(--font-title);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-@font-face {
-  font-family: 'Exo 2';
-  src: url('{{ "Exo2-Bold.woff2" | asset_url }}') format('woff2'),
-       url('{{ "Exo2-Bold.woff" | asset_url }}') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+.button,
+.btn,
+.nav__link-accent {
+  font-family: var(--font-accent);
 }
-
-/* Add more weights if you uploaded them — just copy/paste blocks */}
-/* ═══════════════════════════════════════════════════════════
-=======
->>>>>>> b7eeef10911e5240088b821a1c92bec941ce6352
    STELLAR REVERB - CSS CUSTOM PROPERTIES
    ═══════════════════════════════════════════════════════════
    
@@ -413,9 +373,3 @@ section[id*="Hero"] h1,
     background: #fff !important;
     color: #000 !important;
   }
-<<<<<<< HEAD
-}
-* { font-family: 'Orbitron', 'Exo 2', sans-serif !important; } /* nuclear option — remove after testing */
-=======
-}* { font-family: 'Orbitron', 'Exo 2', sans-serif !important; } /* nuclear option — remove after testing */
->>>>>>> 4ead56dd592df3c1569b5570fc43507b09d71f23
