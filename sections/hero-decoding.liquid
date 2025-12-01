@@ -1,0 +1,244 @@
+{% comment %}
+  HERO DECODING · TERMINAL-STYLE HERO
+  - Uses self-hosted fonts via CSS vars (no Google fonts)
+  - Colors + copy controlled from section settings
+{% endcomment %}
+
+<section
+  id="hero-decoding-{{ section.id }}"
+  class="hero-decoding"
+  style="
+    {% if section.settings.hero_background != blank %}
+      --hero-bg-image: url({{ section.settings.hero_background | image_url: width: 2400 }});
+    {% endif %}
+    --hero-headline-color: {{ section.settings.headline_color | default: '#00f0ff' }};
+    --hero-subtitle-color: {{ section.settings.subtitle_color | default: '#ff00ff' }};
+    --hero-transmission-color: {{ section.settings.transmission_color | default: '#f4ff30' }};
+    --hero-decode-color: {{ section.settings.decode_color | default: '#f4ff30' }};
+    --hero-cta-bg: {{ section.settings.cta_bg_color | default: '#00f0ac' }};
+    --hero-cta-text: {{ section.settings.cta_text_color | default: '#000000' }};
+  "
+>
+  <div class="hero-decoding__overlay"></div>
+
+  {% if section.settings.show_floating_elements %}
+    <div class="hero-decoding__floating-layer">
+      {%- comment -%}
+        This wrapper can be targeted by your existing floating-elements.js / CSS
+      {%- endcomment -%}
+      <div class="floating-elements floating-elements--hero"></div>
+    </div>
+  {% endif %}
+
+  <div class="hero-decoding__inner hero-decoding__inner--{{ section.settings.content_alignment }}">
+    <div class="hero-decoding__terminal">
+      <div class="hero-decoding__terminal-header">
+        <span class="hero-decoding__dot hero-decoding__dot--red"></span>
+        <span class="hero-decoding__dot hero-decoding__dot--yellow"></span>
+        <span class="hero-decoding__dot hero-decoding__dot--green"></span>
+        <span class="hero-decoding__terminal-title">
+          {{ section.settings.terminal_label | default: 'STELLAR·REVERB/DECRYPT' }}
+        </span>
+      </div>
+
+      <div class="hero-decoding__terminal-body">
+        {% if section.settings.transmission_text != blank %}
+          <p class="hero-decoding__transmission">
+            <span class="hero-decoding__prompt">&gt;</span>
+            {{ section.settings.transmission_text }}
+          </p>
+        {% endif %}
+
+        {% if section.settings.hero_title != blank %}
+          <h1 class="hero-decoding__title">
+            {{ section.settings.hero_title }}
+          </h1>
+        {% endif %}
+
+        {% if section.settings.hero_subtitle != blank %}
+          <p class="hero-decoding__subtitle">
+            {{ section.settings.hero_subtitle }}
+          </p>
+        {% endif %}
+
+        {% if section.settings.decode_text != blank %}
+          <p class="hero-decoding__decode-line" data-decode="{{ section.settings.decode_text }}">
+            <span class="hero-decoding__prompt">&gt;</span>
+            <span class="hero-decoding__decode-text">
+              {{ section.settings.decode_text }}
+            </span>
+            <span class="hero-decoding__cursor"></span>
+          </p>
+        {% endif %}
+
+        {% if section.settings.show_progress_bar %}
+          <div class="hero-decoding__progress">
+            <div
+              class="hero-decoding__progress-bar"
+              style="--hero-progress: {{ section.settings.decode_progress | default: 21 }}%;"
+            ></div>
+            <span class="hero-decoding__progress-label">
+              {{ section.settings.decode_progress | default: 21 }}% DECRYPTED
+            </span>
+          </div>
+        {% endif %}
+
+        {% if section.settings.cta_text != blank %}
+          <div class="hero-decoding__cta-wrap">
+            <a
+              {% if section.settings.cta_link != blank %}
+                href="{{ section.settings.cta_link }}"
+              {% else %}
+                href="/collections/all"
+              {% endif %}
+              class="hero-decoding__cta-button"
+            >
+              {{ section.settings.cta_text }}
+            </a>
+            {% if section.settings.cta_secondary_text != blank %}
+              <span class="hero-decoding__cta-secondary">
+                {{ section.settings.cta_secondary_text }}
+              </span>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if section.settings.show_lower_status %}
+        <div class="hero-decoding__status-bar">
+          <span class="hero-decoding__status-pill">
+            {{ section.settings.status_left | default: 'CHANNEL: COSMIC-001' }}
+          </span>
+          <span class="hero-decoding__status-pill">
+            {{ section.settings.status_right | default: 'SIGNAL: STABLE · REVERB ACTIVE' }}
+          </span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero · Decoding Terminal",
+  "tag": "section",
+  "class": "section hero-decoding-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_background",
+      "label": "Background image"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "terminal_label",
+      "label": "Terminal window label",
+      "default": "STELLAR·REVERB/DECRYPT"
+    },
+    {
+      "type": "text",
+      "id": "transmission_text",
+      "label": "Transmission line",
+      "default": "TRANSMISSION: SYNAPSE_INIT"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero title",
+      "default": "STELLAR REVERB"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Hero subtitle",
+      "default": "Sound. Style. Transmissions Of Cosmic Identity."
+    },
+    {
+      "type": "text",
+      "id": "decode_text",
+      "label": "Decode line",
+      "default": "DECRYPTING: SIGNAL ECHO MATCHED [21%]"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress_bar",
+      "label": "Show progress bar",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "decode_progress",
+      "label": "Decode progress (%)",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 21
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Primary CTA label",
+      "default": "ENTER THE TRANSMISSION"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_text",
+      "label": "Secondary CTA text",
+      "default": "Or browse all transmissions →"
+    },
+
+    { "type": "color", "id": "headline_color", "label": "Headline color", "default": "#00f0ff" },
+    { "type": "color", "id": "subtitle_color", "label": "Subtitle color", "default": "#ff00ff" },
+    { "type": "color", "id": "transmission_color", "label": "Transmission text color", "default": "#f4ff30" },
+    { "type": "color", "id": "decode_color", "label": "Decode text color", "default": "#f4ff30" },
+    { "type": "color", "id": "cta_bg_color", "label": "CTA background color", "default": "#00f0ac" },
+    { "type": "color", "id": "cta_text_color", "label": "CTA text color", "default": "#000000" },
+
+    {
+      "type": "checkbox",
+      "id": "show_floating_elements",
+      "label": "Enable floating cassette layer",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_lower_status",
+      "label": "Show lower status bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "status_left",
+      "label": "Left status pill",
+      "default": "CHANNEL: COSMIC-001"
+    },
+    {
+      "type": "text",
+      "id": "status_right",
+      "label": "Right status pill",
+      "default": "SIGNAL: STABLE · REVERB ACTIVE"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero · Decoding Terminal",
+      "category": "Stellar Reverb"
+    }
+  ]
+}
+{% endschema %}

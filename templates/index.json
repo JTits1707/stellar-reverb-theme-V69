@@ -10,16 +10,16 @@
       }
     },
 
-    "hero_cosmic_Hb4LxK": {
-      "type": "hero-cosmic",
-      "name": "Cosmic Hero",
+    "hero_decoding_main": {
+      "type": "hero-decoding",
+      "name": "Decoding Hero · Terminal",
       "settings": {
         "hero_background": "shopify://shop_images/homepage-hero-image-main-page_2e498b6f-cd97-4aab-a033-77858a8008d8.jpg",
         "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
         "hero_title": "STELLAR REVERB",
         "hero_subtitle": "Sound. Style. Transmissions Of Cosmic Identity.",
-        "decode_text": "DECODING: ECHO SIGNAL MATCHED.",
-        "cta_text": "SHOP COLLECTION",
+        "decode_text": "DECRYPTING: SIGNAL ECHO MATCHED [21%].",
+        "cta_text": "ENTER THE TRANSMISSION",
         "headline_color": "#00f0ff",
         "subtitle_color": "#ff00ff",
         "transmission_color": "#f4ff30",
@@ -63,24 +63,7 @@
       "name": "Floating Archive · Gated",
       "settings": {}
     },
-<<<<<<< HEAD
 
-=======
-    "stellar_timeline_G4z9Ct": {
-      "type": "stellar-timeline",
-      "custom_css": [],
-      "name": "Stellar Timeline",
-      "settings": {
-        "show_heading": true,
-        "heading": "TRANSMISSION TIMELINE",
-        "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
-        "show_scroll_controls": true,
-        "enable_sound": true,
-        "padding_top": 60,
-        "padding_bottom": 48
-      }
-    },
->>>>>>> aa9f6d0ec5a75f9cbf67afd0bd35241034dfe09e
     "stellar_navigation_matrix_hghjpC": {
       "type": "stellar-navigation-matrix",
       "blocks": {
@@ -233,7 +216,7 @@
 
   "order": [
     "announcement_bar_w6Aaa8",
-    "hero_cosmic_Hb4LxK",
+    "hero_decoding_main",
     "stellar_timeline_FYdW8c",
     "homepage_almost_gone_marquee_BdMHpw",
     "floating_archive_main_exp84J",
@@ -241,4 +224,3 @@
     "stellar_footer_ktCA48"
   ]
 }
-

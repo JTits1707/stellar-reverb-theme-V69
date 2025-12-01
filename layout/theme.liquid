@@ -46,22 +46,13 @@
 
     {%- comment -%}
       Preconnects for performance
+      (No Google Fonts needed now that fonts are self-hosted)
     {%- endcomment -%}
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    {%- comment -%}
-      Fonts – Orbitron / Exo / Montserrat / Inter
-      If you're using Shopify font settings, you can remove this and rely on {{ settings.typography_* }}
-    {%- endcomment -%}
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
-    >
 
     {%- comment -%}
       CSS Variables from Theme Settings (Brand Tokens)
+      + font families wired to self-hosted fonts
     {%- endcomment -%}
     <style>
       :root {
@@ -73,8 +64,10 @@
         --electric-yellow: {{ settings.color_electric_yellow | default: '#F4FF30' }};
         --chrome-silver: {{ settings.color_chrome_silver | default: '#B0B0B0' }};
 
+        /* Font families (self-hosted via brand-fonts.css) */
         --font-title: 'Orbitron', system-ui, sans-serif;
-        --font-body: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-body: 'PP Mori', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-accent: 'PP Neue Machina', system-ui, sans-serif;
       }
 
       html {
@@ -88,16 +81,42 @@
       Core CSS – order matters:
       1) Critical (above-the-fold, if you have it)
       2) Base / theme
-      3) Stellar Reverb performance / lore styling
+      3) Brand fonts
+      4) Hero / floating elements / capsule styling
     {%- endcomment -%}
+    {% comment %}
+      If you truly want conditional loading you’d need an app/extension;
+      using "if 'file' | asset_url" will always be truthy, so you can
+      just include the files directly.
+    {% endcomment %}
+
+    {{ 'brand-fonts.css' | asset_url | stylesheet_tag }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'theme-base.css' | asset_url | stylesheet_tag }}
+    {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
+
     {% if 'stellar-reverb-critical.css' | asset_url %}
       {{ 'stellar-reverb-critical.css' | asset_url | stylesheet_tag }}
     {% endif %}
 
-    {{ 'base.css' | asset_url | stylesheet_tag }}
-
     {% if 'stellar-reverb-performance.css' | asset_url %}
       {{ 'stellar-reverb-performance.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+    {% if 'cosmic-hero.css' | asset_url %}
+      {{ 'cosmic-hero.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+    {% if 'hero-decoding.css' | asset_url %}
+      {{ 'hero-decoding.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+    {% if 'floating-elements.css' | asset_url %}
+      {{ 'floating-elements.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+    {% if 'stellar-rev-mance.css' | asset_url %}
+      {{ 'stellar-rev-mance.css' | asset_url | stylesheet_tag }}
     {% endif %}
 
     {%- comment -%}
@@ -140,9 +159,9 @@
 
     {%- comment -%}
       Header (navigation, logo, cart, etc.)
-      Use your existing header section handle here (likely 'header')
+      Use enhanced header for all pages.
     {%- endcomment -%}
-    {% section 'header' %}
+    {% section 'header-enhanced' %}
 
     {%- comment -%}
       Page main content
@@ -157,9 +176,9 @@
     </main>
 
     {%- comment -%}
-      Footer (global)
+      Footer (global footer; Stellar variant)
     {%- endcomment -%}
-    {% section 'footer' %}
+    {% section 'stellar-footer' %}
 
     {%- comment -%}
       Core JS – global theme logic
@@ -171,7 +190,6 @@
     {%- comment -%}
       Page-specific JS:
       Lore engine for universal lore pages / sections
-      Shopify template check keeps it light where unused.
     {%- endcomment -%}
     {% if template contains 'universal-lore' or template contains 'lore' %}
       {% if 'stellar-reverb-lore.js' | asset_url %}
