@@ -23,7 +23,7 @@
       "name": "Hero · Decoding Terminal",
       "settings": {
         "hero_background": "shopify://shop_images/homepage-hero-image-main-page_2e498b6f-cd97-4aab-a033-77858a8008d8.jpg",
-        "content_alignment": "center",
+        "content_alignment": "left",
         "terminal_label": "STELLAR·REVERB/DECRYPT",
         "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
         "hero_title": "STELLAR REVERB",
@@ -44,6 +44,28 @@
         "show_lower_status": true,
         "status_left": "CHANNEL: COSMIC-001",
         "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
+      }
+    },
+    "featured_transmission_nkwbyg": {
+      "type": "featured-transmission",
+      "name": "Featured Transmission",
+      "settings": {
+        "capsule_number": "008",
+        "capsule_title": "GLITCHWAVE ORACLE",
+        "subtitle": "The latest transmission from the cosmic void",
+        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
+        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
+        "release_date": "2024.10",
+        "theme": "Neon Magenta",
+        "product_count": "12",
+        "primary_cta_text": "EXPLORE CAPSULE",
+        "primary_cta_link": "",
+        "show_secondary_cta": true,
+        "secondary_cta_text": "READ LORE",
+        "secondary_cta_link": "",
+        "image_position": "left",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "homepage_almost_gone_marquee_BdMHpw": {
@@ -221,7 +243,6 @@
         "social_link_nAdNjc",
         "social_link_jfb7pf"
       ],
-      "disabled": true,
       "name": "Stellar Footer",
       "settings": {
         "show_signal_badge": true,
@@ -233,6 +254,7 @@
   "order": [
     "announcement_bar_w6Aaa8",
     "hero_decoding_cCzWhM",
+    "featured_transmission_nkwbyg",
     "homepage_almost_gone_marquee_BdMHpw",
     "floating_archive_main_exp84J",
     "stellar_timeline_G4z9Ct",
