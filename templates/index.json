@@ -11,6 +11,7 @@
   "sections": {
     "announcement_bar_w6Aaa8": {
       "type": "announcement-bar",
+      "disabled": true,
       "name": "Announcement bar",
       "settings": {
         "message": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
