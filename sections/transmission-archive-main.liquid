@@ -1,5 +1,6 @@
 {% comment %}
-  STELLAR REVERB – Transmission Archive Main Section (OS 2.0)
+  STELLAR REVERB – Transmission Archive Main Section
+  Refactored from standalone HTML into Shopify OS 2.0 section
 {% endcomment %}
 
 {% assign transmission_collection = collections['transmissions'] %}
@@ -10,18 +11,18 @@
 {% render 'transmission-archive-styles' %}
 
 <section class="transmission-archive-page" data-section-id="{{ section.id }}">
-  <!-- Cosmic Background -->
+  <!-- Cosmic Background System -->
   <div class="cosmic-bg"></div>
   <div class="cosmic-overlay"></div>
-
-  <!-- Floating cassettes -->
+  
+  <!-- Floating Cassettes Animation (Lazy Loaded) -->
   <div class="floating-cassettes lazy" id="floatingCassettes">
     {% for i in (1..9) %}
       <div class="floating-cassette" style="--delay: {{ i | times: 3 }}s"></div>
     {% endfor %}
   </div>
-
-  <!-- Local nav (cosmic HUD) -->
+  
+  <!-- Navigation (page-local cosmic nav) -->
   <nav class="nav-bar" role="navigation" aria-label="Main Navigation">
     <div class="nav-content">
       <div class="brand-logo">
@@ -38,8 +39,8 @@
       </div>
     </div>
   </nav>
-
-  <!-- Hero -->
+  
+  <!-- Hero Section -->
   <section class="hero-section" id="heroSection">
     <div class="hero-content">
       <div class="visualizer-panel">
@@ -67,14 +68,15 @@
       </div>
     </div>
   </section>
-
-  <!-- Timeline -->
+  
+  <!-- Archive Timeline Section -->
   <section class="timeline-section" id="timelineSection">
     <div class="section-header">
       <h2 class="section-title">TRANSMISSION TIMELINE</h2>
       <p class="section-subtitle">Navigate through dimensions of cosmic consciousness</p>
     </div>
-
+    
+    <!-- Filters -->
     <div class="timeline-filters">
       <div class="filter-group">
         <label for="eraFilter" class="filter-label">ERA:</label>
@@ -95,16 +97,17 @@
         </select>
       </div>
     </div>
-
+    
+    <!-- Timeline Nodes -->
     <div class="timeline-container">
       {% for product in transmission_collection.products limit: 12 %}
         <article class="timeline-node"
           data-era="{{ product.metafields.transmission_data.era | default: 'modern' }}"
           data-type="{{ product.metafields.transmission_data.type | default: 'cassette' }}"
           data-product-id="{{ product.id }}">
-
+          
           <div class="node-connector"></div>
-
+          
           <div class="node-content">
             <div class="node-image-wrapper">
               {% if product.featured_image %}
@@ -128,7 +131,7 @@
                 </button>
               </div>
             </div>
-
+            
             <div class="node-details">
               <h3 class="node-title">
                 <a href="{{ product.url }}">{{ product.title }}</a>
@@ -149,7 +152,7 @@
                   </a>
                 {% endif %}
               </div>
-
+              
               {% if product.metafields.transmission_data.lore %}
                 <div class="node-lore hidden" id="lore-{{ product.id }}">
                   <div class="lore-content">
@@ -159,7 +162,7 @@
               {% endif %}
             </div>
           </div>
-
+          
           {% if product.metafields.transmission_data.model_url %}
             <div class="ar-portal" data-model="{{ product.metafields.transmission_data.model_url }}">
               <button class="ar-btn" type="button">AR VIEW</button>
@@ -168,21 +171,21 @@
         </article>
       {% endfor %}
     </div>
-
+    
     <div class="timeline-actions">
       <button class="dimensional-btn primary" id="loadMore" type="button">
         LOAD MORE TRANSMISSIONS
       </button>
     </div>
   </section>
-
-  <!-- Vault -->
+  
+  <!-- Vault Section -->
   <section class="vault-section" id="vaultSection">
     <div class="section-header">
-      <h2 class="section-title">STELLER VAULT</h2>
+      <h2 class="section-title">STELLAR VAULT</h2>
       <p class="section-subtitle">Curated collections of cosmic consciousness</p>
     </div>
-
+    
     <div class="vault-grid">
       {% for collection in collections %}
         {% if collection.handle contains 'transmission' %}
@@ -218,16 +221,19 @@
       {% endfor %}
     </div>
   </section>
-
-  <!-- Signals -->
+  
+  <!-- Signals Section -->
   <section class="signals-section" id="signalsSection">
     <div class="section-header">
       <h2 class="section-title">LIVE SIGNALS</h2>
       <p class="section-subtitle">Real-time transmissions from the cosmos</p>
     </div>
-    <div class="signals-feed" id="signalsFeed"></div>
+    
+    <div class="signals-feed" id="signalsFeed">
+      <!-- Populated via JavaScript -->
+    </div>
   </section>
-
+  
   <!-- Rift Signup -->
   <section class="rift-signup" id="signal-signup">
     <div class="rift-container">
@@ -236,7 +242,7 @@
         <p class="rift-subtitle">
           Subscribe to receive exclusive transmissions and early access to dimensional archives
         </p>
-
+        
         <form class="rift-form" id="klaviyoForm" action="#" method="post">
           <div class="form-group">
             <input
@@ -260,8 +266,8 @@
       </div>
     </div>
   </section>
-
-  <!-- Secret archive -->
+  
+  <!-- Secret Konami Archive -->
   <div class="secret-archive hidden" id="secretArchive">
     <div class="secret-content">
       <h2>🔒 CLASSIFIED TRANSMISSIONS UNLOCKED 🔒</h2>
@@ -282,8 +288,8 @@
       </div>
     </div>
   </div>
-
-  <!-- Audio player -->
+  
+  <!-- Audio Player -->
   <div class="cosmic-player hidden" id="cosmicPlayer">
     <div class="player-content">
       <div class="player-info">
@@ -299,15 +305,15 @@
       <audio id="audioElement" preload="none"></audio>
     </div>
   </div>
-
-  <!-- Non-critical CSS -->
+  
+  <!-- Non-critical styles -->
   <link rel="stylesheet" href="{{ 'transmission-archive.css' | asset_url }}" media="print" onload="this.media='all'">
-
-  <!-- JS -->
+  
+  <!-- Scripts (inline JS from original file) -->
   <script type="module">
     const konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','KeyB','KeyA'];
     let konamiInput = [];
-
+    
     document.addEventListener('keydown', (e) => {
       konamiInput.push(e.code);
       if (konamiInput.length > konamiCode.length) {
@@ -318,7 +324,7 @@
         console.log('🎵 Secret Archive Unlocked! Welcome to Frequency 777.7FM 🎵');
       }
     });
-
+    
     const observerOptions = { rootMargin: '50px 0px', threshold: 0.01 };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -330,7 +336,7 @@
       });
     }, observerOptions);
     document.querySelectorAll('.lazy').forEach(el => observer.observe(el));
-
+    
     class CosmicPlayer {
       constructor() {
         this.player = document.getElementById('cosmicPlayer');
@@ -384,7 +390,7 @@
         this.player.classList.add('hidden');
       }
     }
-
+    
     class TimelineFilters {
       constructor() {
         this.eraFilter = document.getElementById('eraFilter');
@@ -420,7 +426,7 @@
         });
       }
     }
-
+    
     class LoreSystem {
       constructor() {
         this.mythToggle = document.getElementById('mythToggle');
@@ -447,7 +453,7 @@
         this.mythToggle.textContent = this.isLoreVisible ? 'HIDE LORE' : 'TOGGLE LORE';
       }
     }
-
+    
     class SignalsFeed {
       constructor() {
         this.feedContainer = document.getElementById('signalsFeed');
@@ -517,7 +523,7 @@
         return 'just now';
       }
     }
-
+    
     class RiftSignup {
       constructor() {
         this.form = document.getElementById('klaviyoForm');
@@ -566,7 +572,7 @@
         }, 3000);
       }
     }
-
+    
     class ARPortalSystem {
       constructor() {
         this.setupARButtons();
@@ -618,7 +624,7 @@
         document.body.appendChild(viewer);
       }
     }
-
+    
     document.addEventListener('DOMContentLoaded', () => {
       new CosmicPlayer();
       new TimelineFilters();
@@ -626,7 +632,6 @@
       new SignalsFeed();
       new RiftSignup();
       new ARPortalSystem();
-
       if ('PerformanceObserver' in window) {
         const observer = new PerformanceObserver((list) => {
           for (const entry of list.getEntries()) {
@@ -642,8 +647,8 @@
       }
     });
   </script>
-
-  <!-- AR model viewer -->
+  
+  <!-- Model Viewer for AR -->
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </section>
 
