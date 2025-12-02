@@ -80,9 +80,9 @@
         "heading": "TRANSMISSION TIMELINE",
         "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
         "show_scroll_controls": true,
-        "enable_sound": true,
-        "padding_top": 60,
-        "padding_bottom": 48
+        "enable_sound": false,
+        "padding_top": 48,
+        "padding_bottom": 36
       }
     },
     "floating_archive_main_exp84J": {
