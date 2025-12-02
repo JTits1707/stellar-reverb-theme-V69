@@ -43,7 +43,7 @@
         "cta_bg_color": "#00f0ac",
         "cta_text_color": "#000000",
         "show_floating_elements": true,
-        "show_lower_status": true,
+        "show_lower_status": false,
         "status_left": "CHANNEL: COSMIC-001",
         "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
       }
