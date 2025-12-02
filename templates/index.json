@@ -25,7 +25,7 @@
       "name": "Hero · Decoding Terminal",
       "settings": {
         "hero_background": "shopify://shop_images/homepage-hero-image-main-page_b0a66a3f-57b3-47b9-a5c1-3594ca40b781.jpg",
-        "content_alignment": "left",
+        "content_alignment": "center",
         "terminal_label": "STELLAR·REVERB/DECRYPT",
         "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
         "hero_title": "STELLAR REVERB",
