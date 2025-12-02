@@ -71,6 +71,11 @@
         "padding_bottom": 52
       }
     },
+    "floating_archive_main_exp84J": {
+      "type": "floating-archive-main",
+      "name": "Floating Archive · Gated",
+      "settings": {}
+    },
     "homepage_almost_gone_marquee_BdMHpw": {
       "type": "homepage-almost-gone-marquee",
       "disabled": true,
@@ -85,11 +90,6 @@
         "scroll_speed": 50,
         "color_scheme": "yellow"
       }
-    },
-    "floating_archive_main_exp84J": {
-      "type": "floating-archive-main",
-      "name": "Floating Archive · Gated",
-      "settings": {}
     },
     "stellar_timeline_G4z9Ct": {
       "type": "stellar-timeline",
@@ -320,9 +320,9 @@
     "announcement_bar_w6Aaa8",
     "hero_decoding_cCzWhM",
     "featured_transmission_nkwbyg",
-    "homepage_almost_gone_marquee_BdMHpw",
-    "floating_archive_main_exp84J",
     "stellar_timeline_G4z9Ct",
+    "floating_archive_main_exp84J",
+    "homepage_almost_gone_marquee_BdMHpw",
     "stellar_navigation_matrix_hghjpC",
     "stellar_footer_ktCA48",
     "stellar_scarcity_marquee_GR6jHz"
