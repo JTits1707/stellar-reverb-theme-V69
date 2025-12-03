@@ -85,11 +85,6 @@
         "padding_bottom": 36
       }
     },
-    "floating_archive_main_exp84J": {
-      "type": "floating-archive-main",
-      "name": "Floating Archive · Gated",
-      "settings": {}
-    },
     "homepage_almost_gone_marquee_BdMHpw": {
       "type": "homepage-almost-gone-marquee",
       "disabled": true,
@@ -321,7 +316,6 @@
     "hero_decoding_cCzWhM",
     "featured_transmission_nkwbyg",
     "stellar_timeline_G4z9Ct",
-    "floating_archive_main_exp84J",
     "homepage_almost_gone_marquee_BdMHpw",
     "stellar_navigation_matrix_hghjpC",
     "stellar_footer_ktCA48",
