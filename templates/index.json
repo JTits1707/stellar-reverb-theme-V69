@@ -63,7 +63,7 @@
         "product_count": "16",
         "primary_cta_text": "EXPLORE CAPSULE",
         "primary_cta_link": "",
-        "show_secondary_cta": true,
+        "show_secondary_cta": false,
         "secondary_cta_text": "READ LORE",
         "secondary_cta_link": "",
         "image_position": "left",
