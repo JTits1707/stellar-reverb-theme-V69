@@ -43,7 +43,7 @@
         "cta_bg_color": "#00f0ac",
         "cta_text_color": "#000000",
         "show_floating_elements": true,
-        "show_lower_status": true,
+        "show_lower_status": false,
         "status_left": "CHANNEL: COSMIC-001",
         "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
       }
@@ -55,21 +55,40 @@
         "capsule_number": "008",
         "capsule_title": "GLITCHWAVE ORACLE",
         "subtitle": "The Future Fractures in Neon Prophecy.",
-        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
+        "description": "<p><strong>Check Out Our Latest Capsule Drop1</strong></p>",
         "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag.jpg",
         "lore_preview": "The Oracle speaks in glitch. Neon prophecies burst from corrupted signals, fragments of futures that never happened. Capsule 008 channels these visions into wearable prophecy: fractured waveforms, holographic cassettes, and visions of collapse hidden in every thread.",
         "release_date": "2024.10",
         "theme": "Neon Magenta",
-        "product_count": "12",
+        "product_count": "16",
         "primary_cta_text": "EXPLORE CAPSULE",
         "primary_cta_link": "",
-        "show_secondary_cta": true,
+        "show_secondary_cta": false,
         "secondary_cta_text": "READ LORE",
         "secondary_cta_link": "",
         "image_position": "left",
-        "padding_top": 80,
-        "padding_bottom": 80
+        "padding_top": 52,
+        "padding_bottom": 48
       }
+    },
+    "stellar_timeline_G4z9Ct": {
+      "type": "stellar-timeline",
+      "custom_css": [],
+      "name": "Stellar Timeline",
+      "settings": {
+        "show_heading": true,
+        "heading": "TRANSMISSION TIMELINE",
+        "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
+        "show_scroll_controls": true,
+        "enable_sound": false,
+        "padding_top": 48,
+        "padding_bottom": 36
+      }
+    },
+    "floating_archive_main_exp84J": {
+      "type": "floating-archive-main",
+      "name": "Floating Archive · Gated",
+      "settings": {}
     },
     "homepage_almost_gone_marquee_BdMHpw": {
       "type": "homepage-almost-gone-marquee",
@@ -83,26 +102,7 @@
         "icon": "⚠️",
         "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
         "scroll_speed": 50,
-        "color_scheme": "yellow"
-      }
-    },
-    "floating_archive_main_exp84J": {
-      "type": "floating-archive-main",
-      "name": "Floating Archive · Gated",
-      "settings": {}
-    },
-    "stellar_timeline_G4z9Ct": {
-      "type": "stellar-timeline",
-      "custom_css": [],
-      "name": "Stellar Timeline",
-      "settings": {
-        "show_heading": true,
-        "heading": "TRANSMISSION TIMELINE",
-        "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
-        "show_scroll_controls": true,
-        "enable_sound": true,
-        "padding_top": 60,
-        "padding_bottom": 48
+        "color_scheme": "magenta"
       }
     },
     "stellar_navigation_matrix_hghjpC": {
@@ -144,13 +144,23 @@
             "icon_type": "diamond",
             "glow_color": "gold"
           }
+        },
+        "nav_item_L4yAxQ": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Archive",
+            "link_url": "",
+            "icon_type": "spiral",
+            "glow_color": "cyan"
+          }
         }
       },
       "block_order": [
         "nav_item_jC4FdU",
         "nav_item_fPcGW8",
         "nav_item_En3Fzx",
-        "nav_item_QEfBG8"
+        "nav_item_QEfBG8",
+        "nav_item_L4yAxQ"
       ],
       "name": "Navigation Matrix",
       "settings": {
@@ -246,11 +256,63 @@
         "social_link_nAdNjc",
         "social_link_jfb7pf"
       ],
+      "disabled": true,
       "name": "Stellar Footer",
       "settings": {
         "show_signal_badge": true,
         "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
         "show_payment_icons": true
+      }
+    },
+    "stellar_scarcity_marquee_GR6jHz": {
+      "type": "stellar-scarcity-marquee",
+      "blocks": {
+        "message_Dn8Mp9": {
+          "type": "message",
+          "settings": {
+            "message": "⚡ ONLY 20 CAPSULES LEFT"
+          }
+        },
+        "message_marDXt": {
+          "type": "message",
+          "settings": {
+            "message": "📡 NEW TRANSMISSION INCOMING"
+          }
+        },
+        "message_AgmUeX": {
+          "type": "message",
+          "settings": {
+            "message": "🔐 EXCLUSIVE DROP"
+          }
+        },
+        "message_NP8YAW": {
+          "type": "message",
+          "settings": {
+            "message": "⏰ 48 HOURS ONLY"
+          }
+        },
+        "message_AwmbNF": {
+          "type": "message",
+          "settings": {
+            "message": "🌌 COSMIC ARCHIVE EXPANDING"
+          }
+        }
+      },
+      "block_order": [
+        "message_Dn8Mp9",
+        "message_marDXt",
+        "message_AgmUeX",
+        "message_NP8YAW",
+        "message_AwmbNF"
+      ],
+      "name": "Scarcity Marquee",
+      "settings": {
+        "marquee_speed": 30,
+        "show_separator": true,
+        "separator_icon": "◆",
+        "enable_glitch": true,
+        "show_scanlines": true,
+        "text_color": "#00f0ff"
       }
     }
   },
@@ -258,10 +320,11 @@
     "announcement_bar_w6Aaa8",
     "hero_decoding_cCzWhM",
     "featured_transmission_nkwbyg",
-    "homepage_almost_gone_marquee_BdMHpw",
-    "floating_archive_main_exp84J",
     "stellar_timeline_G4z9Ct",
+    "floating_archive_main_exp84J",
+    "homepage_almost_gone_marquee_BdMHpw",
     "stellar_navigation_matrix_hghjpC",
-    "stellar_footer_ktCA48"
+    "stellar_footer_ktCA48",
+    "stellar_scarcity_marquee_GR6jHz"
   ]
 }
