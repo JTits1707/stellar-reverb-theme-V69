@@ -31,7 +31,7 @@
     - Copyright info
 {% liquid
   # Fetch all published capsules from metaobjects
-assign all_capsules = metaobjects.capsule.values | sort: 'capsule_number'
+{% assign capsules = metaobjects.capsule.values | sort: 'capsule_number' %}
   
   # Footer settings
   assign show_signal_badge = section.settings.show_signal_badge | default: true

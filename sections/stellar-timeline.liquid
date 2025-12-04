@@ -46,7 +46,7 @@
         or use hardcoded data for initial setup
       {%- endcomment -%}
       
-      {% assign capsules = shop.metaobjects.capsule_archive.values | sort: 'capsule_number' %}
+{% assign capsules = metaobjects.capsule.values | sort: 'capsule_number' %}
       
       {% if capsules.size > 0 %}
         {%- comment -%} Dynamic from metaobjects {%- endcomment -%}
