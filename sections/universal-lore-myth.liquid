@@ -1,0 +1,290 @@
+{% comment %}
+UNIVERSAL LORE – MYTH SECTION
+Multi-version myth: human vs machine vs signal.
+
+Powered by capsule metaobjects:
+- spotlight capsule is chosen the same way as the hero:
+  • prime + live, highest timeline_order
+  • fallback: first capsule in metaobjects.capsule.values
+
+Expected metaobject fields on `capsule`:
+- myth_human    (rich text or multi-line)
+- myth_machine  (rich text or multi-line)
+- myth_signal   (optional – rich text or multi-line)
+
+JS expectations (from universal-lore.js):
+- .toggle-btn elements with data-version
+- #mythContent wrapper
+- .myth-version elements with data-version
+- .myth-version.active visible by default
+{% endcomment %}
+
+<section class="universal-lore-myth" data-section-type="lore-myth">
+  {%- assign all_capsules = metaobjects.capsule.values -%}
+
+  {%- assign prime_live = all_capsules
+    | where: 'timeline_track', 'prime'
+    | where: 'signal_state', 'live'
+    | sort: 'timeline_order'
+  -%}
+
+  {%- if prime_live.size > 0 -%}
+    {%- assign spotlight = prime_live | last -%}
+  {%- else -%}
+    {%- assign spotlight = all_capsules | first -%}
+  {%- endif -%}
+
+  <div class="myth-inner container">
+    <header class="myth-header">
+      <p class="myth-kicker orbitron">
+        {{ section.settings.kicker | default: 'MYTH / INTERPRETATION / GLITCHED RECORD' }}
+      </p>
+
+      <h2 class="myth-title orbitron">
+        {%- if section.settings.heading_override != blank -%}
+          {{ section.settings.heading_override }}
+        {%- elsif spotlight.capsule_title != blank -%}
+          {{ spotlight.capsule_title }} · Myth File
+        {%- else -%}
+          The Story Behind the Signal
+        {%- endif -%}
+      </h2>
+
+      <p class="myth-subtitle">
+        {%- if section.settings.subtitle_override != blank -%}
+          {{ section.settings.subtitle_override }}
+        {%- else -%}
+          Every transmission can be read three ways: the human story, the machine’s reconstruction,
+          and the raw signal that refuses to be decoded.
+        {%- endif -%}
+      </p>
+
+      <div class="myth-toggle-group" role="tablist" aria-label="Myth versions">
+        <button
+          class="toggle-btn active"
+          type="button"
+          data-version="human"
+          aria-pressed="true"
+        >
+          {{ section.settings.label_human | default: 'Human Myth' }}
+        </button>
+
+        <button
+          class="toggle-btn"
+          type="button"
+          data-version="machine"
+          aria-pressed="false"
+        >
+          {{ section.settings.label_machine | default: 'Machine Log' }}
+        </button>
+
+        <button
+          class="toggle-btn"
+          type="button"
+          data-version="signal"
+          aria-pressed="false"
+        >
+          {{ section.settings.label_signal | default: 'Raw Signal' }}
+        </button>
+      </div>
+    </header>
+
+    <div id="mythContent" class="myth-content">
+      {%- comment -%}
+      HUMAN MYTH
+      {%- endcomment -%}
+      <article
+        class="myth-version active myth-human"
+        data-version="human"
+      >
+        <h3 class="myth-version-title orbitron">
+          {{ section.settings.heading_human | default: 'The Story Humans Tell' }}
+        </h3>
+
+        <div class="myth-body">
+          {%- if spotlight.myth_human != blank -%}
+            {{ spotlight.myth_human }}
+          {%- elsif section.settings.body_human != blank -%}
+            {{ section.settings.body_human }}
+          {%- else -%}
+            <p>
+              They say this transmission began at the edge of a dying star, captured on a half-erased cassette
+              and smuggled through a broken antenna. Most people only hear a song. The ones who listen closer
+              hear a warning.
+            </p>
+          {%- endif -%}
+        </div>
+      </article>
+
+      {%- comment -%}
+      MACHINE MYTH
+      {%- endcomment -%}
+      <article
+        class="myth-version myth-machine"
+        data-version="machine"
+      >
+        <h3 class="myth-version-title orbitron">
+          {{ section.settings.heading_machine | default: 'The Machine’s Reconstruction' }}
+        </h3>
+
+        <div class="myth-body">
+          {%- if spotlight.myth_machine != blank -%}
+            {{ spotlight.myth_machine }}
+          {%- elsif section.settings.body_machine != blank -%}
+            {{ section.settings.body_machine }}
+          {%- else -%}
+            <p>
+              Parsing: corrupted analog artifact. Origin trace inconsistent. Signal repeats in fractal intervals,
+              suggesting intentional design. Conclusion probability: this is not just music. It is a map, folded
+              into sound.
+            </p>
+          {%- endif -%}
+        </div>
+      </article>
+
+      {%- comment -%}
+      SIGNAL MYTH (RAW / GLITCHED)
+      {%- endcomment -%}
+      <article
+        class="myth-version myth-signal"
+        data-version="signal"
+      >
+        <h3 class="myth-version-title orbitron">
+          {{ section.settings.heading_signal | default: 'Raw Signal / Untranslated' }}
+        </h3>
+
+        <div class="myth-body myth-body--signal">
+          {%- if spotlight.myth_signal != blank -%}
+            {{ spotlight.myth_signal }}
+          {%- elsif section.settings.body_signal != blank -%}
+            {{ section.settings.body_signal }}
+          {%- else -%}
+            <p class="glitch-line">
+              ::: ORIGIN UNKNOWN · CASSETTE LOOPED BEYOND SAFE LIMITS · FREQUENCY BLEED DETECTED :::
+            </p>
+            <p class="glitch-line">
+              𐑂 0110 1001 0111 000 · echo depth: 3.17 · subject: you
+            </p>
+            <p class="glitch-line">
+              Every time you press play, the universe resolves a little differently.
+            </p>
+          {%- endif -%}
+        </div>
+      </article>
+    </div>
+
+    {%- if section.settings.show_capsule_meta -%}
+      <footer class="myth-footer">
+        <p class="myth-meta">
+          <span class="label">File linked to:</span>
+          {%- if spotlight.capsule_number != blank and spotlight.capsule_title != blank -%}
+            <span class="value">
+              Transmission {{ spotlight.capsule_number }} · {{ spotlight.capsule_title }}
+            </span>
+          {%- else -%}
+            <span class="value">
+              Active Stellar Reverb transmission
+            </span>
+          {%- endif -%}
+        </p>
+      </footer>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Universal Lore Myth",
+  "tag": "section",
+  "class": "section-universal-lore-myth",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "MYTH / INTERPRETATION / GLITCHED RECORD"
+    },
+    {
+      "type": "text",
+      "id": "heading_override",
+      "label": "Heading override",
+      "default": ""
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle_override",
+      "label": "Subtitle override",
+      "default": ""
+    },
+
+    {
+      "type": "text",
+      "id": "label_human",
+      "label": "Human myth tab label",
+      "default": "Human Myth"
+    },
+    {
+      "type": "text",
+      "id": "label_machine",
+      "label": "Machine myth tab label",
+      "default": "Machine Log"
+    },
+    {
+      "type": "text",
+      "id": "label_signal",
+      "label": "Signal myth tab label",
+      "default": "Raw Signal"
+    },
+
+    {
+      "type": "text",
+      "id": "heading_human",
+      "label": "Human myth heading",
+      "default": "The Story Humans Tell"
+    },
+    {
+      "type": "textarea",
+      "id": "body_human",
+      "label": "Fallback human myth body",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "heading_machine",
+      "label": "Machine myth heading",
+      "default": "The Machine’s Reconstruction"
+    },
+    {
+      "type": "textarea",
+      "id": "body_machine",
+      "label": "Fallback machine myth body",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "heading_signal",
+      "label": "Signal myth heading",
+      "default": "Raw Signal / Untranslated"
+    },
+    {
+      "type": "textarea",
+      "id": "body_signal",
+      "label": "Fallback signal myth body",
+      "default": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "show_capsule_meta",
+      "label": "Show linked capsule meta line",
+      "default": true
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Universal Lore Myth",
+      "category": "Stellar Reverb"
+    }
+  ]
+}
+{% endschema %}

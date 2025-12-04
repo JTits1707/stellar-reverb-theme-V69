@@ -1,0 +1,161 @@
+{% comment %}
+UNIVERSAL LORE – INCOMING SIGNALS
+Highlights incoming / hidden capsules and drives into signup.
+
+Hooks for universal-lore.js:
+- .signal-door
+- .door-content, .door-effects, .energy-core
+- .door-cta (href "#" to scroll to signup)
+- #phraseCycler with .phrase children
+{% endcomment %}
+
+<section class="universal-lore-signals" data-section-type="lore-signals">
+  {%- assign all_capsules = metaobjects.capsule.values -%}
+  {%- assign incoming_capsules = all_capsules | where: 'signal_state', 'incoming' -%}
+  {%- if incoming_capsules.size == 0 -%}
+    {%- assign incoming_capsules = all_capsules | where: 'timeline_track', 'hidden' -%}
+  {%- endif -%}
+  {%- assign incoming_capsules = incoming_capsules | sort: 'timeline_order' -%}
+
+  <div class="signals-inner container">
+    <header class="signals-header">
+      <p class="signals-kicker orbitron">
+        {{ section.settings.kicker | default: 'INCOMING SIGNALS' }}
+      </p>
+      <h2 class="signals-title orbitron">
+        {{ section.settings.heading | default: 'The Next Transmission Is Already Looking For You' }}
+      </h2>
+      <p class="signals-subtitle">
+        {{ section.settings.subheading | default: "Some capsules haven’t fully resolved into this reality yet. Their echoes are here — faint, glitching, and reserved for Signal Seekers." }}
+      </p>
+    </header>
+
+    <div class="signals-layout">
+      <div class="signal-door">
+        <div class="door-effects">
+          <div class="energy-core"></div>
+        </div>
+
+        <div class="door-content">
+          <h3 class="door-title orbitron">
+            {{ section.settings.door_heading | default: 'Open the Next Transmission Early' }}
+          </h3>
+          <p class="door-copy">
+            {{ section.settings.door_copy | default: "Step through and you’ll get first contact when the next capsule stabilizes — before it hits the public archive." }}
+          </p>
+
+          {%- if incoming_capsules.size > 0 -%}
+            <ul class="incoming-list">
+              {%- for capsule in incoming_capsules limit: 3 -%}
+                <li class="incoming-item">
+                  <span class="incoming-tag orbitron">
+                    {% if capsule.capsule_number != blank %}
+                      Capsule {{ capsule.capsule_number }}
+                    {% else %}
+                      Incoming
+                    {% endif %}
+                  </span>
+                  <span class="incoming-title">
+                    {{ capsule.capsule_title | default: 'Untitled Signal' }}
+                  </span>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+          <a
+            href="#"
+            class="door-cta btn"
+          >
+            {{ section.settings.door_cta_label | default: 'Become a Signal Seeker' }}
+          </a>
+        </div>
+      </div>
+
+      <div class="signals-phrases">
+        <div id="phraseCycler" class="phrase-cycler">
+          <span class="phrase active">
+            {{ section.settings.phrase_one | default: 'Some transmissions only exist if you hear them.' }}
+          </span>
+          <span class="phrase">
+            {{ section.settings.phrase_two | default: 'Every email is a fragment of a larger myth.' }}
+          </span>
+          <span class="phrase">
+            {{ section.settings.phrase_three | default: 'You’re not joining a list. You’re tuning a receiver.' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Universal Lore Signals",
+  "tag": "section",
+  "class": "section-universal-lore-signals",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "INCOMING SIGNALS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": ""
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "door_heading",
+      "label": "Door heading",
+      "default": "Open the Next Transmission Early"
+    },
+    {
+      "type": "textarea",
+      "id": "door_copy",
+      "label": "Door copy",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "door_cta_label",
+      "label": "Door CTA label",
+      "default": "Become a Signal Seeker"
+    },
+    {
+      "type": "text",
+      "id": "phrase_one",
+      "label": "Phrase 1",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "phrase_two",
+      "label": "Phrase 2",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "phrase_three",
+      "label": "Phrase 3",
+      "default": ""
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Universal Lore Signals",
+      "category": "Stellar Reverb"
+    }
+  ]
+}
+{% endschema %}

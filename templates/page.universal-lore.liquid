@@ -28,7 +28,6 @@
 {% assign enable_signal_feed = section.settings.enable_signal_feed | default: true %}
 {% assign capsule_collection = collections['cosmic-capsules'] %}
 {% assign glyph_collection = collections['sonic-glyphs'] %}
-
 <!DOCTYPE html>
 <html lang="{{ request.locale.iso_code }}" class="no-js">
 <head>
@@ -94,7 +93,16 @@
   {{ 'lore-main.css' | asset_url | stylesheet_tag: preload: true }}
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 </head>
+  ...
+  {%- comment -%} Main scripts {%- endcomment -%}
+  <script src="{{ 'lore-main.js' | asset_url }}" defer></script>
+  <script src="{{ 'universal-lore.js' | asset_url }}" defer></script>
 
+  {% if section.settings.enable_spotify %}
+    <script src="https://sdk.scdn.co/spotify-player.js" defer></script>
+  {% endif %}
+</body>
+</html>
 <body class="template-lore">
   {% comment %} === SACRED TRIANGLE LOADER === {% endcomment %}
   {% section 'lore-loader' %}

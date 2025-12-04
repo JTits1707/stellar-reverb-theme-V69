@@ -1,539 +1,167 @@
 {% comment %}
-═══════════════════════════════════════════════════════════════════════════════
-  SECTION: Transmission Timeline (Capsules)
-  Features: Interactive nodes, cassette tape scroll, Spotify embeds, dynamic metafields
-═══════════════════════════════════════════════════════════════════════════════
+UNIVERSAL LORE – MULTI-TRACK TIMELINE
+Tracks: prime, lunar, singularity, hidden
+Powered by capsule metaobjects
 {% endcomment %}
 
-{% assign capsule_collection = collections[section.settings.collection_handle] %}
+<section id="timeline" class="universal-lore-timeline" data-section-type="lore-timeline">
+  {% assign all_capsules = metaobjects.capsule.values %}
 
-<section class="lore-timeline" id="timeline">
-  <h2 class="lore-timeline__title orbitron">{{ section.settings.section_title }}</h2>
-  
-  <div class="timeline">
-    <div class="timeline-grid" role="list" aria-label="Capsule timeline">
-      {% for product in capsule_collection.products limit: section.settings.capsule_limit %}
-        {% assign capsule_number = product.metafields.custom.capsule_number | default: forloop.index | prepend: '00' | slice: -3, 3 %}
-        {% assign teaser = product.metafields.custom.teaser_text | default: product.description | truncate: 150 %}
-        {% assign release_date = product.metafields.custom.release_date | default: product.published_at | date: "%B %Y" %}
-        {% assign spotify_id = product.metafields.custom.spotify_track_id %}
-        {% assign youtube_id = product.metafields.custom.youtube_video_id %}
-        {% assign is_available = product.available %}
-        
-        <article class="timeline-node {% if is_available %}timeline-node--active{% endif %}" 
-                 role="listitem" 
-                 tabindex="0" 
-                 data-capsule="{{ capsule_number }}">
-          <div class="node-marker">
-            {{ capsule_number }}
-            {% if is_available %}
-              <div class="node-pulse"></div>
-            {% endif %}
-          </div>
-          
-          <div class="node-content">
-            <h3 class="node-title orbitron">{{ product.title }}</h3>
-            <p class="node-teaser montserrat">{{ teaser }}</p>
-            <p class="node-date orbitron">Released: {{ release_date }}</p>
-            
-            <div class="cassette-tape"></div>
-            
-            <div class="node-actions">
-              {% comment %} === SPOTIFY EMBED === {% endcomment %}
-              {% if spotify_id %}
-                <button class="node-cta node-cta--audio" 
-                        onclick="playSpotify('{{ spotify_id }}', '{{ capsule_number }}')" 
-                        aria-label="Play Spotify preview">
-                  <span>🎧 LISTEN</span>
-                </button>
-              {% endif %}
-              
-              {% comment %} === YOUTUBE EMBED === {% endcomment %}
-              {% if youtube_id %}
-                <button class="node-cta node-cta--video" 
-                        onclick="playYouTube('{{ youtube_id }}', '{{ capsule_number }}')"
-                        aria-label="Watch YouTube video">
-                  <span>📺 WATCH</span>
-                </button>
-              {% endif %}
-              
-              {% comment %} === VIEW COLLECTION === {% endcomment %}
-              {% if is_available %}
-                <a href="{{ product.url }}" class="node-cta node-cta--primary">
-                  <span>VIEW COLLECTION</span>
-                </a>
-              {% else %}
-                <button class="node-cta node-cta--notify" 
-                        onclick="notifyWhenAvailable('{{ product.id }}', '{{ capsule_number }}')">
-                  <span>NOTIFY ME</span>
-                </button>
-              {% endif %}
+  {% assign prime_capsules       = all_capsules | where: 'timeline_track', 'prime'       | sort: 'timeline_order' %}
+  {% assign lunar_capsules       = all_capsules | where: 'timeline_track', 'lunar'       | sort: 'timeline_order' %}
+  {% assign singularity_capsules = all_capsules | where: 'timeline_track', 'singularity' | sort: 'timeline_order' %}
+  {% assign hidden_capsules      = all_capsules | where: 'timeline_track', 'hidden'      | sort: 'timeline_order' %}
+
+  <div id="timelineDesktop" class="timeline-desktop">
+    <div class="timeline-track track-prime">
+      <h3 class="track-label orbitron">Prime Timeline</h3>
+      <div class="track-line">
+        {% for capsule in prime_capsules %}
+          {% assign number = capsule.capsule_number %}
+          {% assign state  = capsule.signal_state | default: 'live' %}
+          {% assign collection_handle = capsule.collection_handle %}
+          {% assign product_url = collection_handle | prepend: '/collections/' %}
+
+          <button
+            class="timeline-node {% if state == 'incoming' %}incoming{% endif %}"
+            data-capsule="{{ number }}"
+            data-product-url="{{ product_url }}"
+            data-audio="{{ capsule.audio_preview | default: '' }}"
+            type="button"
+          >
+            <div class="node-geometry"></div>
+            <div class="node-content">
+              <span class="node-number">{{ number }}</span>
+              <span class="orbitron node-title">{{ capsule.capsule_title }}</span>
+              <span class="node-teaser">{{ capsule.capsule_lore_short | strip_html | truncate: 90 }}</span>
             </div>
-          </div>
-        </article>
-      {% endfor %}
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="timeline-track track-lunar">
+      <h3 class="track-label orbitron">Lunar Archives</h3>
+      <div class="track-line">
+        {% for capsule in lunar_capsules %}
+          {% assign number = capsule.capsule_number %}
+          {% assign state  = capsule.signal_state | default: 'live' %}
+          {% assign collection_handle = capsule.collection_handle %}
+          {% assign product_url = collection_handle | prepend: '/collections/' %}
+
+          <button
+            class="timeline-node {% if state == 'incoming' %}incoming{% endif %}"
+            data-capsule="{{ number }}"
+            data-product-url="{{ product_url }}"
+            data-audio="{{ capsule.audio_preview | default: '' }}"
+            type="button"
+          >
+            <div class="node-geometry"></div>
+            <div class="node-content">
+              <span class="node-number">{{ number }}</span>
+              <span class="orbitron node-title">{{ capsule.capsule_title }}</span>
+              <span class="node-teaser">{{ capsule.capsule_lore_short | strip_html | truncate: 90 }}</span>
+            </div>
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="timeline-track track-singularity">
+      <h3 class="track-label orbitron">Singularity Lineage</h3>
+      <div class="track-line">
+        {% for capsule in singularity_capsules %}
+          {% assign number = capsule.capsule_number %}
+          {% assign state  = capsule.signal_state | default: 'live' %}
+          {% assign collection_handle = capsule.collection_handle %}
+          {% assign product_url = collection_handle | prepend: '/collections/' %}
+
+          <button
+            class="timeline-node {% if state == 'incoming' %}incoming{% endif %}"
+            data-capsule="{{ number }}"
+            data-product-url="{{ product_url }}"
+            data-audio="{{ capsule.audio_preview | default: '' }}"
+            type="button"
+          >
+            <div class="node-geometry"></div>
+            <div class="node-content">
+              <span class="node-number">{{ number }}</span>
+              <span class="orbitron node-title">{{ capsule.capsule_title }}</span>
+              <span class="node-teaser">{{ capsule.capsule_lore_short | strip_html | truncate: 90 }}</span>
+            </div>
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="timeline-track track-hidden">
+      <h3 class="track-label orbitron">Hidden Signals</h3>
+      <div class="track-line">
+        {% for capsule in hidden_capsules %}
+          {% assign number = capsule.capsule_number %}
+          {% assign state  = capsule.signal_state | default: 'incoming' %}
+          {% assign collection_handle = capsule.collection_handle %}
+          {% assign product_url = collection_handle | prepend: '/collections/' %}
+
+          <button
+            class="timeline-node incoming"
+            data-capsule="{{ number | default: 'incoming' }}"
+            data-product-url="{% if state == 'live' %}{{ product_url }}{% else %}#{% endif %}"
+            data-audio="{{ capsule.audio_preview | default: '' }}"
+            type="button"
+          >
+            <div class="node-geometry"></div>
+            <div class="node-content">
+              <span class="node-number">
+                {% if number %}{{ number }}{% else %}⋯{% endif %}
+              </span>
+              <span class="orbitron node-title">
+                {{ capsule.capsule_title | default: 'Incoming Transmission' }}
+              </span>
+              <span class="node-teaser">
+                {{ capsule.capsule_lore_short | default: 'Signal not yet decoded. Join the list to be first in.' | strip_html | truncate: 90 }}
+              </span>
+            </div>
+          </button>
+        {% endfor %}
+      </div>
     </div>
   </div>
-  
-  {% comment %} === AUDIO/VIDEO MODAL === {% endcomment %}
-  <div class="media-modal" id="mediaModal" style="display: none;">
-    <div class="media-modal__overlay" onclick="closeMediaModal()"></div>
-    <div class="media-modal__content">
-      <button class="media-modal__close" onclick="closeMediaModal()" aria-label="Close">×</button>
-      <div id="mediaContainer"></div>
-    </div>
+
+  {%- comment -%}
+    Mobile timeline → your existing accordion structure.
+    Just reuse the same capsule groups above but render as .accordion-item.
+  {%- endcomment -%}
+  <div id="timelineMobile" class="timeline-mobile">
+    {% for capsule in prime_capsules %}
+      {% assign number = capsule.capsule_number %}
+      {% assign state  = capsule.signal_state | default: 'live' %}
+      {% assign collection_handle = capsule.collection_handle %}
+      {% assign product_url = collection_handle | prepend: '/collections/' %}
+
+      <div class="accordion-item">
+        <button
+          class="accordion-header"
+          data-target="capsule-{{ number }}-content"
+          aria-expanded="false"
+        >
+          <span class="orbitron">{{ number }} · {{ capsule.capsule_title }}</span>
+          <span class="icon-expand">+</span>
+        </button>
+        <div
+          id="capsule-{{ number }}-content"
+          class="accordion-content"
+        >
+          <p>{{ capsule.capsule_lore_short }}</p>
+          <a
+            href="{{ product_url }}"
+            class="cta-link"
+          >
+            Enter this transmission
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+    {# You can duplicate similar blocks for lunar/singularity/hidden if you want full parity on mobile #}
   </div>
 </section>
-
-<style>
-  .lore-timeline {
-    padding: 10rem 2rem;
-    max-width: 1600px;
-    margin: 0 auto;
-    position: relative;
-  }
-  
-  .lore-timeline__title {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    color: #E13CFA;
-    text-align: center;
-    margin-bottom: 6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    text-shadow: 0 0 20px currentColor;
-    position: relative;
-  }
-  
-  .lore-timeline__title::after {
-    content: '';
-    position: absolute;
-    bottom: -1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: linear-gradient(90deg, #E13CFA, #28A8D6, #00F0AC);
-    border-radius: 2px;
-  }
-  
-  .timeline {
-    position: relative;
-    padding: 3rem 0;
-  }
-  
-  .timeline::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, 
-      transparent, 
-      #28A8D6 10%, 
-      #E13CFA 30%, 
-      #00F0AC 50%, 
-      #F4FF30 70%, 
-      #6C24B3 90%, 
-      transparent
-    );
-    z-index: 1;
-  }
-  
-  .timeline-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 3rem;
-    position: relative;
-    z-index: 2;
-  }
-  
-  .timeline-node {
-    position: relative;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    perspective: 1000px;
-  }
-  
-  .node-marker {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 2rem;
-    background: #1A1A1A;
-    border: 4px solid #28A8D6;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(1rem, 1.5vw, 1.25rem);
-    font-weight: 900;
-    color: #28A8D6;
-    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    position: relative;
-    z-index: 3;
-    box-shadow: 
-      inset 0 2px 0 rgba(255, 255, 255, 0.1),
-      0 0 10px rgba(40, 168, 214, 0.3);
-  }
-  
-  .timeline-node:hover .node-marker,
-  .timeline-node:focus .node-marker {
-    transform: scale(1.2) rotateY(10deg);
-    box-shadow: 
-      inset 0 2px 0 rgba(255, 255, 255, 0.2),
-      0 0 30px rgba(0, 240, 172, 0.6);
-    border-color: #00F0AC;
-    color: #00F0AC;
-  }
-  
-  .node-pulse {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    width: 24px;
-    height: 24px;
-    background: #00F0AC;
-    border-radius: 50%;
-    animation: pulse-indicator 2s ease-in-out infinite;
-    box-shadow: 0 0 10px currentColor;
-  }
-  
-  @keyframes pulse-indicator {
-    0%, 100% { 
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% { 
-      transform: scale(1.3);
-      opacity: 0.7;
-    }
-  }
-  
-  .node-content {
-    background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
-    border: 2px solid rgba(40, 168, 214, 0.4);
-    border-radius: 12px;
-    padding: 2rem;
-    opacity: 0;
-    transform: translateY(30px) rotateX(-15deg);
-    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    max-height: 0;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
-  
-  .node-content::before,
-  .node-content::after {
-    content: '●●●';
-    position: absolute;
-    top: 1rem;
-    font-size: 0.7rem;
-    color: #28A8D6;
-    letter-spacing: 4px;
-    opacity: 0.6;
-  }
-  
-  .node-content::before { left: 1rem; }
-  .node-content::after { right: 1rem; }
-  
-  .timeline-node:hover .node-content,
-  .timeline-node:focus .node-content {
-    opacity: 1;
-    transform: translateY(0) rotateX(0);
-    max-height: 800px;
-    border-color: #E13CFA;
-    box-shadow: 
-      0 12px 48px rgba(225, 60, 250, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  }
-  
-  .cassette-tape {
-    position: absolute;
-    bottom: 0;
-    left: 15%;
-    right: 15%;
-    height: 3px;
-    background: repeating-linear-gradient(90deg,
-      rgba(40, 168, 214, 0) 0 8px,
-      rgba(40, 168, 214, 0.6) 8px 12px
-    );
-    opacity: 0.3;
-    transition: opacity 0.3s ease;
-  }
-  
-  .timeline-node:hover .cassette-tape {
-    opacity: 0.8;
-    animation: tape-scroll 2s linear infinite;
-  }
-  
-  @keyframes tape-scroll {
-    0% { background-position: 0 0; }
-    100% { background-position: 20px 0; }
-  }
-  
-  .node-title {
-    font-size: clamp(1rem, 1.5vw, 1.25rem);
-    color: #E13CFA;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    text-shadow: 0 0 10px currentColor;
-  }
-  
-  .node-teaser {
-    font-size: clamp(0.875rem, 1.2vw, 1rem);
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-style: italic;
-  }
-  
-  .node-date {
-    font-size: clamp(0.75rem, 1vw, 0.875rem);
-    color: #28A8D6;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 1.5rem;
-  }
-  
-  .node-actions {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-  
-  .node-cta {
-    background: transparent;
-    border: 2px solid #00F0AC;
-    color: #00F0AC;
-    padding: 0.75rem 1.5rem;
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(0.75rem, 1vw, 0.875rem);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .node-cta::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: #00F0AC;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-    z-index: -1;
-  }
-  
-  .node-cta span {
-    position: relative;
-    z-index: 1;
-  }
-  
-  .node-cta:hover {
-    color: #0A0A0A;
-    box-shadow: 0 0 20px rgba(0, 240, 172, 0.5);
-  }
-  
-  .node-cta:hover::before {
-    transform: scaleX(1);
-  }
-  
-  .node-cta--audio { border-color: #28A8D6; color: #28A8D6; }
-  .node-cta--audio::before { background: #28A8D6; }
-  .node-cta--audio:hover { box-shadow: 0 0 20px rgba(40, 168, 214, 0.5); }
-  
-  .node-cta--video { border-color: #E13CFA; color: #E13CFA; }
-  .node-cta--video::before { background: #E13CFA; }
-  .node-cta--video:hover { box-shadow: 0 0 20px rgba(225, 60, 250, 0.5); }
-  
-  /* === MEDIA MODAL === */
-  .media-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .media-modal__overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(20px);
-  }
-  
-  .media-modal__content {
-    position: relative;
-    z-index: 1;
-    width: 90%;
-    max-width: 800px;
-    background: #1A1A1A;
-    border: 2px solid #E13CFA;
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  }
-  
-  .media-modal__close {
-    position: absolute;
-    top: -1rem;
-    right: -1rem;
-    width: 40px;
-    height: 40px;
-    background: #E13CFA;
-    border: none;
-    border-radius: 50%;
-    color: #fff;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .media-modal__close:hover {
-    transform: scale(1.1) rotate(90deg);
-    box-shadow: 0 0 20px #E13CFA;
-  }
-  
-  @media (max-width: 768px) {
-    .lore-timeline {
-      padding: 6rem 1rem;
-    }
-    
-    .timeline::before {
-      display: none;
-    }
-    
-    .timeline-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .node-content {
-      opacity: 1;
-      transform: none;
-      max-height: none;
-    }
-    
-    .node-marker {
-      width: 60px;
-      height: 60px;
-    }
-  }
-</style>
-
-<script>
-  // Toggle node on mobile
-  document.querySelectorAll('.timeline-node').forEach(node => {
-    node.addEventListener('click', function() {
-      if (window.innerWidth <= 768) {
-        this.classList.toggle('active');
-      }
-    });
-  });
-  
-  // Spotify player
-  function playSpotify(trackId, capsuleId) {
-    const container = document.getElementById('mediaContainer');
-    container.innerHTML = `
-      <iframe src="https://open.spotify.com/embed/track/${trackId}?utm_source=generator&theme=0" 
-              width="100%" 
-              height="352" 
-              frameborder="0" 
-              allowfullscreen="" 
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-              loading="lazy"
-              title="Spotify player for Capsule ${capsuleId}">
-      </iframe>
-    `;
-    document.getElementById('mediaModal').style.display = 'flex';
-  }
-  
-  // YouTube player
-  function playYouTube(videoId, capsuleId) {
-    const container = document.getElementById('mediaContainer');
-    container.innerHTML = `
-      <iframe width="100%" 
-              height="400" 
-              src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen
-              title="YouTube video for Capsule ${capsuleId}">
-      </iframe>
-    `;
-    document.getElementById('mediaModal').style.display = 'flex';
-  }
-  
-  function closeMediaModal() {
-    document.getElementById('mediaModal').style.display = 'none';
-    document.getElementById('mediaContainer').innerHTML = '';
-  }
-  
-  // Notify when available (Klaviyo integration)
-  function notifyWhenAvailable(productId, capsuleId) {
-    const email = prompt(`Enter your email to be notified when Capsule ${capsuleId} is available:`);
-    if (email) {
-      // Klaviyo API call would go here
-      fetch('/apps/klaviyo/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email,
-          list_id: 'capsule-waitlist',
-          properties: {
-            product_id: productId,
-            capsule_id: capsuleId
-          }
-        })
-      })
-      .then(() => alert(`✓ You'll be notified when Capsule ${capsuleId} is available!`))
-      .catch(() => alert('Error subscribing. Please try again.'));
-    }
-  }
-</script>
-
-{% schema %}
-{
-  "name": "Timeline",
-  "settings": [
-    {
-      "type": "text",
-      "id": "section_title",
-      "label": "Section Title",
-      "default": "TRANSMISSION ARCHIVE"
-    },
-    {
-      "type": "collection",
-      "id": "collection_handle",
-      "label": "Capsule Collection",
-      "info": "Select the collection containing your capsule products"
-    },
-    {
-      "type": "range",
-      "id": "capsule_limit",
-      "label": "Number of Capsules to Display",
-      "min": 3,
-      "max": 20,
-      "step": 1,
-      "default": 10
-    }
-  ],
-  "presets": [
-    {
-      "name": "Lore Timeline"
-    }
-  ]
-}
-{% endschema %}

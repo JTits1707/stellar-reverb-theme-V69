@@ -1,310 +1,218 @@
 {% comment %}
-═══════════════════════════════════════════════════════════════════════════════
-  SECTION: Hero - Signals from the Void
-  Features: RGB pulse glow, cosmic particles, dynamic title glitch
-═══════════════════════════════════════════════════════════════════════════════
+UNIVERSAL LORE HERO
+Powered by capsule metaobjects + multi-track system.
+
+- Highlights the "spotlight" capsule:
+  • Prefer: prime + live, highest timeline_order
+  • Fallback: first capsule in metaobjects.capsule.values
+
+- Hooks for universal-lore.js:
+  • data-section-type="lore-hero"
+  • .hero-title, .hero-subtitle, .hero-description, .cta-primary
+  • #enterVoid button → scrolls to #timeline
 {% endcomment %}
 
-<section class="lore-hero" id="hero" role="banner">
-  {% comment %} === COSMIC PARTICLES === {% endcomment %}
-  <div class="cosmic-particles" aria-hidden="true">
-    {% for i in (1..7) %}
-      <div class="particle particle--{{ i }}"></div>
-    {% endfor %}
-  </div>
-  
-  {% comment %} === HERO CONTENT === {% endcomment %}
-  <div class="lore-hero__content">
-    <h1 class="lore-hero__title orbitron">
-      {{ section.settings.hero_title | newline_to_br }}
-    </h1>
-    <p class="lore-hero__subtitle montserrat">
-      {{ section.settings.hero_subtitle }}
-    </p>
-    <button class="cta-primary" onclick="scrollToSection('timeline')" aria-label="Enter the universal lore">
-      <span>{{ section.settings.cta_text }}</span>
-    </button>
+<section class="lore-hero universal-lore-hero" data-section-type="lore-hero">
+  {%- assign all_capsules = metaobjects.capsule.values -%}
+
+  {%- assign prime_live = all_capsules
+    | where: 'timeline_track', 'prime'
+    | where: 'signal_state', 'live'
+    | sort: 'timeline_order'
+  -%}
+
+  {%- if prime_live.size > 0 -%}
+    {%- assign spotlight = prime_live | last -%}
+  {%- else -%}
+    {%- assign spotlight = all_capsules | first -%}
+  {%- endif -%}
+
+  <div class="lore-hero-inner container">
+    <div class="lore-hero-content">
+      {%- if spotlight.capsule_number != blank -%}
+        <p class="hero-kicker orbitron">
+          Transmission {{ spotlight.capsule_number }}
+        </p>
+      {%- elsif section.settings.kicker_text != blank -%}
+        <p class="hero-kicker orbitron">
+          {{ section.settings.kicker_text }}
+        </p>
+      {%- endif -%}
+
+      <h1 class="hero-title orbitron">
+        {%- if section.settings.heading_override != blank -%}
+          {{ section.settings.heading_override }}
+        {%- elsif spotlight.capsule_title != blank -%}
+          {{ spotlight.capsule_title }}
+        {%- else -%}
+          Universal Lore Index
+        {%- endif -%}
+      </h1>
+
+      <p class="hero-subtitle">
+        {%- if section.settings.subheading_override != blank -%}
+          {{ section.settings.subheading_override }}
+        {%- else -%}
+          From the first distortion at the event horizon to the last echo in the archives —
+          this is the master signal log of every Stellar Reverb transmission.
+        {%- endif -%}
+      </p>
+
+      <p class="hero-description">
+        {%- if spotlight.capsule_lore_short != blank -%}
+          {{ spotlight.capsule_lore_short }}
+        {%- elsif spotlight.capsule_lore_extended != blank -%}
+          {{ spotlight.capsule_lore_extended | strip_html | truncate: 260 }}
+        {%- else -%}
+          Every capsule is a fragment of a larger myth — stitched from sound, tape, and cosmic ruin.
+          Scroll to the timeline to trace the fractures in reality, or dive straight into the active transmission.
+        {%- endif -%}
+      </p>
+
+      <div class="hero-ctas">
+        <button
+          id="enterVoid"
+          type="button"
+          class="cta-primary btn hero-cta-main"
+        >
+          <span class="submit-text">
+            {{ section.settings.primary_cta_label | default: 'Enter the Timeline' }}
+          </span>
+        </button>
+
+        {%- assign spotlight_collection_handle = spotlight.collection_handle -%}
+        {%- if spotlight_collection_handle != blank -%}
+          <a
+            href="/collections/{{ spotlight_collection_handle }}"
+            class="cta-secondary btn-outline hero-cta-secondary"
+          >
+            {{ section.settings.secondary_cta_label | default: 'Explore This Transmission' }}
+          </a>
+        {%- elsif section.settings.fallback_secondary_url != blank -%}
+          <a
+            href="{{ section.settings.fallback_secondary_url }}"
+            class="cta-secondary btn-outline hero-cta-secondary"
+          >
+            {{ section.settings.secondary_cta_label | default: 'Explore the Relic Vault' }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.show_hero_meta and spotlight.capsule_slug != blank -%}
+        <div class="hero-meta">
+          <span class="meta-item">
+            <span class="label">Capsule:</span>
+            <span class="value">{{ spotlight.capsule_number }} · {{ spotlight.capsule_title }}</span>
+          </span>
+          {%- if spotlight.timeline_track != blank -%}
+            <span class="meta-item">
+              <span class="label">Track:</span>
+              <span class="value">
+                {%- case spotlight.timeline_track -%}
+                  {%- when 'prime' -%}Prime Timeline
+                  {%- when 'lunar' -%}Lunar Archives
+                  {%- when 'singularity' -%}Singularity Lineage
+                  {%- when 'hidden' -%}Hidden Signals
+                  {%- else -%}{{ spotlight.timeline_track | capitalize }}
+                {%- endcase -%}
+              </span>
+            </span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="lore-hero-visual">
+      {%- assign hero_image = spotlight.hero_image_main -%}
+      {%- if hero_image == blank and section.settings.fallback_hero_image != blank -%}
+        {%- assign hero_image = section.settings.fallback_hero_image -%}
+      {%- endif -%}
+
+      {%- if hero_image != blank -%}
+        <div class="hero-image-frame">
+          <img
+            src="{{ hero_image | image_url: width: 1200 }}"
+            srcset="
+              {{ hero_image | image_url: width: 600 }} 600w,
+              {{ hero_image | image_url: width: 900 }} 900w,
+              {{ hero_image | image_url: width: 1200 }} 1200w
+            "
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            alt="{{ spotlight.capsule_title | default: section.settings.heading_override | escape }}"
+            loading="lazy"
+            class="hero-image"
+          >
+          <div class="hero-image-overlay"></div>
+        </div>
+      {%- else -%}
+        <div class="hero-placeholder">
+          <span class="orbitron">Stellar Reverb · Universal Lore</span>
+          <span class="hero-placeholder-line">Visual transmission pending…</span>
+        </div>
+      {%- endif -%}
+    </div>
   </div>
 </section>
 
-<style>
-  .lore-hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    background: 
-      linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.6)),
-      radial-gradient(circle at 20% 80%, rgba(225, 60, 250, 0.15), transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(40, 168, 214, 0.15), transparent 50%),
-      radial-gradient(circle at 50% 50%, rgba(0, 240, 172, 0.08), transparent 70%);
-    {% if section.settings.hero_bg_image %}
-      background-image: 
-        linear-gradient(rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.7)),
-        url({{ section.settings.hero_bg_image | img_url: '2048x' }});
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    {% endif %}
-    padding-top: 80px;
-  }
-  
-  .lore-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: 
-      radial-gradient(circle at 30% 40%, rgba(225, 60, 250, 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 70% 60%, rgba(40, 168, 214, 0.2) 0%, transparent 50%);
-    animation: cosmic-pulse 12s ease-in-out infinite;
-    z-index: 1;
-  }
-  
-  @keyframes cosmic-pulse {
-    0%, 100% { 
-      opacity: 0.4;
-      transform: scale(1);
-    }
-    33% { 
-      opacity: 0.7;
-      transform: scale(1.03);
-    }
-    66% { 
-      opacity: 0.5;
-      transform: scale(0.97);
-    }
-  }
-  
-  .lore-hero__content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 2rem;
-    max-width: 1200px;
-  }
-  
-  .lore-hero__title {
-    font-size: clamp(2.5rem, 8vw, 6rem);
-    font-weight: 900;
-    color: #E13CFA;
-    text-shadow: 
-      0 0 20px rgba(225, 60, 250, 0.8),
-      0 0 40px rgba(225, 60, 250, 0.5);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 1.5rem;
-    animation: title-glitch 4s infinite;
-    line-height: 1.1;
-  }
-  
-  @keyframes title-glitch {
-    0%, 90%, 100% { 
-      transform: translate(0);
-      text-shadow: 
-        0 0 20px rgba(225, 60, 250, 0.8),
-        0 0 40px rgba(225, 60, 250, 0.5);
-    }
-    92% { 
-      transform: translate(-3px, 2px);
-      text-shadow: 
-        0 0 10px rgba(40, 168, 214, 0.8),
-        0 0 20px rgba(40, 168, 214, 0.7);
-      color: #28A8D6;
-    }
-    94% { 
-      transform: translate(2px, -2px);
-      text-shadow: 
-        0 0 10px rgba(0, 240, 172, 0.8),
-        0 0 20px rgba(0, 240, 172, 0.7);
-      color: #00F0AC;
-    }
-    96% { 
-      transform: translate(-2px, -3px);
-      text-shadow: 
-        0 0 10px rgba(244, 255, 48, 0.8),
-        0 0 20px rgba(244, 255, 48, 0.7);
-      color: #F4FF30;
-    }
-  }
-  
-  .lore-hero__subtitle {
-    font-size: clamp(1.125rem, 2vw, 1.5rem);
-    color: #28A8D6;
-    margin-bottom: 3rem;
-    font-weight: 300;
-    letter-spacing: 0.08em;
-    text-shadow: 0 0 10px currentColor;
-    animation: subtitle-fade-in 1s ease-out 0.5s both;
-  }
-  
-  @keyframes subtitle-fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .cta-primary {
-    font-family: 'Orbitron', monospace;
-    background: linear-gradient(135deg, #00F0AC, #00D695);
-    color: #0A0A0A;
-    border: none;
-    padding: 1.25rem 3rem;
-    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border-radius: 8px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 
-      0 4px 20px rgba(0, 240, 172, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  }
-  
-  .cta-primary::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-  }
-  
-  .cta-primary:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 
-      0 8px 30px rgba(0, 240, 172, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  }
-  
-  .cta-primary:hover::before {
-    transform: translateX(100%);
-  }
-  
-  /* === COSMIC PARTICLES === */
-  .cosmic-particles {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 1;
-  }
-  
-  .particle {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background: #28A8D6;
-    border-radius: 50%;
-    opacity: 0.6;
-    animation: particle-float 20s infinite ease-in-out;
-  }
-  
-  .particle--1 { left: 10%; top: 20%; animation-delay: 0s; background: #E13CFA; }
-  .particle--2 { left: 80%; top: 60%; animation-delay: 3s; background: #28A8D6; }
-  .particle--3 { left: 50%; top: 80%; animation-delay: 6s; background: #00F0AC; }
-  .particle--4 { left: 30%; top: 40%; animation-delay: 9s; background: #F4FF30; }
-  .particle--5 { left: 70%; top: 30%; animation-delay: 12s; background: #6C24B3; }
-  .particle--6 { left: 90%; top: 10%; animation-delay: 15s; background: #E13CFA; }
-  .particle--7 { left: 20%; top: 70%; animation-delay: 18s; background: #28A8D6; }
-  
-  @keyframes particle-float {
-    0%, 100% { 
-      transform: translate(0, 0) rotate(0deg);
-      opacity: 0.3;
-      box-shadow: 0 0 10px currentColor;
-    }
-    25% { 
-      transform: translate(30px, -80px) rotate(90deg);
-      opacity: 0.8;
-      box-shadow: 0 0 20px currentColor;
-    }
-    50% { 
-      transform: translate(-20px, -160px) rotate(180deg);
-      opacity: 0.6;
-      box-shadow: 0 0 30px currentColor;
-    }
-    75% { 
-      transform: translate(-50px, -100px) rotate(270deg);
-      opacity: 0.9;
-      box-shadow: 0 0 20px currentColor;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .lore-hero {
-      min-height: 90vh;
-      padding-top: 72px;
-    }
-    
-    .lore-hero__content {
-      padding: 1rem;
-    }
-    
-    .cta-primary {
-      padding: 1rem 2rem;
-    }
-  }
-  
-  @media (prefers-reduced-motion: reduce) {
-    .lore-hero::before,
-    .lore-hero__title,
-    .particle {
-      animation: none;
-    }
-  }
-</style>
-
-<script>
-  function scrollToSection(id) {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-</script>
-
 {% schema %}
 {
-  "name": "Hero",
+  "name": "Universal Lore Hero",
+  "tag": "section",
+  "class": "section-universal-lore-hero",
   "settings": [
     {
       "type": "text",
-      "id": "hero_title",
-      "label": "Hero Title",
-      "default": "UNIVERSAL LORE:\nSIGNALS FROM THE VOID"
+      "id": "kicker_text",
+      "label": "Kicker text",
+      "default": "UNIVERSAL LORE ARCHIVE"
     },
     {
       "type": "text",
-      "id": "hero_subtitle",
-      "label": "Hero Subtitle",
-      "default": "Distort reality, wear the echo"
+      "id": "heading_override",
+      "label": "Heading override",
+      "default": ""
     },
     {
-      "type": "text",
-      "id": "cta_text",
-      "label": "CTA Button Text",
-      "default": "ENTER THE TRANSMISSION"
+      "type": "textarea",
+      "id": "subheading_override",
+      "label": "Subheading override",
+      "default": ""
     },
     {
       "type": "image_picker",
-      "id": "hero_bg_image",
-      "label": "Background Image (Optional)",
-      "info": "Recommended: 2048x1365px"
+      "id": "fallback_hero_image",
+      "label": "Fallback hero image"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary CTA label",
+      "default": "Enter the Timeline"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary CTA label",
+      "default": "Explore This Transmission"
+    },
+    {
+      "type": "url",
+      "id": "fallback_secondary_url",
+      "label": "Fallback secondary CTA URL",
+      "info": "Used if the spotlight capsule does not have a collection_handle."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero_meta",
+      "label": "Show capsule meta (track, number)",
+      "default": true
     }
   ],
+  "blocks": [],
   "presets": [
     {
-      "name": "Lore Hero"
+      "name": "Universal Lore Hero",
+      "category": "Stellar Reverb"
     }
   ]
 }
