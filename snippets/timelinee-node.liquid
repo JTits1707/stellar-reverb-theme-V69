@@ -1,0 +1,71 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - TIMELINE NODE (SNIPPET)
+  ═══════════════════════════════════════════════════════════
+  
+  Renders a single capsule node for the timeline
+  Usage: {% render 'timeline-node', capsule: capsule, index: forloop.index %}
+  
+  Features:
+    - Dynamic from metaobject or fallback params
+    - Released vs Incoming logic
+    - Lore trigger for modal
+    - Glitch effects for incoming
+    - Sacred SVG icons per theme
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{%- assign capsule_number = capsule.capsule_number | default: index | prepend: '00' | slice: -3, 3 -%}
+{%- assign status = capsule.status | default: 'released' -%}
+{%- assign theme = capsule.theme | default: 'cyan' -%}
+{%- assign title = capsule.title | default: 'INCOMING SIGNAL' -%}
+{%- assign teaser = capsule.teaser | default: 'Decryption in progress...' -%}
+{%- assign lore_snippet = capsule.lore_snippet | default: '<p>Full transmission pending...</p>' -%}
+{%- assign date = capsule.release_date | default: 'TBD' -%}
+
+<div 
+  class="timeline-node lore-trigger {% if status == 'incoming' %}timeline-node--incoming{% endif %}" 
+  data-capsule="{{ capsule_number }}" 
+  data-status="{{ status }}"
+  data-lore-title="{{ title | escape }}" 
+  data-lore-content="{{ lore_snippet | escape }}"
+  tabindex="0" 
+  role="button"
+>
+  <div class="node-date orbitron">{{ date }}</div>
+  
+  <div class="node-circle {% if status == 'incoming' %}node-circle--glitch{% endif %}" data-theme="{{ theme }}">
+    <svg class="node-icon {% if status == 'incoming' %}node-icon--glitch{% endif %}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <!-- Dynamic SVG based on theme — expand with more -->
+      {% case theme %}
+        {% when 'orange' %}
+          <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="2"/>
+          <!-- ... add full SVG from your hardcoded -->
+        {% when 'cyan' %}
+          <path d="M50,10 Q70,30 50,50 T50,90" fill="none" stroke="currentColor" stroke-width="2"/>
+          <!-- ... etc. Copy from your fallback nodes -->
+        {% else %}
+          <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="2"/>
+      {% endcase %}
+    </svg>
+    {% if status == 'incoming' %}<div class="glitch-overlay"></div>{% endif %}
+  </div>
+  
+  <div class="node-number orbitron">CAPSULE {{ capsule_number }}</div>
+  <div class="node-title {% if status == 'incoming' %}node-title--incoming{% endif %}">{{ title }}</div>
+  <div class="node-teaser">{{ teaser }}</div>
+  
+  {% if status == 'released' %}
+    <a href="{{ capsule.url }}" class="node-cta">EXPLORE CAPSULE</a>
+  {% else %}
+    <div class="node-status">
+      <div class="status-text">DECRYPTING...</div>
+      <div class="status-progress">
+        <div class="progress-bar" data-progress="{{ capsule.progress | default: 21 }}"></div>
+      </div>
+      <div class="status-percent">{{ capsule.progress | default: 21 }}%</div>
+    </div>
+    <div class="node-classified">[ CLASSIFIED ]</div>
+  {% endif %}
+</div>

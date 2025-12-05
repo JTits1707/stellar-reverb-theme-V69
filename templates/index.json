@@ -100,165 +100,6 @@
         "color_scheme": "magenta"
       }
     },
-    "stellar_navigation_matrix_hghjpC": {
-      "type": "navigation-matrix",
-      "blocks": {
-        "nav_item_jC4FdU": {
-          "type": "nav_item",
-          "settings": {
-            "title": "All Capsules",
-            "link_url": "/collections/capsules",
-            "icon_type": "spiral",
-            "glow_color": "cyan"
-          }
-        },
-        "nav_item_fPcGW8": {
-          "type": "nav_item",
-          "settings": {
-            "title": "About",
-            "link_url": "/pages/about",
-            "icon_type": "brain",
-            "glow_color": "magenta"
-          }
-        },
-        "nav_item_En3Fzx": {
-          "type": "nav_item",
-          "settings": {
-            "title": "Lore",
-            "link_url": "/pages/lore",
-            "icon_type": "infinity",
-            "glow_color": "purple"
-          }
-        },
-        "nav_item_QEfBG8": {
-          "type": "nav_item",
-          "disabled": true,
-          "settings": {
-            "title": "Shop",
-            "link_url": "/collections/all",
-            "icon_type": "diamond",
-            "glow_color": "gold"
-          }
-        },
-        "nav_item_L4yAxQ": {
-          "type": "nav_item",
-          "settings": {
-            "title": "Archive",
-            "link_url": "",
-            "icon_type": "spiral",
-            "glow_color": "cyan"
-          }
-        }
-      },
-      "block_order": [
-        "nav_item_jC4FdU",
-        "nav_item_fPcGW8",
-        "nav_item_En3Fzx",
-        "nav_item_QEfBG8",
-        "nav_item_L4yAxQ"
-      ],
-      "name": "Navigation Matrix",
-      "settings": {
-        "show_heading": true,
-        "heading": "NAVIGATE THE SIGNAL",
-        "subheading": "",
-        "grid_columns": 4
-      }
-    },
-    "stellar_footer_ktCA48": {
-      "type": "stellar-footer",
-      "blocks": {
-        "info_link_gPWwFb": {
-          "type": "info_link",
-          "settings": {
-            "link_text": "F.A.Q.",
-            "link_url": "/pages/faq"
-          }
-        },
-        "info_link_EcbfBL": {
-          "type": "info_link",
-          "settings": {
-            "link_text": "Contact",
-            "link_url": "/pages/contact"
-          }
-        },
-        "info_link_jHEKVT": {
-          "type": "info_link",
-          "settings": {
-            "link_text": "Shipping Info",
-            "link_url": "/pages/shipping"
-          }
-        },
-        "info_link_XrFFPq": {
-          "type": "info_link",
-          "settings": {
-            "link_text": "Sizing Guide",
-            "link_url": "/pages/sizing"
-          }
-        },
-        "info_link_M6LBh6": {
-          "type": "info_link",
-          "settings": {
-            "link_text": "Privacy Policy",
-            "link_url": "/pages/privacy-policy"
-          }
-        },
-        "info_link_nhUVFm": {
-          "type": "info_link",
-          "settings": {
-            "link_text": "Terms of Service",
-            "link_url": "/pages/terms-of-service"
-          }
-        },
-        "social_link_Qz7qpc": {
-          "type": "social_link",
-          "settings": {
-            "platform": "instagram",
-            "social_url": "https://instagram.com/stellarreverb"
-          }
-        },
-        "social_link_8PfMWA": {
-          "type": "social_link",
-          "settings": {
-            "platform": "pinterest",
-            "social_url": "https://pinterest.com/stellarreverb"
-          }
-        },
-        "social_link_nAdNjc": {
-          "type": "social_link",
-          "settings": {
-            "platform": "x",
-            "social_url": "https://x.com/stellarreverb"
-          }
-        },
-        "social_link_jfb7pf": {
-          "type": "social_link",
-          "settings": {
-            "platform": "tiktok",
-            "social_url": "https://tiktok.com/@stellarreverb"
-          }
-        }
-      },
-      "block_order": [
-        "info_link_gPWwFb",
-        "info_link_EcbfBL",
-        "info_link_jHEKVT",
-        "info_link_XrFFPq",
-        "info_link_M6LBh6",
-        "info_link_nhUVFm",
-        "social_link_Qz7qpc",
-        "social_link_8PfMWA",
-        "social_link_nAdNjc",
-        "social_link_jfb7pf"
-      ],
-      "disabled": true,
-      "name": "Stellar Footer",
-      "settings": {
-        "show_signal_badge": true,
-        "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
-        "show_payment_icons": true
-      }
-    },
     "stellar_scarcity_marquee_GR6jHz": {
       "type": "stellar-scarcity-marquee",
       "blocks": {
@@ -309,6 +150,60 @@
         "show_scanlines": true,
         "text_color": "#00f0ff"
       }
+    },
+    "navigation_matrix_7Htegc": {
+      "type": "navigation-matrix",
+      "blocks": {
+        "nav_item_F4a6zh": {
+          "type": "nav_item",
+          "settings": {
+            "title": "All Capsules",
+            "link_url": "",
+            "icon_type": "spiral",
+            "glow_color": "cyan"
+          }
+        },
+        "nav_item_CajKxc": {
+          "type": "nav_item",
+          "settings": {
+            "title": "About",
+            "link_url": "",
+            "icon_type": "brain",
+            "glow_color": "magenta"
+          }
+        },
+        "nav_item_yqA8JL": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Lore",
+            "link_url": "",
+            "icon_type": "infinity",
+            "glow_color": "purple"
+          }
+        },
+        "nav_item_AFWKCR": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Shop",
+            "link_url": "",
+            "icon_type": "diamond",
+            "glow_color": "gold"
+          }
+        }
+      },
+      "block_order": [
+        "nav_item_F4a6zh",
+        "nav_item_CajKxc",
+        "nav_item_yqA8JL",
+        "nav_item_AFWKCR"
+      ],
+      "name": "Navigation Matrix",
+      "settings": {
+        "show_heading": true,
+        "heading": "NAVIGATE THE SIGNAL",
+        "subheading": "",
+        "grid_columns": 4
+      }
     }
   },
   "order": [
@@ -317,8 +212,7 @@
     "featured_transmission_nkwbyg",
     "stellar_timeline_G4z9Ct",
     "homepage_almost_gone_marquee_BdMHpw",
-    "stellar_navigation_matrix_hghjpC",
-    "stellar_footer_ktCA48",
-    "stellar_scarcity_marquee_GR6jHz"
+    "stellar_scarcity_marquee_GR6jHz",
+    "navigation_matrix_7Htegc"
   ]
 }
