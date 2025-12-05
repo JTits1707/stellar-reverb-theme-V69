@@ -84,21 +84,6 @@
         "padding_bottom": 36
       }
     },
-    "homepage_almost_gone_marquee_BdMHpw": {
-      "type": "homepage-almost-gone-marquee",
-      "disabled": true,
-      "name": "Almost Gone Marquee",
-      "settings": {
-        "use_dynamic_products": false,
-        "collection": "",
-        "low_stock_threshold": 5,
-        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
-        "icon": "⚠️",
-        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
-        "scroll_speed": 50,
-        "color_scheme": "magenta"
-      }
-    },
     "stellar_scarcity_marquee_GR6jHz": {
       "type": "stellar-scarcity-marquee",
       "blocks": {
@@ -210,7 +195,6 @@
     "hero_decoding_NxTcDf",
     "featured_transmission_nkwbyg",
     "stellar_timeline_G4z9Ct",
-    "homepage_almost_gone_marquee_BdMHpw",
     "stellar_scarcity_marquee_GR6jHz",
     "navigation_matrix_7Htegc"
   ]
