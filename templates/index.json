@@ -41,6 +41,7 @@
       "type": "hero-decoding",
       "name": "Hero · Decoding Terminal",
       "settings": {
+        "hero_background": "shopify://shop_images/stellar-reverb-homepage-hero-image.1-topaz-denoise.jpg",
         "content_alignment": "left",
         "terminal_label": "STELLAR·REVERB/DECRYPT",
         "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
