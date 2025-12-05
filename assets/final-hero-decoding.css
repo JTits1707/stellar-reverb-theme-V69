@@ -110,4 +110,28 @@
 }
 @keyframes typing { to { width: 100%; } }
 @keyframes blink { 50% { border-color: transparent; } }
-@keyframes pulse { to { box-shadow: 0 0 40px #F4FF30, 0 0 20px #E13CFA; } }
+@keyframes pulse { to { box-shadow: 0 0 40px #F4FF30, 0 0 20px #E13CFA; } }/* Add to Custom CSS — MacOS window overlay (optional fire) */
+.hero-cosmic::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 14px;
+  background: rgba(30,30,30,0.8);
+  border-radius: 7px;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+.hero-cosmic::after {
+  content: "● ● ●";
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  letter-spacing: 8px;
+  color: #666;
+  z-index: 11;
+}
