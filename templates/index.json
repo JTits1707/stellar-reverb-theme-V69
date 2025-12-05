@@ -19,25 +19,6 @@
         "show_announcement": true
       }
     },
-    "hero_cosmic_NhKAWf": {
-      "type": "hero-cosmic",
-      "disabled": true,
-      "name": "Cosmic Hero",
-      "settings": {
-        "hero_background": "shopify://shop_images/homepage-hero-image-main-page_4b63b5d2-4d47-4613-b025-f766071217ca.jpg",
-        "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
-        "hero_title": "STELLAR REVERB",
-        "hero_subtitle": "Sound. Style. Transmissions Of Cosmic Identity.",
-        "decode_text": "DECODING: ECHO SIGNAL MATCHED.",
-        "cta_text": "INITIATE SIGNAL LOCK",
-        "headline_color": "#FFFFFF",
-        "subtitle_color": "#C7D2FE",
-        "transmission_color": "#00F0AC",
-        "decode_color": "#E13CFA",
-        "cta_bg_color": "#00F0AC",
-        "cta_text_color": "#000000"
-      }
-    },
     "hero_decoding_NxTcDf": {
       "type": "hero-decoding",
       "name": "Hero · Decoding Terminal",
@@ -226,7 +207,6 @@
   },
   "order": [
     "announcement_bar_w6Aaa8",
-    "hero_cosmic_NhKAWf",
     "hero_decoding_NxTcDf",
     "featured_transmission_nkwbyg",
     "stellar_timeline_G4z9Ct",
