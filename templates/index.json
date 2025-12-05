@@ -21,6 +21,7 @@
     },
     "hero_cosmic_NhKAWf": {
       "type": "hero-cosmic",
+      "disabled": true,
       "name": "Cosmic Hero",
       "settings": {
         "hero_background": "shopify://shop_images/homepage-hero-image-main-page_4b63b5d2-4d47-4613-b025-f766071217ca.jpg",
@@ -61,36 +62,6 @@
         "cta_text_color": "#000000",
         "show_floating_elements": true,
         "show_lower_status": true,
-        "status_left": "CHANNEL: COSMIC-001",
-        "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
-      }
-    },
-    "hero_decoding_cCzWhM": {
-      "type": "hero-decoding",
-      "disabled": true,
-      "custom_css": [],
-      "name": "Hero · Decoding Terminal",
-      "settings": {
-        "hero_background": "shopify://shop_images/homepage-hero-image-main-page_b0a66a3f-57b3-47b9-a5c1-3594ca40b781.jpg",
-        "content_alignment": "left",
-        "terminal_label": "STELLAR·REVERB/DECRYPT",
-        "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
-        "hero_title": "STELLAR REVERB",
-        "hero_subtitle": "Sound. Style. Transmissions Of Cosmic Identity.",
-        "decode_text": "DECRYPTING: SIGNAL ECHO MATCHED [21%]",
-        "show_progress_bar": true,
-        "decode_progress": 21,
-        "cta_text": "ENTER THE TRANSMISSION",
-        "cta_link": "",
-        "cta_secondary_text": "Or browse all transmissions →",
-        "headline_color": "#28a8d6",
-        "subtitle_color": "#e13cfa",
-        "transmission_color": "#f4ff30",
-        "decode_color": "#00f0ac",
-        "cta_bg_color": "#00f0ac",
-        "cta_text_color": "#000000",
-        "show_floating_elements": true,
-        "show_lower_status": false,
         "status_left": "CHANNEL: COSMIC-001",
         "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
       }
@@ -257,7 +228,6 @@
     "announcement_bar_w6Aaa8",
     "hero_cosmic_NhKAWf",
     "hero_decoding_NxTcDf",
-    "hero_decoding_cCzWhM",
     "featured_transmission_nkwbyg",
     "stellar_timeline_G4z9Ct",
     "homepage_almost_gone_marquee_BdMHpw",
