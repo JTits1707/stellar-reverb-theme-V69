@@ -21,6 +21,7 @@
     },
     "hero_decoding_NxTcDf": {
       "type": "hero-decoding",
+      "custom_css": [],
       "name": "Hero · Decoding Terminal",
       "settings": {
         "hero_background": "shopify://shop_images/stellar-reverb-homepage-hero-image.1-topaz-denoise.jpg",
