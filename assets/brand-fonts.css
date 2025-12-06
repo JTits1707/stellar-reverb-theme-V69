@@ -1,0 +1,73 @@
+/* ==========================================================
+   STELLAR REVERB – BRAND FONTS
+   Orbitron · PP Mori · PP Neue Machina
+   All @font-face declarations live here.
+   ========================================================== */
+
+/* ----------------------------
+   ORBITRON – Display / Titles
+   ---------------------------- */
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('{{ "Orbitron-Regular.woff2" | asset_url }}') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('{{ "Orbitron-Bold.woff2" | asset_url }}') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('{{ "Orbitron-Black.woff2" | asset_url }}') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ----------------------------
+   PP MORI – Body
+   ---------------------------- */
+
+@font-face {
+  font-family: 'PP Mori';
+  src: url('{{ "PPMori-Extralight.woff2" | asset_url }}') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Mori';
+  src: url('{{ "PPMori-Regular.woff2" | asset_url }}') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Mori';
+  src: url('{{ "PPMori-SemiBold.woff2" | asset_url }}') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ----------------------------
+   PP NEUE MACHINA – Accent
+   ---------------------------- */
+
+@font-face {
+  font-family: 'PP Neue Machina';
+  src: url('{{ "PPNeueMachina-Inktrap-Ultrabold.woff2" | asset_url }}') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
