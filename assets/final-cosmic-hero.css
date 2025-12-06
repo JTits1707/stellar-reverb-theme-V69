@@ -110,4 +110,37 @@
 }
 @keyframes typing { to { width: 100%; } }
 @keyframes blink { 50% { border-color: transparent; } }
-@keyframes pulse { to { box-shadow: 0 0 40px #F4FF30, 0 0 20px #E13CFA; } }
+@keyframes pulse { to { box-shadow: 0 0 40px #F4FF30, 0 0 20px #E13CFA; } }/* ─────────────────────────────────────────────
+   FLOATING SCANLINES OVER HERO PANEL
+   ───────────────────────────────────────────── */
+
+.hero-decoding {
+  position: relative;
+  overflow: hidden; /* keeps scanlines inside hero */
+}
+
+.hero-decoding::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.18;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  animation: heroScanlines 6s linear infinite;
+}
+
+@keyframes heroScanlines {
+  0% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(10%);
+  }
+}
