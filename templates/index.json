@@ -81,8 +81,8 @@
         "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
         "show_scroll_controls": true,
         "enable_sound": true,
-        "padding_top": 64,
-        "padding_bottom": 52
+        "padding_top": 76,
+        "padding_bottom": 64
       }
     },
     "stellar_scarcity_marquee_GR6jHz": {
