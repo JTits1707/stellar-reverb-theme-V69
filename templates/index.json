@@ -145,7 +145,7 @@
             "title": "All Capsules",
             "link_url": "",
             "icon_type": "spiral",
-            "glow_color": "cyan"
+            "glow_color": "purple"
           }
         },
         "nav_item_CajKxc": {
@@ -189,6 +189,19 @@
         "subheading": "",
         "grid_columns": 4
       }
+    },
+    "stellar_timeline_kzGaKE": {
+      "type": "stellar-timeline",
+      "name": "Stellar Timeline",
+      "settings": {
+        "show_heading": true,
+        "heading": "COSMIC TRANSMISSION TIMELINE",
+        "subtitle": "Journey through the capsule drops across space and time",
+        "show_scroll_controls": false,
+        "enable_sound": false,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
     }
   },
   "order": [
@@ -197,6 +210,7 @@
     "featured_transmission_nkwbyg",
     "stellar_timeline_G4z9Ct",
     "stellar_scarcity_marquee_GR6jHz",
-    "navigation_matrix_7Htegc"
+    "navigation_matrix_7Htegc",
+    "stellar_timeline_kzGaKE"
   ]
 }
