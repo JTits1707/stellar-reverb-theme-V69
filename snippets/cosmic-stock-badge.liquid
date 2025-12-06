@@ -1,0 +1,47 @@
+{%- comment -%}
+  COSMIC STOCK BADGE
+  ------------------
+  Usage:
+    {% render 'cosmic-stock-badge', product: product, low_stock_threshold: 5 %}
+
+  States:
+    - Sold out
+    - Low stock (<= threshold)
+    - Limited (tagged 'limited' / 'limited-drop')
+    - New (tagged 'new' / 'new-arrival')
+{%- endcomment -%}
+
+{%- assign variant = product.selected_or_first_available_variant -%}
+{%- assign qty = variant.inventory_quantity | default: 0 -%}
+{%- assign low_stock_threshold = low_stock_threshold | default: 5 -%}
+
+{%- assign is_limited = false -%}
+{%- assign is_new = false -%}
+
+{%- if product.tags contains 'limited' or product.tags contains 'limited-drop' -%}
+  {%- assign is_limited = true -%}
+{%- endif -%}
+
+{%- if product.tags contains 'new' or product.tags contains 'new-arrival' -%}
+  {%- assign is_new = true -%}
+{%- endif -%}
+
+{%- if product.available == false -%}
+  <div class="cosmic-badge cosmic-badge--soldout">
+    <span class="cosmic-badge__label">SIGNAL LOST</span>
+    <span class="cosmic-badge__sub">Sold out</span>
+  </div>
+{%- elsif qty > 0 and qty <= low_stock_threshold -%}
+  <div class="cosmic-badge cosmic-badge--low">
+    <span class="cosmic-badge__label">LOW SIGNAL</span>
+    <span class="cosmic-badge__sub">{{ qty }} left</span>
+  </div>
+{%- elsif is_limited -%}
+  <div class="cosmic-badge cosmic-badge--limited">
+    <span class="cosmic-badge__label">LIMITED TRANSMISSION</span>
+  </div>
+{%- elsif is_new -%}
+  <div class="cosmic-badge cosmic-badge--new">
+    <span class="cosmic-badge__label">NEW SIGNAL</span>
+  </div>
+{%- endif -%}
