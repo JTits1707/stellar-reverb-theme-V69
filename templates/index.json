@@ -78,8 +78,8 @@
       "settings": {
         "show_heading": true,
         "heading": "TRANSMISSION TIMELINE",
-        "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
-        "show_scroll_controls": true,
+        "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n> DECRYPTING: SIGNAL ECHO MATCHED [21%]\n<span class=\"terminal-cursor\">█</span>",
+        "show_scroll_controls": false,
         "enable_sound": true,
         "padding_top": 76,
         "padding_bottom": 64
