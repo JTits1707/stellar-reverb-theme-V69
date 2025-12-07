@@ -190,19 +190,6 @@
         "grid_columns": 4
       }
     },
-    "stellar_timeline_kzGaKE": {
-      "type": "stellar-timeline",
-      "name": "Stellar Timeline",
-      "settings": {
-        "show_heading": true,
-        "heading": "COSMIC TRANSMISSION TIMELINE",
-        "subtitle": "Journey through the capsule drops across space and time",
-        "show_scroll_controls": false,
-        "enable_sound": false,
-        "padding_top": 64,
-        "padding_bottom": 64
-      }
-    },
     "newsletter_cosmic_DXqMDB": {
       "type": "newsletter-cosmic",
       "name": "Newsletter - Cosmic",
@@ -216,7 +203,7 @@
         "button_text": "Subscribe",
         "button_icon": "📡",
         "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "button_color": "#FFFFFF",
+        "button_color": "#ffffff",
         "subscriber_tags": "newsletter",
         "success_message": "Thanks for joining the signal!",
         "show_privacy_note": true,
@@ -229,6 +216,20 @@
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
+    },
+    "homepage_almost_gone_marquee_RtwpQ6": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
+        "scroll_speed": 50,
+        "color_scheme": "yellow"
+      }
     }
   },
   "order": [
@@ -238,7 +239,7 @@
     "stellar_timeline_G4z9Ct",
     "stellar_scarcity_marquee_GR6jHz",
     "navigation_matrix_7Htegc",
-    "stellar_timeline_kzGaKE",
-    "newsletter_cosmic_DXqMDB"
+    "newsletter_cosmic_DXqMDB",
+    "homepage_almost_gone_marquee_RtwpQ6"
   ]
 }
