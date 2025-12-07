@@ -1,18 +1,6 @@
 {% comment %}
   ═══════════════════════════════════════════════════════════
-  STELLAR REVERB - TIMELINE NODE (SNIPPET)
-  ═══════════════════════════════════════════════════════════
-  
-  Renders a single capsule node for the timeline
-  Usage: {% render 'timeline-node', capsule: capsule, index: forloop.index %}
-  
-  Features:
-    - Dynamic from metaobject or fallback params
-    - Released vs Incoming logic
-    - Lore trigger for modal
-    - Glitch effects for incoming
-    - Sacred SVG icons per theme
-  
+  STELLAR REVERB - TIMELINE NODE (FINAL v10)
   ═══════════════════════════════════════════════════════════
 {% endcomment %}
 
@@ -23,46 +11,72 @@
 {%- assign teaser = capsule.teaser | default: 'Decryption in progress...' -%}
 {%- assign lore_snippet = capsule.lore_snippet | default: '<p>Full transmission pending...</p>' -%}
 {%- assign date = capsule.release_date | default: 'TBD' -%}
+{%- assign product_url = capsule.product.value.url | default: '/collections/all' -%}
 
-<div 
-  class="timeline-node lore-trigger {% if status == 'incoming' %}timeline-node--incoming{% endif %}" 
-  data-capsule="{{ capsule_number }}" 
+<div
+  class="timeline-node lore-trigger {% if status == 'incoming' %}timeline-node--incoming{% endif %}"
+  data-capsule="{{ capsule_number }}"
   data-status="{{ status }}"
-  data-lore-title="{{ title | escape }}" 
+  data-lore-title="{{ title | escape }}"
   data-lore-content="{{ lore_snippet | escape }}"
-  tabindex="0" 
+  tabindex="0"
   role="button"
 >
   <div class="node-date orbitron">{{ date }}</div>
-  
-  <div class="node-circle {% if status == 'incoming' %}node-circle--glitch{% endif %}" data-theme="{{ theme }}">
+
+  <div class="node-circle {% if status == 'incoming' %}node-circle--glitch{% endif %}" data-theme="{{ theme">
     <svg class="node-icon {% if status == 'incoming' %}node-icon--glitch{% endif %}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <!-- Dynamic SVG based on theme — expand with more -->
       {% case theme %}
         {% when 'orange' %}
           <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="2"/>
-          <!-- ... add full SVG from your hardcoded -->
-        {% when 'cyan' %}
-          <path d="M50,10 Q70,30 50,50 T50,90" fill="none" stroke="currentColor" stroke-width="2"/>
-          <!-- ... etc. Copy from your fallback nodes -->
-        {% else %}
           <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+        {% when 'cyan' %}
+          <path d="M50,10 Q70,30 50,50 T50,90 M50,10 Q30,30 50,50 T50,90" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="50" cy="10" r="3" fill="currentColor"/>
+          <circle cx="50" cy="50" r="3" fill="currentColor"/>
+          <circle cx="50" cy="90" r="3" fill="currentColor"/>
+        {% when 'purple' %}
+          <path d="M20,50 L35,50 L35,30 L65,70 L65,50 L80,50" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="20" cy="50" r="3" fill="currentColor"/>
+          <circle cx="80" cy="50" r="3" fill="currentColor"/>
+        {% when 'magenta' %}
+          <rect x="30" y="30" width="40" height="40" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="42" cy="45" r="3" fill="currentColor"/>
+          <circle cx="58" cy="45" r="3" fill="currentColor"/>
+          <rect x="40" y="58" width="20" height="8" rx="2" fill="currentColor"/>
+        {% when 'blue' %}
+          <path d="M50,20 L70,40 L70,70 L50,90 L30,70 L30,40 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M50,35 L60,45 L60,65 L50,75 L40,65 L40,45 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="50" cy="50" r="5" fill="currentColor"/>
+        {% when 'yellow' %}
+          <circle cx="50" cy="40" r="20" fill="none" stroke="currentColor" stroke-width="2" opacity="0.8"/>
+          <path d="M30,55 Q50,70 70,55" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="50" cy="40" r="8" fill="currentColor"/>
+        {% when 'green' %}
+          <ellipse cx="50" cy="50" rx="30" ry="15" fill="none" stroke="currentColor" stroke-width="2"/>
+          <ellipse cx="50" cy="50" rx="15" ry="30" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="50" cy="50" r="5" fill="currentColor"/>
+        {% else %}
+          <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="50" cy="50" r="20" fill="currentColor" opacity="0.3"/>
       {% endcase %}
     </svg>
     {% if status == 'incoming' %}<div class="glitch-overlay"></div>{% endif %}
   </div>
-  
+
   <div class="node-number orbitron">CAPSULE {{ capsule_number }}</div>
   <div class="node-title {% if status == 'incoming' %}node-title--incoming{% endif %}">{{ title }}</div>
   <div class="node-teaser">{{ teaser }}</div>
-  
+
   {% if status == 'released' %}
-    <a href="{{ capsule.url }}" class="node-cta">EXPLORE CAPSULE</a>
+    <a href="{{ product_url }}" class="node-cta">EXPLORE CAPSULE</a>
   {% else %}
     <div class="node-status">
       <div class="status-text">DECRYPTING...</div>
       <div class="status-progress">
-        <div class="progress-bar" data-progress="{{ capsule.progress | default: 21 }}"></div>
+        <div class="progress-bar" style="width: {{ capsule.progress | default: 21 }}%;"></div>
       </div>
       <div class="status-percent">{{ capsule.progress | default: 21 }}%</div>
     </div>
