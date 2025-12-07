@@ -226,9 +226,9 @@
         "low_stock_threshold": 5,
         "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
         "icon": "⚠️",
-        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
-        "scroll_speed": 50,
-        "color_scheme": "yellow"
+        "default_message": "LOW STOCK ALERT- ACT FAST",
+        "scroll_speed": 35,
+        "color_scheme": "green"
       }
     }
   },
