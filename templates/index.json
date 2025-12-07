@@ -71,6 +71,20 @@
         "padding_bottom": 48
       }
     },
+    "homepage_almost_gone_marquee_RtwpQ6": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LOW STOCK ALERT- ACT FAST",
+        "scroll_speed": 35,
+        "color_scheme": "cyan"
+      }
+    },
     "stellar_timeline_G4z9Ct": {
       "type": "stellar-timeline",
       "custom_css": [],
@@ -83,57 +97,6 @@
         "enable_sound": true,
         "padding_top": 76,
         "padding_bottom": 64
-      }
-    },
-    "stellar_scarcity_marquee_GR6jHz": {
-      "type": "stellar-scarcity-marquee",
-      "blocks": {
-        "message_Dn8Mp9": {
-          "type": "message",
-          "settings": {
-            "message": "⚡ ONLY 20 CAPSULES LEFT"
-          }
-        },
-        "message_marDXt": {
-          "type": "message",
-          "settings": {
-            "message": "📡 NEW TRANSMISSION INCOMING"
-          }
-        },
-        "message_AgmUeX": {
-          "type": "message",
-          "settings": {
-            "message": "🔐 EXCLUSIVE DROP"
-          }
-        },
-        "message_NP8YAW": {
-          "type": "message",
-          "settings": {
-            "message": "⏰ 48 HOURS ONLY"
-          }
-        },
-        "message_AwmbNF": {
-          "type": "message",
-          "settings": {
-            "message": "🌌 COSMIC ARCHIVE EXPANDING"
-          }
-        }
-      },
-      "block_order": [
-        "message_Dn8Mp9",
-        "message_marDXt",
-        "message_AgmUeX",
-        "message_NP8YAW",
-        "message_AwmbNF"
-      ],
-      "name": "Scarcity Marquee",
-      "settings": {
-        "marquee_speed": 30,
-        "show_separator": true,
-        "separator_icon": "◆",
-        "enable_glitch": true,
-        "show_scanlines": true,
-        "text_color": "#00f0ff"
       }
     },
     "navigation_matrix_7Htegc": {
@@ -216,30 +179,15 @@
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
-    },
-    "homepage_almost_gone_marquee_RtwpQ6": {
-      "type": "homepage-almost-gone-marquee",
-      "name": "Almost Gone Marquee",
-      "settings": {
-        "use_dynamic_products": false,
-        "collection": "",
-        "low_stock_threshold": 5,
-        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
-        "icon": "⚠️",
-        "default_message": "LOW STOCK ALERT- ACT FAST",
-        "scroll_speed": 35,
-        "color_scheme": "green"
-      }
     }
   },
   "order": [
     "announcement_bar_w6Aaa8",
     "hero_decoding_NxTcDf",
     "featured_transmission_nkwbyg",
+    "homepage_almost_gone_marquee_RtwpQ6",
     "stellar_timeline_G4z9Ct",
-    "stellar_scarcity_marquee_GR6jHz",
     "navigation_matrix_7Htegc",
-    "newsletter_cosmic_DXqMDB",
-    "homepage_almost_gone_marquee_RtwpQ6"
+    "newsletter_cosmic_DXqMDB"
   ]
 }
