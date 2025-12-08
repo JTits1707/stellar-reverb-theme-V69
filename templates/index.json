@@ -82,7 +82,7 @@
         "icon": "⚠️",
         "default_message": "LOW STOCK ALERT- ACT FAST",
         "scroll_speed": 35,
-        "color_scheme": "cyan"
+        "color_scheme": "green"
       }
     },
     "stellar_timeline_G4z9Ct": {
@@ -95,8 +95,8 @@
         "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n> DECRYPTING: SIGNAL ECHO MATCHED [21%]\n<span class=\"terminal-cursor\">█</span>",
         "show_scroll_controls": true,
         "enable_sound": true,
-        "padding_top": 76,
-        "padding_bottom": 64
+        "padding_top": 68,
+        "padding_bottom": 52
       }
     },
     "navigation_matrix_7Htegc": {
