@@ -94,9 +94,9 @@
         "heading": "TRANSMISSION TIMELINE",
         "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n> DECRYPTING: SIGNAL ECHO MATCHED [21%]\n<span class=\"terminal-cursor\">█</span>",
         "show_scroll_controls": true,
-        "enable_sound": true,
-        "padding_top": 68,
-        "padding_bottom": 52
+        "enable_sound": false,
+        "padding_top": 72,
+        "padding_bottom": 60
       }
     },
     "navigation_matrix_7Htegc": {
@@ -161,21 +161,21 @@
         "custom_icon": "",
         "heading": "Join the Signal",
         "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "subheading": "Get early access to new drops, exclusive relics, and cosmic transmissions.",
+        "subheading": "Get early access to capsule drops, limited edition capsules, discounts, & 15% discount.",
         "input_placeholder": "your@email.com",
         "button_text": "Subscribe",
         "button_icon": "📡",
         "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
         "button_color": "#ffffff",
         "subscriber_tags": "newsletter",
-        "success_message": "Thanks for joining the signal!",
+        "success_message": "TRANSMISSION RECEIVED.",
         "show_privacy_note": true,
         "privacy_text": "✨ Get early access + exclusive drops. No spam, ever.",
         "show_benefits": true,
         "benefit_1_text": "Early access to drops",
-        "benefit_2_text": "Exclusive relics",
-        "benefit_3_text": "Member discounts",
-        "benefit_4_text": "Cosmic transmissions",
+        "benefit_2_text": "Limited Edition Drops & Products",
+        "benefit_3_text": "15% Off",
+        "benefit_4_text": "Access Signal Seeker Dashboard",
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
