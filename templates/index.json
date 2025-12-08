@@ -99,6 +99,11 @@
         "padding_bottom": 60
       }
     },
+    "floating_archive_main_zFXcRw": {
+      "type": "floating-archive-main",
+      "name": "Floating Archive · Gated",
+      "settings": {}
+    },
     "navigation_matrix_7Htegc": {
       "type": "navigation-matrix",
       "blocks": {
@@ -161,9 +166,9 @@
         "custom_icon": "",
         "heading": "Join the Signal",
         "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "subheading": "Get early access to capsule drops, limited edition capsules, discounts, & 15% discount.",
+        "subheading": "Get exclusive drops for members only, and 15% off your first order",
         "input_placeholder": "your@email.com",
-        "button_text": "Subscribe",
+        "button_text": "Transmit",
         "button_icon": "📡",
         "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
         "button_color": "#ffffff",
@@ -179,11 +184,6 @@
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
-    },
-    "floating_archive_main_zFXcRw": {
-      "type": "floating-archive-main",
-      "name": "Floating Archive · Gated",
-      "settings": {}
     }
   },
   "order": [
