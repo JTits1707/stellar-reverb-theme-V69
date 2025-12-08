@@ -14,22 +14,12 @@
   Usage: Add to homepage for quick navigation to key pages
 
   ═══════════════════════════════════════════════════════════
-{% endcomment %}  ═══════════════════════════════════════════════════════════
-  STELLAR REVERB - NAVIGATION MATRIX SECTION
-  ═══════════════════════════════════════════════════════════
-  
-  Purpose: Grid-based navigation with icon badges
-  Features:
-    - Customizable icon grid
-    - Hover effects with glow
-    - Flexible 2-6 column layout
-    - Icon + text combinations
-    - Theme color variations
-  
-  Usage: Add to homepage for quick navigation to key pages
-  
-  ═══════════════════════════════════════════════════════════
+{% endcomment %}
 
+{% liquid
+  assign grid_columns = section.settings.grid_columns | default: 4
+  assign show_heading = section.settings.show_heading | default: true
+%}
 {% liquid
   assign grid_columns = section.settings.grid_columns | default: 4
   assign show_heading = section.settings.show_heading | default: true
