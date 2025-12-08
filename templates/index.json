@@ -155,7 +155,7 @@
       "settings": {
         "show_heading": true,
         "heading": "NAVIGATE THE SIGNAL",
-        "subheading": "",
+        "subheading": "<section class=\"decoding-terminal\">\n  <div class=\"terminal-grid\">\n    <a class=\"terminal-card\">...</a>\n  </div>\n</section>",
         "grid_columns": 4
       }
     },
