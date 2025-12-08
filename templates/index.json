@@ -179,6 +179,11 @@
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
+    },
+    "floating_archive_main_zFXcRw": {
+      "type": "floating-archive-main",
+      "name": "Floating Archive · Gated",
+      "settings": {}
     }
   },
   "order": [
@@ -187,6 +192,7 @@
     "featured_transmission_nkwbyg",
     "homepage_almost_gone_marquee_RtwpQ6",
     "stellar_timeline_G4z9Ct",
+    "floating_archive_main_zFXcRw",
     "navigation_matrix_7Htegc",
     "newsletter_cosmic_DXqMDB"
   ]
