@@ -71,6 +71,20 @@
         "padding_bottom": 48
       }
     },
+    "homepage_almost_gone_marquee_RtwpQ6": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LOW STOCK ALERT- ACT FAST",
+        "scroll_speed": 35,
+        "color_scheme": "green"
+      }
+    },
     "stellar_timeline_G4z9Ct": {
       "type": "stellar-timeline",
       "custom_css": [],
@@ -137,20 +151,6 @@
         "heading": "NAVIGATE THE SIGNAL",
         "subheading": "",
         "grid_columns": 4
-      }
-    },
-    "homepage_almost_gone_marquee_RtwpQ6": {
-      "type": "homepage-almost-gone-marquee",
-      "name": "Almost Gone Marquee",
-      "settings": {
-        "use_dynamic_products": false,
-        "collection": "",
-        "low_stock_threshold": 5,
-        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
-        "icon": "⚠️",
-        "default_message": "LOW STOCK ALERT- ACT FAST",
-        "scroll_speed": 35,
-        "color_scheme": "green"
       }
     },
     "newsletter_cosmic_DXqMDB": {
