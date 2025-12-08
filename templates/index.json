@@ -94,9 +94,9 @@
         "heading": "TRANSMISSION TIMELINE",
         "subtitle": "THE VAULT JUST GLITCHED OPEN — EVERY CAPSULE THE MACHINES TRIED TO ERASE.\n> DECRYPTING: SIGNAL ECHO MATCHED [21%]\n<span class=\"terminal-cursor\">█</span>",
         "show_scroll_controls": true,
-        "enable_sound": true,
-        "padding_top": 68,
-        "padding_bottom": 52
+        "enable_sound": false,
+        "padding_top": 72,
+        "padding_bottom": 60
       }
     },
     "navigation_matrix_7Htegc": {
