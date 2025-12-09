@@ -99,6 +99,11 @@
         "padding_bottom": 60
       }
     },
+    "floating_archive_main_zFXcRw": {
+      "type": "floating-archive-main",
+      "name": "Floating Archive · Gated",
+      "settings": {}
+    },
     "navigation_matrix_7Htegc": {
       "type": "navigation-matrix",
       "blocks": {
@@ -145,11 +150,12 @@
         "nav_item_yqA8JL",
         "nav_item_AFWKCR"
       ],
+      "custom_css": [],
       "name": "Navigation Matrix",
       "settings": {
         "show_heading": true,
         "heading": "NAVIGATE THE SIGNAL",
-        "subheading": "",
+        "subheading": "<section class=\"decoding-terminal\">\n  <div class=\"terminal-grid\">\n    <a class=\"terminal-card\">...</a>\n  </div>\n</section>",
         "grid_columns": 4
       }
     },
@@ -161,9 +167,9 @@
         "custom_icon": "",
         "heading": "Join the Signal",
         "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "subheading": "Get early access to capsule drops, limited edition capsules, discounts, & 15% discount.",
+        "subheading": "Get exclusive drops for members only, and 15% off your first order",
         "input_placeholder": "your@email.com",
-        "button_text": "Subscribe",
+        "button_text": "Transmit",
         "button_icon": "📡",
         "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
         "button_color": "#ffffff",
@@ -187,6 +193,7 @@
     "featured_transmission_nkwbyg",
     "homepage_almost_gone_marquee_RtwpQ6",
     "stellar_timeline_G4z9Ct",
+    "floating_archive_main_zFXcRw",
     "navigation_matrix_7Htegc",
     "newsletter_cosmic_DXqMDB"
   ]
