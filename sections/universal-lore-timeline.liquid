@@ -1,9 +1,4 @@
-{% assign all_capsules = metaobjects.capsule.values %}
-
-{% assign prime_capsules      = all_capsules | where: 'timeline_track', 'prime'      | sort: 'timeline_order' %}
-{% assign lunar_capsules      = all_capsules | where: 'timeline_track', 'lunar'      | sort: 'timeline_order' %}
-{% assign singularity_capsules= all_capsules | where: 'timeline_track', 'singularity'| sort: 'timeline_order' %}
-{% assign hidden_capsules     = all_capsules | where: 'timeline_track', 'hidden'     | sort: 'timeline_order' %}{% comment %}
+{% comment %}
 UNIVERSAL LORE – MULTI-TRACK TIMELINE
 Tracks: prime, lunar, singularity, hidden
 Powered by capsule metaobjects

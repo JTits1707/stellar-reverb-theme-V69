@@ -1,26 +1,12 @@
 {
   "sections": {
-    "loader": {
-      "type": "universal-lore-loader"
-    },
-    "hero": {
-      "type": "universal-lore-hero"
-    },
-    "myth": {
-      "type": "universal-lore-myth"
-    },
-    "timeline": {
-      "type": "universal-lore-timeline"
-    },
-    "vault": {
-      "type": "universal-lore-vault"
-    },
-    "signals": {
-      "type": "universal-lore-signals"
-    },
-    "signup": {
-      "type": "universal-lore-signup"
-    }
+    "loader": { "type": "universal-lore-loader" },
+    "hero": { "type": "universal-lore-hero" },
+    "myth": { "type": "universal-lore-myth" },
+    "timeline": { "type": "universal-lore-timeline" },
+    "vault": { "type": "universal-lore-vault" },
+    "signals": { "type": "universal-lore-signals" },
+    "signup": { "type": "universal-lore-signup" }
   },
   "order": [
     "loader",
