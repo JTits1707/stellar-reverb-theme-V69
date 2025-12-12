@@ -1,5 +1,4 @@
 {% assign all_capsules = metaobjects.capsule.values %}
-
 {% assign prime_capsules      = all_capsules | where: 'timeline_track', 'prime'      | sort: 'timeline_order' %}
 {% assign lunar_capsules      = all_capsules | where: 'timeline_track', 'lunar'      | sort: 'timeline_order' %}
 {% assign singularity_capsules= all_capsules | where: 'timeline_track', 'singularity'| sort: 'timeline_order' %}
@@ -9,7 +8,6 @@
   Enhanced with active states and mobile optimization
 ═══════════════════════════════════════════════════════════════════════════════
 {% endcomment %}
-
 <nav class="lore-nav" id="loreNav" role="navigation" aria-label="Main navigation">
   <div class="lore-nav__container">
     <a href="{{ routes.root_url }}" class="lore-nav__logo" aria-label="{{ shop.name }} Home">
@@ -34,7 +32,6 @@
     </button>
   </div>
 </nav>
-
 <style>
   .lore-nav {
     position: fixed;
@@ -223,7 +220,6 @@
     }
   }
 </style>
-
 <script>
   // Navigation scroll behavior
   const nav = document.getElementById('loreNav');
@@ -263,7 +259,6 @@
     });
   }
 </script>
-
 {% schema %}
 {
   "name": "Navigation",
@@ -350,3 +345,4 @@
   ]
 }
 {% endschema %}
+

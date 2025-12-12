@@ -1,400 +1,54 @@
-{% assign all_capsules = metaobjects.capsule.values %}
-
-{% assign prime_capsules      = all_capsules | where: 'timeline_track', 'prime'      | sort: 'timeline_order' %}
-{% assign lunar_capsules      = all_capsules | where: 'timeline_track', 'lunar'      | sort: 'timeline_order' %}
-{% assign singularity_capsules= all_capsules | where: 'timeline_track', 'singularity'| sort: 'timeline_order' %}
-{% assign hidden_capsules     = all_capsules | where: 'timeline_track', 'hidden'     | sort: 'timeline_order' %}{% comment %}
-═══════════════════════════════════════════════════════════════════════════════
-  SECTION: Konami Code Easter Egg Modal
-  Features: Secret unlock modal, hidden collection access, ultra-rare rewards
-  Activation: ↑↑↓↓←→←→BA
-═══════════════════════════════════════════════════════════════════════════════
+{% comment %}
+STELLAR REVERB — UNIVERSAL LORE KONAMI MODAL
+Easter egg modal triggered by Konami code (↑ ↑ ↓ ↓ ← → ← → B A)
+Via JS engine trackEvent('konami_activated')
 {% endcomment %}
 
-{% assign secret_collection = collections[section.settings.secret_collection_handle] %}
+<div id="lore-konami-modal" class="konami-modal" style="display:none" role="dialog" aria-hidden="true">
+  <style>
+    #lore-konami-modal{position:fixed;inset:0;background:rgba(10,10,10,0.95);display:flex;align-items:center;justify-content:center;z-index:9998;opacity:0;transition:opacity 0.3s ease;backdrop-filter:blur(5px)}
+    #lore-konami-modal.active{opacity:1}
+    .modal-content{background:linear-gradient(135deg, rgba(225,60,250,0.1), rgba(40,168,214,0.1));border:3px solid var(--neon-magenta,#E13CFA);border-radius:12px;padding:2.5rem;max-width:600px;text-align:center;box-shadow:0 0 50px rgba(225,60,250,.5);position:relative}
+    .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--neon-magenta,#E13CFA);font-size:1.5rem;cursor:pointer}
+    .modal-title{font-family:'Orbitron',monospace;color:var(--radioactive-green,#00F0AC);text-transform:uppercase;letter-spacing:0.15em;font-size:2rem;margin-bottom:1rem}
+    .modal-text{font-family:'Montserrat',sans-serif;color:#fff;line-height:1.6;margin-bottom:1.5rem}
+    .modal-cta{font-family:'Orbitron',monospace;background:var(--neon-magenta,#E13CFA);color:#fff;border:none;padding:1rem 1.75rem;border-radius:4px;cursor:pointer;text-transform:uppercase;font-weight:800;letter-spacing:0.08em;transition:all 0.2s ease}
+    .modal-cta:hover{filter:brightness(1.1);box-shadow:0 0 20px rgba(225,60,250,.5)}
+    .modal-glitch{position:absolute;inset:0;background:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(225,60,250,0.1) 2px, rgba(225,60,250,0.1) 4px);pointer-events:none;border-radius:12px;animation:glitch-scan 0.15s infinite}
+    @keyframes glitch-scan{0%{transform:translateY(0)}100%{transform:translateY(4px)}}
+  </style>
 
-<div class="konami-modal" id="konamiModal" style="display: none;">
-  <div class="konami-overlay" onclick="closeKonami()"></div>
-  <div class="konami-content">
-    <button class="konami-close" onclick="closeKonami()" aria-label="Close">×</button>
-    
-    <div class="konami-header">
-      <div class="ultra-triangle"></div>
-      <h3 class="konami-title orbitron">{{ section.settings.modal_title }}</h3>
-    </div>
-    
-    <p class="konami-message montserrat">{{ section.settings.modal_message }}</p>
-    
-    {% if secret_collection %}
-      <div class="secret-preview">
-        {% for product in secret_collection.products limit: 3 %}
-          <div class="secret-item">
-            <img src="{{ product.featured_image | img_url: '200x200' }}" alt="{{ product.title }}">
-            <span class="secret-name">{{ product.title }}</span>
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
-    
-    <div class="konami-actions">
-      <a href="{{ secret_collection.url }}" class="konami-btn konami-btn--primary">
-        <span>{{ section.settings.unlock_button_text }}</span>
-      </a>
-      
-      {% if section.settings.show_discount_code %}
-        <button class="konami-btn konami-btn--secondary" onclick="copyDiscountCode('{{ section.settings.discount_code }}')">
-          <span>COPY DISCOUNT: {{ section.settings.discount_code }}</span>
-        </button>
-      {% endif %}
-    </div>
-    
-    <p class="konami-footer">{{ section.settings.footer_text }}</p>
+  <div class="modal-content">
+    <div class="modal-glitch" aria-hidden="true"></div>
+    <button class="modal-close" aria-label="Close" onclick="document.getElementById('lore-konami-modal').classList.remove('active');document.getElementById('lore-konami-modal').style.display='none'">✕</button>
+    <h2 class="modal-title">🔓 SECRET CAPSULE ACCESSED</h2>
+    <p class="modal-text">You've discovered the hidden frequency. The void recognizes your signal. A rare capsule awaits in the vault below—only for those who know how to listen.</p>
+    <button class="modal-cta" onclick="document.getElementById('lore-konami-modal').classList.remove('active');document.getElementById('lore-konami-modal').style.display='none';window.location.href='/collections/capsule-000'">Enter the Void</button>
   </div>
 </div>
 
-<style>
-  .konami-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: modal-appear 0.5s ease-out;
-  }
-  
-  @keyframes modal-appear {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  .konami-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(10, 10, 10, 0.98);
-    backdrop-filter: blur(20px);
-  }
-  
-  .konami-content {
-    position: relative;
-    z-index: 1;
-    background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
-    border: 3px solid #00F0AC;
-    border-radius: 20px;
-    padding: 4rem;
-    text-align: center;
-    max-width: 700px;
-    width: 90%;
-    box-shadow: 
-      0 0 50px rgba(0, 240, 172, 0.6),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    animation: content-glow 2s ease-in-out infinite;
-  }
-  
-  @keyframes content-glow {
-    0%, 100% {
-      box-shadow: 
-        0 0 50px rgba(0, 240, 172, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-    50% {
-      box-shadow: 
-        0 0 80px rgba(0, 240, 172, 0.9),
-        0 0 120px rgba(225, 60, 250, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    }
-  }
-  
-  .konami-close {
-    position: absolute;
-    top: -1rem;
-    right: -1rem;
-    width: 48px;
-    height: 48px;
-    background: #00F0AC;
-    border: none;
-    border-radius: 50%;
-    color: #0A0A0A;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(0, 240, 172, 0.6);
-  }
-  
-  .konami-close:hover {
-    transform: scale(1.1) rotate(90deg);
-    box-shadow: 0 0 40px rgba(0, 240, 172, 0.9);
-  }
-  
-  .konami-header {
-    margin-bottom: 2rem;
-  }
-  
-  .ultra-triangle {
-    width: 0;
-    height: 0;
-    border-left: 40px solid transparent;
-    border-right: 40px solid transparent;
-    border-bottom: 69px solid #00F0AC;
-    margin: 0 auto 2rem;
-    filter: drop-shadow(0 0 20px #00F0AC);
-    animation: triangle-float 3s ease-in-out infinite;
-  }
-  
-  @keyframes triangle-float {
-    0%, 100% {
-      transform: translateY(0) rotate(0deg);
-    }
-    50% {
-      transform: translateY(-10px) rotate(180deg);
-    }
-  }
-  
-  .konami-title {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    color: #00F0AC;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    text-shadow: 0 0 20px currentColor;
-  }
-  
-  .konami-message {
-    font-size: clamp(1rem, 1.5vw, 1.125rem);
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.6;
-    margin-bottom: 3rem;
-  }
-  
-  .secret-preview {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
-  }
-  
-  .secret-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  
-  .secret-item img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 2px solid #E13CFA;
-    box-shadow: 0 0 20px rgba(225, 60, 250, 0.4);
-    transition: all 0.3s ease;
-  }
-  
-  .secret-item:hover img {
-    transform: scale(1.1) rotateY(10deg);
-    box-shadow: 0 0 30px rgba(225, 60, 250, 0.7);
-  }
-  
-  .secret-name {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.875rem;
-    color: #28A8D6;
-    text-align: center;
-    max-width: 120px;
-  }
-  
-  .konami-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .konami-btn {
-    background: linear-gradient(135deg, #00F0AC, #00D695);
-    color: #0A0A0A;
-    border: none;
-    padding: 1.25rem 2rem;
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(0.875rem, 1.2vw, 1rem);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border-radius: 8px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .konami-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-  }
-  
-  .konami-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 240, 172, 0.5);
-  }
-  
-  .konami-btn:hover::before {
-    transform: translateX(100%);
-  }
-  
-  .konami-btn--secondary {
-    background: linear-gradient(135deg, #E13CFA, #6C24B3);
-    color: #fff;
-  }
-  
-  .konami-btn--secondary:hover {
-    box-shadow: 0 8px 30px rgba(225, 60, 250, 0.5);
-  }
-  
-  .konami-footer {
-    font-size: clamp(0.75rem, 1vw, 0.875rem);
-    color: rgba(255, 255, 255, 0.6);
-    font-style: italic;
-  }
-  
-  @media (max-width: 768px) {
-    .konami-content {
-      padding: 2rem;
-      max-width: 90%;
-    }
-    
-    .secret-preview {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-</style>
-
 <script>
-  // Konami Code detection
-  let konamiSequence = [];
-  const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
-  
-  document.addEventListener('keydown', function(e) {
-    konamiSequence.push(e.keyCode);
-    
-    if (konamiSequence.length > konamiCode.length) {
-      konamiSequence.shift();
-    }
-    
-    if (JSON.stringify(konamiSequence) === JSON.stringify(konamiCode)) {
-      activateKonami();
-      konamiSequence = [];
-    }
-  });
-  
-  function activateKonami() {
-    document.getElementById('konamiModal').style.display = 'flex';
-    
-    // Analytics tracking
-    if (window.ga) {
-      ga('send', 'event', 'Easter Egg', 'konami-activated', 'universal-lore');
-    }
-    
-    // Trigger success sound (optional)
-    if (typeof Audio !== 'undefined') {
-      const sound = new Audio('{{ "konami-unlock.mp3" | asset_url }}');
-      sound.play().catch(() => {});
-    }
-  }
-  
-  function closeKonami() {
-    document.getElementById('konamiModal').style.display = 'none';
-  }
-  
-  function copyDiscountCode(code) {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(code).then(() => {
-        alert(`✓ Discount code "${code}" copied to clipboard!`);
-      });
-    } else {
-      // Fallback for older browsers
-      const input = document.createElement('input');
-      input.value = code;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
-      alert(`✓ Discount code "${code}" copied!`);
-    }
-  }
-  
-  // Close modal on ESC key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && document.getElementById('konamiModal').style.display === 'flex') {
-      closeKonami();
+(function(){
+  const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let buf = [];
+  document.addEventListener('keydown', function(e){
+    buf.push(e.key.toLowerCase());
+    buf = buf.slice(-10);
+    if (buf.join(',') === seq.join(',')) {
+      const modal = document.getElementById('lore-konami-modal');
+      if (modal) {
+        modal.style.display = 'flex';
+        setTimeout(function(){ modal.classList.add('active'); }, 10);
+      }
+      // Track to analytics
+      if (window.stellarReverbLore) {
+        window.stellarReverbLore.trackEvent('konami_activated');
+      }
     }
   });
+})();
 </script>
 
 {% schema %}
-{
-  "name": "Konami Easter Egg",
-  "settings": [
-    {
-      "type": "text",
-      "id": "modal_title",
-      "label": "Modal Title",
-      "default": "ULTRA-RARE ACCESS GRANTED"
-    },
-    {
-      "type": "textarea",
-      "id": "modal_message",
-      "label": "Modal Message",
-      "default": "You've unlocked the secret frequencies. The void recognizes your dedication. Prepare for transmission from Sector ∞..."
-    },
-    {
-      "type": "text",
-      "id": "unlock_button_text",
-      "label": "Unlock Button Text",
-      "default": "ACCESS SECRET COLLECTION"
-    },
-    {
-      "type": "collection",
-      "id": "secret_collection_handle",
-      "label": "Secret Collection",
-      "info": "The hidden collection unlocked by the Konami code"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_discount_code",
-      "label": "Show Discount Code",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "discount_code",
-      "label": "Discount Code",
-      "default": "KONAMI2024",
-      "info": "Create this discount code in Shopify admin"
-    },
-    {
-      "type": "text",
-      "id": "footer_text",
-      "label": "Footer Text",
-      "default": "This access is exclusive. Share the knowledge with only those worthy."
-    }
-  ],
-  "presets": [
-    {
-      "name": "Lore Konami Modal"
-    }
-  ]
-}
+{"name":"Lore Konami Modal","settings":[]}
 {% endschema %}

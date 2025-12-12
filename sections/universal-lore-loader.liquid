@@ -1,136 +1,40 @@
-{% assign all_capsules = metaobjects.capsule.values %}
-
-{% assign prime_capsules      = all_capsules | where: 'timeline_track', 'prime'      | sort: 'timeline_order' %}
-{% assign lunar_capsules      = all_capsules | where: 'timeline_track', 'lunar'      | sort: 'timeline_order' %}
-{% assign singularity_capsules= all_capsules | where: 'timeline_track', 'singularity'| sort: 'timeline_order' %}
-{% assign hidden_capsules     = all_capsules | where: 'timeline_track', 'hidden'     | sort: 'timeline_order' %}{% comment %}
-═══════════════════════════════════════════════════════════════════════════════
-  SECTION: Sacred Triangle Loader
-  Enhanced with RGB glitch effects and cosmic animation
-═══════════════════════════════════════════════════════════════════════════════
+{% comment %}
+STELLAR REVERB — UNIVERSAL LORE LOADER
+Sacred triangle animation + performance metrics
+Fades out after 1s or on page load
 {% endcomment %}
 
-<div class="lore-loader" id="loader">
-  <div class="sacred-triangle-container">
-    <div class="sacred-triangle sacred-triangle--main"></div>
-    <div class="sacred-triangle sacred-triangle--inner"></div>
-    <div class="loader-glitch" aria-hidden="true">{{ section.settings.loading_text }}</div>
+<section id="lore-loader" class="loader-container" aria-label="Loading animation">
+  <style>
+    #lore-loader{position:fixed;inset:0;background:var(--void-black,#0A0A0A);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;transition:opacity 0.3s ease}
+    #lore-loader.hidden{opacity:0;pointer-events:none}
+    .loader-inner{display:flex;align-items:center;justify-content:center;gap:2rem}
+    .triangle{width:80px;height:80px;border:3px solid var(--cyan-blue,#28A8D6);clip-path:polygon(50% 0%,0% 100%,100% 100%);animation:rotate-triangle 2s linear infinite}
+    @keyframes rotate-triangle{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .loader-text{font-family:'Orbitron',monospace;color:var(--neon-magenta,#E13CFA);letter-spacing:0.15em;font-size:clamp(0.9rem,2vw,1.2rem);text-transform:uppercase;animation:pulse-text 1.5s ease-in-out infinite}
+    @keyframes pulse-text{0%,100%{opacity:0.6}50%{opacity:1}}
+    @media (prefers-reduced-motion:reduce){.triangle,  .loader-text{animation:none}}
+  </style>
+
+  <div class="loader-inner">
+    <div class="triangle" aria-hidden="true"></div>
+    <span class="loader-text">Receiving Transmission…</span>
   </div>
-</div>
-<style>
-  .lore-loader {
-    position: fixed;
-    inset: 0;
-    background: #0A0A0A;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    opacity: 1;
-    transition: opacity 0.5s ease-out;
-  }
-  
-  .lore-loader.fade-out {
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  .sacred-triangle-container {
-    position: relative;
-    width: 100px;
-    height: 100px;
-  }
-  
-  .sacred-triangle {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-left: 40px solid transparent;
-    border-right: 40px solid transparent;
-    border-bottom: 69px solid #00F0AC;
-    animation: triangle-glow 2s linear infinite;
-    filter: drop-shadow(0 0 20px currentColor);
-  }
-  
-  .sacred-triangle--inner {
-    top: 23px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-left: 30px solid transparent;
-    border-right: 30px solid transparent;
-    border-bottom: 52px solid #E13CFA;
-    animation: triangle-glow 2s linear infinite reverse;
-  }
-  
-  @keyframes triangle-glow {
-    0% { 
-      transform: rotate(0deg) scale(1);
-      border-bottom-color: #00F0AC;
-    }
-    33% { 
-      border-bottom-color: #E13CFA;
-    }
-    66% { 
-      border-bottom-color: #28A8D6;
-    }
-    100% { 
-      transform: rotate(360deg) scale(1);
-      border-bottom-color: #00F0AC;
-    }
-  }
-  
-  .loader-glitch {
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Orbitron', monospace;
-    font-size: 0.875rem;
-    color: #28A8D6;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    white-space: nowrap;
-    animation: glitch-text 0.5s infinite;
-  }
-  
-  @keyframes glitch-text {
-    0%, 90%, 100% { transform: translateX(-50%); }
-    92% { transform: translateX(calc(-50% - 2px)); }
-    94% { transform: translateX(calc(-50% + 2px)); }
-  }
-</style>
+</section>
 
 <script>
-  window.addEventListener('load', function() {
-    const loader = document.getElementById('loreLoader');
-    setTimeout(function() {
-      loader.classList.add('fade-out');
-      setTimeout(function() {
-        loader.style.display = 'none';
-      }, 500);
-    }, {{ section.settings.loader_duration | default: 1000 }});
-  });
+(function(){
+  const loader = document.getElementById('lore-loader');
+  if (!loader) return;
+  
+  // Hide after 1.2s (gives animations time to complete)
+  setTimeout(function(){
+    loader.classList.add('hidden');
+    setTimeout(function(){ if (loader.parentNode) loader.parentNode.removeChild(loader); }, 300);
+  }, 1200);
+})();
 </script>
 
 {% schema %}
-{
-  "name": "Loader",
-  "settings": [
-    {
-      "type": "text",
-      "id": "loading_text",
-      "label": "Loading Text",
-      "default": "INITIALIZING TRANSMISSION..."
-    },
-    {
-      "type": "range",
-      "id": "loader_duration",
-      "label": "Display Duration (ms)",
-      "min": 500,
-      "max": 3000,
-      "step": 100,
-      "default": 1000
-    }
-  ]
-}
+{"name":"Lore Loader","settings":[]}
 {% endschema %}

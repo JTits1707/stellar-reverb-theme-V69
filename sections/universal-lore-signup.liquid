@@ -1,155 +1,45 @@
 {% comment %}
-UNIVERSAL LORE – SIGNAL SIGNUP
-Email capture for Signal Seekers.
-
-Hooks for universal-lore.js:
-- #signalForm
-- .signup-content
-- #formStatus
-- button[type="submit"] with .submit-text and .submit-loading spans
-- data-service / data-list-id for external providers (optional)
+STELLAR REVERB — UNIVERSAL LORE SIGNUP
+Newsletter/Klaviyo integration with Shopify contact form fallback
+Handles form submission via JS engine (handleFormSubmit)
 {% endcomment %}
 
-<section class="universal-lore-signup" data-section-type="lore-signup">
-  <div class="signup-inner container signup-content">
-    <header class="signup-header">
-      <p class="signup-kicker orbitron">
-        {{ section.settings.kicker | default: 'SIGNAL SEEKER REGISTRY' }}
-      </p>
-      <h2 class="signup-title orbitron">
-        {{ section.settings.heading | default: 'Get The Next Transmission Before It Drops' }}
-      </h2>
-      <p class="signup-subtitle">
-        {{ section.settings.subheading | default: "No spam. No filler. Just capsule drops, lore fragments, and early-access relics when the signal hits." }}
-      </p>
-    </header>
+<section id="lore-signup" class="lore-signup" data-section-type="signup-content" aria-label="Newsletter signup">
+  <style>
+    #lore-signup{padding:6rem 1.25rem;text-align:center;background:radial-gradient(circle at center,#0E0E0E 0%,var(--void-black,#0A0A0A) 100%);color:#fff}
+    .signup-title{font-family:'Orbitron',monospace;color:var(--neon-magenta,#E13CFA);letter-spacing:0.1em;text-transform:uppercase;font-size:clamp(1.5rem,4vw,2.5rem);margin-bottom:1rem;animation:title-rotate 6s linear infinite}
+    @keyframes title-rotate{0%{opacity:0.8;transform:scale(1)}50%{opacity:1;transform:scale(1.02)}100%{opacity:0.8;transform:scale(1)}}
+    .signup-desc{color:var(--cyan-blue,#28A8D6);font-family:'Montserrat',sans-serif;margin-bottom:1.25rem}
+    .signup-form{max-width:520px;margin:0 auto;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .email-input{flex:1;min-width:240px;background:var(--dark-gray,#121212);border:2px solid var(--cyan-blue,#28A8D6);padding:0.9rem;border-radius:6px;color:#fff;font-family:'Montserrat',sans-serif}
+    .email-input:focus{outline:none;border-color:var(--neon-magenta,#E13CFA);box-shadow:0 0 18px rgba(225,60,250,.35)}
+    .submit-btn{background:var(--radioactive-green,#00F0AC);color:#0a0a0a;border:none;border-radius:6px;padding:0.9rem 1.25rem;font-family:'Orbitron',monospace;text-transform:uppercase;font-weight:800;letter-spacing:0.08em;cursor:pointer;transition:filter 0.2s ease}
+    .submit-btn:hover{filter:brightness(1.08)}
+    .submit-btn.loading{opacity:0.7;pointer-events:none}
+    .form-status{margin-top:1rem;color:var(--cyan-blue,#28A8D6);font-size:0.9rem;display:none}
+    .form-status.loading{display:block;animation:pulse-text 1.5s ease-in-out infinite}
+    .form-status.success{display:block;color:var(--radioactive-green,#00F0AC)}
+    .form-status.error{display:block;color:#ff6b6b}
+    @keyframes pulse-text{0%,100%{opacity:0.6}50%{opacity:1}}
+    .form-fine{margin-top:1rem;color:rgba(255,255,255,.6);font-size:0.9rem}
+  </style>
 
-    <form
-      id="signalForm"
-      class="signup-form shopify-form"
-      method="post"
-      novalidate
-      {% if section.settings.service != blank %}
-        data-service="{{ section.settings.service }}"
-      {% endif %}
-      {% if section.settings.list_id != blank %}
-        data-list-id="{{ section.settings.list_id }}"
-      {% endif %}
-    >
-      <div class="signup-fields">
-        <label for="signalEmail" class="signup-label">
-          {{ section.settings.email_label | default: 'Email address' }}
-        </label>
-        <div class="signup-input-row">
-          <input
-            id="signalEmail"
-            type="email"
-            name="email"
-            class="signup-input"
-            placeholder="{{ section.settings.email_placeholder | default: 'you@yourfrequency.com' }}"
-            required
-          >
-          <button type="submit" class="btn signup-submit">
-            <span class="submit-text">
-              {{ section.settings.button_label | default: 'Join the Signal' }}
-            </span>
-            <span class="submit-loading" style="display:none;">
-              {{ section.settings.loading_label | default: 'Connecting…' }}
-            </span>
-          </button>
-        </div>
-      </div>
+  <h2 class="signup-title" id="signalRotator">Decode the Future</h2>
+  <p class="signup-desc">Receive transmission alerts. Early capsule access. Exclusive glyphs.</p>
 
-      <p id="formStatus" class="form-status" aria-live="polite"></p>
+  {% form 'contact', id: 'signalForm', class: 'signup-form' %}
+    <input type="hidden" name="contact[tags]" value="stellar-reverb-lore-subscriber">
+    <input class="email-input" type="email" name="contact[email]" placeholder="your.email@void.com" required aria-label="Email address">
+    <button class="submit-btn" type="submit" aria-label="Subscribe to transmission">
+      <span class="submit-text">Transmit Signal</span>
+      <span class="submit-loading" style="display:none">Connecting…</span>
+    </button>
+    <div id="formStatus" class="form-status"></div>
+  {% endform %}
 
-      {%- if section.settings.legal_copy != blank -%}
-        <p class="signup-legal">
-          {{ section.settings.legal_copy }}
-        </p>
-      {%- endif -%}
-    </form>
-  </div>
+  <p class="form-fine">We respect the void. Your data remains encrypted.</p>
 </section>
 
 {% schema %}
-{
-  "name": "Universal Lore Signup",
-  "tag": "section",
-  "class": "section-universal-lore-signup",
-  "settings": [
-    {
-      "type": "text",
-      "id": "kicker",
-      "label": "Kicker",
-      "default": "SIGNAL SEEKER REGISTRY"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": ""
-    },
-    {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": ""
-    },
-    {
-      "type": "text",
-      "id": "email_label",
-      "label": "Email label",
-      "default": "Email address"
-    },
-    {
-      "type": "text",
-      "id": "email_placeholder",
-      "label": "Email placeholder",
-      "default": "you@yourfrequency.com"
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Button label",
-      "default": "Join the Signal"
-    },
-    {
-      "type": "text",
-      "id": "loading_label",
-      "label": "Loading label",
-      "default": "Connecting…"
-    },
-    {
-      "type": "textarea",
-      "id": "legal_copy",
-      "label": "Legal / reassurance copy",
-      "default": ""
-    },
-    {
-      "type": "select",
-      "id": "service",
-      "label": "Email service",
-      "default": "shopify",
-      "options": [
-        { "value": "shopify", "label": "Shopify (native or proxy)" },
-        { "value": "mailchimp", "label": "Mailchimp" },
-        { "value": "klaviyo", "label": "Klaviyo" },
-        { "value": "custom", "label": "Custom endpoint" }
-      ]
-    },
-    {
-      "type": "text",
-      "id": "list_id",
-      "label": "List / audience ID (optional)",
-      "default": ""
-    }
-  ],
-  "blocks": [],
-  "presets": [
-    {
-      "name": "Universal Lore Signup",
-      "category": "Stellar Reverb"
-    }
-  ]
-}
+{"name":"Lore Signup","settings":[]}
 {% endschema %}
