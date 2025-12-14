@@ -1,12 +1,11 @@
-{
-  "sections": {
+"sections": {
     "navigation": {
       "type": "universal-lore-navigation",
       "settings": {
         "brand_name": "STELLAR REVERB"
       },
-      "blocks": [
-        {
+      "blocks": {
+        "nav_link_1": {
           "type": "nav_link",
           "settings": {
             "label": "LORE",
@@ -14,7 +13,7 @@
             "section_id": "hero"
           }
         },
-        {
+        "nav_link_2": {
           "type": "nav_link",
           "settings": {
             "label": "TIMELINE",
@@ -22,7 +21,7 @@
             "section_id": "lore-timeline"
           }
         },
-        {
+        "nav_link_3": {
           "type": "nav_link",
           "settings": {
             "label": "VAULT",
@@ -30,7 +29,7 @@
             "section_id": "lore-vault"
           }
         },
-        {
+        "nav_link_4": {
           "type": "nav_link",
           "settings": {
             "label": "SIGNALS",
@@ -38,7 +37,7 @@
             "section_id": "lore-signals"
           }
         },
-        {
+        "nav_link_5": {
           "type": "nav_link",
           "settings": {
             "label": "MYTH",
@@ -46,6 +45,13 @@
             "section_id": "lore-myth"
           }
         }
+      },
+      "block_order": [
+        "nav_link_1",
+        "nav_link_2",
+        "nav_link_3",
+        "nav_link_4",
+        "nav_link_5"
       ]
     },
     "loader": {
