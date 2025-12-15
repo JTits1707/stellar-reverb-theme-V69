@@ -126,6 +126,7 @@ Powered by capsule metaobjects
         {% endfor %}
       </div>
     </div>
+<<<<<<< HEAD
   </div>
 
   {%- comment -%}
@@ -165,3 +166,44 @@ Powered by capsule metaobjects
     {# You can duplicate similar blocks for lunar/singularity/hidden if you want full parity on mobile #}
   </div>
 </section>
+=======
+  </div>
+
+  {%- comment -%}
+    Mobile timeline → your existing accordion structure.
+    Just reuse the same capsule groups above but render as .accordion-item.
+  {%- endcomment -%}
+  <div id="timelineMobile" class="timeline-mobile">
+    {% for capsule in prime_capsules %}
+      {% assign number = capsule.capsule_number %}
+      {% assign state  = capsule.signal_state | default: 'live' %}
+      {% assign collection_handle = capsule.collection_handle %}
+      {% assign product_url = collection_handle | prepend: '/collections/' %}
+
+      <div class="accordion-item">
+        <button
+          class="accordion-header"
+          data-target="capsule-{{ number }}-content"
+          aria-expanded="false"
+        >
+          <span class="orbitron">{{ number }} · {{ capsule.capsule_title }}</span>
+          <span class="icon-expand">+</span>
+        </button>
+        <div
+          id="capsule-{{ number }}-content"
+          class="accordion-content"
+        >
+          <p>{{ capsule.capsule_lore_short }}</p>
+          <a
+            href="{{ product_url }}"
+            class="cta-link"
+          >
+            Enter this transmission
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+    {# You can duplicate similar blocks for lunar/singularity/hidden if you want full parity on mobile #}
+  </div>
+</section>
+>>>>>>> e9004e9f0f036b8f0f325c78e2a03c02a764cdb9
