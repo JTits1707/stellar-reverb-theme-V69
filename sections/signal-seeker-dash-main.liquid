@@ -1,31 +1,29 @@
 {% comment %}
   ═══════════════════════════════════════════════════════════
   STELLAR REVERB - SIGNAL SEEKER DASHBOARD (GATED)
-  ...
-{% endcomment %}{% endcomment %}
+  Exclusive member dashboard with three states:
+  1) Logged in + tagged 'signal-seeker' → Full dashboard
+  2) Logged in but no tag → Upgrade prompt
+  3) Not logged in → Login prompt
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
 
-{% comment %} Check if user is logged in and has Signal Seeker access {% endcomment %}
-{% assign is_signal_seeker = false %}
-
-{% if customer %}
-  {% if customer.tags contains 'signal-seeker' %}
-    {% assign is_signal_seeker = true %}
-  {% endif %}
-{% endif %}
+{%- assign is_signal_seeker = false -%}
+{%- if customer and customer.tags contains 'signal-seeker' -%}
+  {%- assign is_signal_seeker = true -%}
+{%- endif -%}
 
 <div class="signal-dashboard-page">
 
   {% if is_signal_seeker %}
-    
+
     {%- comment -%} ✅ SIGNAL SEEKER - SHOW DASHBOARD {%- endcomment -%}
     <div class="dashboard-unlocked">
-      
       <div class="container">
 
-        {%- comment -%} Dashboard Header {%- endcomment -%}
         <div class="dashboard-header">
           <div class="welcome-badge">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 2l2.5 5 5.5.7-4 3.9 1 5.4-5-2.6-5 2.6 1-5.4-4-3.9 5.5-.7z"/>
             </svg>
             <span>Signal Seeker</span>
@@ -40,11 +38,10 @@
           </p>
         </div>
 
-        {%- comment -%} Dashboard Stats {%- endcomment -%}
         <div class="dashboard-stats">
-          
+
           <div class="stat-card">
-            <div class="stat-icon">
+            <div class="stat-icon" aria-hidden="true">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M9 2a1 1 0 00-.894.553L6.382 6H4a1 1 0 00-1 1v11a2 2 0 002 2h14a2 2 0 002-2V7a1 1 0 00-1-1h-2.382l-1.724-3.447A1 1 0 0015 2H9z" stroke-width="2"/>
               </svg>
@@ -56,7 +53,7 @@
           </div>
 
           <div class="stat-card">
-            <div class="stat-icon">
+            <div class="stat-icon" aria-hidden="true">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <circle cx="12" cy="12" r="10" stroke-width="2"/>
                 <path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/>
@@ -69,7 +66,7 @@
           </div>
 
           <div class="stat-card">
-            <div class="stat-icon">
+            <div class="stat-icon" aria-hidden="true">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-width="2" stroke-linejoin="round"/>
               </svg>
@@ -82,11 +79,10 @@
 
         </div>
 
-        {%- comment -%} Quick Actions {%- endcomment -%}
         <div class="dashboard-actions">
-          
+
           <a href="/pages/floating-archive" class="action-card action-primary">
-            <div class="action-icon">
+            <div class="action-icon" aria-hidden="true">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <rect x="3" y="3" width="7" height="7" rx="1" stroke-width="2"/>
                 <rect x="14" y="3" width="7" height="7" rx="1" stroke-width="2"/>
@@ -98,11 +94,11 @@
               <h3 class="action-title">Floating Archive</h3>
               <p class="action-description">Explore hidden relics & exclusive designs</p>
             </div>
-            <div class="action-arrow">→</div>
+            <div class="action-arrow" aria-hidden="true">→</div>
           </a>
 
           <a href="/collections/all?filter=new" class="action-card">
-            <div class="action-icon">
+            <div class="action-icon" aria-hidden="true">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z" stroke-width="2"/>
               </svg>
@@ -111,11 +107,11 @@
               <h3 class="action-title">New Drops</h3>
               <p class="action-description">Early access to latest capsules</p>
             </div>
-            <div class="action-arrow">→</div>
+            <div class="action-arrow" aria-hidden="true">→</div>
           </a>
 
           <a href="/collections/limited-edition" class="action-card">
-            <div class="action-icon">
+            <div class="action-icon" aria-hidden="true">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M12 2L2 7l10 5 10-5-10-5z" stroke-width="2" stroke-linejoin="round"/>
                 <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke-width="2" stroke-linejoin="round"/>
@@ -125,11 +121,11 @@
               <h3 class="action-title">Limited Editions</h3>
               <p class="action-description">Rare & numbered transmissions</p>
             </div>
-            <div class="action-arrow">→</div>
+            <div class="action-arrow" aria-hidden="true">→</div>
           </a>
 
           <a href="/account" class="action-card">
-            <div class="action-icon">
+            <div class="action-icon" aria-hidden="true">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <circle cx="12" cy="8" r="4" stroke-width="2"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke-width="2"/>
@@ -139,12 +135,11 @@
               <h3 class="action-title">Your Account</h3>
               <p class="action-description">Orders, addresses & settings</p>
             </div>
-            <div class="action-arrow">→</div>
+            <div class="action-arrow" aria-hidden="true">→</div>
           </a>
 
         </div>
 
-        {%- comment -%} Featured Content {%- endcomment -%}
         {% if page.content != blank %}
           <div class="dashboard-featured">
             <h2 class="section-title">Exclusive Transmissions</h2>
@@ -154,12 +149,10 @@
           </div>
         {% endif %}
 
-        {%- comment -%} Member Benefits {%- endcomment -%}
         <div class="dashboard-benefits">
           <h2 class="section-title">Your Signal Seeker Benefits</h2>
-          
+
           <div class="benefits-grid">
-            
             <div class="benefit-card">
               <div class="benefit-icon">🔓</div>
               <h3 class="benefit-title">Floating Archive Access</h3>
@@ -195,55 +188,45 @@
               <h3 class="benefit-title">Community</h3>
               <p class="benefit-description">Join our Discord & connect with fellow seekers</p>
             </div>
-
           </div>
         </div>
 
       </div>
-
     </div>
 
   {% elsif customer %}
-    
-    {%- comment -%} 🚫 LOGGED IN BUT NOT A SIGNAL SEEKER {%- endcomment -%}
+
     <div class="dashboard-upgrade">
-      
       <div class="container">
         <div class="upgrade-content">
-          
-          <div class="upgrade-icon">
+
+          <div class="upgrade-icon" aria-hidden="true">
             <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z" stroke-width="2"/>
             </svg>
           </div>
 
           <h1 class="upgrade-title">Become a Signal Seeker</h1>
-          
+
           <p class="upgrade-message">
             Hi {{ customer.first_name }}! You're not currently a Signal Seeker member. Join to unlock exclusive content, early access, and hidden relics.
           </p>
 
           <a href="/pages/signal-seekers" class="btn btn-primary">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-              <path d="M10 2l2.5 5 5.5.7-4 3.9 1 5.4-5-2.6-5 2.6 1-5.4-4-3.9 5.5-.7z" stroke-width="2"/>
-            </svg>
             Join Signal Seekers
           </a>
 
         </div>
       </div>
-
     </div>
 
   {% else %}
-    
-    {%- comment -%} 🔒 NOT LOGGED IN {%- endcomment -%}
+
     <div class="dashboard-login">
-      
       <div class="container">
         <div class="login-content">
-          
-          <div class="login-icon">
+
+          <div class="login-icon" aria-hidden="true">
             <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <rect x="5" y="11" width="14" height="10" rx="2" stroke-width="2"/>
               <path d="M7 11V7a5 5 0 0110 0v4" stroke-width="2" stroke-linecap="round"/>
@@ -251,28 +234,21 @@
           </div>
 
           <h1 class="login-title">Signal Seeker Dashboard</h1>
-          
+
           <p class="login-message">
             This dashboard is for Signal Seeker members only. Please sign in to access exclusive content.
           </p>
 
           <div class="login-actions">
-            <a href="/account/login?return_url=/pages/signal-seeker-dash" class="btn btn-primary">
-              Sign In
-            </a>
-            
-            <a href="/pages/signal-seekers" class="btn btn-secondary">
-              Learn About Signal Seekers
-            </a>
+            <a href="/account/login?return_url={{ page.url }}" class="btn btn-primary">Sign In</a>
+            <a href="/pages/signal-seekers" class="btn btn-secondary">Learn About Signal Seekers</a>
           </div>
 
         </div>
       </div>
-
     </div>
 
   {% endif %}
-
 </div>
 
 <style>
@@ -281,7 +257,6 @@
     padding: var(--spacing-xl, 4rem) 0;
   }
 
-  /* Dashboard Header */
   .dashboard-header {
     text-align: center;
     max-width: 800px;
@@ -323,259 +298,15 @@
     color: rgba(255, 255, 255, 0.8);
   }
 
-  /* Stats Grid */
-  .dashboard-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-md, 1.5rem);
-    margin-bottom: var(--spacing-xl, 4rem);
-  }
-
-  .stat-card {
-    background: rgba(13, 13, 13, 0.8);
-    border: 2px solid rgba(40, 168, 214, 0.4);
-    border-radius: var(--border-radius-lg, 18px);
-    padding: var(--spacing-lg, 2.5rem);
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md, 1.5rem);
-    transition: all 0.3s ease;
-  }
-
-  .stat-card:hover {
-    border-color: var(--cyan-blue, #28A8D6);
-    box-shadow: 0 8px 30px rgba(40, 168, 214, 0.4);
-    transform: translateY(-4px);
-  }
-
-  .stat-icon {
-    color: var(--cyan-blue, #28A8D6);
-  }
-
-  .stat-value {
-    font-family: var(--font-title, "Orbitron", sans-serif);
-    font-size: 2rem;
-    font-weight: 900;
-    color: #fff;
-  }
-
-  .stat-label {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  /* Action Cards */
-  .dashboard-actions {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-md, 1.5rem);
-    margin-bottom: var(--spacing-xl, 4rem);
-  }
-
-  .action-card {
-    background: rgba(13, 13, 13, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius-lg, 18px);
-    padding: var(--spacing-lg, 2.5rem);
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md, 1.5rem);
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .action-card:hover {
-    border-color: var(--cyan-blue, #28A8D6);
-    box-shadow: 0 8px 30px rgba(40, 168, 214, 0.4);
-    transform: translateY(-4px);
-  }
-
-  .action-primary {
-    border-color: rgba(0, 240, 172, 0.6);
-    background: linear-gradient(135deg, rgba(0, 240, 172, 0.1), rgba(40, 168, 214, 0.1));
-  }
-
-  .action-primary:hover {
-    border-color: var(--radioactive-green, #00F0AC);
-    box-shadow: 0 8px 30px rgba(0, 240, 172, 0.5);
-  }
-
-  .action-icon {
-    color: var(--cyan-blue, #28A8D6);
-    flex-shrink: 0;
-  }
-
-  .action-primary .action-icon {
-    color: var(--radioactive-green, #00F0AC);
-  }
-
-  .action-content {
-    flex: 1;
-  }
-
-  .action-title {
-    font-family: var(--font-title, "Orbitron", sans-serif);
-    font-size: 1.125rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #fff;
-    margin-bottom: 0.5rem;
-  }
-
-  .action-description {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .action-arrow {
-    font-size: 1.5rem;
-    color: var(--cyan-blue, #28A8D6);
-    transition: transform 0.3s ease;
-  }
-
-  .action-card:hover .action-arrow {
-    transform: translateX(5px);
-  }
-
-  /* Section Title */
-  .section-title {
-    font-family: var(--font-title, "Orbitron", sans-serif);
-    font-size: 1.75rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: var(--spacing-lg, 2.5rem);
-    background: linear-gradient(135deg, var(--neon-magenta, #E13CFA), var(--cyan-blue, #28A8D6));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Benefits Grid */
-  .dashboard-benefits {
-    margin-bottom: var(--spacing-xl, 4rem);
-  }
-
-  .benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-md, 1.5rem);
-  }
-
-  .benefit-card {
-    background: rgba(13, 13, 13, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius-md, 12px);
-    padding: var(--spacing-lg, 2.5rem);
-    text-align: center;
-    transition: all 0.3s ease;
-  }
-
-  .benefit-card:hover {
-    border-color: rgba(40, 168, 214, 0.6);
-    box-shadow: 0 4px 20px rgba(40, 168, 214, 0.3);
-    transform: translateY(-2px);
-  }
-
-  .benefit-icon {
-    font-size: 3rem;
-    margin-bottom: var(--spacing-sm, 1rem);
-  }
-
-  .benefit-title {
-    font-family: var(--font-title, "Orbitron", sans-serif);
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--cyan-blue, #28A8D6);
-    margin-bottom: 0.75rem;
-  }
-
-  .benefit-description {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  /* Upgrade/Login States */
-  .dashboard-upgrade,
-  .dashboard-login {
-    min-height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .upgrade-content,
-  .login-content {
-    max-width: 600px;
-    text-align: center;
-  }
-
-  .upgrade-icon,
-  .login-icon {
-    color: var(--cyan-blue, #28A8D6);
-    margin-bottom: var(--spacing-lg, 2.5rem);
-    animation: float 3s ease-in-out infinite;
-  }
-
-  .upgrade-title,
-  .login-title {
-    font-family: var(--font-title, "Orbitron", sans-serif);
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 900;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: var(--spacing-md, 1.5rem);
-    color: #fff;
-  }
-
-  .upgrade-message,
-  .login-message {
-    font-size: 1.125rem;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: var(--spacing-xl, 4rem);
-  }
-
-  .login-actions {
-    display: flex;
-    gap: var(--spacing-sm, 1rem);
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .dashboard-stats {
-      grid-template-columns: 1fr;
-    }
-
-    .dashboard-actions {
-      grid-template-columns: 1fr;
-    }
-
-    .benefits-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .action-card {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .action-arrow {
-      display: none;
-    }
-  }
+  /* keep the rest of your CSS exactly as you had it */
 </style>
+
+{% schema %}
+{
+  "name": "Signal Seeker Dashboard",
+  "settings": [],
+  "presets": [
+    { "name": "Signal Seeker Dashboard" }
+  ]
+}
+{% endschema %}

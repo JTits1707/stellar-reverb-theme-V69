@@ -1,9 +1,7 @@
 {
-  "name": "Signal Seeker Dashboard",
   "sections": {
     "main": {
-      "type": "signal-seeker-dashboard-main",
-      "settings": {}
+      "type": "signal-seeker-dash-main"
     }
   },
   "order": ["main"]
