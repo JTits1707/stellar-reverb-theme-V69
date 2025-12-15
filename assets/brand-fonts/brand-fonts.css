@@ -1,0 +1,85 @@
+/* ==========================================================
+   STELLAR REVERB – BRAND FONTS
+   Orbitron · PP Mori · PP Neue Machina
+   All @font-face declarations live here.
+   ========================================================== */
+
+/* ----------------------------
+   ORBITRON – Display / Tech Accent
+   ---------------------------- */
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('{{ "Orbitron-Regular.woff2" | asset_url }}') format('woff2'),
+       url('{{ "Orbitron-Regular.woff"  | asset_url }}') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('{{ "Orbitron-Bold.woff2" | asset_url }}') format('woff2'),
+       url('{{ "Orbitron-Bold.woff"  | asset_url }}') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('{{ "Orbitron-Black.woff2" | asset_url }}') format('woff2'),
+       url('{{ "Orbitron-Black.woff"  | asset_url }}') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ----------------------------
+   PP MORI – Body Text
+   ---------------------------- */
+
+@font-face {
+  font-family: 'PP Mori';
+  src: url('{{ "PPMori-Extralight.woff2" | asset_url }}') format('woff2'),
+       url('{{ "PPMori-Extralight.woff"  | asset_url }}') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Mori';
+  src: url('{{ "PPMori-Regular.woff2" | asset_url }}') format('woff2'),
+       url('{{ "PPMori-Regular.woff"  | asset_url }}') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Mori';
+  src: url('{{ "PPMori-SemiBold.woff2" | asset_url }}') format('woff2'),
+       url('{{ "PPMori-SemiBold.woff"  | asset_url }}') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ----------------------------
+   PP NEUE MACHINA – Display / Hero
+   ---------------------------- */
+
+@font-face {
+  font-family: 'PP Neue Machina';
+  src: url('{{ "PPNeueMachina-Inktrap-Ultrabold.woff2" | asset_url }}') format('woff2'),
+       url('{{ "PPNeueMachina-Inktrap-Ultrabold.woff"  | asset_url }}') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Add more weights as needed – just copy a block and change:
+   - src filenames
+   - font-weight value
+*/

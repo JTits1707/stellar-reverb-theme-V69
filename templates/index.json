@@ -21,7 +21,10 @@
     },
     "hero_decoding_NxTcDf": {
       "type": "hero-decoding",
-      "custom_css": [],
+      "custom_css": [
+        "/* Hero decode text + button */.hero__decode-text,.hero__description,.hero__content p,.hero__content .rte {font-family: 'Exo 2', 'Orbitron', sans-serif !important; letter-spacing: 0.1em !important;}",
+        "/* That yellow button */.hero__button .button,.hero__button a {font-family: 'Orbitron', 'Exo 2', sans-serif !important; font-weight: 900 !important;}"
+      ],
       "name": "Hero · Decoding Terminal",
       "settings": {
         "hero_background": "shopify://shop_images/stellar-reverb-homepage-hero-image.1-topaz-denoise.jpg",
@@ -71,18 +74,55 @@
         "padding_bottom": 48
       }
     },
-    "homepage_almost_gone_marquee_RtwpQ6": {
-      "type": "homepage-almost-gone-marquee",
-      "name": "Almost Gone Marquee",
+    "stellar_scarcity_marquee_aQHLzd": {
+      "type": "stellar-scarcity-marquee",
+      "blocks": {
+        "message_mgcNPU": {
+          "type": "message",
+          "settings": {
+            "message": "⚡ ONLY 20 CAPSULES LEFT"
+          }
+        },
+        "message_KBWz9x": {
+          "type": "message",
+          "settings": {
+            "message": "📡 NEW TRANSMISSION INCOMING"
+          }
+        },
+        "message_PjffX6": {
+          "type": "message",
+          "settings": {
+            "message": "🔐 EXCLUSIVE DROP"
+          }
+        },
+        "message_NipYVF": {
+          "type": "message",
+          "settings": {
+            "message": "⏰ 48 HOURS ONLY"
+          }
+        },
+        "message_mKXJeA": {
+          "type": "message",
+          "settings": {
+            "message": "🌌 COSMIC ARCHIVE EXPANDING"
+          }
+        }
+      },
+      "block_order": [
+        "message_mgcNPU",
+        "message_KBWz9x",
+        "message_PjffX6",
+        "message_NipYVF",
+        "message_mKXJeA"
+      ],
+      "name": "Scarcity Marquee",
       "settings": {
-        "use_dynamic_products": false,
-        "collection": "",
-        "low_stock_threshold": 5,
-        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
-        "icon": "⚠️",
-        "default_message": "LOW STOCK ALERT- ACT FAST",
-        "scroll_speed": 35,
-        "color_scheme": "green"
+        "marquee_speed": 30,
+        "show_separator": true,
+        "separator_icon": "◆",
+        "enable_glitch": true,
+        "show_scanlines": true,
+        "text_color": "#00f0ff"
       }
     },
     "stellar_timeline_G4z9Ct": {
@@ -159,6 +199,20 @@
         "grid_columns": 4
       }
     },
+    "homepage_almost_gone_marquee_RtwpQ6": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LOW STOCK ALERT- ACT FAST",
+        "scroll_speed": 35,
+        "color_scheme": "green"
+      }
+    },
     "newsletter_cosmic_DXqMDB": {
       "type": "newsletter-cosmic",
       "name": "Newsletter - Cosmic",
@@ -184,57 +238,6 @@
         "benefit_4_text": "Access Signal Seeker Dashboard",
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
-      }
-    },
-    "stellar_scarcity_marquee_aQHLzd": {
-      "type": "stellar-scarcity-marquee",
-      "blocks": {
-        "message_mgcNPU": {
-          "type": "message",
-          "settings": {
-            "message": "⚡ ONLY 20 CAPSULES LEFT"
-          }
-        },
-        "message_KBWz9x": {
-          "type": "message",
-          "settings": {
-            "message": "📡 NEW TRANSMISSION INCOMING"
-          }
-        },
-        "message_PjffX6": {
-          "type": "message",
-          "settings": {
-            "message": "🔐 EXCLUSIVE DROP"
-          }
-        },
-        "message_NipYVF": {
-          "type": "message",
-          "settings": {
-            "message": "⏰ 48 HOURS ONLY"
-          }
-        },
-        "message_mKXJeA": {
-          "type": "message",
-          "settings": {
-            "message": "🌌 COSMIC ARCHIVE EXPANDING"
-          }
-        }
-      },
-      "block_order": [
-        "message_mgcNPU",
-        "message_KBWz9x",
-        "message_PjffX6",
-        "message_NipYVF",
-        "message_mKXJeA"
-      ],
-      "name": "Scarcity Marquee",
-      "settings": {
-        "marquee_speed": 30,
-        "show_separator": true,
-        "separator_icon": "◆",
-        "enable_glitch": true,
-        "show_scanlines": true,
-        "text_color": "#00f0ff"
       }
     }
   },
