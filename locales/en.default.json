@@ -159,11 +159,11 @@
     "dashboard": "View Dashboard"
   },
   "floating_archive": {
-    "title": "Floating Archive",
-    "locked": "This archive is protected",
-    "unlock_message": "Join the Signal Seekers to access exclusive hidden relics.",
-    "join_cta": "Join Signal Seekers"
-  },
+  "title": "Floating Archive",
+  "locked": "This archive is protected",
+  "unlock_message": "Unlock the Floating Archive",
+  "join_cta": "Join Signal Seekers"
+},
   "newsletter": {
     "placeholder": "your@email.com",
     "button": "Subscribe",
@@ -175,15 +175,8 @@
       "title": "Gift Card",
       "subtext": "Your gift card balance is {{ balance }}",
       "disabled": "Disabled"
-    }
-  },
- }{
-  "floating_archive": {
-    "unlock_message": "Unlock the Floating Archive"
-  },
-...
-}  "date_formats": {
+    },
+    "date_formats": {
     "month_day_year": "%B %d, %Y",
     "month_year": "%B %Y"
   }
-}
