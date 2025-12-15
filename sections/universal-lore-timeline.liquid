@@ -1,56 +1,167 @@
 {% comment %}
-STELLAR REVERB — UNIVERSAL LORE TIMELINE
-Dynamic capsule metaobject loop + desktop/mobile responsive
-Desktop: 5-column grid | Mobile: accordion
-Driven by JS engine (handleNodeClick, handleNodeHover)
+UNIVERSAL LORE – MULTI-TRACK TIMELINE
+Tracks: prime, lunar, singularity, hidden
+Powered by capsule metaobjects
 {% endcomment %}
 
-<section id="lore-timeline" class="lore-timeline" data-section-type="timeline-node" aria-label="Transmission archive">
-  <style>
-    #lore-timeline{padding:6rem 1.25rem;max-width:1400px;margin:0 auto;color:#fff}
-    .timeline-title{font-family:'Orbitron',monospace;color:var(--neon-magenta,#E13CFA);text-align:center;text-transform:uppercase;letter-spacing:0.1em;font-size:clamp(1.75rem,4.5vw,3.25rem);margin-bottom:3rem}
-    .timeline-divider{width:100%;height:72px;mask:url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,40 Q50,10 100,40 T200,40 T300,40 T400,40 T500,40 T600,40 T700,40 T800,40 T900,40 T1000,40 T1100,40 T1200,40' stroke='%2328A8D6' stroke-width='2' fill='none'/%3E%3C/svg%3E") center/cover;background:linear-gradient(90deg,transparent,var(--cyan-blue,#28A8D6),transparent);animation:wave-pulse 2s ease-in-out infinite;margin:0 0 1.5rem}
-    @keyframes wave-pulse{0%,100%{opacity:.5;transform:scaleX(1)}50%{opacity:1;transform:scaleX(1.02)}}
-    .timeline-grid{display:grid;gap:1.25rem}
-    @media(min-width:980px){.timeline-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
-    .timeline-node{position:relative;cursor:pointer;transition:transform 0.25s ease}
-    .node-marker{width:58px;height:58px;margin:0 auto 0.75rem;border-radius:50%;background:var(--dark-gray,#121212);border:3px solid var(--cyan-blue,#28A8D6);display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;color:var(--cyan-blue,#28A8D6);text-align:center}
-    .timeline-node:hover .node-marker{transform:scale(1.12) rotate(4deg);box-shadow:0 0 28px var(--cyan-blue,#28A8D6);border-color:var(--radioactive-green,#00F0AC);color:var(--radioactive-green,#00F0AC)}
-    .node-box{background:var(--dark-gray,#121212);border:1px solid rgba(40,168,214,.35);border-radius:8px;padding:1rem;max-height:0;overflow:hidden;opacity:0;transform:translateY(18px);transition:max-height 0.35s ease, opacity 0.35s ease, transform 0.35s ease;position:relative}
-    .timeline-node.active .node-box, .timeline-node:hover .node-box{max-height:520px;opacity:1;transform:translateY(0)}
-    .node-box::before, .node-box::after{content:'●●';position:absolute;top:8px;font-size:0.7rem;color:var(--cyan-blue,#28A8D6);letter-spacing:2px;opacity:.55}
-    .node-box::before{left:10px}.node-box::after{right:10px}
-    .node-title{font-family:'Orbitron',monospace;color:var(--neon-magenta,#E13CFA);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem}
-    .node-teaser{font-family:'Montserrat',sans-serif;color:rgba(255,255,255,.9);font-size:0.95rem;line-height:1.6;margin-bottom:0.5rem}
-    .node-cta{margin-top:0.75rem;display:inline-block;border:2px solid var(--cyan-blue,#28A8D6);color:var(--cyan-blue,#28A8D6);padding:0.5rem 0.85rem;border-radius:4px;text-transform:uppercase;font-family:'Orbitron',monospace;font-size:0.82rem;letter-spacing:0.08em;transition:all 0.2s ease}
-    .node-cta:hover{background:var(--cyan-blue,#28A8D6);color:#0a0a0a;box-shadow:0 0 20px var(--cyan-blue,#28A8D6)}
-    .waveform-mini{position:absolute;left:10%;right:10%;bottom:-10px;height:2px;background:repeating-linear-gradient(90deg,rgba(40,168,214,0) 0 6px,rgba(40,168,214,.5) 6px 8px);opacity:.18;transition:opacity 0.3s ease;pointer-events:none}
-    .timeline-node:hover .waveform-mini{opacity:.55}
-    @media(max-width:979px){.timeline-grid{grid-template-columns:1fr}}
-  </style>
+<section id="timeline" class="universal-lore-timeline" data-section-type="lore-timeline">
+  {% assign all_capsules = metaobjects.capsule.values %}
 
-  <h2 class="timeline-title">Transmission Archive</h2>
-  <div class="timeline-divider" aria-hidden="true"></div>
+  {% assign prime_capsules       = all_capsules | where: 'timeline_track', 'prime'       | sort: 'timeline_order' %}
+  {% assign lunar_capsules       = all_capsules | where: 'timeline_track', 'lunar'       | sort: 'timeline_order' %}
+  {% assign singularity_capsules = all_capsules | where: 'timeline_track', 'singularity' | sort: 'timeline_order' %}
+  {% assign hidden_capsules      = all_capsules | where: 'timeline_track', 'hidden'      | sort: 'timeline_order' %}
 
-  <div class="timeline-grid" role="list" aria-label="Capsules">
-    {% for capsule in metaobjects.capsule.values limit: 10 %}
-      {% assign cap_num = capsule.capsule_number | default: forloop.index | prepend: '00' | slice: -3, 3 %}
-      <article class="timeline-node" role="listitem" tabindex="0" data-capsule="{{ cap_num }}" data-product-url="{{ capsule.featured_products | first | default: '#' }}">
-        <div class="node-marker">{{ cap_num }}</div>
-        <div class="node-box">
-          <h3 class="node-title">{{ capsule.capsule_title }}</h3>
-          <p class="node-teaser">{{ capsule.capsule_lore_short | strip_html | truncatewords: 20 }}</p>
-          <span class="waveform-mini" aria-hidden="true"></span>
-          <a class="node-cta" href="/collections/{{ capsule.collection_handle | default: 'all' }}">View Transmission</a>
+  <div id="timelineDesktop" class="timeline-desktop">
+    <div class="timeline-track track-prime">
+      <h3 class="track-label orbitron">Prime Timeline</h3>
+      <div class="track-line">
+        {% for capsule in prime_capsules %}
+          {% assign number = capsule.capsule_number %}
+          {% assign state  = capsule.signal_state | default: 'live' %}
+          {% assign collection_handle = capsule.collection_handle %}
+          {% assign product_url = collection_handle | prepend: '/collections/' %}
+
+          <button
+            class="timeline-node {% if state == 'incoming' %}incoming{% endif %}"
+            data-capsule="{{ number }}"
+            data-product-url="{{ product_url }}"
+            data-audio="{{ capsule.audio_preview | default: '' }}"
+            type="button"
+          >
+            <div class="node-geometry"></div>
+            <div class="node-content">
+              <span class="node-number">{{ number }}</span>
+              <span class="orbitron node-title">{{ capsule.capsule_title }}</span>
+              <span class="node-teaser">{{ capsule.capsule_lore_short | strip_html | truncate: 90 }}</span>
+            </div>
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="timeline-track track-lunar">
+      <h3 class="track-label orbitron">Lunar Archives</h3>
+      <div class="track-line">
+        {% for capsule in lunar_capsules %}
+          {% assign number = capsule.capsule_number %}
+          {% assign state  = capsule.signal_state | default: 'live' %}
+          {% assign collection_handle = capsule.collection_handle %}
+          {% assign product_url = collection_handle | prepend: '/collections/' %}
+
+          <button
+            class="timeline-node {% if state == 'incoming' %}incoming{% endif %}"
+            data-capsule="{{ number }}"
+            data-product-url="{{ product_url }}"
+            data-audio="{{ capsule.audio_preview | default: '' }}"
+            type="button"
+          >
+            <div class="node-geometry"></div>
+            <div class="node-content">
+              <span class="node-number">{{ number }}</span>
+              <span class="orbitron node-title">{{ capsule.capsule_title }}</span>
+              <span class="node-teaser">{{ capsule.capsule_lore_short | strip_html | truncate: 90 }}</span>
+            </div>
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="timeline-track track-singularity">
+      <h3 class="track-label orbitron">Singularity Lineage</h3>
+      <div class="track-line">
+        {% for capsule in singularity_capsules %}
+          {% assign number = capsule.capsule_number %}
+          {% assign state  = capsule.signal_state | default: 'live' %}
+          {% assign collection_handle = capsule.collection_handle %}
+          {% assign product_url = collection_handle | prepend: '/collections/' %}
+
+          <button
+            class="timeline-node {% if state == 'incoming' %}incoming{% endif %}"
+            data-capsule="{{ number }}"
+            data-product-url="{{ product_url }}"
+            data-audio="{{ capsule.audio_preview | default: '' }}"
+            type="button"
+          >
+            <div class="node-geometry"></div>
+            <div class="node-content">
+              <span class="node-number">{{ number }}</span>
+              <span class="orbitron node-title">{{ capsule.capsule_title }}</span>
+              <span class="node-teaser">{{ capsule.capsule_lore_short | strip_html | truncate: 90 }}</span>
+            </div>
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="timeline-track track-hidden">
+      <h3 class="track-label orbitron">Hidden Signals</h3>
+      <div class="track-line">
+        {% for capsule in hidden_capsules %}
+          {% assign number = capsule.capsule_number %}
+          {% assign state  = capsule.signal_state | default: 'incoming' %}
+          {% assign collection_handle = capsule.collection_handle %}
+          {% assign product_url = collection_handle | prepend: '/collections/' %}
+
+          <button
+            class="timeline-node incoming"
+            data-capsule="{{ number | default: 'incoming' }}"
+            data-product-url="{% if state == 'live' %}{{ product_url }}{% else %}#{% endif %}"
+            data-audio="{{ capsule.audio_preview | default: '' }}"
+            type="button"
+          >
+            <div class="node-geometry"></div>
+            <div class="node-content">
+              <span class="node-number">
+                {% if number %}{{ number }}{% else %}⋯{% endif %}
+              </span>
+              <span class="orbitron node-title">
+                {{ capsule.capsule_title | default: 'Incoming Transmission' }}
+              </span>
+              <span class="node-teaser">
+                {{ capsule.capsule_lore_short | default: 'Signal not yet decoded. Join the list to be first in.' | strip_html | truncate: 90 }}
+              </span>
+            </div>
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%}
+    Mobile timeline → your existing accordion structure.
+    Just reuse the same capsule groups above but render as .accordion-item.
+  {%- endcomment -%}
+  <div id="timelineMobile" class="timeline-mobile">
+    {% for capsule in prime_capsules %}
+      {% assign number = capsule.capsule_number %}
+      {% assign state  = capsule.signal_state | default: 'live' %}
+      {% assign collection_handle = capsule.collection_handle %}
+      {% assign product_url = collection_handle | prepend: '/collections/' %}
+
+      <div class="accordion-item">
+        <button
+          class="accordion-header"
+          data-target="capsule-{{ number }}-content"
+          aria-expanded="false"
+        >
+          <span class="orbitron">{{ number }} · {{ capsule.capsule_title }}</span>
+          <span class="icon-expand">+</span>
+        </button>
+        <div
+          id="capsule-{{ number }}-content"
+          class="accordion-content"
+        >
+          <p>{{ capsule.capsule_lore_short }}</p>
+          <a
+            href="{{ product_url }}"
+            class="cta-link"
+          >
+            Enter this transmission
+          </a>
         </div>
-        <script type="application/ld+json">
-        {"@context":"https://schema.org","@type":"CreativeWork","name":"{{ capsule.capsule_title | escape }}","identifier":"{{ cap_num }}","description":"{{ capsule.capsule_lore_short | strip_html | escape | truncatewords: 30 }}"}
-        </script>
-      </article>
+      </div>
     {% endfor %}
+    {# You can duplicate similar blocks for lunar/singularity/hidden if you want full parity on mobile #}
   </div>
 </section>
-
-{% schema %}
-{"name":"Lore Timeline","settings":[]}
-{% endschema %}

@@ -1,76 +1,182 @@
 {% comment %}
 STELLAR REVERB — UNIVERSAL LORE VAULT
 Sacred geometry grid of glyphs (products from metaobjects)
-Glitch overlay on hover, lazy X/Twitter embed
+{% comment %}
+UNIVERSAL LORE – RELIC VAULT
+Grid of capsules as "glyph" relics.
+
+Powered by capsule metaobjects:
+- Uses signal_state to prefer live capsules.
+- Falls back to all capsules if none are live.
+- Hooks into universal-lore.js via .glyph-item and data attributes.
 {% endcomment %}
 
-<section id="lore-vault" class="lore-vault" data-section-type="glyph-item" aria-label="Sacred Geometry Vault">
-  <style>
-    #lore-vault{padding:6rem 1.25rem;background:linear-gradient(180deg,var(--void-black,#0A0A0A) 0%, #0f0f0f 100%);color:#fff}
-    .vault-title{font-family:'Orbitron',monospace;color:var(--cyan-blue,#28A8D6);text-align:center;text-transform:uppercase;letter-spacing:0.1em;font-size:clamp(1.75rem,4.5vw,3.25rem);margin-bottom:3rem}
-    .vault-grid{display:grid;gap:1rem;max-width:1200px;margin:0 auto}
-    @media(min-width:980px){.vault-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    .glyph-item{position:relative;border:1px solid rgba(225,60,250,.35);background:var(--dark-gray,#121212);border-radius:8px;overflow:hidden;cursor:pointer;transition:transform 0.25s ease, box-shadow 0.25s ease}
-    .glyph-item:hover{transform:translateY(-6px);box-shadow:0 14px 44px rgba(225,60,250,.35)}
-    .glyph-media{aspect-ratio:1/1;width:100%;height:auto;object-fit:cover;filter:grayscale(0.45);transition:transform 0.4s ease, filter 0.4s ease}
-    .glyph-item:hover .glyph-media{transform:scale(1.06);filter:grayscale(0) saturate(1.25) hue-rotate(10deg)}
-    .glitch-overlay{position:absolute;inset:0;background:linear-gradient(45deg, rgba(225,60,250,.75), rgba(40,168,214,.75));opacity:0;display:flex;align-items:center;justify-content:center;color:#fff;text-transform:uppercase;font-family:'Orbitron',monospace;letter-spacing:0.08em;transition:opacity 0.25s ease}
-    .glyph-item:hover .glitch-overlay{opacity:0.9}
-    .glyph-meta{padding:0.9rem 1rem;font-family:'Montserrat',sans-serif;display:flex;align-items:center;justify-content:space-between;gap:0.75rem}
-    .glyph-name{font-weight:600}
-    .glyph-link{border:1px solid var(--cyan-blue,#28A8D6);color:var(--cyan-blue,#28A8D6);padding:0.4rem 0.65rem;border-radius:4px;text-transform:uppercase;font-family:'Orbitron',monospace;font-size:0.8rem;transition:all 0.2s ease}
-    .glyph-link:hover{background:var(--cyan-blue,#28A8D6);color:#0a0a0a}
-    .vault-feed{margin-top:2rem;border:1px dashed rgba(255,255,255,.15);border-radius:8px;padding:1rem}
-    .feed-title{font-family:'Orbitron',monospace;color:var(--neon-magenta,#E13CFA);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem}
-  </style>
+<section class="universal-lore-vault" data-section-type="lore-vault">
+  {%- assign all_capsules = metaobjects.capsule.values -%}
+  {%- assign live_capsules = all_capsules | where: 'signal_state', 'live' -%}
+  {%- if live_capsules.size > 0 -%}
+    {%- assign capsules = live_capsules -%}
+  {%- else -%}
+    {%- assign capsules = all_capsules -%}
+  {%- endif -%}
 
-  <h2 class="vault-title">Sacred Geometry Vault</h2>
-  <div class="vault-grid" role="list" aria-label="Glyphs">
-    {% for capsule in metaobjects.capsule.values limit: 9 %}
-      <article class="glyph-item" role="listitem">
-        {% if capsule.hero_image_main %}
-          <img src="{{ capsule.hero_image_main | image_url: width: 800 }}" class="glyph-media" alt="{{ capsule.capsule_title }}" loading="lazy">
-        {% else %}
-          <img src="https://via.placeholder.com/800x800/121212/E13CFA?text=Glyph" class="glyph-media" alt="Placeholder glyph" loading="lazy">
-        {% endif %}
-        <div class="glitch-overlay">Preview</div>
-        <div class="glyph-meta">
-          <span class="glyph-name">{{ capsule.capsule_title }}</span>
-          <a class="glyph-link" href="/collections/{{ capsule.collection_handle }}">Open</a>
-        </div>
-      </article>
-    {% endfor %}
-  </div>
+  {%- assign capsules = capsules | sort: 'timeline_order' -%}
 
-  <div class="vault-feed">
-    <h3 class="feed-title">Community Signals</h3>
-    <p style="font-family:'Montserrat',sans-serif;color:rgba(255,255,255,.82)">Live X feed embed for @StellarReverb — lazy-loaded for performance.</p>
-    <div id="x-embed-lore" style="min-height:80px"></div>
+  {%- if section.settings.max_items > 0 -%}
+    {%- assign capsules = capsules | slice: 0, section.settings.max_items -%}
+  {%- endif -%}
+
+  <div class="vault-inner container">
+    <header class="vault-header">
+      <p class="vault-kicker orbitron">
+        {{ section.settings.kicker | default: 'RELIC VAULT · ACTIVE SIGNALS' }}
+      </p>
+      <h2 class="vault-title orbitron">
+        {{ section.settings.heading | default: 'Choose Your Transmission' }}
+      </h2>
+      <p class="vault-subtitle">
+        {{ section.settings.subheading | default: "Each capsule is a self-contained myth, broadcast across time. Pick a node and step into its frequency." }}
+      </p>
+    </header>
+
+    <div class="vault-grid">
+      {%- for capsule in capsules -%}
+        {%- assign collection_handle = capsule.capsule_collection_handle | default: capsule.collection_handle -%}
+        {%- assign product_url = '' -%}
+        {%- if collection_handle != blank -%}
+          {%- assign product_url = collection_handle | prepend: '/collections/' -%}
+        {%- endif -%}
+
+        {%- assign image = capsule.hero_image_main | default: capsule.capsule_hero | default: capsule.capsule_image_url -%}
+
+        <article
+          class="vault-item glyph-item"
+          tabindex="0"
+          data-glyph="capsule-{{ capsule.capsule_number }}"
+          data-product-url="{{ product_url }}"
+          data-product-id=""
+        >
+          <div class="glyph-visual">
+            {%- if image != blank -%}
+              <div class="glyph-frame">
+                <img
+                  src="{{ image | image_url: width: 600 }}"
+                  alt="{{ capsule.capsule_title | escape }}"
+                  loading="lazy"
+                >
+                <div class="glitch-particles"></div>
+              </div>
+            {%- else -%}
+              <div class="glyph-placeholder">
+                <span class="orbitron">Capsule {{ capsule.capsule_number }}</span>
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="glyph-content">
+            <h3 class="glyph-title orbitron">
+              {{ capsule.capsule_number }} · {{ capsule.capsule_title }}
+            </h3>
+            <p class="glyph-teaser">
+              {{ capsule.capsule_lore | default: section.settings.default_lore | strip_html | truncate: 130 }}
+            </p>
+
+            <div class="glyph-meta">
+              {%- if capsule.timeline_track != blank -%}
+                <span class="meta-track">
+                  {%- case capsule.timeline_track -%}
+                    {%- when 'prime' -%}Prime Timeline
+                    {%- when 'lunar' -%}Lunar Archives
+                    {%- when 'singularity' -%}Singularity Lineage
+                    {%- when 'hidden' -%}Hidden Signal
+                    {%- else -%}{{ capsule.timeline_track | capitalize }}
+                  {%- endcase -%}
+                </span>
+              {%- endif -%}
+              {%- if collection_handle != blank -%}
+                <a href="{{ product_url }}" class="glyph-link">
+                  Enter transmission →
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.show_all_link and section.settings.all_link_url != blank -%}
+      <div class="vault-footer">
+        <a href="{{ section.settings.all_link_url }}" class="btn btn-outline">
+          {{ section.settings.all_link_label | default: 'View full relic archive' }}
+        </a>
+      </div>
+    {%- endif -%}
   </div>
 </section>
 
-<script defer>
-(function(){
-  const el = document.getElementById('x-embed-lore');
-  if (!el) return;
-  const load = function() {
-    if (el.dataset.loaded) return;
-    el.dataset.loaded = '1';
-    el.innerHTML = '<blockquote class="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter transparent" href="https://twitter.com/StellarReverb">Tweets by StellarReverb</blockquote>';
-    var s = document.createElement('script');
-    s.src = 'https://platform.twitter.com/widgets.js';
-    s.async = true;
-    document.body.appendChild(s);
-  };
-  const obs = new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if (e.isIntersecting) { load(); obs.disconnect(); }
-    });
-  }, {threshold: 0.2});
-  obs.observe(el);
-})();
-</script>
-
 {% schema %}
-{"name":"Lore Vault","settings":[]}
+{
+  "name": "Universal Lore Vault",
+  "tag": "section",
+  "class": "section-universal-lore-vault",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "RELIC VAULT · ACTIVE SIGNALS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose Your Transmission"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": ""
+    },
+    {
+      "type": "textarea",
+      "id": "default_lore",
+      "label": "Fallback lore text",
+      "default": ""
+    },
+    {
+      "type": "range",
+      "id": "max_items",
+      "label": "Max capsules to show",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "show_all_link",
+      "label": "Show link to full archive",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "all_link_url",
+      "label": "Full archive URL"
+    },
+    {
+      "type": "text",
+      "id": "all_link_label",
+      "label": "Full archive link label",
+      "default": "View full relic archive"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Universal Lore Vault",
+      "category": "Stellar Reverb"
+    }
+  ]
+}
 {% endschema %}
