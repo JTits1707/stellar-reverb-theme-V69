@@ -1,8 +1,19 @@
 /**
- * STELLAR REVERB - ELITE LORE ENGINE
- * Enhanced for Capsule Metaobject Integration
+ * STELLAR REVERB - ELITE LORE ENGINE v3
+ * Enhanced for Capsule Metaobject Integration + Modular Section Sync
  * Performance-optimized JavaScript for <1s load time
  * Mobile-first, accessibility compliant, Shopify integrated
+ * 
+ * Synced with modular sections:
+ * - universal-lore-loader.liquid
+ * - universal-lore-hero.liquid
+ * - universal-lore-myth.liquid
+ * - universal-lore-timeline.liquid
+ * - universal-lore-vault.liquid
+ * - universal-lore-signals.liquid
+ * - universal-lore-signup.liquid
+ * - universal-lore-signal-feed.liquid
+ * - universal-lore-konami-modal.liquid
  */
 
 class StellarReverbLore {
@@ -30,15 +41,27 @@ class StellarReverbLore {
             resizeTimeout: null,
             particles: [],
             activeTimeline: 'desktop',
-            loadedCapsules: new Map(), // Cache for capsule data
-            formSubmissionInProgress: false
+            loadedCapsules: new Map(), // Cache for capsule metaobject data
+            formSubmissionInProgress: false,
+            konamiSequence: [], // Track Konami code input
+            sectionsInitialized: {
+                loader: false,
+                hero: false,
+                myth: false,
+                timeline: false,
+                vault: false,
+                signals: false,
+                signup: false,
+                konami: false
+            }
         };
 
         // Performance monitoring
         this.performance = {
             loadStart: performance.now(),
             scriptsLoaded: false,
-            firstInteraction: null
+            firstInteraction: null,
+            sectionInitTimes: {}
         };
 
         // Initialize immediately
@@ -58,22 +81,340 @@ class StellarReverbLore {
     }
 
     /**
-     * Bootstrap the application
+     * Bootstrap the application — initialize all sections
      */
     bootstrap() {
         try {
+            // Phase 1: Core systems
             this.setupIntersectionObserver();
             this.bindEvents();
             this.initializeAudio();
+
+            // Phase 2: Section-specific initialization
+            this.initializeLoader();
+            this.initializeHero();
+            this.initializeMythToggle();
+            this.initializeTimeline();
+            this.initializeVault();
+            this.initializeSignals();
+            this.initializeSignup();
+            this.initializeKonami();
+
+            // Phase 3: Global systems
             this.createParticleSystem();
             this.setupPhraseCycler();
-            this.initializeTimeline();
-            this.initializeCapsuleData(); // New: Load capsule metadata
+            this.initializeCapsuleData();
+
+            // Phase 4: Cleanup
             this.hideLoader();
             this.reportPerformance();
+
+            if (this.config.debugMode) {
+                console.log('[SR v3] All sections initialized successfully');
+                console.log('[SR v3] Sections:', this.state.sectionsInitialized);
+            }
         } catch (error) {
-            console.error('[SR] Initialization failed:', error);
+            console.error('[SR v3] Initialization failed:', error);
         }
+    }
+
+    /**
+     * Initialize loader section
+     */
+    initializeLoader() {
+        const section = document.getElementById('lore-loader');
+        if (!section) return;
+
+        const startTime = performance.now();
+
+        // Loader auto-hides after 1.2s (handled by inline script)
+        // This just marks it as initialized for tracking
+
+        this.state.sectionsInitialized.loader = true;
+        this.performance.sectionInitTimes.loader = performance.now() - startTime;
+
+        if (this.config.debugMode) {
+            console.log('[SR] Loader section ready');
+        }
+    }
+
+    /**
+     * Initialize hero section
+     */
+    initializeHero() {
+        const section = document.getElementById('lore-hero');
+        if (!section) return;
+
+        const startTime = performance.now();
+
+        // Wire up CTA button
+        const cta = section.querySelector('#enterVoid');
+        if (cta) {
+            cta.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.scrollToSection('lore-timeline');
+                this.trackEvent('hero_cta_click');
+            });
+        }
+
+        // Animate hero on intersection
+        this.state.intersectionObserver.observe(section);
+
+        this.state.sectionsInitialized.hero = true;
+        this.performance.sectionInitTimes.hero = performance.now() - startTime;
+    }
+
+    /**
+     * Initialize myth toggle section
+     */
+    initializeMythToggle() {
+        const section = document.getElementById('lore-myth');
+        if (!section) return;
+
+        const startTime = performance.now();
+
+        // Bind myth toggle buttons
+        const toggles = section.querySelectorAll('.toggle-btn');
+        toggles.forEach(btn => {
+            btn.addEventListener('click', (e) => this.toggleMyth(e));
+        });
+
+        // Set initial state
+        const humanBtn = section.querySelector('[data-version="human"]');
+        if (humanBtn) {
+            humanBtn.setAttribute('aria-pressed', 'true');
+        }
+
+        this.state.sectionsInitialized.myth = true;
+        this.performance.sectionInitTimes.myth = performance.now() - startTime;
+
+        if (this.config.debugMode) {
+            console.log('[SR] Myth toggle section ready');
+        }
+    }
+
+    /**
+     * Initialize timeline section — CRITICAL for metaobject loop
+     */
+    initializeTimeline() {
+        const section = document.getElementById('lore-timeline');
+        if (!section) return;
+
+        const startTime = performance.now();
+
+        // Cache all timeline nodes
+        const nodes = section.querySelectorAll('.timeline-node');
+        if (nodes.length === 0 && this.config.debugMode) {
+            console.warn('[SR] No timeline nodes found — metaobjects may not be loading');
+        }
+
+        nodes.forEach(node => {
+            // Hover interactions
+            node.addEventListener('mouseenter', (e) => this.handleNodeHover(e));
+            node.addEventListener('mouseleave', (e) => this.handleNodeLeave(e));
+
+            // Click for navigation
+            node.addEventListener('click', (e) => this.handleNodeClick(e));
+
+            // Keyboard accessibility
+            node.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.handleNodeClick(e);
+                }
+            });
+
+            // Intersection observer for animation
+            this.state.intersectionObserver.observe(node);
+        });
+
+        this.state.sectionsInitialized.timeline = true;
+        this.performance.sectionInitTimes.timeline = performance.now() - startTime;
+
+        if (this.config.debugMode) {
+            console.log(`[SR] Timeline section ready (${nodes.length} capsules loaded)`);
+        }
+    }
+
+    /**
+     * Initialize vault section
+     */
+    initializeVault() {
+        const section = document.getElementById('lore-vault');
+        if (!section) return;
+
+        const startTime = performance.now();
+
+        // Bind glyph interactions
+        const glyphs = section.querySelectorAll('.glyph-item');
+        glyphs.forEach(glyph => {
+            glyph.addEventListener('mouseenter', (e) => this.handleGlyphHover(e));
+            glyph.addEventListener('mouseleave', (e) => this.handleGlyphLeave(e));
+            glyph.addEventListener('click', (e) => this.handleGlyphClick(e));
+
+            // Keyboard accessibility
+            glyph.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.handleGlyphClick(e);
+                }
+            });
+
+            // Intersection observer for animation
+            this.state.intersectionObserver.observe(glyph);
+        });
+
+        // X feed will lazy-load on intersection (handled by inline script)
+        const xEmbed = section.querySelector('#x-embed-lore');
+        if (xEmbed) {
+            this.state.intersectionObserver.observe(xEmbed);
+        }
+
+        this.state.sectionsInitialized.vault = true;
+        this.performance.sectionInitTimes.vault = performance.now() - startTime;
+
+        if (this.config.debugMode) {
+            console.log(`[SR] Vault section ready (${glyphs.length} glyphs)`);
+        }
+    }
+
+    /**
+     * Initialize signals section
+     */
+    initializeSignals() {
+        const section = document.getElementById('lore-signals');
+        if (!section) return;
+
+        const startTime = performance.now();
+
+        // Bind signal door interactions
+        const doors = section.querySelectorAll('.signal-door');
+        doors.forEach(door => {
+            door.addEventListener('mouseenter', (e) => this.handleDoorHover(e));
+            door.addEventListener('mouseleave', (e) => this.handleDoorLeave(e));
+
+            // CTA button
+            const cta = door.querySelector('.door-cta');
+            if (cta) {
+                cta.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.scrollToSection('lore-signup');
+                    this.trackEvent('signal_door_cta_click');
+                });
+            }
+
+            // Intersection observer for animation
+            this.state.intersectionObserver.observe(door);
+        });
+
+        this.state.sectionsInitialized.signals = true;
+        this.performance.sectionInitTimes.signals = performance.now() - startTime;
+    }
+
+    /**
+     * Initialize signup section
+     */
+    initializeSignup() {
+        const section = document.getElementById('lore-signup');
+        if (!section) return;
+
+        const startTime = performance.now();
+
+        // Bind form submission
+        const form = section.querySelector('#signalForm');
+        if (form) {
+            form.addEventListener('submit', (e) => this.handleFormSubmit(e));
+        }
+
+        // Intersection observer for animation
+        this.state.intersectionObserver.observe(section);
+
+        this.state.sectionsInitialized.signup = true;
+        this.performance.sectionInitTimes.signup = performance.now() - startTime;
+
+        if (this.config.debugMode) {
+            console.log('[SR] Signup section ready');
+        }
+    }
+
+    /**
+     * Initialize Konami easter egg
+     */
+    initializeKonami() {
+        const modal = document.getElementById('lore-konami-modal');
+        if (!modal) return;
+
+        const startTime = performance.now();
+
+        // Konami sequence tracking
+        const konamiSeq = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let inputBuffer = [];
+
+        document.addEventListener('keydown', (e) => {
+            inputBuffer.push(e.key.toLowerCase());
+            inputBuffer = inputBuffer.slice(-10);
+
+            if (inputBuffer.join(',') === konamiSeq.join(',')) {
+                this.activateKonamiModal(modal);
+            }
+        });
+
+        // Bind modal close button
+        const closeBtn = modal.querySelector('.modal-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.closeKonamiModal(modal));
+        }
+
+        // Bind modal CTA
+        const cta = modal.querySelector('.modal-cta');
+        if (cta) {
+            cta.addEventListener('click', () => {
+                this.closeKonamiModal(modal);
+                window.location.href = '/collections/capsule-000';
+            });
+        }
+
+        // Close on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this.closeKonamiModal(modal);
+            }
+        });
+
+        this.state.sectionsInitialized.konami = true;
+        this.performance.sectionInitTimes.konami = performance.now() - startTime;
+
+        if (this.config.debugMode) {
+            console.log('[SR] Konami easter egg active (↑↑↓↓←→←→BA)');
+        }
+    }
+
+    /**
+     * Activate Konami modal with effects
+     */
+    activateKonamiModal(modal) {
+        modal.style.display = 'flex';
+        setTimeout(() => {
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+        }, 10);
+
+        this.trackEvent('konami_activated');
+
+        if (this.config.debugMode) {
+            console.log('[SR] Konami sequence activated! 🔓');
+        }
+    }
+
+    /**
+     * Close Konami modal
+     */
+    closeKonamiModal(modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+        }, 300);
     }
 
     /**
@@ -86,7 +427,7 @@ class StellarReverbLore {
             if (capsuleNumber && capsuleNumber !== 'incoming') {
                 const capsuleData = {
                     number: capsuleNumber,
-                    title: node.querySelector('.orbitron')?.textContent || '',
+                    title: node.querySelector('.node-title')?.textContent || '',
                     teaser: node.querySelector('.node-teaser')?.textContent || '',
                     productUrl: node.dataset.productUrl,
                     audioFile: node.dataset.audio,
@@ -97,7 +438,7 @@ class StellarReverbLore {
         });
 
         if (this.config.debugMode) {
-            console.log('[SR] Loaded capsule data:', this.state.loadedCapsules);
+            console.log('[SR v3] Capsule metaobject data loaded:', this.state.loadedCapsules.size);
         }
     }
 
@@ -106,17 +447,20 @@ class StellarReverbLore {
      */
     reportPerformance() {
         const loadTime = performance.now() - this.performance.loadStart;
-        
+
         if (this.config.debugMode) {
-            console.log(`[SR] Load time: ${loadTime.toFixed(2)}ms`);
-            console.log(`[SR] Capsules loaded: ${this.state.loadedCapsules.size}`);
+            console.log(`[SR v3] Total load time: ${loadTime.toFixed(2)}ms`);
+            console.log('[SR v3] Section init times:', this.performance.sectionInitTimes);
+            console.log(`[SR v3] Capsules loaded: ${this.state.loadedCapsules.size}`);
+            console.log('[SR v3] Sections initialized:', this.state.sectionsInitialized);
         }
 
         // Report to analytics if available
         if (window.gtag) {
-            gtag('event', 'page_load_time', {
+            gtag('event', 'lore_page_load_time', {
                 'event_category': 'Performance',
-                'value': Math.round(loadTime)
+                'value': Math.round(loadTime),
+                'capsules_loaded': this.state.loadedCapsules.size
             });
         }
 
@@ -136,29 +480,6 @@ class StellarReverbLore {
             (entries) => this.handleIntersection(entries),
             options
         );
-
-        // Observe all animatable elements
-        this.observeElements();
-    }
-
-    /**
-     * Observe elements for intersection-based animations
-     */
-    observeElements() {
-        const selectors = [
-            '[data-section-type]',
-            '.timeline-node',
-            '.glyph-item',
-            '.myth-content',
-            '.signal-door',
-            '.signup-content'
-        ];
-
-        selectors.forEach(selector => {
-            document.querySelectorAll(selector).forEach(element => {
-                this.state.intersectionObserver.observe(element);
-            });
-        });
     }
 
     /**
@@ -191,6 +512,9 @@ class StellarReverbLore {
             case elementType.includes('signal-door'):
                 this.animateSignalDoor(element);
                 break;
+            case elementType.includes('myth-content'):
+                this.animateMythSection(element);
+                break;
             default:
                 element.classList.add('animate-fade-in');
         }
@@ -204,17 +528,17 @@ class StellarReverbLore {
      */
     animateTimelineNode(node) {
         const delay = Array.from(node.parentNode.children).indexOf(node) * 200;
-        
+
         setTimeout(() => {
             node.classList.add('animate-slide-up');
-            
+
             // Animate waveform if present
-            const waveform = node.querySelector('.waveform-path');
+            const waveform = node.querySelector('.waveform-mini');
             if (waveform) {
-                waveform.style.animation = 'waveform-pulse 3s ease-in-out infinite';
+                waveform.style.animation = 'wave-pulse 2s ease-in-out infinite';
             }
 
-            // Enhanced animation for featured capsules
+            // Enhanced animation for featured/first capsules
             if (node.classList.contains('featured') || node.dataset.capsule === '001') {
                 setTimeout(() => {
                     node.classList.add('featured-highlight');
@@ -224,13 +548,18 @@ class StellarReverbLore {
     }
 
     /**
-     * Animate glyph items with hover preparation
+     * Animate glyph items
      */
     animateGlyphItem(glyph) {
         glyph.classList.add('animate-fade-in');
-        
-        // Pre-load glitch effect
         this.prepareGlitchEffect(glyph);
+    }
+
+    /**
+     * Animate myth section
+     */
+    animateMythSection(section) {
+        section.classList.add('animate-fade-in');
     }
 
     /**
@@ -259,11 +588,10 @@ class StellarReverbLore {
      */
     animateSignalDoor(door) {
         door.classList.add('animate-door-reveal');
-        
-        // Stagger child animations
+
         const doorContent = door.querySelector('.door-content');
-        const doorEffects = door.querySelector('.door-effects');
-        
+        const doorEffects = door.querySelector('.energy-core');
+
         if (doorContent) {
             setTimeout(() => doorContent.classList.add('animate-fade-in'), 200);
         }
@@ -276,40 +604,29 @@ class StellarReverbLore {
      * Event binding with performance optimization
      */
     bindEvents() {
-        // Use passive listeners where possible
         const passiveOptions = { passive: true };
-        
+
         // Navigation toggle
         this.bindEvent('#navToggle', 'click', this.toggleNavigation);
-        
-        // Timeline interactions
-        this.bindTimelineEvents();
-        
-        // Glyph interactions
-        this.bindGlyphEvents();
-        
+
         // Myth toggle
         this.bindEvent('.toggle-btn', 'click', this.toggleMyth);
-        
-        // Form submission (enhanced for multiple forms)
+
+        // Form submission
         this.bindEvent('#signalForm', 'submit', this.handleFormSubmit);
-        
-        // CTA button - preserved exact ID for compatibility
+
+        // CTA button
         this.bindEvent('#enterVoid', 'click', this.scrollToTimeline);
-        
+
         // Accordion (mobile)
         this.bindEvent('.accordion-header', 'click', this.toggleAccordion);
-        
+
         // Audio toggle
         this.bindEvent('#soundToggle', 'click', this.toggleAudio);
-        
-        // Enhanced door interactions
-        this.bindEvent('.signal-door', 'mouseenter', this.handleDoorHover);
-        this.bindEvent('.door-cta', 'click', this.handleDoorCTAClick);
-        
+
         // Resize handler (throttled)
         window.addEventListener('resize', this.throttledResize.bind(this), passiveOptions);
-        
+
         // First interaction tracking
         document.addEventListener('click', this.trackFirstInteraction.bind(this), { once: true });
     }
@@ -318,7 +635,7 @@ class StellarReverbLore {
      * Utility method for event binding with error handling
      */
     bindEvent(selector, event, handler, options = {}) {
-        const elements = typeof selector === 'string' 
+        const elements = typeof selector === 'string'
             ? document.querySelectorAll(selector)
             : [selector];
 
@@ -336,91 +653,34 @@ class StellarReverbLore {
     }
 
     /**
-     * Timeline-specific event binding
-     */
-    bindTimelineEvents() {
-        // Timeline nodes
-        document.querySelectorAll('.timeline-node').forEach(node => {
-            // Hover for audio preview and enhanced effects
-            node.addEventListener('mouseenter', this.handleNodeHover.bind(this));
-            node.addEventListener('mouseleave', this.handleNodeLeave.bind(this));
-            
-            // Click for navigation (enhanced for capsule system)
-            node.addEventListener('click', this.handleNodeClick.bind(this));
-            
-            // Keyboard accessibility
-            node.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.handleNodeClick(e);
-                }
-            });
-        });
-    }
-
-    /**
-     * Glyph-specific event binding
-     */
-    bindGlyphEvents() {
-        document.querySelectorAll('.glyph-item').forEach(glyph => {
-            // Hover for distortion effect
-            glyph.addEventListener('mouseenter', this.handleGlyphHover.bind(this));
-            glyph.addEventListener('mouseleave', this.handleGlyphLeave.bind(this));
-            
-            // Click for navigation
-            glyph.addEventListener('click', this.handleGlyphClick.bind(this));
-            
-            // Keyboard accessibility
-            glyph.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.handleGlyphClick(e);
-                }
-            });
-        });
-    }
-
-    /**
      * Enhanced timeline node interactions for capsule system
      */
     handleNodeHover(event) {
         const node = event.currentTarget;
         const capsuleNumber = node.dataset.capsule;
-        const audioFile = node.dataset.audio;
-        
-        // Play audio preview
-        if (audioFile && this.config.audioEnabled) {
-            this.playAudioPreview(audioFile);
-        }
 
         // Animate geometry
-        const geometry = node.querySelector('.node-geometry');
-        if (geometry) {
-            geometry.classList.add('animate-geometry');
+        const marker = node.querySelector('.node-marker');
+        if (marker) {
+            marker.classList.add('animate-geometry');
         }
 
         // Enhanced hover effects for capsules
         if (capsuleNumber && this.state.loadedCapsules.has(capsuleNumber)) {
             node.classList.add('node-hover-enhanced');
-            this.showNodeTooltip(node, this.state.loadedCapsules.get(capsuleNumber));
-        } else {
-            this.showNodeTooltip(node);
         }
 
-        // Track hover interaction
         this.trackEvent('timeline_node_hover', { capsule: capsuleNumber });
     }
 
     handleNodeLeave(event) {
         const node = event.currentTarget;
-        const geometry = node.querySelector('.node-geometry');
-        
-        if (geometry) {
-            geometry.classList.remove('animate-geometry');
-        }
+        const marker = node.querySelector('.node-marker');
 
+        if (marker) {
+            marker.classList.remove('animate-geometry');
+        }
         node.classList.remove('node-hover-enhanced');
-        this.hideNodeTooltip(node);
     }
 
     handleNodeClick(event) {
@@ -428,22 +688,17 @@ class StellarReverbLore {
         const capsule = node.dataset.capsule;
         const productUrl = node.dataset.productUrl;
 
-        // Enhanced navigation for capsule system
-        if (productUrl) {
-            // Direct product link
+        if (productUrl && productUrl !== '#') {
             window.location.href = productUrl;
         } else if (capsule && capsule !== 'incoming') {
-            // Fallback to capsule collection
             window.location.href = `/collections/capsule-${capsule}`;
         } else if (capsule === 'incoming') {
-            // Special handling for incoming signals
             this.handleIncomingSignalClick();
         }
 
-        // Track interaction
-        this.trackEvent('timeline_node_click', { 
+        this.trackEvent('timeline_node_click', {
             capsule: capsule,
-            hasProduct: !!productUrl 
+            hasProduct: !!productUrl && productUrl !== '#'
         });
     }
 
@@ -451,17 +706,14 @@ class StellarReverbLore {
      * Handle incoming signal special interactions
      */
     handleIncomingSignalClick() {
-        // Scroll to signup or show special message
         const signupForm = document.getElementById('signalForm');
         if (signupForm) {
             signupForm.scrollIntoView({ behavior: 'smooth' });
-            
-            // Add special effect to form
+
             setTimeout(() => {
                 signupForm.classList.add('signal-activated');
             }, 500);
         }
-
         this.trackEvent('incoming_signal_click');
     }
 
@@ -470,16 +722,13 @@ class StellarReverbLore {
      */
     handleGlyphHover(event) {
         const glyph = event.currentTarget;
-        
-        // Add distortion effect
+
         glyph.classList.add('distort-active');
-        
-        // Create glitch particles
+
         if (this.config.glitchEnabled) {
             this.createGlitchParticles(glyph);
         }
 
-        // Audio feedback
         if (this.config.audioEnabled) {
             this.playGlyphSound(glyph.dataset.glyph);
         }
@@ -492,21 +741,16 @@ class StellarReverbLore {
 
     handleGlyphClick(event) {
         const glyph = event.currentTarget;
-        const glyphType = glyph.dataset.glyph;
-        const productId = glyph.dataset.productId;
-        const productUrl = glyph.dataset.productUrl;
+        const glyphLink = glyph.querySelector('.glyph-link');
 
-        // Enhanced navigation
-        if (productUrl) {
-            window.location.href = productUrl;
-        } else if (productId) {
-            window.location.href = `/products/${productId}`;
-        } else if (glyphType) {
-            window.location.href = `/collections/${glyphType}`;
+        if (glyphLink) {
+            const href = glyphLink.getAttribute('href');
+            if (href && href !== '#') {
+                window.location.href = href;
+            }
         }
 
-        // Track interaction
-        this.trackEvent('glyph_click', { glyphType, productId });
+        this.trackEvent('glyph_click', { glyphType: glyph.dataset.glyph });
     }
 
     /**
@@ -515,45 +759,20 @@ class StellarReverbLore {
     handleDoorHover(event) {
         const door = event.currentTarget;
         door.classList.add('door-hover-active');
-        
-        // Activate energy effects
+
         const energyCore = door.querySelector('.energy-core');
         if (energyCore) {
             energyCore.classList.add('core-activated');
         }
     }
 
-    handleDoorCTAClick(event) {
-        const button = event.currentTarget;
-        const url = button.getAttribute('href');
-        
-        if (!url || url === '#') {
-            // Scroll to signup form
-            event.preventDefault();
-            this.scrollToSignupForm();
-        }
+    handleDoorLeave(event) {
+        const door = event.currentTarget;
+        door.classList.remove('door-hover-active');
 
-        this.trackEvent('door_cta_click');
-    }
-
-    /**
-     * Scroll to signup form with enhanced effects
-     */
-    scrollToSignupForm() {
-        const signupForm = document.getElementById('signalForm');
-        if (signupForm) {
-            signupForm.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'center'
-            });
-            
-            // Add attention effect
-            setTimeout(() => {
-                signupForm.classList.add('form-highlight');
-                setTimeout(() => {
-                    signupForm.classList.remove('form-highlight');
-                }, 2000);
-            }, 500);
+        const energyCore = door.querySelector('.energy-core');
+        if (energyCore) {
+            energyCore.classList.remove('core-activated');
         }
     }
 
@@ -570,18 +789,15 @@ class StellarReverbLore {
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'glitch-particle';
-            
-            // Random positioning
+
             particle.style.left = Math.random() * 100 + '%';
             particle.style.top = Math.random() * 100 + '%';
-            
-            // Random color from theme variables
+
             const colors = ['var(--neon-magenta)', 'var(--cyan-blue)', 'var(--radioactive-green)'];
             particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-            
+
             particleContainer.appendChild(particle);
-            
-            // Animate and remove
+
             particle.animate([
                 { transform: 'scale(0) rotate(0deg)', opacity: 1 },
                 { transform: 'scale(1.5) rotate(180deg)', opacity: 0 }
@@ -598,7 +814,7 @@ class StellarReverbLore {
     toggleMyth(event) {
         const button = event.currentTarget;
         const version = button.dataset.version;
-        
+
         if (version === this.state.currentMythVersion) return;
 
         // Update button states
@@ -606,7 +822,7 @@ class StellarReverbLore {
             btn.classList.remove('active');
             btn.setAttribute('aria-pressed', 'false');
         });
-        
+
         button.classList.add('active');
         button.setAttribute('aria-pressed', 'true');
 
@@ -614,24 +830,25 @@ class StellarReverbLore {
         const content = document.getElementById('mythContent');
         if (content) {
             content.classList.add('glitch-transition');
-            
+
             setTimeout(() => {
                 // Switch content
                 document.querySelectorAll('.myth-version').forEach(v => {
                     v.classList.remove('active');
+                    v.setAttribute('hidden', '');
                 });
-                
-                const targetVersion = document.querySelector(`[data-version="${version}"]`);
+
+                const targetVersion = document.querySelector(`.myth-version[data-version="${version}"]`);
                 if (targetVersion) {
                     targetVersion.classList.add('active');
+                    targetVersion.removeAttribute('hidden');
                 }
-                
+
                 content.classList.remove('glitch-transition');
                 this.state.currentMythVersion = version;
             }, 200);
         }
 
-        // Track interaction
         this.trackEvent('myth_toggle', { version });
     }
 
@@ -640,11 +857,11 @@ class StellarReverbLore {
      */
     handleFormSubmit(event) {
         event.preventDefault();
-        
+
         if (this.state.formSubmissionInProgress) {
-            return; // Prevent double submission
+            return;
         }
-        
+
         const form = event.currentTarget;
         const emailInput = form.querySelector('input[type="email"]');
         const status = document.getElementById('formStatus');
@@ -671,22 +888,20 @@ class StellarReverbLore {
             status.className = 'form-status loading';
         }
 
-        // Process form based on type
         this.processFormSubmission(form, emailInput.value)
             .then(result => {
                 if (status) {
                     status.textContent = result.message || 'Signal received. Welcome to the transmission.';
                     status.className = `form-status ${result.success ? 'success' : 'error'}`;
                 }
-                
+
                 if (result.success) {
                     form.reset();
-                    this.trackEvent('signup_success', { 
+                    this.trackEvent('signup_success', {
                         email: emailInput.value,
                         service: form.dataset.service || 'shopify'
                     });
-                    
-                    // Add success animation
+
                     form.classList.add('signup-success');
                 }
             })
@@ -700,7 +915,7 @@ class StellarReverbLore {
             })
             .finally(() => {
                 this.state.formSubmissionInProgress = false;
-                
+
                 if (submitButton) {
                     submitButton.disabled = false;
                     submitButton.classList.remove('loading');
@@ -719,11 +934,14 @@ class StellarReverbLore {
      */
     async processFormSubmission(form, email) {
         // Shopify native form handling
-        if (form.classList.contains('shopify-form')) {
+        if (form.classList.contains('shopify-form') || form.id === 'signalForm') {
             return new Promise((resolve) => {
                 // Simulate Shopify form processing
                 setTimeout(() => {
-                    resolve({ success: true, message: 'Registration successful' });
+                    resolve({
+                        success: true,
+                        message: 'Registration successful. Check your email for confirmation.'
+                    });
                 }, 1500);
             });
         }
@@ -778,41 +996,12 @@ class StellarReverbLore {
                 try {
                     this.state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 } catch (error) {
-                    console.warn('[SR] Web Audio API not supported');
+                    if (this.config.debugMode) {
+                        console.warn('[SR] Web Audio API not supported');
+                    }
                 }
             }
         }, { once: true });
-    }
-
-    /**
-     * Play audio preview for timeline nodes
-     */
-    playAudioPreview(filename) {
-        if (!this.state.audioContext || this.state.isPlaying) return;
-        
-        try {
-            // Create synthetic preview sound
-            const oscillator = this.state.audioContext.createOscillator();
-            const gainNode = this.state.audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(this.state.audioContext.destination);
-            
-            // Frequency based on filename hash for consistency
-            const frequency = 220 + (this.hashCode(filename) % 440);
-            
-            oscillator.frequency.setValueAtTime(frequency, this.state.audioContext.currentTime);
-            gainNode.gain.setValueAtTime(0.1, this.state.audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, this.state.audioContext.currentTime + 0.5);
-            
-            oscillator.start();
-            oscillator.stop(this.state.audioContext.currentTime + 0.5);
-            
-            this.state.isPlaying = true;
-            setTimeout(() => { this.state.isPlaying = false; }, 500);
-        } catch (error) {
-            console.warn('[SR] Audio preview failed:', error);
-        }
     }
 
     /**
@@ -820,7 +1009,7 @@ class StellarReverbLore {
      */
     playGlyphSound(glyphType) {
         if (!this.state.audioContext) return;
-        
+
         const frequencies = {
             'echo-prism': 440,
             'void-harmonic': 330,
@@ -829,7 +1018,7 @@ class StellarReverbLore {
             'cosmic-antenna': 770,
             'signal-nexus': 880
         };
-        
+
         const frequency = frequencies[glyphType] || 440;
         this.playTone(frequency, 0.1, 0.2);
     }
@@ -839,22 +1028,24 @@ class StellarReverbLore {
      */
     playTone(frequency, volume, duration) {
         if (!this.state.audioContext) return;
-        
+
         try {
             const oscillator = this.state.audioContext.createOscillator();
             const gainNode = this.state.audioContext.createGain();
-            
+
             oscillator.connect(gainNode);
             gainNode.connect(this.state.audioContext.destination);
-            
+
             oscillator.frequency.value = frequency;
             gainNode.gain.setValueAtTime(volume, this.state.audioContext.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.001, this.state.audioContext.currentTime + duration);
-            
+
             oscillator.start();
             oscillator.stop(this.state.audioContext.currentTime + duration);
         } catch (error) {
-            console.warn('[SR] Tone generation failed:', error);
+            if (this.config.debugMode) {
+                console.warn('[SR] Tone generation failed:', error);
+            }
         }
     }
 
@@ -863,37 +1054,31 @@ class StellarReverbLore {
      */
     createParticleSystem() {
         if (!this.config.particlesEnabled) return;
-        
+
         const particlesContainer = document.getElementById('particles');
         if (!particlesContainer) return;
 
-        // Clear existing particles
         particlesContainer.innerHTML = '';
-
         const particleCount = this.config.performance.particleCount;
-        
+
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
-            
-            // Random positioning
+
             particle.style.left = Math.random() * 100 + '%';
-            
-            // Random animation delay and duration
             particle.style.animationDelay = Math.random() * 10 + 's';
             particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
-            
-            // Random particle type
+
             if (Math.random() > 0.7) {
                 particle.classList.add(Math.random() > 0.5 ? 'magenta' : 'green');
             }
-            
+
             particlesContainer.appendChild(particle);
         }
     }
 
     /**
-     * Enhanced phrase cycling system for the hidden door
+     * Enhanced phrase cycling system
      */
     setupPhraseCycler() {
         const phraseCycler = document.getElementById('phraseCycler');
@@ -910,11 +1095,8 @@ class StellarReverbLore {
             phrases[currentIndex].classList.add('active');
         };
 
-        // Start cycling after initial delay
         setTimeout(() => {
             const cycleInterval = setInterval(cyclePhrases, 3000);
-            
-            // Store interval ID for cleanup
             phraseCycler.cycleInterval = cycleInterval;
         }, 2000);
     }
@@ -922,60 +1104,19 @@ class StellarReverbLore {
     /**
      * Timeline initialization and responsive handling
      */
-    initializeTimeline() {
-        this.checkTimelineVisibility();
-        
-        // Update on resize
-        window.addEventListener('resize', this.throttle(() => {
-            this.checkTimelineVisibility();
-        }, 250));
-    }
-
-    /**
-     * Check which timeline version to show
-     */
     checkTimelineVisibility() {
         const desktop = document.getElementById('timelineDesktop');
         const mobile = document.getElementById('timelineMobile');
-        
+
         if (!desktop || !mobile) return;
 
         const isMobile = window.innerWidth <= 768;
-        
+
         if (isMobile && this.state.activeTimeline !== 'mobile') {
             this.state.activeTimeline = 'mobile';
-            this.initializeMobileTimeline();
         } else if (!isMobile && this.state.activeTimeline !== 'desktop') {
             this.state.activeTimeline = 'desktop';
         }
-    }
-
-    /**
-     * Initialize mobile timeline accordion
-     */
-    initializeMobileTimeline() {
-        // Enhanced mobile timeline with capsule awareness
-        document.querySelectorAll('.accordion-item').forEach((item, index) => {
-            const header = item.querySelector('.accordion-header');
-            const content = item.querySelector('.accordion-content');
-            
-            if (header && content) {
-                // Add enhanced mobile interactions
-                header.addEventListener('touchstart', this.handleMobileTimelineTouch.bind(this), { passive: true });
-            }
-        });
-    }
-
-    /**
-     * Enhanced mobile timeline touch handling
-     */
-    handleMobileTimelineTouch(event) {
-        const header = event.currentTarget;
-        header.classList.add('touch-active');
-        
-        setTimeout(() => {
-            header.classList.remove('touch-active');
-        }, 150);
     }
 
     /**
@@ -984,30 +1125,28 @@ class StellarReverbLore {
     toggleNavigation(event) {
         const nav = document.getElementById('navMenu');
         const toggle = event.currentTarget;
-        
+
         if (nav) {
             const isOpen = nav.classList.contains('active');
             nav.classList.toggle('active');
-            
-            // Update ARIA attributes
             toggle.setAttribute('aria-expanded', !isOpen);
         }
     }
 
     /**
-     * Accordion toggle for mobile timeline
+     * Accordion toggle for mobile
      */
     toggleAccordion(event) {
         const header = event.currentTarget;
         const targetId = header.dataset.target;
         const target = document.getElementById(targetId);
         const icon = header.querySelector('.icon-expand');
-        
+
         if (!target) return;
 
         const isOpen = target.classList.contains('active');
-        
-        // Close all other accordions (optional)
+
+        // Close other accordions
         document.querySelectorAll('.accordion-content.active').forEach(content => {
             if (content !== target) {
                 content.classList.remove('active');
@@ -1016,19 +1155,17 @@ class StellarReverbLore {
             }
         });
 
-        // Toggle current accordion
+        // Toggle current
         target.classList.toggle('active');
         if (icon) {
             icon.textContent = isOpen ? '+' : '−';
         }
 
-        // Update ARIA attributes
         header.setAttribute('aria-expanded', !isOpen);
 
-        // Track interaction
-        this.trackEvent('accordion_toggle', { 
-            target: targetId, 
-            opened: !isOpen 
+        this.trackEvent('accordion_toggle', {
+            target: targetId,
+            opened: !isOpen
         });
     }
 
@@ -1038,32 +1175,36 @@ class StellarReverbLore {
     toggleAudio(event) {
         const button = event.currentTarget;
         const icon = button.querySelector('.sound-icon');
-        
+
         this.config.audioEnabled = !this.config.audioEnabled;
-        
-        // Update icon (if using icon classes)
+
         if (icon) {
             icon.classList.toggle('active');
         }
 
-        // Update button state
         button.setAttribute('aria-pressed', this.config.audioEnabled);
-        
+
         this.trackEvent('audio_toggle', { enabled: this.config.audioEnabled });
+    }
+
+    /**
+     * Scroll to section helper
+     */
+    scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     }
 
     /**
      * Smooth scroll to timeline
      */
     scrollToTimeline(event) {
-        const timeline = document.getElementById('timeline');
-        if (timeline) {
-            timeline.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-        
+        this.scrollToSection('lore-timeline');
         this.trackEvent('cta_click', { target: 'timeline' });
     }
 
@@ -1074,7 +1215,7 @@ class StellarReverbLore {
         if (this.state.resizeTimeout) {
             clearTimeout(this.state.resizeTimeout);
         }
-        
+
         this.state.resizeTimeout = setTimeout(() => {
             this.handleResize();
         }, 100);
@@ -1084,12 +1225,10 @@ class StellarReverbLore {
      * Handle window resize
      */
     handleResize() {
-        // Update particle system if needed
         if (this.config.particlesEnabled) {
             this.updateParticleSystem();
         }
-        
-        // Check timeline visibility
+
         this.checkTimelineVisibility();
     }
 
@@ -1100,7 +1239,6 @@ class StellarReverbLore {
         const container = document.getElementById('particles');
         if (!container) return;
 
-        // Adjust particle count based on screen size
         const currentCount = container.children.length;
         const targetCount = window.innerWidth < 768 ? 25 : this.config.performance.particleCount;
 
@@ -1113,52 +1251,16 @@ class StellarReverbLore {
      * Hide loading screen
      */
     hideLoader() {
-        const loader = document.getElementById('loader');
+        const loader = document.getElementById('lore-loader');
         if (loader) {
             setTimeout(() => {
                 loader.style.opacity = '0';
                 loader.style.pointerEvents = 'none';
-                
+
                 setTimeout(() => {
-                    loader.remove();
+                    if (loader.parentNode) loader.parentNode.removeChild(loader);
                 }, 300);
             }, 1000);
-        }
-    }
-
-    /**
-     * Enhanced node tooltip with capsule data
-     */
-    showNodeTooltip(node, capsuleData = null) {
-        // Enhanced tooltip implementation with capsule information
-        let tooltip = node.querySelector('.node-tooltip');
-        
-        if (!tooltip) {
-            tooltip = document.createElement('div');
-            tooltip.className = 'node-tooltip';
-            node.appendChild(tooltip);
-        }
-
-        if (capsuleData) {
-            tooltip.innerHTML = `
-                <div class="tooltip-content">
-                    <h4>${capsuleData.title}</h4>
-                    <p>${capsuleData.teaser}</p>
-                    ${capsuleData.productUrl ? '<span class="tooltip-cta">Click to explore</span>' : ''}
-                </div>
-            `;
-        }
-
-        tooltip.classList.add('visible');
-    }
-
-    /**
-     * Hide node tooltip
-     */
-    hideNodeTooltip(node) {
-        const tooltip = node.querySelector('.node-tooltip');
-        if (tooltip) {
-            tooltip.classList.remove('visible');
         }
     }
 
@@ -1166,7 +1268,6 @@ class StellarReverbLore {
      * Prepare glitch effect for performance
      */
     prepareGlitchEffect(element) {
-        // Pre-create glitch particle container for better performance
         if (!element.querySelector('.glitch-particles')) {
             const container = document.createElement('div');
             container.className = 'glitch-particles';
@@ -1179,10 +1280,10 @@ class StellarReverbLore {
      */
     trackFirstInteraction(event) {
         this.performance.firstInteraction = performance.now();
-        
+
         if (this.config.debugMode) {
             const timeToFirstInteraction = this.performance.firstInteraction - this.performance.loadStart;
-            console.log(`[SR] Time to first interaction: ${timeToFirstInteraction.toFixed(2)}ms`);
+            console.log(`[SR v3] Time to first interaction: ${timeToFirstInteraction.toFixed(2)}ms`);
         }
     }
 
@@ -1190,12 +1291,12 @@ class StellarReverbLore {
      * Enhanced event tracking wrapper
      */
     trackEvent(eventName, properties = {}) {
-        // Add capsule context if available
         const enhancedProperties = {
             ...properties,
             timestamp: new Date().toISOString(),
             page: 'universal-lore',
-            capsulesLoaded: this.state.loadedCapsules.size
+            capsulesLoaded: this.state.loadedCapsules.size,
+            sectionsReady: Object.values(this.state.sectionsInitialized).filter(Boolean).length
         };
 
         // Google Analytics 4
@@ -1220,7 +1321,7 @@ class StellarReverbLore {
         }
 
         if (this.config.debugMode) {
-            console.log(`[SR] Event: ${eventName}`, enhancedProperties);
+            console.log(`[SR v3] Event: ${eventName}`, enhancedProperties);
         }
     }
 
@@ -1232,7 +1333,7 @@ class StellarReverbLore {
         for (let i = 0; i < str.length; i++) {
             const char = str.charCodeAt(i);
             hash = ((hash << 5) - hash) + char;
-            hash = hash & hash; // Convert to 32-bit integer
+            hash = hash & hash;
         }
         return Math.abs(hash);
     }
@@ -1256,31 +1357,25 @@ class StellarReverbLore {
      * Enhanced cleanup method for SPA navigation
      */
     destroy() {
-        // Clean up observers
         if (this.state.intersectionObserver) {
             this.state.intersectionObserver.disconnect();
         }
 
-        // Clean up audio context
         if (this.state.audioContext) {
             this.state.audioContext.close();
         }
 
-        // Clear timeouts
         if (this.state.resizeTimeout) {
             clearTimeout(this.state.resizeTimeout);
         }
 
-        // Clear phrase cycler intervals
         const phraseCycler = document.getElementById('phraseCycler');
         if (phraseCycler && phraseCycler.cycleInterval) {
             clearInterval(phraseCycler.cycleInterval);
         }
 
-        // Clear state
         this.state.loadedCapsules.clear();
-
-        console.log('[SR] Stellar Reverb Lore Engine destroyed');
+        console.log('[SR v3] Stellar Reverb Lore Engine destroyed');
     }
 }
 
