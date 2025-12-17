@@ -83,7 +83,7 @@
       "settings": {}
     },
     "signal_feed": {
-      "type": "universal_lore-signal_feed",
+      "type": "universal_lore_signal_feed",
       "settings": {}
     },
     "konami_modal": {
