@@ -27,6 +27,9 @@
   mix-blend-mode: soft-light;
   pointer-events: none;
   z-index: -1;
+  .hero-decoding__overlay { z-index: 0; }
+.hero-decoding__inner { position: relative; z-index: 2; }
+.hero-decoding__floating-layer { z-index: 1; }
 }
 
 /* Optional floating elements layer */
