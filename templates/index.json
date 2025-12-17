@@ -238,7 +238,7 @@
         "benefit_2_text": "Limited Edition Drops & Products",
         "benefit_3_text": "15% Off",
         "benefit_4_text": "Access Signal Seeker Dashboard",
-        "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
+        "background_gradient": "...",
         "show_particles": true
       }
     }
