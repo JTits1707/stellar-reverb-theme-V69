@@ -9,6 +9,8 @@ HERO DECODING · TERMINAL-STYLE HERO
     {% if section.settings.hero_background != blank %}
       --hero-bg-image: url({{ section.settings.hero_background | image_url: width: 2400 }});
     {% endif %}
+     {{ 'hero-decoding.css' | asset_url | stylesheet_tag }}
+{{ 'hero-decoding-enhancements.css' | asset_url | stylesheet_tag }}
     --hero-headline-color: {{ section.settings.headline_color | default: '#00f0ff' }};
     --hero-subtitle-color: {{ section.settings.subtitle_color | default: '#ff00ff' }};
     --hero-transmission-color: {{ section.settings.transmission_color | default: '#f4ff30' }};
