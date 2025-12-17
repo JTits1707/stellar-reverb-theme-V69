@@ -1,3 +1,8 @@
+<!doctype html>
+<html
+  class="no-js"
+  lang="{{ request.locale.iso_code }}"
+>
   <head>
     <meta charset="utf-8">
     <meta
@@ -46,9 +51,8 @@
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
     {%- comment -%}
-      Dynamic brand colors from theme settings.
-      We ONLY override color tokens here; fonts are handled
-      via theme-variables.css + brand-fonts.css.
+      CSS Variables from Theme Settings (Brand Tokens)
+      + font families wired to self-hosted fonts
     {%- endcomment -%}
     <style>
       :root {
@@ -59,29 +63,38 @@
         --cosmic-purple: {{ settings.color_cosmic_purple | default: '#6C24B3' }};
         --electric-yellow: {{ settings.color_electric_yellow | default: '#F4FF30' }};
         --chrome-silver: {{ settings.color_chrome_silver | default: '#B0B0B0' }};
+
+        /* Font families (self-hosted via brand-fonts.css) */
+        --font-title: 'Orbitron', system-ui, sans-serif;
+        --font-body: 'PP Mori', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-accent: 'PP Neue Machina', system-ui, sans-serif;
       }
 
       html {
+        font-family: var(--font-body);
         background-color: var(--void-black);
         color: #f9fafb;
       }
     </style>
 
     {%- comment -%}
-      CORE CSS — ORDER MATTERS
-      1) Fonts (brand-fonts.css)
-      2) Design tokens (theme-variables.css)
-      3) Base styles (base.css)
-      4) Optional: critical / performance / section-specific CSS
+      Core CSS – order matters:
+      1) Critical (above-the-fold, if you have it)
+      2) Base / theme
+      3) Brand fonts
+      4) Hero / floating elements / capsule styling
     {%- endcomment -%}
-    {{ 'brand-fonts.css'     | asset_url | stylesheet_tag }}
-    {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
-    {{ 'base.css'            | asset_url | stylesheet_tag }}
+    {% comment %}
+      If you truly want conditional loading you’d need an app/extension;
+      using "if 'file' | asset_url" will always be truthy, so you can
+      just include the files directly.
+    {% endcomment %}
 
-    {%- comment -%}
-      OPTIONAL EXTRA CSS
-      (only keep the ones you actually use)
-    {%- endcomment -%}
+    {{ 'brand-fonts.css' | asset_url | stylesheet_tag }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'theme-base.css' | asset_url | stylesheet_tag }}
+    {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
+
     {% if 'stellar-reverb-critical.css' | asset_url %}
       {{ 'stellar-reverb-critical.css' | asset_url | stylesheet_tag }}
     {% endif %}
@@ -127,3 +140,83 @@
       }
     </script>
   </head>
+
+  <body
+    class="
+      template-{{ template.name | handle }}
+      template-{{ template | replace: '.', '-' | replace: '/', '-' }}
+    "
+  >
+    {%- comment -%}
+      Accessibility: skip link
+    {%- endcomment -%}
+    <a
+      class="skip-to-content sr-only focus:not-sr-only"
+      href="#MainContent"
+    >
+      {{ 'accessibility.skip_to_content' | t | default: 'Skip to main content' }}
+    </a>
+
+    {%- comment -%}
+      Header (navigation, logo, cart, etc.)
+      Use enhanced header for all pages.
+    {%- endcomment -%}
+    {% section 'header-enhanced' %}
+
+    {%- comment -%}
+      Page main content
+    {%- endcomment -%}
+    <main
+      id="MainContent"
+      role="main"
+      tabindex="-1"
+      class="main-content"
+    >
+      {{ content_for_layout }}
+    </main>
+
+    {%- comment -%}
+      Footer (global footer; Stellar variant)
+    {%- endcomment -%}
+    {% section 'stellar-footer' %}
+
+    {%- comment -%}
+      Core JS – global theme logic
+    {%- endcomment -%}
+    {% if 'global.js' | asset_url %}
+      <script src="{{ 'global.js' | asset_url }}" defer></script>
+    {% endif %}
+
+    {%- comment -%}
+      Page-specific JS:
+      Lore engine for universal lore pages / sections
+    {%- endcomment -%}
+    {% if template contains 'universal-lore' or template contains 'lore' %}
+      {% if 'stellar-reverb-lore.js' | asset_url %}
+        <script src="{{ 'stellar-reverb-lore.js' | asset_url }}" defer></script>
+      {% endif %}
+    {% endif %}
+
+    {%- comment -%}
+      Optional: Shop All filters / interactions
+    {%- endcomment -%}
+    {% if template contains 'collection.shop-all' %}
+      {% if 'stellar-shop-all.js' | asset_url %}
+        <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
+      {% endif %}
+    {% endif %}
+
+    {%- comment -%}
+      Optional: service worker for PWA-ish feel
+    {%- endcomment -%}
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('{{ "sw.js" | asset_url }}')
+          .catch(function (error) {
+            console.log('Service worker registration failed', error);
+          });
+      }
+    </script>
+  </body>
+</html>

@@ -2,7 +2,6 @@
    Uses brand font vars:
    --font-title, --font-body, --font-accent
 */
-
 .hero-decoding {
   position: relative;
   min-height: min(90vh, 900px);
@@ -28,6 +27,9 @@
   mix-blend-mode: soft-light;
   pointer-events: none;
   z-index: -1;
+  .hero-decoding__overlay { z-index: 0; }
+.hero-decoding__inner { position: relative; z-index: 2; }
+.hero-decoding__floating-layer { z-index: 1; }
 }
 
 /* Optional floating elements layer */

@@ -1,12 +1,12 @@
-{{ 'hero-cosmic-final.css' | asset_url | stylesheet_tag }}{% comment %}
+{{ 'hero-decoding.css' | asset_url | stylesheet_tag }}
+{{ 'hero-decoding-enhancements.css' | asset_url | stylesheet_tag }}
+{% comment %}
   HERO DECODING · TERMINAL-STYLE HERO
-  - Uses self-hosted fonts via CSS vars (no Google fonts)
-  - Colors + copy controlled from section settings
 {% endcomment %}
 
 <section
   id="hero-decoding-{{ section.id }}"
-  class="hero-decoding"
+  class="hero-decoding hero-decoding-section"
   style="
     {% if section.settings.hero_background != blank %}
       --hero-bg-image: url({{ section.settings.hero_background | image_url: width: 2400 }});
@@ -20,7 +20,7 @@
   "
 >
   <div class="hero-decoding__overlay"></div>
-
+  
   {% if section.settings.show_floating_elements %}
     <div class="hero-decoding__floating-layer">
       {%- comment -%}
