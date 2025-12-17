@@ -216,6 +216,7 @@
     },
     "newsletter_cosmic_DXqMDB": {
       "type": "newsletter-cosmic",
+      "custom_css": [],
       "name": "Newsletter - Cosmic",
       "settings": {
         "show_icon": true,
