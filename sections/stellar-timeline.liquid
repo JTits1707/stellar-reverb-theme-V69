@@ -16,13 +16,12 @@
 {% endcomment %}
 {{ 'lore-popup-modal.css' | asset_url | stylesheet_tag }}
 {{ 'lore-popup-modal.js' | asset_url | script_tag }}
- <div class="timeline-glitch-overlay">DECRYPTING 21%</div>
 <section 
   class="stellar-timeline" 
   data-section-id="{{ section.id }}"
   data-section-type="stellar-timeline"
 >
-  
+   <div class="timeline-glitch-overlay">DECRYPTING 21%</div>
   {%- comment -%} Section Header {%- endcomment -%}
   <div class="timeline-header container">
     {% if section.settings.show_heading %}
