@@ -15,18 +15,17 @@
 
   ═══════════════════════════════════════════════════════════
 {% endcomment %}
-
-{% liquid
-  assign grid_columns = section.settings.grid_columns | default: 4
-  assign show_heading = section.settings.show_heading | default: true
-%}
-{% liquid
-  assign grid_columns = section.settings.grid_columns | default: 4
-  assign show_heading = section.settings.show_heading | default: true
-%}
 <section class="join-signal-section">
   ...
 </section>
+{% liquid
+  assign grid_columns = section.settings.grid_columns | default: 4
+  assign show_heading = section.settings.show_heading | default: true
+%}
+{% liquid
+  assign grid_columns = section.settings.grid_columns | default: 4
+  assign show_heading = section.settings.show_heading | default: true
+%}
 <section 
   class="navigation-matrix" 
   data-section-id="{{ section.id }}"
