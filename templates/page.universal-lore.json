@@ -55,7 +55,7 @@
       ]
     },
     "loader": {
-      "type": "universal_lore_loader",
+      "type": "universal_gkgktlore_loader",
       "settings": {}
     },
     "hero": {
