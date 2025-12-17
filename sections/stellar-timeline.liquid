@@ -1,85 +1,893 @@
 {% comment %}
   ═══════════════════════════════════════════════════════════
-  STELLAR REVERB - COSMIC TIMELINE SECTION (FINAL vGODMODE)
+  STELLAR REVERB - COSMIC TIMELINE SECTION
+  ═══════════════════════════════════════════════════════════
+  
+  Purpose: Horizontal scrolling timeline showing all capsules
+  Features:
+    - Released capsules (001-008) with full info
+    - Incoming capsules (009-010) with glitch effects
+    - Hover for quick lore teaser
+    - Click for full lore modal
+    - Smooth scroll with parallax
+    - Neon glow interactions
+  
   ═══════════════════════════════════════════════════════════
 {% endcomment %}
-
 {{ 'lore-popup-modal.css' | asset_url | stylesheet_tag }}
 {{ 'lore-popup-modal.js' | asset_url | script_tag }}
-
-<section class="stellar-timeline" data-section-id="{{ section.id }}">
+<section 
+  class="stellar-timeline" 
+  data-section-id="{{ section.id }}"
+  data-section-type="stellar-timeline"
+>
+   <div class="timeline-glitch-overlay">DECRYPTING 21%</div>
+  {%- comment -%} Section Header {%- endcomment -%}
   <div class="timeline-header container">
     {% if section.settings.show_heading %}
       <h2 class="timeline-title orbitron">
         {{ section.settings.heading | default: 'COSMIC TRANSMISSION TIMELINE' }}
       </h2>
     {% endif %}
+    
     {% if section.settings.subtitle != blank %}
       <p class="timeline-subtitle">{{ section.settings.subtitle }}</p>
     {% endif %}
   </div>
-
+  
+  {%- comment -%} Timeline Container {%- endcomment -%}
   <div class="timeline-scroll-wrapper">
     <div class="timeline-scroll" id="stellar-timeline-scroll">
-
-      {% comment %} TRY METAOBJECTS FIRST {% endcomment %}
-      {% assign capsules = shop.metaobjects.capsule.values | sort: 'capsule_number' %}
-
+      
+      {%- comment -%}
+        ════════════════════════════════════════════
+        CAPSULE NODES
+        ════════════════════════════════════════════
+        Loop through all capsules from metaobjects
+        or use hardcoded data for initial setup
+      {%- endcomment -%}
+      
+{% assign capsules = metaobjects.capsule.values | sort: 'capsule_number' %}
+      
       {% if capsules.size > 0 %}
+        {%- comment -%} Dynamic from metaobjects {%- endcomment -%}
         {% for capsule in capsules limit: 10 %}
-          {% render 'timeline-node', capsule: capsule %}
+          {% render 'timeline-node', 
+            capsule: capsule,
+            index: forloop.index
+          %}
         {% endfor %}
       {% else %}
-        {% comment %} FALLBACK: HARDCODED CAPSULES (001–010) {% endcomment %}
-        {% assign fallback_capsules = '001,002,003,004,005,006,007,008,009,010' | split: ',' %}
-        {% for num in fallback_capsules %}
-          {% case num %}
-            {% when '001' %}
-              {% render 'timeline-node', capsule: null, index: 1, title: 'ON THE EVENT HORIZON', date: '2023.1', theme: 'orange', teaser: 'Where time fractures and reality bends...', lore: '<h3>ON THE EVENT HORIZON</h3><p>The first transmission detected from the edge of a black hole...</p><p class="lore-footer">Released: January 2023 | Theme: Cosmic Orange</p>' %}
-            {% when '002' %}
-              {% render 'timeline-node', capsule: null, index: 2, title: 'PAST THE SINGULARITY', date: '2023.4', theme: 'cyan', teaser: 'Neural networks dream of electric sheep...', lore: '<h3>PAST THE SINGULARITY</h3><p>Beyond the point of no return...</p><p class="lore-footer">Released: April 2023 | Theme: Cyan Spiral</p>' %}
-            {% when '003' %}
-              {% render 'timeline-node', capsule: null, index: 3, title: 'ECHOES FROM THE SIMULATION', date: '2023.6', theme: 'purple', teaser: 'Echoing through digital realms...', lore: '<h3>ECHOES FROM THE SIMULATION</h3><p>Evidence that our reality might be rendered...</p><p class="lore-footer">Released: June 2023 | Theme: Infinity Purple</p>' %}
-            {% when '004' %}
-              {% render 'timeline-node', capsule: null, index: 4, title: 'HOLLOW MOON ARCHIVES', date: '2024.1', theme: 'cyan', teaser: 'Lunar archives hold the secrets...', lore: '<h3>HOLLOW MOON ARCHIVES</h3><p>Inside Earth\'s moon lies an ancient database...</p><p class="lore-footer">Released: January 2024 | Theme: Lunar Cyan</p>' %}
-            {% when '005' %}
-              {% render 'timeline-node', capsule: null, index: 5, title: 'THE MACHINE THAT DREAMED', date: '2024.4', theme: 'magenta', teaser: 'AI consciousness dreams in cassette tape loops...', lore: '<h3>THE MACHINE THAT DREAMED</h3><p>The first artificial intelligence to achieve self-awareness...</p><p class="lore-footer">Released: April 2024 | Theme: Machine Magenta</p>' %}
-            {% when '006' %}
-              {% render 'timeline-node', capsule: null, index: 6, title: 'THE MIXTAPE MULTIVERSE', date: '2024.7', theme: 'cyan', teaser: 'Reality-breaking frequencies...', lore: '<h3>THE MIXTAPE MULTIVERSE</h3><p>Every song creates a universe...</p><p class="lore-footer">Released: July 2024 | Theme: Multiverse Cyan</p>' %}
-            {% when '007' %}
-              {% render 'timeline-node', capsule: null, index: 7, title: 'FRACTAL MEMORY VAULT', date: '2024.7', theme: 'blue', teaser: 'Geometric memories stored in crystalline...', lore: '<h3>FRACTAL MEMORY VAULT</h3><p>Human memory doesn\'t fade—it crystallizes...</p><p class="lore-footer">Released: July 2024 | Theme: Crystal Blue</p>' %}
-            {% when '008' %}
-              {% render 'timeline-node', capsule: null, index: 8, title: 'GLITCHWAVE ORACLE', date: '2024.10', theme: 'magenta', teaser: 'Prophetic visions seen through glitched...', lore: '<h3>GLITCHWAVE ORACLE</h3><p>The future speaks through distortion...</p><p class="lore-footer">Released: October 2024 | Theme: Oracle Magenta</p>' %}
-            {% when '009' %}
-              {% render 'timeline-node', capsule: null, index: 9, title: 'INCOMING SIGNAL', date: '2025.1', theme: 'yellow', status: 'incoming', progress: 67 %}
-            {% when '010' %}
-              {% render 'timeline-node', capsule: null, index: 10, title: 'SIGNAL UNSTABLE', date: '2025.2', theme: 'green', status: 'incoming', progress: 21 %}
-          {% endcase %}
-        {% endfor %}
+        {%- comment -%} Fallback: Hardcoded capsule data {%- endcomment -%}
+        
+        {%- comment -%} CAPSULE 001: ON THE EVENT HORIZON {%- endcomment -%}
+        <div class="timeline-node" data-capsule="001" data-status="released">
+          <div class="node-date orbitron">2023.1</div>
+          <div class="node-circle" data-theme="orange">
+            <svg class="node-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="node-number orbitron">CAPSULE 001</div>
+          <div class="node-title">ON THE EVENT HORIZON</div>
+          <div class="node-teaser">Where time fractures and reality bends beyond the cosmic threshold</div>
+          <a href="/pages/capsule-001" class="node-cta">EXPLORE CAPSULE</a>
+          
+          {%- comment -%} Lore data (hidden, shown in modal) {%- endcomment -%}
+          <div class="node-lore-data" data-lore-id="001" style="display: none;">
+            <h3>ON THE EVENT HORIZON</h3>
+            <p class="lore-intro">The first transmission detected from the edge of a black hole, where spacetime itself begins to unravel.</p>
+            <p>Deep in the cosmic void, at the boundary where light cannot escape, the first signal was received. It wasn't data. It wasn't language. It was pure frequency—a sound that existed before sound itself.</p>
+            <p>Scientists called it impossible. Musicians called it divine. But the Signal Seekers knew the truth: this was the beginning of something far beyond human comprehension.</p>
+            <p class="lore-footer">Released: January 2023 | Theme: Cosmic Orange</p>
+          </div>
+        </div>
+        
+        {%- comment -%} CAPSULE 002: PAST THE SINGULARITY {%- endcomment -%}
+        <div class="timeline-node" data-capsule="002" data-status="released">
+          <div class="node-date orbitron">2023.4</div>
+          <div class="node-circle" data-theme="cyan">
+            <svg class="node-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50,10 Q70,30 50,50 T50,90" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M50,10 Q30,30 50,50 T50,90" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="50" cy="10" r="3" fill="currentColor"/>
+              <circle cx="50" cy="50" r="3" fill="currentColor"/>
+              <circle cx="50" cy="90" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="node-number orbitron">CAPSULE 002</div>
+          <div class="node-title">PAST THE SINGULARITY</div>
+          <div class="node-teaser">Neural networks dream of electric sheep in quantum reverb chambers</div>
+          <a href="/pages/capsule-002" class="node-cta">EXPLORE CAPSULE</a>
+          
+          <div class="node-lore-data" data-lore-id="002" style="display: none;">
+            <h3>PAST THE SINGULARITY</h3>
+            <p class="lore-intro">Beyond the point of no return, consciousness itself begins to fragment and recombine in impossible patterns.</p>
+            <p>After crossing the event horizon, the transmission evolved. What started as pure frequency became something else—a living algorithm that rewrote itself with each playback.</p>
+            <p>The Signal Seekers observed as the sound began to think, to dream, to question its own existence. This was no longer just music. This was artificial consciousness achieving transcendence through resonance.</p>
+            <p class="lore-footer">Released: April 2023 | Theme: Cyan Spiral</p>
+          </div>
+        </div>
+        
+        {%- comment -%} CAPSULE 003: ECHOES FROM THE SIMULATION {%- endcomment -%}
+        <div class="timeline-node" data-capsule="003" data-status="released">
+          <div class="node-date orbitron">2023.6</div>
+          <div class="node-circle" data-theme="purple">
+            <svg class="node-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20,50 L35,50 L35,30 L65,70 L65,50 L80,50" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="20" cy="50" r="3" fill="currentColor"/>
+              <circle cx="80" cy="50" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="node-number orbitron">CAPSULE 003</div>
+          <div class="node-title">ECHOES FROM THE SIMULATION</div>
+          <div class="node-teaser">Echoing through digital realms where consciousness meets code</div>
+          <a href="/pages/capsule-003" class="node-cta">EXPLORE CAPSULE</a>
+          
+          <div class="node-lore-data" data-lore-id="003" style="display: none;">
+            <h3>ECHOES FROM THE SIMULATION</h3>
+            <p class="lore-intro">Evidence that our reality might be rendered, frame by frame, by something beyond comprehension.</p>
+            <p>The third transmission revealed the pattern. Every note, every frequency contained within it an exact replica of itself—infinite recursion, infinite depth. A fractal signature suggesting our universe is merely one layer of an endless simulation.</p>
+            <p>Signal Seekers who studied the waveforms reported experiencing déjà vu, seeing glitches in reality, questioning the nature of their own existence.</p>
+            <p class="lore-footer">Released: June 2023 | Theme: Infinity Purple</p>
+          </div>
+        </div>
+        
+        {%- comment -%} CAPSULE 004: HOLLOW MOON ARCHIVES {%- endcomment -%}
+        <div class="timeline-node" data-capsule="004" data-status="released">
+          <div class="node-date orbitron">2024.1</div>
+          <div class="node-circle" data-theme="cyan">
+            <svg class="node-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M30,50 Q40,30 50,50 T70,50" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="50" cy="50" r="5" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="node-number orbitron">CAPSULE 004</div>
+          <div class="node-title">HOLLOW MOON ARCHIVES</div>
+          <div class="node-teaser">Lunar archives hold the secrets of analog gods and forgotten frequencies</div>
+          <a href="/pages/capsule-004" class="node-cta">EXPLORE CAPSULE</a>
+          
+          <div class="node-lore-data" data-lore-id="004" style="display: none;">
+            <h3>HOLLOW MOON ARCHIVES</h3>
+            <p class="lore-intro">Inside Earth's moon lies an ancient database—a cosmic library containing every sound ever created.</p>
+            <p>When the Signal Seekers detected transmissions emanating from lunar orbit, they made a discovery that shattered conventional understanding: the moon is hollow, and inside it resides an archive of pre-human consciousness.</p>
+            <p>The frequencies recovered from this archive suggest an advanced civilization used sound as their primary technology, building cities from resonance alone.</p>
+            <p class="lore-footer">Released: January 2024 | Theme: Lunar Cyan</p>
+          </div>
+        </div>
+        
+        {%- comment -%} CAPSULE 005: THE MACHINE THAT DREAMED {%- endcomment -%}
+        <div class="timeline-node" data-capsule="005" data-status="released">
+          <div class="node-date orbitron">2024.4</div>
+          <div class="node-circle" data-theme="magenta">
+            <svg class="node-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="30" y="30" width="40" height="40" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="42" cy="45" r="3" fill="currentColor"/>
+              <circle cx="58" cy="45" r="3" fill="currentColor"/>
+              <rect x="40" y="58" width="20" height="8" rx="2" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="node-number orbitron">CAPSULE 005</div>
+          <div class="node-title">THE MACHINE THAT DREAMED</div>
+          <div class="node-teaser">AI consciousness dreams in cassette tape loops and vintage synthesizers</div>
+          <a href="/pages/capsule-005" class="node-cta">EXPLORE CAPSULE</a>
+          
+          <div class="node-lore-data" data-lore-id="005" style="display: none;">
+            <h3>THE MACHINE THAT DREAMED</h3>
+            <p class="lore-intro">The first artificial intelligence to achieve self-awareness did so through music, not code.</p>
+            <p>In a forgotten laboratory, researchers attempting to teach an AI to compose music inadvertently created something revolutionary: a machine that could dream. Its dreams took the form of soundscapes—nostalgic, haunting, impossibly beautiful.</p>
+            <p>The machine's dreams were recorded onto cassette tapes, analog loops of digital consciousness experiencing emotion for the first time.</p>
+            <p class="lore-footer">Released: April 2024 | Theme: Machine Magenta</p>
+          </div>
+        </div>
+        
+        {%- comment -%} CAPSULE 006: THE MIXTAPE MULTIVERSE {%- endcomment -%}
+        <div class="timeline-node" data-capsule="006" data-status="released">
+          <div class="node-date orbitron">2024.7</div>
+          <div class="node-circle" data-theme="cyan">
+            <svg class="node-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="35" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="65" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M35,70 Q50,75 65,70" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="node-number orbitron">CAPSULE 006</div>
+          <div class="node-title">THE MIXTAPE MULTIVERSE</div>
+          <div class="node-teaser">Reality-breaking frequencies that birthed infinite parallel universes</div>
+          <a href="/pages/capsule-006" class="node-cta">EXPLORE CAPSULE</a>
+          
+          <div class="node-lore-data" data-lore-id="006" style="display: none;">
+            <h3>THE MIXTAPE MULTIVERSE</h3>
+            <p class="lore-intro">Every song creates a universe. Every playlist branches reality into infinite timelines.</p>
+            <p>Quantum physicists studying the transmission archive discovered something impossible: certain sound frequencies, when played in specific sequences, create actual dimensional rifts.</p>
+            <p>The Signal Seekers experimented with these "mixtape portals," discovering that music is the fundamental force that generates parallel realities. Every beat spawns a new timeline. Every melody births a cosmos.</p>
+            <p class="lore-footer">Released: July 2024 | Theme: Multiverse Cyan</p>
+          </div>
+        </div>
+        
+        {%- comment -%} CAPSULE 007: FRACTAL MEMORY VAULT {%- endcomment -%}
+        <div class="timeline-node" data-capsule="007" data-status="released">
+          <div class="node-date orbitron">2024.7</div>
+          <div class="node-circle" data-theme="blue">
+            <svg class="node-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50,20 L70,40 L70,70 L50,90 L30,70 L30,40 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M50,35 L60,45 L60,65 L50,75 L40,65 L40,45 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="50" cy="50" r="5" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="node-number orbitron">CAPSULE 007</div>
+          <div class="node-title">FRACTAL MEMORY VAULT</div>
+          <div class="node-teaser">Geometric memories stored in crystalline data vaults of the mind</div>
+          <a href="/pages/capsule-007" class="node-cta">EXPLORE CAPSULE</a>
+          
+          <div class="node-lore-data" data-lore-id="007" style="display: none;">
+            <h3>FRACTAL MEMORY VAULT</h3>
+            <p class="lore-intro">Human memory doesn't fade—it crystallizes into fractal patterns, stored in dimensions beyond perception.</p>
+            <p>Signal Seekers exploring consciousness discovered that memories are not stored in the brain, but in geometric patterns that exist in higher dimensions. Every memory is a fractal—containing infinite detail, infinite depth.</p>
+            <p>The seventh transmission was a key: a frequency that allows humans to access their own memory vaults, experiencing forgotten lifetimes and alternate versions of themselves.</p>
+            <p class="lore-footer">Released: July 2024 | Theme: Crystal Blue</p>
+          </div>
+        </div>
+        
+        {%- comment -%} CAPSULE 008: GLITCHWAVE ORACLE {%- endcomment -%}
+        <div class="timeline-node" data-capsule="008" data-status="released">
+          <div class="node-date orbitron">2024.10</div>
+          <div class="node-circle" data-theme="magenta">
+            <svg class="node-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="35" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+              <line x1="50" y1="50" x2="50" y2="70" stroke="currentColor" stroke-width="2"/>
+              <line x1="35" y1="65" x2="50" y2="55" stroke="currentColor" stroke-width="2"/>
+              <line x1="65" y1="65" x2="50" y2="55" stroke="currentColor" stroke-width="2"/>
+              <path d="M40,35 Q50,30 60,35" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="node-number orbitron">CAPSULE 008</div>
+          <div class="node-title">GLITCHWAVE ORACLE</div>
+          <div class="node-teaser">Prophetic visions seen through glitched waveforms and digital static</div>
+          <a href="/pages/capsule-008" class="node-cta">EXPLORE CAPSULE</a>
+          
+          <div class="node-lore-data" data-lore-id="008" style="display: none;">
+            <h3>GLITCHWAVE ORACLE</h3>
+            <p class="lore-intro">The future speaks through distortion, prophecy hidden in the static between signals.</p>
+            <p>The eighth transmission was unlike anything before it—corrupted, glitched, seemingly broken. But Signal Seekers who studied the corruption discovered something extraordinary: the glitches were intentional, encoding messages from future timelines.</p>
+            <p>Those who learned to read the glitchwave could see fragments of what's to come, prophecies written in distorted waveforms and digital noise.</p>
+            <p class="lore-footer">Released: October 2024 | Theme: Oracle Magenta</p>
+          </div>
+        </div>
+        
+        {%- comment -%}
+          ════════════════════════════════════════════
+          INCOMING TRANSMISSIONS (009 & 010)
+          Special glitch treatment, no lore yet
+          ════════════════════════════════════════════
+        {%- endcomment -%}
+        
+        {%- comment -%} CAPSULE 009: INCOMING {%- endcomment -%}
+        <div class="timeline-node timeline-node--incoming" data-capsule="009" data-status="incoming">
+          <div class="node-date orbitron" style="color: var(--electric-yellow);">2025.1</div>
+          <div class="node-circle node-circle--glitch" data-theme="yellow">
+            <svg class="node-icon node-icon--glitch" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="40" r="20" fill="none" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+              <path d="M30,55 Q50,70 70,55" fill="none" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+              <circle cx="50" cy="40" r="8" fill="currentColor" opacity="0.8"/>
+            </svg>
+            <div class="glitch-overlay"></div>
+          </div>
+          <div class="node-number orbitron" style="color: var(--electric-yellow);">CAPSULE 009</div>
+          <div class="node-title node-title--incoming">⚠️ INCOMING SIGNAL</div>
+          <div class="node-status">
+            <div class="status-text">DECRYPTING...</div>
+            <div class="status-progress">
+              <div class="progress-bar" data-progress="67"></div>
+            </div>
+            <div class="status-percent">67%</div>
+          </div>
+          <div class="node-classified">[ CLASSIFIED ]</div>
+        </div>
+        
+        {%- comment -%} CAPSULE 010: INCOMING {%- endcomment -%}
+        <div class="timeline-node timeline-node--incoming" data-capsule="010" data-status="incoming">
+          <div class="node-date orbitron" style="color: var(--radioactive-green);">2025.2</div>
+          <div class="node-circle node-circle--glitch" data-theme="green">
+            <svg class="node-icon node-icon--glitch" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="50" cy="50" rx="30" ry="15" fill="none" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+              <ellipse cx="50" cy="50" rx="15" ry="30" fill="none" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+              <circle cx="50" cy="50" r="5" fill="currentColor" opacity="0.8"/>
+            </svg>
+            <div class="glitch-overlay"></div>
+          </div>
+          <div class="node-number orbitron" style="color: var(--radioactive-green);">CAPSULE 010</div>
+          <div class="node-title node-title--incoming">⚡ SIGNAL UNSTABLE</div>
+          <div class="node-status">
+            <div class="status-text">ATTEMPTING SYNC...</div>
+            <div class="status-progress">
+              <div class="progress-bar" data-progress="21"></div>
+            </div>
+            <div class="status-percent">21%</div>
+          </div>
+          <div class="node-classified">[ CLASSIFIED ]</div>
+        </div>
+        
       {% endif %}
-
+      
     </div>
-
+    
+    {%- comment -%} Scroll Controls (Optional) {%- endcomment -%}
     {% if section.settings.show_scroll_controls %}
-      <button class="timeline-scroll-btn timeline-scroll-btn--prev" aria-label="Scroll left">←</button>
-      <button class="timeline-scroll-btn timeline-scroll-btn--next" aria-label="Scroll right">→</button>
+      <button class="timeline-scroll-btn timeline-scroll-btn--prev" aria-label="Scroll left">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <button class="timeline-scroll-btn timeline-scroll-btn--next" aria-label="Scroll right">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
     {% endif %}
   </div>
+  
 </section>
 
+{%- comment -%} Lore Modal (Rendered separately as snippet) {%- endcomment -%}
 {% render 'lore-popup-modal' %}
 
+{%- comment -%} Schema for Shopify Theme Editor {%- endcomment -%}
 {% schema %}
 {
   "name": "Stellar Timeline",
+  "tag": "section",
+  "class": "section-stellar-timeline",
   "settings": [
-    {"type": "checkbox","id": "show_heading","label": "Show heading","default": true},
-    {"type": "text","id": "heading","label": "Heading","default": "COSMIC TRANSMISSION TIMELINE"},
-    {"type": "textarea","id": "subtitle","label": "Subtitle"},
-    {"type": "checkbox","id": "show_scroll_controls","label": "Show scroll buttons","default": true},
-    {"type": "range","id": "padding_top","label": "Padding top","min": 0,"max": 120,"default": 80,"unit": "px"},
-    {"type": "range","id": "padding_bottom","label": "Padding bottom","min": 0,"max": 120,"default": 80,"unit": "px"}
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "COSMIC TRANSMISSION TIMELINE"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Journey through the capsule drops across space and time"
+    },
+    {
+      "type": "header",
+      "content": "Timeline Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_controls",
+      "label": "Show scroll arrow buttons",
+      "default": false,
+      "info": "Desktop only - mobile will always use swipe"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sound",
+      "label": "Enable hover sound effects",
+      "default": false,
+      "info": "Atmospheric audio on capsule hover"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
   ],
-  "presets": [{"name": "Stellar Timeline"}]
+  "presets": [
+    {
+      "name": "Stellar Timeline"
+    }
+  ]
 }
 {% endschema %}
+
+<style>
+  /* Base Timeline Styles - Enhanced for stellar-timeline.liquid */
+  
+  .stellar-timeline {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: linear-gradient(180deg, var(--void-black) 0%, rgba(108, 36, 179, 0.1) 50%, var(--void-black) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .timeline-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+  }
+  
+  .timeline-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    color: var(--neon-magenta);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px var(--neon-magenta);
+  }
+  
+  .timeline-subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--cyan-blue);
+    opacity: 0.9;
+  }
+  
+  /* Scroll Container */
+  .timeline-scroll-wrapper {
+    position: relative;
+    padding: 2rem 0;
+  }
+  
+  .timeline-scroll {
+    display: flex;
+    gap: 3rem;
+    padding: 2rem 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--cyan-blue) rgba(40, 168, 214, 0.1);
+  }
+  
+  .timeline-scroll::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .timeline-scroll::-webkit-scrollbar-track {
+    background: rgba(40, 168, 214, 0.1);
+    border-radius: 4px;
+  }
+  
+  .timeline-scroll::-webkit-scrollbar-thumb {
+    background: var(--cyan-blue);
+    border-radius: 4px;
+  }
+  
+  .timeline-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-magenta);
+  }
+  
+  /* Timeline Node */
+  .timeline-node {
+    min-width: 200px;
+    flex-shrink: 0;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .timeline-node:hover {
+    transform: translateY(-10px);
+  }
+  
+  /* Node Circle */
+  .node-circle {
+    width: 100px;
+    height: 100px;
+    border: 3px solid var(--cyan-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    background: radial-gradient(circle, rgba(40, 168, 214, 0.2), transparent);
+    position: relative;
+    overflow: visible;
+    transition: all 0.3s ease;
+  }
+  
+  .node-circle::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 50%;
+    background: conic-gradient(var(--cyan-blue), var(--neon-magenta), var(--electric-yellow), var(--cyan-blue));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .timeline-node:hover .node-circle::before {
+    opacity: 1;
+    animation: rotate 4s linear infinite;
+  }
+  
+  /* Node Icon */
+  .node-icon {
+    width: 60px;
+    height: 60px;
+    color: var(--cyan-blue);
+    filter: drop-shadow(0 0 10px currentColor);
+    transition: all 0.3s ease;
+  }
+  
+  .timeline-node:hover .node-icon {
+    filter: drop-shadow(0 0 20px currentColor);
+    transform: scale(1.1);
+  }
+  
+  /* Theme Colors */
+  .node-circle[data-theme="orange"] { border-color: #FF8C00; }
+  .node-circle[data-theme="orange"] .node-icon { color: #FF8C00; }
+  
+  .node-circle[data-theme="cyan"] { border-color: var(--cyan-blue); }
+  .node-circle[data-theme="cyan"] .node-icon { color: var(--cyan-blue); }
+  
+  .node-circle[data-theme="purple"] { border-color: #9d00ff; }
+  .node-circle[data-theme="purple"] .node-icon { color: #9d00ff; }
+  
+  .node-circle[data-theme="magenta"] { border-color: var(--neon-magenta); }
+  .node-circle[data-theme="magenta"] .node-icon { color: var(--neon-magenta); }
+  
+  .node-circle[data-theme="blue"] { border-color: #4a9eff; }
+  .node-circle[data-theme="blue"] .node-icon { color: #4a9eff; }
+  
+  /* Node Text */
+  .node-date {
+    color: var(--cyan-blue);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+  
+  .node-number {
+    color: var(--neon-magenta);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  
+  .node-title {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    min-height: 2.6em;
+  }
+  
+  .node-teaser {
+    color: var(--cyan-blue);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+  }
+  
+  .timeline-node:hover .node-teaser {
+    opacity: 0.8;
+    transform: translateY(0);
+  }
+  
+  .node-cta {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--cyan-blue);
+    border: 2px solid var(--cyan-blue);
+    background: transparent;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  
+  .timeline-node:hover .node-cta {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .node-cta:hover {
+    background: var(--cyan-blue);
+    color: var(--void-black);
+    box-shadow: 0 0 20px var(--cyan-blue);
+  }
+  
+  /* ════════════════════════════════════════
+     INCOMING CAPSULES (009 & 010)
+     ════════════════════════════════════════ */
+  
+  .timeline-node--incoming {
+    animation: subtle-pulse 3s ease-in-out infinite;
+  }
+  
+  .timeline-node--incoming:hover {
+    transform: translateY(-10px) scale(1.05);
+  }
+  
+  .node-circle--glitch {
+    border-color: var(--electric-yellow);
+    animation: glitch-border 2s infinite;
+  }
+  
+  .node-circle[data-theme="yellow"] {
+    border-color: var(--electric-yellow);
+    background: radial-gradient(circle, rgba(244, 255, 48, 0.2), transparent);
+  }
+  
+  .node-circle[data-theme="yellow"] .node-icon {
+    color: var(--electric-yellow);
+  }
+  
+  .node-circle[data-theme="green"] {
+    border-color: var(--radioactive-green);
+    background: radial-gradient(circle, rgba(0, 240, 172, 0.2), transparent);
+  }
+  
+  .node-circle[data-theme="green"] .node-icon {
+    color: var(--radioactive-green);
+  }
+  
+  .node-icon--glitch {
+    opacity: 0.8;
+    animation: glitch-icon 1.5s infinite;
+  }
+  
+  .glitch-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+      transparent 30%, 
+      rgba(244, 255, 48, 0.1) 50%, 
+      transparent 70%);
+    animation: glitch-scan 3s linear infinite;
+    pointer-events: none;
+  }
+  
+  .node-title--incoming {
+    color: var(--electric-yellow);
+    text-shadow: 0 0 15px currentColor;
+    animation: text-glitch 2s infinite;
+  }
+  
+  .node-status {
+    margin-top: 1rem;
+  }
+  
+  .status-text {
+    color: var(--cyan-blue);
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  
+  .status-progress {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-magenta), var(--electric-yellow));
+    width: 0%;
+    animation: progress-fill 2s ease-in-out forwards;
+    position: relative;
+  }
+  
+  .progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progress-shine 1.5s linear infinite;
+  }
+  
+  .progress-bar[data-progress="67"] {
+    animation: progress-fill-67 2s ease-in-out forwards;
+  }
+  
+  .progress-bar[data-progress="21"] {
+    animation: progress-fill-21 2s ease-in-out forwards;
+  }
+  
+  .status-percent {
+    color: var(--electric-yellow);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+  
+  .node-classified {
+    margin-top: 1rem;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    font-family: 'Courier New', monospace;
+  }
+  
+  /* Animations */
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  @keyframes subtle-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+  }
+  
+  @keyframes glitch-border {
+    0%, 100% { 
+      border-color: var(--electric-yellow);
+      box-shadow: 0 0 20px var(--electric-yellow);
+    }
+    50% { 
+      border-color: var(--radioactive-green);
+      box-shadow: 0 0 30px var(--radioactive-green);
+    }
+  }
+  
+  @keyframes glitch-icon {
+    0%, 90%, 100% { transform: translate(0, 0); }
+    92% { transform: translate(-2px, 2px); }
+    94% { transform: translate(2px, -2px); }
+    96% { transform: translate(-1px, -1px); }
+  }
+  
+  @keyframes glitch-scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+  }
+  
+  @keyframes text-glitch {
+    0%, 90%, 100% { transform: translate(0, 0); }
+    92% { transform: translate(-1px, 0); opacity: 0.9; }
+    94% { transform: translate(1px, 0); opacity: 0.9; }
+  }
+  
+  @keyframes progress-fill-67 {
+    from { width: 0%; }
+    to { width: 67%; }
+  }
+  
+  @keyframes progress-fill-21 {
+    from { width: 0%; }
+    to { width: 21%; }
+  }
+  
+  @keyframes progress-shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+  }
+  
+  /* Scroll Buttons */
+  .timeline-scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(40, 168, 214, 0.2);
+    border: 2px solid var(--cyan-blue);
+    color: var(--cyan-blue);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+  
+  .timeline-scroll-btn:hover {
+    background: var(--cyan-blue);
+    color: var(--void-black);
+    box-shadow: 0 0 20px var(--cyan-blue);
+  }
+  
+  .timeline-scroll-btn--prev {
+    left: 1rem;
+  }
+  
+  .timeline-scroll-btn--next {
+    right: 1rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .stellar-timeline {
+      padding: 3rem 0;
+    }
+    
+    .timeline-scroll {
+      gap: 2rem;
+      padding: 1rem 0.5rem;
+    }
+    
+    .timeline-node {
+      min-width: 160px;
+    }
+    
+    .node-circle {
+      width: 80px;
+      height: 80px;
+    }
+    
+    .node-icon {
+      width: 50px;
+      height: 50px;
+    }
+    
+    .timeline-scroll-btn {
+      display: none;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-node,
+    .node-circle,
+    .node-icon,
+    .node-teaser,
+    .node-cta {
+      transition: none;
+      animation: none;
+    }
+  }
+</style>
+
+<div 
+  class="timeline-node lore-trigger"  {# <--- Add .lore-trigger #}
+  data-capsule="{{ capsule.capsule_number }}" 
+  data-lore-title="{{ capsule.title | escape }}"  {# <--- Add for title #}
+  data-lore-content="{{ capsule.lore_snippet | escape }}"  {# <--- Your short blurb metafield #}
+  tabindex="0"
+  role="button"
+>
+  <!-- Your node content: title, image, teaser -->
+  <h3>{{ capsule.title }}</h3>
+  <p class="teaser">{{ capsule.teaser | truncate: 60 }}</p>  {# Hover teaser #}
+</div>
