@@ -1,13 +1,13 @@
- {{ 'hero-decoding-enhancements.css' | asset_url | stylesheet_tag }}
-/* HERO · DECODING TERMINAL
-   Uses brand font vars:
-   --font-title, --font-body, --font-accent
-*/
+{{ 'hero-decoding.css' | asset_url | stylesheet_tag }}
+{{ 'hero-decoding-enhancements.css' | asset_url | stylesheet_tag }}
+{% comment %}
+  HERO DECODING · TERMINAL-STYLE HERO
+{% endcomment %}
+
 <section
-  {{ 'hero-decoding.css' | asset_url | stylesheet_tag }}
   id="hero-decoding-{{ section.id }}"
   class="hero-decoding hero-decoding-section"
-  style=" 
+  style="
     {% if section.settings.hero_background != blank %}
       --hero-bg-image: url({{ section.settings.hero_background | image_url: width: 2400 }});
     {% endif %}
