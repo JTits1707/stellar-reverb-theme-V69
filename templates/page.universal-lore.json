@@ -1,7 +1,7 @@
- { 
+{ 
 "sections": {
     "navigation": {
-      "type": "universal-lore-navigation",
+      "type": "universal_lore_navigation",
       "settings": {
         "brand_name": "STELLAR REVERB"
       },
@@ -104,4 +104,4 @@
     "signal-feed",
     "konami-modal"
   ]
-}
+  }
