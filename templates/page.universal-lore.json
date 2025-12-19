@@ -1,5 +1,5 @@
-{ 
-"sections": {
+{
+  "sections": {
     "navigation": {
       "type": "universal_lore_navigation",
       "settings": {
@@ -18,32 +18,32 @@
           "type": "nav_link",
           "settings": {
             "label": "TIMELINE",
-            "link": "#lore_timeline",
-            "section_id": "lore_timeline"
+            "link": "#timeline",
+            "section_id": "timeline"
           }
         },
         "nav_link_3": {
           "type": "nav_link",
           "settings": {
             "label": "VAULT",
-            "link": "#lore_vault",
-            "section_id": "lore_vault"
+            "link": "#vault",
+            "section_id": "vault"
           }
         },
         "nav_link_4": {
           "type": "nav_link",
           "settings": {
             "label": "SIGNALS",
-            "link": "#lore_signals",
-            "section_id": "lore_signals"
+            "link": "#signals",
+            "section_id": "signals"
           }
         },
         "nav_link_5": {
           "type": "nav_link",
           "settings": {
             "label": "MYTH",
-            "link": "#lore_myth",
-            "section_id": "lore_myth"
+            "link": "#myth",
+            "section_id": "myth"
           }
         }
       },
