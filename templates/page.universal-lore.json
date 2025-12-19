@@ -101,7 +101,7 @@
     "vault",
     "signals",
     "signup",
-    "signal-feed",
-    "konami-modal"
+    "signal_feed",
+    "konami_modal"
   ]
 }
