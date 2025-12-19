@@ -1,0 +1,76 @@
+{
+  "name": "Transmission Archive V3.0",
+  "sections": {
+    "fomo_countdown": {
+      "type": "stellar-fomo-countdown",
+      "settings": {
+        "countdown_date": "2025-01-15T23:59:59",
+        "stock_remaining": 7,
+        "urgency_message": "ONLY [X] ECHOES REMAIN"
+      }
+    },
+    "stellar_hero": {
+      "type": "stellar-archive-hero-corrected",
+      "settings": {
+        "featured_capsule_number": "001"
+      }
+    },
+    "oracle_teaser": {
+      "type": "stellar-oracle-teaser",
+      "settings": {
+        "trigger_probability": 15,
+        "trigger_on": "scroll"
+      }
+    },
+    "transmission_grid": {
+      "type": "stellar-transmission-grid-corrected",
+      "settings": {
+        "grid_columns": 3,
+        "enable_filters": true
+      }
+    },
+    "lore_accordion": {
+      "type": "stellar-lore-accordion",
+      "blocks": {
+        "lore_node_1": {
+          "type": "lore_node",
+          "settings": {
+            "title": "THE FIRST TRANSMISSION",
+            "content": "<p>Sample lore text...</p>"
+          }
+        }
+      }
+    },
+    "signal_feed": {
+      "type": "stellar-transmission-signals"
+    },
+    "ar_portal": {
+      "type": "stellar-ar-portal"
+    },
+    "rift_signup": {
+      "type": "stellar-rift-signup"
+    },
+    "mixtape_player": {
+      "type": "stellar-mixtape-player",
+      "blocks": {
+        "track_1": {
+          "type": "track",
+          "settings": {
+            "track_name": "VOID FREQUENCIES"
+          }
+        }
+      }
+    }
+  },
+  "order": [
+    "fomo_countdown",
+    "stellar_hero",
+    "oracle_teaser",
+    "transmission_grid",
+    "lore_accordion",
+    "signal_feed",
+    "ar_portal",
+    "rift_signup",
+    "mixtape_player"
+  ]
+}

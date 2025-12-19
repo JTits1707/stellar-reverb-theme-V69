@@ -1,0 +1,556 @@
+{% comment %}
+  STELLAR REVERB - FOMO Countdown (Urgency Waveform Pulse)
+  Ticking timer banner/hero overlay with low-stock pulse
+  "Only X echoes remain" – Supreme-level hype, cosmic style
+{% endcomment %}
+
+{% liquid
+  assign target_date = section.settings.countdown_date
+  assign low_stock_threshold = section.settings.low_stock_threshold
+  assign stock_remaining = section.settings.stock_remaining
+  assign urgency_message = section.settings.urgency_message
+  assign show_low_stock = false
+  
+  if stock_remaining <= low_stock_threshold and stock_remaining > 0
+    assign show_low_stock = true
+  endif
+%}
+
+<section 
+  class="stellar-fomo-countdown"
+  data-section-id="{{ section.id }}"
+  data-countdown-target="{{ target_date }}"
+  data-stock="{{ stock_remaining }}"
+  style="--fomo-color: {{ section.settings.fomo_color }};">
+
+  <div class="fomo-container">
+    
+    {%- if section.settings.show_waveform -%}
+      <div class="fomo-waveform" aria-hidden="true">
+        <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+          <path class="wave-1" d="M0,30 Q300,10 600,30 T1200,30" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+          <path class="wave-2" d="M0,30 Q300,50 600,30 T1200,30" fill="none" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+        </svg>
+      </div>
+    {%- endif -%}
+
+    <div class="fomo-content">
+      
+      {%- if section.settings.enable_countdown and target_date != blank -%}
+        <div class="fomo-timer" data-fomo-timer>
+          {%- if section.settings.timer_label != blank -%}
+            <span class="timer-label">{{ section.settings.timer_label }}</span>
+          {%- endif -%}
+          
+          <div class="timer-digits" data-countdown-display>
+            <div class="digit-group">
+              <span class="digit-value" data-days>00</span>
+              <span class="digit-label">DAYS</span>
+            </div>
+            <span class="digit-separator">:</span>
+            <div class="digit-group">
+              <span class="digit-value" data-hours>00</span>
+              <span class="digit-label">HRS</span>
+            </div>
+            <span class="digit-separator">:</span>
+            <div class="digit-group">
+              <span class="digit-value" data-minutes>00</span>
+              <span class="digit-label">MIN</span>
+            </div>
+            <span class="digit-separator">:</span>
+            <div class="digit-group">
+              <span class="digit-value" data-seconds>00</span>
+              <span class="digit-label">SEC</span>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if show_low_stock -%}
+        <div class="fomo-stock-pulse" data-stock-pulse>
+          <div class="pulse-bar" style="--stock-percent: {{ stock_remaining | times: 100 | divided_by: low_stock_threshold }}%">
+            <div class="pulse-fill"></div>
+            <div class="pulse-glow"></div>
+          </div>
+          <span class="stock-text glitch-text" data-text="{{ urgency_message }}">
+            {{ urgency_message | replace: '[X]', stock_remaining }}
+          </span>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.cta_text != blank and section.settings.cta_url != blank -%}
+        <a href="{{ section.settings.cta_url }}" class="fomo-cta">
+          {{ section.settings.cta_text }}
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M1 8h14M9 2l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </a>
+      {%- endif -%}
+
+    </div>
+
+    {%- if section.settings.show_particles -%}
+      <div class="fomo-particles" aria-hidden="true">
+        {%- for i in (1..8) -%}
+          <div class="particle" style="--delay: {{ i | times: 0.2 }}s; --x: {{ i | times: 12 }}%;"></div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+
+</section>
+
+<style>
+.stellar-fomo-countdown {
+  position: relative;
+  background: linear-gradient(135deg, #000 0%, #1a0028 100%);
+  border-top: 1px solid var(--fomo-color, #00FF88);
+  border-bottom: 1px solid var(--fomo-color, #00FF88);
+  overflow: hidden;
+  padding: 1.5rem 1rem;
+  font-family: 'Orbitron', monospace;
+}
+
+.fomo-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.fomo-waveform {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  color: var(--fomo-color, #00FF88);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.fomo-waveform .wave-1,
+.fomo-waveform .wave-2 {
+  animation: waveFlow 8s ease-in-out infinite;
+}
+
+.fomo-waveform .wave-2 {
+  animation-delay: 0.5s;
+}
+
+@keyframes waveFlow {
+  0%, 100% { d: path('M0,30 Q300,10 600,30 T1200,30'); }
+  50% { d: path('M0,30 Q300,50 600,30 T1200,30'); }
+}
+
+.fomo-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  text-align: center;
+}
+
+.fomo-timer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.timer-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fomo-color, #00FF88);
+  text-shadow: 0 0 10px currentColor;
+}
+
+.timer-digits {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 900;
+  color: #FFF;
+}
+
+.digit-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 3ch;
+}
+
+.digit-value {
+  font-variant-numeric: tabular-nums;
+  text-shadow: 
+    0 0 10px var(--fomo-color, #00FF88),
+    0 0 20px var(--fomo-color, #00FF88);
+  animation: digitPulse 2s ease-in-out infinite;
+}
+
+@keyframes digitPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.digit-label {
+  font-size: 0.5em;
+  letter-spacing: 0.1em;
+  color: #808080;
+  font-weight: 600;
+}
+
+.digit-separator {
+  color: var(--fomo-color, #00FF88);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+
+.fomo-stock-pulse {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 280px;
+}
+
+.pulse-bar {
+  position: relative;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pulse-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--stock-percent, 30%);
+  background: linear-gradient(90deg, #00FF88, var(--fomo-color, #00FF88));
+  border-radius: 4px;
+  animation: pulseFill 1.5s ease-in-out infinite;
+}
+
+.pulse-glow {
+  position: absolute;
+  right: calc(100% - var(--stock-percent, 30%));
+  top: -4px;
+  width: 4px;
+  height: 16px;
+  background: #00FF88;
+  box-shadow: 0 0 20px #00FF88;
+  border-radius: 2px;
+  animation: glowPulse 1s ease-in-out infinite;
+}
+
+@keyframes pulseFill {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+@keyframes glowPulse {
+  0%, 100% { 
+    box-shadow: 0 0 20px #00FF88;
+    transform: scaleY(1);
+  }
+  50% { 
+    box-shadow: 0 0 40px #00FF88;
+    transform: scaleY(1.2);
+  }
+}
+
+.stock-text {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #00FF88;
+  position: relative;
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  color: #FF006E;
+  animation: glitch1 2.5s infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.glitch-text::after {
+  color: #28A8D6;
+  animation: glitch2 2.5s infinite;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch1 {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitch2 {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(2px, -2px); }
+  40% { transform: translate(2px, 2px); }
+  60% { transform: translate(-2px, -2px); }
+  80% { transform: translate(-2px, 2px); }
+}
+
+.fomo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--fomo-color, #00FF88);
+  color: #000;
+  font-weight: 800;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px var(--fomo-color, #00FF88);
+}
+
+.fomo-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 30px var(--fomo-color, #00FF88);
+}
+
+.fomo-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  left: var(--x);
+  bottom: -10px;
+  width: 2px;
+  height: 2px;
+  background: var(--fomo-color, #00FF88);
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+  animation: particleRise 4s var(--delay, 0s) infinite;
+  opacity: 0;
+}
+
+@keyframes particleRise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .fomo-content {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .timer-digits {
+    font-size: 1.5rem;
+  }
+  
+  .digit-group {
+    min-width: 2.5ch;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const section = document.querySelector('[data-countdown-target]');
+  if (!section) return;
+
+  const targetDate = section.getAttribute('data-countdown-target');
+  if (!targetDate) return;
+
+  const target = new Date(targetDate).getTime();
+  const display = section.querySelector('[data-countdown-display]');
+  
+  if (!display) return;
+
+  const daysEl = display.querySelector('[data-days]');
+  const hoursEl = display.querySelector('[data-hours]');
+  const minutesEl = display.querySelector('[data-minutes]');
+  const secondsEl = display.querySelector('[data-seconds]');
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = target - now;
+
+    if (distance < 0) {
+      display.innerHTML = '<span class="timer-expired">TRANSMISSION COMPLETE</span>';
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+    if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+    if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+    if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+
+    requestAnimationFrame(() => setTimeout(updateCountdown, 1000));
+  }
+
+  updateCountdown();
+
+  // Stock pulse animation
+  const stockPulse = section.querySelector('[data-stock-pulse]');
+  if (stockPulse) {
+    const stock = parseInt(section.getAttribute('data-stock') || '0');
+    if (stock <= 5) {
+      stockPulse.style.animation = 'urgentPulse 0.8s ease-in-out infinite';
+    }
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "FOMO Countdown",
+  "tag": "section",
+  "class": "stellar-fomo-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Countdown Timer"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_countdown",
+      "label": "Enable Countdown",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "countdown_date",
+      "label": "Target Date/Time",
+      "info": "Format: YYYY-MM-DDTHH:MM:SS (e.g., 2024-12-31T23:59:59)",
+      "default": "2024-12-31T23:59:59"
+    },
+    {
+      "type": "text",
+      "id": "timer_label",
+      "label": "Timer Label",
+      "default": "TRANSMISSION ENDS IN"
+    },
+    {
+      "type": "header",
+      "content": "Low Stock Alert"
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "label": "Low Stock Threshold",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 10,
+      "info": "Show alert when stock is at or below this number"
+    },
+    {
+      "type": "range",
+      "id": "stock_remaining",
+      "label": "Current Stock",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 7,
+      "info": "Update this to reflect actual stock"
+    },
+    {
+      "type": "text",
+      "id": "urgency_message",
+      "label": "Urgency Message",
+      "default": "ONLY [X] ECHOES REMAIN",
+      "info": "Use [X] to display stock number"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "CLAIM YOUR ECHO"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Link"
+    },
+    {
+      "type": "header",
+      "content": "Visual Effects"
+    },
+    {
+      "type": "color",
+      "id": "fomo_color",
+      "label": "Accent Color",
+      "default": "#00FF88"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_waveform",
+      "label": "Show Background Waveform",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_particles",
+      "label": "Show Particle Effects",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "FOMO Countdown",
+      "category": "Stellar Reverb"
+    }
+  ]
+}
+{% endschema %}
