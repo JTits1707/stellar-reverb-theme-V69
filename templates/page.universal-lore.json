@@ -18,32 +18,32 @@
           "type": "nav_link",
           "settings": {
             "label": "TIMELINE",
-            "link": "#lore-timeline",
-            "section_id": "lore-timeline"
+            "link": "#lore_timeline",
+            "section_id": "lore_timeline"
           }
         },
         "nav_link_3": {
           "type": "nav_link",
           "settings": {
             "label": "VAULT",
-            "link": "#lore-vault",
-            "section_id": "lore-vault"
+            "link": "#lore_vault",
+            "section_id": "lore_vault"
           }
         },
         "nav_link_4": {
           "type": "nav_link",
           "settings": {
             "label": "SIGNALS",
-            "link": "#lore-signals",
-            "section_id": "lore-signals"
+            "link": "#lore_signals",
+            "section_id": "lore_signals"
           }
         },
         "nav_link_5": {
           "type": "nav_link",
           "settings": {
             "label": "MYTH",
-            "link": "#lore-myth",
-            "section_id": "lore-myth"
+            "link": "#lore_myth",
+            "section_id": "lore_myth"
           }
         }
       },
