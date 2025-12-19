@@ -238,6 +238,52 @@
         "background_gradient": "...",
         "show_particles": true
       }
+    },
+    "featured_capsules_UQJccL": {
+      "type": "featured-capsules",
+      "blocks": {
+        "product_jQbx7W": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_dwMa9X": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_9VtMYF": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_jQbx7W",
+        "product_dwMa9X",
+        "product_9VtMYF"
+      ],
+      "name": "Featured Capsules",
+      "settings": {
+        "eyebrow_text": "Newest Drops",
+        "eyebrow_color": "#28A8D6",
+        "eyebrow_border": "#28A8D6",
+        "eyebrow_background": "rgba(40, 168, 214, 0.2)",
+        "heading": "Featured Capsules",
+        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
+        "subheading": "Explore our latest cosmic transmissions",
+        "subtitle_color": "#FFFFFF",
+        "grid_columns": 3,
+        "image_ratio": "square",
+        "show_badges": true,
+        "show_quick_add": true,
+        "show_view_all": true,
+        "view_all_text": "View All Capsules",
+        "view_all_url": "shopify://collections/all"
+      }
     }
   },
   "order": [
@@ -247,6 +293,7 @@
     "stellar_scarcity_marquee_aQHLzd",
     "stellar_timeline_G4z9Ct",
     "floating_archive_main_zFXcRw",
+    "featured_capsules_UQJccL",
     "navigation_matrix_7Htegc",
     "homepage_almost_gone_marquee_RtwpQ6",
     "newsletter_cosmic_DXqMDB"
