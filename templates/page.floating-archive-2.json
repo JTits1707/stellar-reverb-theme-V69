@@ -22,17 +22,17 @@
         "hero_subtitle": "Sound. Style. Transmissions Of Cosmic Identity.",
         "decode_text": "DECODING: ECHO SIGNAL MATCHED.",
         "cta_text": "INITIATE SIGNAL LOCK",
-        "headline_color": "#FFFFFF",
-        "subtitle_color": "#C7D2FE",
-        "transmission_color": "#00F0AC",
-        "decode_color": "#E13CFA",
-        "cta_bg_color": "#00F0AC",
+        "headline_color": "#ffffff",
+        "subtitle_color": "#c7d2fe",
+        "transmission_color": "#00f0ac",
+        "decode_color": "#e13cfa",
+        "cta_bg_color": "#00f0ac",
         "cta_text_color": "#000000"
       }
     }
   },
   "order": [
-    "hero_cosmic_TxMWqQ",
-    "main"
+    "main",
+    "hero_cosmic_TxMWqQ"
   ]
 }
