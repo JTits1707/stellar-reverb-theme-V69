@@ -1,4 +1,6 @@
 {
+  "name": "Universal Lore",
+  "wrapper": "div#page-universal-lore.page-width",
   "sections": {
     "navigation": {
       "type": "universal-lore-navigation",
