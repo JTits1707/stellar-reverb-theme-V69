@@ -1,0 +1,179 @@
+{% comment %}
+UNIVERSAL LORE – RELIC VAULT
+Grid of capsules as "glyph" relics.
+
+Powered by capsule metaobjects:
+- Uses signal_state to prefer live capsules.
+- Falls back to all capsules if none are live.
+- Hooks into universal-lore.js via .glyph-item and data attributes.
+{% endcomment %}
+
+<section class="universal-lore-vault" data-section-type="lore-vault">
+  {%- assign all_capsules = metaobjects.capsule.values -%}
+  {%- assign live_capsules = all_capsules | where: 'signal_state', 'live' -%}
+  {%- if live_capsules.size > 0 -%}
+    {%- assign capsules = live_capsules -%}
+  {%- else -%}
+    {%- assign capsules = all_capsules -%}
+  {%- endif -%}
+
+  {%- assign capsules = capsules | sort: 'timeline_order' -%}
+
+  {%- if section.settings.max_items > 0 -%}
+    {%- assign capsules = capsules | slice: 0, section.settings.max_items -%}
+  {%- endif -%}
+
+  <div class="vault-inner container">
+    <header class="vault-header">
+      <p class="vault-kicker orbitron">
+        {{ section.settings.kicker | default: 'RELIC VAULT · ACTIVE SIGNALS' }}
+      </p>
+      <h2 class="vault-title orbitron">
+        {{ section.settings.heading | default: 'Choose Your Transmission' }}
+      </h2>
+      <p class="vault-subtitle">
+        {{ section.settings.subheading | default: "Each capsule is a self-contained myth, broadcast across time. Pick a node and step into its frequency." }}
+      </p>
+    </header>
+
+    <div class="vault-grid">
+      {%- for capsule in capsules -%}
+        {%- assign collection_handle = capsule.capsule_collection_handle | default: capsule.collection_handle -%}
+        {%- assign product_url = '' -%}
+        {%- if collection_handle != blank -%}
+          {%- assign product_url = collection_handle | prepend: '/collections/' -%}
+        {%- endif -%}
+
+        {%- assign image = capsule.hero_image_main | default: capsule.capsule_hero | default: capsule.capsule_image_url -%}
+
+        <article
+          class="vault-item glyph-item"
+          tabindex="0"
+          data-glyph="capsule-{{ capsule.capsule_number }}"
+          data-product-url="{{ product_url }}"
+          data-product-id=""
+        >
+          <div class="glyph-visual">
+            {%- if image != blank -%}
+              <div class="glyph-frame">
+                <img
+                  src="{{ image | image_url: width: 600 }}"
+                  alt="{{ capsule.capsule_title | escape }}"
+                  loading="lazy"
+                >
+                <div class="glitch-particles"></div>
+              </div>
+            {%- else -%}
+              <div class="glyph-placeholder">
+                <span class="orbitron">Capsule {{ capsule.capsule_number }}</span>
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="glyph-content">
+            <h3 class="glyph-title orbitron">
+              {{ capsule.capsule_number }} · {{ capsule.capsule_title }}
+            </h3>
+            <p class="glyph-teaser">
+              {{ capsule.capsule_lore | default: section.settings.default_lore | strip_html | truncate: 130 }}
+            </p>
+
+            <div class="glyph-meta">
+              {%- if capsule.timeline_track != blank -%}
+                <span class="meta-track">
+                  {%- case capsule.timeline_track -%}
+                    {%- when 'prime' -%}Prime Timeline
+                    {%- when 'lunar' -%}Lunar Archives
+                    {%- when 'singularity' -%}Singularity Lineage
+                    {%- when 'hidden' -%}Hidden Signal
+                    {%- else -%}{{ capsule.timeline_track | capitalize }}
+                  {%- endcase -%}
+                </span>
+              {%- endif -%}
+              {%- if collection_handle != blank -%}
+                <a href="{{ product_url }}" class="glyph-link">
+                  Enter transmission →
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.show_all_link and section.settings.all_link_url != blank -%}
+      <div class="vault-footer">
+        <a href="{{ section.settings.all_link_url }}" class="btn btn-outline">
+          {{ section.settings.all_link_label | default: 'View full relic archive' }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Universal Lore Vault",
+  "tag": "section",
+  "class": "section-universal-lore-vault",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "RELIC VAULT · ACTIVE SIGNALS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose Your Transmission"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": ""
+    },
+    {
+      "type": "textarea",
+      "id": "default_lore",
+      "label": "Fallback lore text",
+      "default": ""
+    },
+    {
+      "type": "range",
+      "id": "max_items",
+      "label": "Max capsules to show",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "show_all_link",
+      "label": "Show link to full archive",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "all_link_url",
+      "label": "Full archive URL"
+    },
+    {
+      "type": "text",
+      "id": "all_link_label",
+      "label": "Full archive link label",
+      "default": "View full relic archive"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Universal Lore Vault",
+      "category": "Stellar Reverb"
+    }
+  ]
+}
+{% endschema %}
