@@ -12,11 +12,7 @@ Powered by capsule metaobjects + multi-track system.
   • #enterVoid button → scrolls to #timeline
 {% endcomment %}
 
-<section
-  id="lore-hero"
-  class="lore-hero universal-lore-hero"
-  data-section-type="lore-hero"
->
+<section class="lore-hero universal-lore-hero" data-section-type="lore-hero">
   {%- assign all_capsules = metaobjects.capsule.values -%}
 
   {%- assign prime_live = all_capsules
@@ -125,8 +121,9 @@ Powered by capsule metaobjects + multi-track system.
         </div>
       {%- endif -%}
     </div>
+
     <div class="lore-hero-visual">
-     {%- assign hero_image = spotlight.hero_image_main.value | default: spotlight.hero_image_main -%}
+      {%- assign hero_image = spotlight.hero_image_main -%}
       {%- if hero_image == blank and section.settings.fallback_hero_image != blank -%}
         {%- assign hero_image = section.settings.fallback_hero_image -%}
       {%- endif -%}
@@ -156,6 +153,7 @@ Powered by capsule metaobjects + multi-track system.
     </div>
   </div>
 </section>
+
 {% schema %}
 {
   "name": "Universal Lore Hero",
@@ -171,12 +169,14 @@ Powered by capsule metaobjects + multi-track system.
     {
       "type": "text",
       "id": "heading_override",
-      "label": "Heading override"
+      "label": "Heading override",
+      "default": "Universal Lore Index"
     },
     {
       "type": "textarea",
       "id": "subheading_override",
-      "label": "Subheading override"
+      "label": "Subheading override",
+      "default": "From the first distortion to the last echo in the archives"
     },
     {
       "type": "image_picker",
@@ -208,6 +208,7 @@ Powered by capsule metaobjects + multi-track system.
       "default": true
     }
   ],
+  "blocks": [],
   "presets": [
     {
       "name": "Universal Lore Hero",
