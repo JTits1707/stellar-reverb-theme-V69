@@ -12,27 +12,9 @@
     "main": {
       "type": "floating-archive-main",
       "settings": {}
-    },
-    "hero_cosmic_TxMWqQ": {
-      "type": "hero-cosmic",
-      "name": "Cosmic Hero",
-      "settings": {
-        "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
-        "hero_title": "STELLAR REVERB",
-        "hero_subtitle": "Sound. Style. Transmissions Of Cosmic Identity.",
-        "decode_text": "DECODING: ECHO SIGNAL MATCHED.",
-        "cta_text": "INITIATE SIGNAL LOCK",
-        "headline_color": "#ffffff",
-        "subtitle_color": "#c7d2fe",
-        "transmission_color": "#00f0ac",
-        "decode_color": "#e13cfa",
-        "cta_bg_color": "#00f0ac",
-        "cta_text_color": "#000000"
-      }
     }
   },
   "order": [
-    "main",
-    "hero_cosmic_TxMWqQ"
+    "main"
   ]
 }
