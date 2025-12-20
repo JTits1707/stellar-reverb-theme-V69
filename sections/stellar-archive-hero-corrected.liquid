@@ -1,0 +1,319 @@
+{% comment %}
+  STELLAR REVERB - Archive Hero (CORRECTED)
+  Terminal UI hero that highlights a featured capsule from capsule_archive metaobjects
+{% endcomment %}
+
+{% liquid
+  assign all_capsules = shop.metaobjects.capsule_archive.values
+  assign featured_capsule = null
+  
+  for capsule in all_capsules
+    if capsule.capsule_number.value == section.settings.featured_capsule_number
+      assign featured_capsule = capsule
+      break
+    endif
+  endfor
+  
+  if featured_capsule == null and all_capsules.size > 0
+    assign featured_capsule = all_capsules.first
+  endif
+%}
+
+<style>
+  .stellar-hero {
+    position: relative;
+    min-height: 100vh;
+    background: #0a0a0a;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .stellar-hero__bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(#E13CFA 1px, transparent 1px),
+      linear-gradient(90deg, #28A8D6 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.05;
+    animation: gridScroll 20s linear infinite;
+  }
+
+  @keyframes gridScroll {
+    from { transform: translate(0, 0); }
+    to { transform: translate(50px, 50px); }
+  }
+
+  .stellar-hero__terminal {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    padding: 2rem;
+    background: rgba(10, 10, 10, 0.85);
+    border: 2px solid #E13CFA;
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(225, 60, 250, 0.4), inset 0 0 40px rgba(225, 60, 250, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .stellar-hero__terminal-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #E13CFA;
+  }
+
+  .stellar-hero__dots {
+    display: flex;
+    gap: 8px;
+  }
+
+  .stellar-hero__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: dotPulse 2s ease-in-out infinite;
+  }
+
+  .stellar-hero__dot:nth-child(1) { background: #F4FF30; }
+  .stellar-hero__dot:nth-child(2) { background: #00F0AC; animation-delay: 0.3s; }
+  .stellar-hero__dot:nth-child(3) { background: #E13CFA; animation-delay: 0.6s; }
+
+  @keyframes dotPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .stellar-hero__status {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: #00F0AC;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .stellar-hero__transmission {
+    color: #00F0AC;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    animation: glitchText 3s infinite;
+  }
+
+  @keyframes glitchText {
+    0%, 90%, 100% { transform: translate(0); }
+    92% { transform: translate(-2px, 1px); }
+    94% { transform: translate(2px, -1px); }
+  }
+
+  .stellar-hero__title {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #E13CFA, #28A8D6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.1;
+  }
+
+  .stellar-hero__subtitle {
+    color: #C0C0C0;
+    font-family: 'PP Mori', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .stellar-hero__featured {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(225, 60, 250, 0.3);
+  }
+
+  .stellar-hero__featured-label {
+    font-size: 0.75rem;
+    color: #F4FF30;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+
+  .stellar-hero__featured-title {
+    font-size: 1.5rem;
+    color: #C0C0C0;
+    margin-bottom: 0.5rem;
+  }
+
+  .stellar-hero__featured-number {
+    color: #28A8D6;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .stellar-hero__cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .stellar-hero__button {
+    padding: 1rem 2rem;
+    background: #00F0AC;
+    color: #0a0a0a;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .stellar-hero__button:hover {
+    background: #F4FF30;
+    transform: translateY(-2px);
+  }
+
+  .stellar-hero__button--secondary {
+    background: rgba(40, 168, 214, 0.1);
+    color: #28A8D6;
+    border: 1px solid #28A8D6;
+  }
+
+  .stellar-hero__button--secondary:hover {
+    background: #28A8D6;
+    color: #0a0a0a;
+  }
+
+  @media (max-width: 768px) {
+    .stellar-hero__terminal {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+
+    .stellar-hero__title {
+      font-size: 2rem;
+    }
+
+    .stellar-hero__cta {
+      flex-direction: column;
+    }
+
+    .stellar-hero__button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<section class="stellar-hero" data-section-id="{{ section.id }}">
+  <div class="stellar-hero__bg-grid"></div>
+
+  <div class="stellar-hero__terminal">
+    <div class="stellar-hero__terminal-header">
+      <div class="stellar-hero__dots">
+        <span class="stellar-hero__dot"></span>
+        <span class="stellar-hero__dot"></span>
+        <span class="stellar-hero__dot"></span>
+      </div>
+      <div class="stellar-hero__status">SIGNAL: ACTIVE</div>
+    </div>
+
+    <div class="stellar-hero__transmission">
+      TRANSMISSION: SYNAPSE_INIT
+    </div>
+
+    <h1 class="stellar-hero__title">
+      {{ section.settings.title }}
+    </h1>
+
+    <p class="stellar-hero__subtitle">
+      {{ section.settings.subtitle }}
+    </p>
+
+    {% if featured_capsule %}
+      <div class="stellar-hero__featured">
+        <div class="stellar-hero__featured-label">
+          ⚡ FEATURED TRANSMISSION
+        </div>
+        <div class="stellar-hero__featured-number">
+          CAPSULE {{ featured_capsule.capsule_number.value }}
+        </div>
+        <h2 class="stellar-hero__featured-title">
+          {{ featured_capsule.title.value }}
+        </h2>
+
+        <div class="stellar-hero__cta">
+          <a href="{{ featured_capsule.page_url.value }}" class="stellar-hero__button">
+            EXPLORE CAPSULE
+          </a>
+          <a href="#transmission-grid" class="stellar-hero__button stellar-hero__button--secondary">
+            VIEW ALL
+          </a>
+        </div>
+      </div>
+    {% else %}
+      <div class="stellar-hero__cta">
+        <a href="#transmission-grid" class="stellar-hero__button">
+          VIEW ARCHIVE
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Archive Hero (Corrected)",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "STELLAR REVERB"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Sound Style Transmissions Of Cosmic Identity"
+    },
+    {
+      "type": "text",
+      "id": "featured_capsule_number",
+      "label": "Featured Capsule Number",
+      "info": "Enter capsule number (e.g., '001') to feature. Leave blank for most recent.",
+      "placeholder": "001"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_particles",
+      "label": "Enable Particle Effects",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_cassettes",
+      "label": "Enable Floating Cassettes",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Archive Hero (Corrected)"
+    }
+  ]
+}
+{% endschema %}

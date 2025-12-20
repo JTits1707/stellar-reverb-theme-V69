@@ -1,0 +1,505 @@
+{% comment %}
+  STELLAR REVERB - Rift Signup Section
+  Mailchimp integration with Konami code easter egg
+  Cosmic newsletter signup with secret archive unlock
+{% endcomment %}
+
+<style>
+  .stellar-rift {
+    padding: 8rem 2rem;
+    background: linear-gradient(135deg, var(--void-black) 0%, var(--cosmic-purple) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stellar-rift::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(225, 60, 250, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(40, 168, 214, 0.15) 0%, transparent 50%);
+    animation: riftPulse 8s ease-in-out infinite;
+  }
+
+  @keyframes riftPulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  .stellar-rift__container {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+  }
+
+  .stellar-rift__portal {
+    background: rgba(10, 10, 10, 0.85);
+    border: 3px solid var(--neon-magenta);
+    border-radius: 16px;
+    padding: 3rem;
+    box-shadow: 
+      0 0 60px rgba(225, 60, 250, 0.5),
+      inset 0 0 60px rgba(225, 60, 250, 0.1);
+    backdrop-filter: blur(20px);
+    text-align: center;
+  }
+
+  .stellar-rift__icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(135deg, var(--neon-magenta), var(--cyan-blue));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    animation: iconFloat 3s ease-in-out infinite;
+  }
+
+  @keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .stellar-rift__title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    color: var(--neon-magenta);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(225, 60, 250, 0.6);
+  }
+
+  .stellar-rift__subtitle {
+    color: var(--chrome-silver);
+    font-family: 'PP Mori', sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+  }
+
+  .stellar-rift__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stellar-rift__input-group {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .stellar-rift__input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--cyan-blue);
+    border-radius: 8px;
+    color: var(--chrome-silver);
+    font-family: 'PP Mori', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .stellar-rift__input::placeholder {
+    color: rgba(192, 192, 192, 0.5);
+  }
+
+  .stellar-rift__input:focus {
+    outline: none;
+    border-color: var(--neon-magenta);
+    box-shadow: 0 0 20px rgba(225, 60, 250, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .stellar-rift__button {
+    padding: 1.25rem 3rem;
+    background: linear-gradient(135deg, var(--neon-magenta), var(--cosmic-purple));
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 20px rgba(225, 60, 250, 0.4);
+  }
+
+  .stellar-rift__button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(225, 60, 250, 0.6);
+    background: linear-gradient(135deg, var(--cyan-blue), var(--neon-magenta));
+  }
+
+  .stellar-rift__button:active {
+    transform: translateY(-1px);
+  }
+
+  .stellar-rift__benefits {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(225, 60, 250, 0.3);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .stellar-rift__benefit {
+    color: var(--chrome-silver);
+    font-family: 'PP Mori', sans-serif;
+    font-size: 0.9rem;
+  }
+
+  .stellar-rift__benefit-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  /* SUCCESS MESSAGE */
+  .stellar-rift__success {
+    display: none;
+    padding: 1.5rem;
+    background: rgba(0, 240, 172, 0.1);
+    border: 2px solid var(--radioactive-green);
+    border-radius: 8px;
+    color: var(--radioactive-green);
+    font-family: 'Orbitron', sans-serif;
+    margin-top: 1rem;
+  }
+
+  .stellar-rift__success.active {
+    display: block;
+    animation: successFade 0.5s ease;
+  }
+
+  @keyframes successFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECRET KONAMI UNLOCK */
+  .stellar-rift__secret {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.95);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    animation: secretReveal 0.8s ease;
+  }
+
+  .stellar-rift__secret.active {
+    display: flex;
+  }
+
+  @keyframes secretReveal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .stellar-rift__secret-content {
+    text-align: center;
+    max-width: 600px;
+    padding: 3rem;
+    background: linear-gradient(135deg, var(--cosmic-purple), var(--void-black));
+    border: 3px solid var(--electric-yellow);
+    border-radius: 16px;
+    box-shadow: 0 0 80px rgba(244, 255, 48, 0.8);
+  }
+
+  .stellar-rift__secret-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--electric-yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 30px rgba(244, 255, 48, 0.8);
+    animation: glitchText 2s infinite;
+  }
+
+  .stellar-rift__secret-message {
+    color: var(--chrome-silver);
+    font-family: 'PP Mori', sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .stellar-rift__secret-link {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--electric-yellow);
+    color: var(--void-black);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .stellar-rift__secret-link:hover {
+    background: var(--radioactive-green);
+    box-shadow: 0 0 40px var(--radioactive-green);
+  }
+
+  .stellar-rift__secret-close {
+    margin-top: 1.5rem;
+    color: var(--chrome-silver);
+    cursor: pointer;
+    font-family: 'PP Mori', sans-serif;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  .stellar-rift__secret-close:hover {
+    opacity: 1;
+  }
+
+  /* MOBILE RESPONSIVE */
+  @media (max-width: 768px) {
+    .stellar-rift {
+      padding: 4rem 1rem;
+    }
+
+    .stellar-rift__portal {
+      padding: 2rem 1.5rem;
+    }
+
+    .stellar-rift__input-group {
+      flex-direction: column;
+    }
+
+    .stellar-rift__benefits {
+      grid-template-columns: 1fr;
+    }
+
+    .stellar-rift__secret-content {
+      margin: 1rem;
+      padding: 2rem;
+    }
+  }
+</style>
+
+<section class="stellar-rift" data-section-id="{{ section.id }}">
+  <div class="stellar-rift__container">
+    <div class="stellar-rift__portal">
+      <div class="stellar-rift__icon">🌀</div>
+      
+      <h2 class="stellar-rift__title">{{ section.settings.title }}</h2>
+      <p class="stellar-rift__subtitle">{{ section.settings.subtitle }}</p>
+
+      {% comment %} Mailchimp Integration {% endcomment %}
+      <form class="stellar-rift__form" 
+            action="{{ section.settings.mailchimp_action }}" 
+            method="post" 
+            target="_blank"
+            data-rift-form>
+        
+        <div class="stellar-rift__input-group">
+          <input 
+            type="email" 
+            name="EMAIL" 
+            class="stellar-rift__input" 
+            placeholder="your.email@dimension.void"
+            required
+            aria-label="Email address"
+          >
+        </div>
+
+        <input 
+          type="text" 
+          name="FNAME" 
+          class="stellar-rift__input" 
+          placeholder="Your Name (Optional)"
+          aria-label="First name"
+        >
+
+        {% comment %} Honeypot for bots {% endcomment %}
+        <div style="position: absolute; left: -5000px;" aria-hidden="true">
+          <input type="text" name="b_{{ section.settings.mailchimp_action | split: '?' | last }}" tabindex="-1" value="">
+        </div>
+
+        <button type="submit" class="stellar-rift__button">
+          {{ section.settings.cta_text }}
+        </button>
+
+        <div class="stellar-rift__success" data-success-message>
+          ✨ TRANSMISSION INITIATED • Welcome to the void, traveler.
+        </div>
+      </form>
+
+      <div class="stellar-rift__benefits">
+        <div class="stellar-rift__benefit">
+          <span class="stellar-rift__benefit-icon">🎵</span>
+          Exclusive Drops
+        </div>
+        <div class="stellar-rift__benefit">
+          <span class="stellar-rift__benefit-icon">🌌</span>
+          Cosmic Lore
+        </div>
+        <div class="stellar-rift__benefit">
+          <span class="stellar-rift__benefit-icon">🔐</span>
+          Secret Access
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if section.settings.enable_konami %}
+  <div class="stellar-rift__secret" data-secret-archive>
+    <div class="stellar-rift__secret-content">
+      <h3 class="stellar-rift__secret-title">{{ section.settings.secret_message }}</h3>
+      <p class="stellar-rift__secret-message">
+        You've discovered the hidden frequency. The secret archive contains lost transmissions 
+        never meant to be found. Only those who speak the ancient code can access this realm.
+      </p>
+      <a href="/pages/secret-archive" class="stellar-rift__secret-link">
+        ENTER SECRET ARCHIVE
+      </a>
+      <p class="stellar-rift__secret-close" data-close-secret>
+        [ Close Transmission ]
+      </p>
+    </div>
+  </div>
+{% endif %}
+
+<script>
+  // MAILCHIMP FORM HANDLER
+  const riftForm = document.querySelector('[data-rift-form]');
+  const successMessage = document.querySelector('[data-success-message]');
+
+  if (riftForm) {
+    riftForm.addEventListener('submit', function(e) {
+      // Show success message (form submits to Mailchimp in new tab)
+      setTimeout(() => {
+        successMessage.classList.add('active');
+        riftForm.reset();
+        
+        // Hide success after 5 seconds
+        setTimeout(() => {
+          successMessage.classList.remove('active');
+        }, 5000);
+      }, 500);
+    });
+  }
+
+  {% if section.settings.enable_konami %}
+    // KONAMI CODE EASTER EGG
+    // UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT B A
+    const konamiCode = [
+      'ArrowUp', 'ArrowUp', 
+      'ArrowDown', 'ArrowDown', 
+      'ArrowLeft', 'ArrowRight', 
+      'ArrowLeft', 'ArrowRight', 
+      'KeyB', 'KeyA'
+    ];
+    let konamiIndex = 0;
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        
+        if (konamiIndex === konamiCode.length) {
+          // UNLOCK SECRET ARCHIVE
+          const secretArchive = document.querySelector('[data-secret-archive]');
+          secretArchive.classList.add('active');
+          
+          // Play unlock sound (optional)
+          try {
+            const audio = new Audio('https://cdn.shopify.com/s/files/1/YOUR_STORE/unlock-sound.mp3');
+            audio.volume = 0.3;
+            audio.play();
+          } catch (e) {
+            console.log('Audio not available');
+          }
+          
+          konamiIndex = 0;
+        }
+      } else {
+        konamiIndex = 0;
+      }
+    });
+
+    // CLOSE SECRET ARCHIVE
+    const closeSecret = document.querySelector('[data-close-secret]');
+    if (closeSecret) {
+      closeSecret.addEventListener('click', () => {
+        document.querySelector('[data-secret-archive]').classList.remove('active');
+      });
+    }
+
+    // Close on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelector('[data-secret-archive]')?.classList.remove('active');
+      }
+    });
+  {% endif %}
+</script>
+
+{% schema %}
+{
+  "name": "Stellar Rift Signup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "ENTER THE RIFT"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Receive encrypted transmissions directly to your consciousness"
+    },
+    {
+      "type": "text",
+      "id": "mailchimp_action",
+      "label": "Mailchimp Form Action URL",
+      "info": "Get from Mailchimp: Audience > Signup forms > Embedded forms. Copy the form action URL."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "INITIATE TRANSMISSION"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_konami",
+      "label": "Enable Konami Code Easter Egg",
+      "default": true,
+      "info": "Press ↑ ↑ ↓ ↓ ← → ← → B A to unlock secret archive"
+    },
+    {
+      "type": "text",
+      "id": "secret_message",
+      "label": "Secret Archive Message",
+      "default": "🌌 SECRET ARCHIVE UNLOCKED"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stellar Rift Signup"
+    }
+  ]
+}
+{% endschema %}

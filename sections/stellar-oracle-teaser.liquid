@@ -1,0 +1,694 @@
+{% comment %}
+  STELLAR REVERB - Oracle Teaser (Random Rift Trigger)
+  10-20% probability modal on load/scroll with glitch animation
+  "INCOMING SIGNAL DETECTED" + next capsule teaser + countdown
+{% endcomment %}
+
+{% liquid
+  assign trigger_probability = section.settings.trigger_probability | default: 15
+  assign next_capsule = null
+  assign all_capsules = shop.metaobjects.capsule_archive.values | sort: 'release_date'
+  
+  assign today = 'now' | date: '%s' | times: 1
+  
+  for capsule in all_capsules
+    assign capsule_date = capsule.release_date.value | date: '%s' | times: 1
+    if capsule_date > today
+      assign next_capsule = capsule
+      break
+    endif
+  endfor
+%}
+
+<section 
+  class="stellar-oracle-teaser"
+  data-section-id="{{ section.id }}"
+  data-probability="{{ trigger_probability }}"
+  data-trigger-on="{{ section.settings.trigger_on }}"
+  style="--oracle-color: {{ section.settings.oracle_color }};">
+
+  <div class="oracle-modal" data-oracle-modal aria-hidden="true" role="dialog">
+    <div class="modal-backdrop"></div>
+
+    <div class="oracle-container">
+      
+      <div class="glitch-scanner" aria-hidden="true">
+        <div class="scan-line"></div>
+        <div class="scan-grid"></div>
+      </div>
+
+      <div class="modal-content">
+        
+        <div class="signal-header">
+          <div class="signal-indicator">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+              <circle cx="20" cy="20" r="12" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+              <circle cx="20" cy="20" r="6" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h2 class="glitch-title" data-text="{{ section.settings.alert_text }}">
+            {{ section.settings.alert_text }}
+          </h2>
+        </div>
+
+        {%- if next_capsule -%}
+          <div class="capsule-preview">
+            
+            {%- if next_capsule.featured_image.value -%}
+              <div class="preview-image-wrapper">
+                <img 
+                  src="{{ next_capsule.featured_image.value | image_url: width: 600 }}" 
+                  alt="{{ next_capsule.title.value }}"
+                  class="preview-image"
+                  loading="lazy">
+                <div class="image-glitch" aria-hidden="true"></div>
+              </div>
+            {%- endif -%}
+
+            <div class="preview-details">
+              <span class="capsule-number" style="color: {{ next_capsule.theme_color.value | default: '#FF006E' }}">
+                CAPSULE-{{ next_capsule.capsule_number.value }}
+              </span>
+              <h3 class="capsule-title">{{ next_capsule.title.value }}</h3>
+              
+              {%- if next_capsule.description.value -%}
+                <p class="capsule-description">
+                  {{ next_capsule.description.value | strip_html | truncate: 150 }}
+                </p>
+              {%- endif -%}
+
+              {%- if next_capsule.release_date.value -%}
+                <div class="release-countdown" data-countdown-target="{{ next_capsule.release_date.value }}">
+                  <span class="countdown-label">TRANSMISSION IN:</span>
+                  <div class="countdown-timer">
+                    <div class="timer-segment">
+                      <span class="timer-value" data-days>00</span>
+                      <span class="timer-unit">D</span>
+                    </div>
+                    <span class="timer-sep">:</span>
+                    <div class="timer-segment">
+                      <span class="timer-value" data-hours>00</span>
+                      <span class="timer-unit">H</span>
+                    </div>
+                    <span class="timer-sep">:</span>
+                    <div class="timer-segment">
+                      <span class="timer-value" data-minutes>00</span>
+                      <span class="timer-unit">M</span>
+                    </div>
+                    <span class="timer-sep">:</span>
+                    <div class="timer-segment">
+                      <span class="timer-value" data-seconds>00</span>
+                      <span class="timer-unit">S</span>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+
+              {%- if section.settings.show_cta and next_capsule.page_url.value -%}
+                <a href="{{ next_capsule.page_url.value }}" class="oracle-cta">
+                  {{ section.settings.cta_text | default: "PREPARE FOR TRANSMISSION" }}
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor">
+                    <path d="M1 8h14M9 2l6 6-6 6" stroke-width="2"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+            </div>
+
+          </div>
+        {%- else -%}
+          <div class="no-signal">
+            <p>{{ section.settings.no_signal_text | default: "No future transmissions detected... yet." }}</p>
+          </div>
+        {%- endif -%}
+
+        <button class="oracle-dismiss" data-oracle-dismiss aria-label="Dismiss">
+          <span>ACKNOWLEDGE</span>
+        </button>
+
+      </div>
+
+      <div class="particle-field" aria-hidden="true">
+        {%- for i in (1..20) -%}
+          <div class="particle" style="--x: {{ i | times: 5 }}%; --delay: {{ i | times: 0.1 }}s;"></div>
+        {%- endfor -%}
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<style>
+.stellar-oracle-teaser {
+  position: relative;
+}
+
+.oracle-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.oracle-modal[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.98);
+  backdrop-filter: blur(20px);
+}
+
+.oracle-container {
+  position: relative;
+  max-width: 700px;
+  width: 100%;
+  background: linear-gradient(135deg, #000000 0%, #1a0028 50%, #000a14 100%);
+  border: 2px solid var(--oracle-color, #FF006E);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 
+    0 0 60px var(--oracle-color, #FF006E),
+    0 20px 80px rgba(0, 0, 0, 0.9);
+  animation: oracleEntry 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes oracleEntry {
+  0% {
+    transform: scale(0.8) translateY(100px);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05) translateY(-10px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.glitch-scanner {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--oracle-color, #FF006E), transparent);
+  box-shadow: 0 0 20px var(--oracle-color, #FF006E);
+  animation: scanDown 3s ease-in-out infinite;
+}
+
+@keyframes scanDown {
+  0%, 100% { top: 0; opacity: 0; }
+  10%, 90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.scan-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(0deg, rgba(255, 0, 110, 0.03) 0px, transparent 1px, transparent 2px, rgba(255, 0, 110, 0.03) 3px),
+    repeating-linear-gradient(90deg, rgba(40, 168, 214, 0.03) 0px, transparent 1px, transparent 2px, rgba(40, 168, 214, 0.03) 3px);
+}
+
+.modal-content {
+  position: relative;
+  z-index: 1;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.signal-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.signal-indicator {
+  color: var(--oracle-color, #FF006E);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+.glitch-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #FFF;
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-title::before,
+.glitch-title::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.glitch-title::before {
+  color: #FF006E;
+  animation: glitchTop 2s infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.glitch-title::after {
+  color: #28A8D6;
+  animation: glitchBottom 2s infinite;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+@keyframes glitchTop {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-5px, 2px); }
+  40% { transform: translate(-3px, -2px); }
+  60% { transform: translate(5px, 2px); }
+  80% { transform: translate(3px, -2px); }
+}
+
+@keyframes glitchBottom {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(5px, -2px); }
+  40% { transform: translate(3px, 2px); }
+  60% { transform: translate(-5px, -2px); }
+  80% { transform: translate(-3px, 2px); }
+}
+
+.capsule-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.preview-image-wrapper {
+  position: relative;
+  aspect-ratio: 16/9;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-glitch {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, var(--oracle-color, #FF006E)22 50%, transparent 100%);
+  opacity: 0;
+  animation: glitchSweep 3s ease-in-out infinite;
+}
+
+@keyframes glitchSweep {
+  0%, 90%, 100% { opacity: 0; transform: translateX(-100%); }
+  92%, 96% { opacity: 0.3; }
+  94% { transform: translateX(100%); }
+}
+
+.preview-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+}
+
+.capsule-number {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.capsule-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  color: #FFF;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.capsule-description {
+  color: #B0B0B0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.release-countdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--oracle-color, #FF006E);
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #FFF;
+}
+
+.timer-segment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.timer-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-unit {
+  font-size: 0.5em;
+  color: #808080;
+}
+
+.timer-sep {
+  color: var(--oracle-color, #FF006E);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+
+.oracle-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--oracle-color, #FF006E), #8B5CF6);
+  color: #FFF;
+  font-family: 'Orbitron', monospace;
+  font-weight: 800;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 30px var(--oracle-color, #FF006E);
+}
+
+.oracle-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 50px var(--oracle-color, #FF006E);
+}
+
+.oracle-dismiss {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFF;
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: center;
+}
+
+.oracle-dismiss:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.no-signal {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #808080;
+  font-style: italic;
+}
+
+.particle-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  left: var(--x);
+  bottom: 0;
+  width: 2px;
+  height: 2px;
+  background: var(--oracle-color, #FF006E);
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+  animation: particleFloat 5s var(--delay) infinite ease-in-out;
+  opacity: 0;
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100vh) translateX(30px);
+  }
+  100% {
+    transform: translateY(-100vh) translateX(0);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 2rem 1.5rem;
+  }
+  
+  .countdown-timer {
+    font-size: 1.25rem;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const section = document.querySelector('[data-oracle-modal]');
+  if (!section) return;
+
+  const container = section.closest('[data-probability]');
+  const probability = parseInt(container?.getAttribute('data-probability') || '15');
+  const triggerOn = container?.getAttribute('data-trigger-on') || 'load';
+  const dismissBtn = section.querySelector('[data-oracle-dismiss]');
+  
+  // Check if already shown in this session
+  const shown = sessionStorage.getItem('stellar_oracle_shown');
+  if (shown) return;
+
+  function showOracle() {
+    const random = Math.random() * 100;
+    if (random <= probability) {
+      setTimeout(() => {
+        section.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        sessionStorage.setItem('stellar_oracle_shown', 'true');
+        
+        // Start countdown
+        const countdown = section.querySelector('[data-countdown-target]');
+        if (countdown) {
+          startCountdown(countdown);
+        }
+      }, 1000);
+    }
+  }
+
+  function hideOracle() {
+    section.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function startCountdown(element) {
+    const target = new Date(element.getAttribute('data-countdown-target')).getTime();
+    const daysEl = element.querySelector('[data-days]');
+    const hoursEl = element.querySelector('[data-hours]');
+    const minutesEl = element.querySelector('[data-minutes]');
+    const secondsEl = element.querySelector('[data-seconds]');
+
+    function update() {
+      const now = new Date().getTime();
+      const distance = target - now;
+
+      if (distance < 0) return;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+      if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+      if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+
+      setTimeout(update, 1000);
+    }
+
+    update();
+  }
+
+  // Trigger logic
+  if (triggerOn === 'load') {
+    window.addEventListener('load', showOracle);
+  } else if (triggerOn === 'scroll') {
+    let scrolled = false;
+    window.addEventListener('scroll', () => {
+      if (!scrolled && window.scrollY > 300) {
+        scrolled = true;
+        showOracle();
+      }
+    }, { passive: true });
+  }
+
+  // Dismiss
+  if (dismissBtn) {
+    dismissBtn.addEventListener('click', hideOracle);
+  }
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && section.getAttribute('aria-hidden') === 'false') {
+      hideOracle();
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Oracle Teaser",
+  "tag": "section",
+  "class": "stellar-oracle-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Trigger Settings"
+    },
+    {
+      "type": "range",
+      "id": "trigger_probability",
+      "label": "Trigger Probability (%)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 15,
+      "info": "Percentage chance modal appears (10-20% recommended)"
+    },
+    {
+      "type": "select",
+      "id": "trigger_on",
+      "label": "Trigger Event",
+      "options": [
+        { "value": "load", "label": "Page Load" },
+        { "value": "scroll", "label": "Scroll (after 300px)" }
+      ],
+      "default": "load"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "alert_text",
+      "label": "Alert Text",
+      "default": "INCOMING SIGNAL DETECTED"
+    },
+    {
+      "type": "text",
+      "id": "no_signal_text",
+      "label": "No Signal Text",
+      "default": "No future transmissions detected... yet."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "PREPARE FOR TRANSMISSION"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color",
+      "id": "oracle_color",
+      "label": "Oracle Color",
+      "default": "#FF006E"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Oracle Teaser",
+      "category": "Stellar Reverb"
+    }
+  ]
+}
+{% endschema %}

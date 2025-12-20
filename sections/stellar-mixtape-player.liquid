@@ -1,0 +1,768 @@
+{% comment %}
+  STELLAR REVERB - Mixtape Player (Eternal Bottom-Sticky Transmitter)
+  Fixed player with Spotify/audio playlist, cassette-spin controls
+  Reverb sfx on play. Muted ambient hum autoplays – sound you can wear
+{% endcomment %}
+
+<section 
+  class="stellar-mixtape-player"
+  data-section-id="{{ section.id }}"
+  data-autoplay="{{ section.settings.autoplay }}"
+  style="--player-color: {{ section.settings.player_color }};">
+
+  <div class="player-container" data-player-container>
+    
+    <div class="cassette-visual" aria-hidden="true">
+      <div class="cassette-body">
+        <div class="cassette-label">
+          <span class="label-text">{{ section.settings.mixtape_title | default: "STELLAR MIX" }}</span>
+        </div>
+        <div class="cassette-reels">
+          <div class="reel reel-left" data-reel-left>
+            <div class="reel-inner"></div>
+          </div>
+          <div class="reel reel-right" data-reel-right>
+            <div class="reel-inner"></div>
+          </div>
+        </div>
+        <div class="cassette-tape"></div>
+      </div>
+    </div>
+
+    <div class="player-controls">
+      
+      <button class="control-btn btn-prev" data-control="prev" aria-label="Previous track">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M15 4v12l-8-6 8-6zM5 4h2v12H5V4z"/>
+        </svg>
+      </button>
+
+      <button class="control-btn btn-play" data-control="play" aria-label="Play/Pause">
+        <svg class="icon-play" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg class="icon-pause" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+        </svg>
+      </button>
+
+      <button class="control-btn btn-next" data-control="next" aria-label="Next track">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M5 4v12l8-6-8-6zM13 4h2v12h-2V4z"/>
+        </svg>
+      </button>
+
+      <div class="track-info" data-track-info>
+        <span class="track-title">{{ section.settings.default_track_name | default: "Loading..." }}</span>
+        <span class="track-time">
+          <span data-current-time>0:00</span> / <span data-total-time>0:00</span>
+        </span>
+      </div>
+
+      <div class="volume-control">
+        <button class="control-btn btn-volume" data-control="volume" aria-label="Toggle mute">
+          <svg class="icon-volume-on" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M9 4L5 8H2v4h3l4 4V4zM12 6v8c1.5-0.5 2.5-2 2.5-4S13.5 6.5 12 6z"/>
+          </svg>
+          <svg class="icon-volume-off" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
+            <path d="M9 4L5 8H2v4h3l4 4V4zM15 8l-2 2 2 2 2-2-2-2z"/>
+          </svg>
+        </button>
+        <input 
+          type="range" 
+          class="volume-slider" 
+          data-volume-slider
+          min="0" 
+          max="100" 
+          value="{{ section.settings.default_volume | default: 50 }}"
+          aria-label="Volume">
+      </div>
+
+      <button class="control-btn btn-minimize" data-control="minimize" aria-label="Minimize player">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 10h12"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <div class="player-progress" data-player-progress>
+      <div class="progress-bar">
+        <div class="progress-fill" data-progress-fill style="width: 0%"></div>
+        <input 
+          type="range" 
+          class="progress-slider" 
+          data-progress-slider
+          min="0" 
+          max="100" 
+          value="0"
+          aria-label="Track progress">
+      </div>
+    </div>
+
+    {%- comment -%} Hidden audio element {%- endcomment -%}
+    <audio 
+      data-audio-player
+      preload="metadata"
+      {%- if section.settings.autoplay -%}muted{%- endif -%}>
+      {%- for block in section.blocks -%}
+        {%- if forloop.first -%}
+          <source src="{{ block.settings.audio_url }}" type="audio/mpeg">
+        {%- endif -%}
+      {%- endfor -%}
+    </audio>
+
+    {%- comment -%} Playlist data (hidden) {%- endcomment -%}
+    <script type="application/json" data-playlist>
+      [
+        {%- for block in section.blocks -%}
+          {
+            "title": {{ block.settings.track_name | default: "Untitled" | json }},
+            "url": {{ block.settings.audio_url | json }},
+            "artist": {{ block.settings.artist_name | default: "" | json }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    </script>
+
+    {%- comment -%} Ambient hum (for autoplay) {%- endcomment -%}
+    {%- if section.settings.ambient_hum_url != blank -%}
+      <audio 
+        data-ambient-hum
+        loop
+        preload="auto"
+        {%- if section.settings.autoplay -%}autoplay{%- endif -%}
+        volume="{{ section.settings.ambient_volume | default: 20 | divided_by: 100.0 }}">
+        <source src="{{ section.settings.ambient_hum_url }}" type="audio/mpeg">
+      </audio>
+    {%- endif -%}
+
+  </div>
+
+  <div class="player-minimize-bar" data-minimize-bar style="display: none;">
+    <div class="mini-cassette" aria-hidden="true">
+      <div class="mini-reel"></div>
+    </div>
+    <span class="mini-title">{{ section.settings.mixtape_title }}</span>
+    <button class="mini-restore" data-control="restore" aria-label="Restore player">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 4v8l6-4-6-4z"/>
+      </svg>
+    </button>
+  </div>
+
+</section>
+
+<style>
+.stellar-mixtape-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+.player-container {
+  pointer-events: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #000000 0%, #1a0028 100%);
+  border-top: 2px solid var(--player-color, #FF006E);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.player-container.minimized {
+  transform: translateY(100%);
+}
+
+.cassette-visual {
+  flex-shrink: 0;
+  width: 80px;
+  height: 50px;
+}
+
+.cassette-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  border: 2px solid #333;
+  border-radius: 4px;
+  padding: 0.5rem;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.cassette-label {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.label-text {
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--player-color, #FF006E);
+  white-space: nowrap;
+}
+
+.cassette-reels {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reel {
+  width: 20px;
+  height: 20px;
+  background: #0a0a0a;
+  border: 1px solid #444;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.reel-inner {
+  position: absolute;
+  inset: 3px;
+  background: radial-gradient(circle, #222 0%, #0a0a0a 100%);
+  border-radius: 50%;
+}
+
+.reel-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    #444 10deg,
+    transparent 20deg
+  );
+}
+
+.cassette-reels.playing .reel-inner {
+  animation: reelSpin 2s linear infinite;
+}
+
+@keyframes reelSpin {
+  to { transform: rotate(360deg); }
+}
+
+.cassette-tape {
+  position: absolute;
+  bottom: 12px;
+  left: 28px;
+  right: 28px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #333, transparent);
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.control-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.control-btn:hover {
+  background: var(--player-color, #FF006E);
+  border-color: var(--player-color, #FF006E);
+  transform: scale(1.1);
+}
+
+.btn-play {
+  width: 44px;
+  height: 44px;
+  border-width: 2px;
+}
+
+.player-controls.playing .icon-play {
+  display: none;
+}
+
+.player-controls.playing .icon-pause {
+  display: block !important;
+}
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+}
+
+.track-title {
+  font-weight: 700;
+  color: #FFF;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-time {
+  color: #808080;
+  font-size: 0.65rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.volume-slider {
+  width: 80px;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--player-color, #FF006E);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--player-color, #FF006E);
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--player-color, #FF006E);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 10px var(--player-color, #FF006E);
+}
+
+.player-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--player-color, #FF006E);
+  box-shadow: 0 0 10px var(--player-color, #FF006E);
+  transition: width 0.1s linear;
+}
+
+.progress-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.progress-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--player-color, #FF006E);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.progress-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--player-color, #FF006E);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+.player-minimize-bar {
+  pointer-events: auto;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid var(--player-color, #FF006E);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+}
+
+.mini-cassette {
+  width: 24px;
+  height: 24px;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 3px;
+  position: relative;
+}
+
+.mini-reel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--player-color, #FF006E);
+  border-radius: 50%;
+  animation: reelSpin 2s linear infinite;
+}
+
+.mini-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #FFF;
+  text-transform: uppercase;
+}
+
+.mini-restore {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mini-restore:hover {
+  background: var(--player-color, #FF006E);
+  border-color: var(--player-color, #FF006E);
+}
+
+@media (max-width: 768px) {
+  .player-container {
+    padding: 0.5rem 1rem;
+    gap: 0.75rem;
+  }
+  
+  .cassette-visual {
+    width: 60px;
+    height: 40px;
+  }
+  
+  .volume-control {
+    display: none;
+  }
+  
+  .track-info {
+    font-size: 0.65rem;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const player = document.querySelector('[data-audio-player]');
+  const playlist = JSON.parse(document.querySelector('[data-playlist]')?.textContent || '[]');
+  const container = document.querySelector('[data-player-container]');
+  const controls = document.querySelector('.player-controls');
+  const minimizeBar = document.querySelector('[data-minimize-bar]');
+  const reelsContainer = document.querySelector('.cassette-reels');
+  
+  if (!player || playlist.length === 0) return;
+
+  let currentTrack = 0;
+  let isPlaying = false;
+
+  // Load track
+  function loadTrack(index) {
+    if (index < 0 || index >= playlist.length) return;
+    
+    currentTrack = index;
+    const track = playlist[index];
+    
+    player.src = track.url;
+    document.querySelector('[data-track-info] .track-title').textContent = 
+      track.artist ? `${track.artist} - ${track.title}` : track.title;
+  }
+
+  // Play/Pause
+  function togglePlay() {
+    if (isPlaying) {
+      player.pause();
+    } else {
+      player.play();
+    }
+  }
+
+  // Update time
+  player.addEventListener('timeupdate', () => {
+    const current = player.currentTime;
+    const total = player.duration;
+    
+    if (!isNaN(total)) {
+      const percent = (current / total) * 100;
+      document.querySelector('[data-progress-fill]').style.width = `${percent}%`;
+      document.querySelector('[data-progress-slider]').value = percent;
+      
+      document.querySelector('[data-current-time]').textContent = formatTime(current);
+      document.querySelector('[data-total-time]').textContent = formatTime(total);
+    }
+  });
+
+  player.addEventListener('play', () => {
+    isPlaying = true;
+    controls.classList.add('playing');
+    reelsContainer.classList.add('playing');
+  });
+
+  player.addEventListener('pause', () => {
+    isPlaying = false;
+    controls.classList.remove('playing');
+    reelsContainer.classList.remove('playing');
+  });
+
+  player.addEventListener('ended', () => {
+    if (currentTrack < playlist.length - 1) {
+      loadTrack(currentTrack + 1);
+      player.play();
+    }
+  });
+
+  // Controls
+  document.querySelector('[data-control="play"]')?.addEventListener('click', togglePlay);
+  
+  document.querySelector('[data-control="prev"]')?.addEventListener('click', () => {
+    if (currentTrack > 0) {
+      loadTrack(currentTrack - 1);
+      if (isPlaying) player.play();
+    }
+  });
+  
+  document.querySelector('[data-control="next"]')?.addEventListener('click', () => {
+    if (currentTrack < playlist.length - 1) {
+      loadTrack(currentTrack + 1);
+      if (isPlaying) player.play();
+    }
+  });
+
+  // Volume
+  const volumeSlider = document.querySelector('[data-volume-slider]');
+  volumeSlider?.addEventListener('input', (e) => {
+    player.volume = e.target.value / 100;
+  });
+
+  // Progress
+  const progressSlider = document.querySelector('[data-progress-slider]');
+  progressSlider?.addEventListener('input', (e) => {
+    const time = (e.target.value / 100) * player.duration;
+    player.currentTime = time;
+  });
+
+  // Minimize
+  document.querySelector('[data-control="minimize"]')?.addEventListener('click', () => {
+    container.classList.add('minimized');
+    minimizeBar.style.display = 'flex';
+  });
+
+  document.querySelector('[data-control="restore"]')?.addEventListener('click', () => {
+    container.classList.remove('minimized');
+    minimizeBar.style.display = 'none';
+  });
+
+  // Helper
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  // Initialize
+  loadTrack(0);
+  
+  // Set initial volume
+  player.volume = (volumeSlider?.value || 50) / 100;
+  
+  // Autoplay ambient hum
+  const ambientHum = document.querySelector('[data-ambient-hum]');
+  if (ambientHum && container.dataset.autoplay === 'true') {
+    ambientHum.play().catch(() => {
+      // Autoplay blocked - wait for user interaction
+      document.addEventListener('click', () => {
+        ambientHum.play();
+      }, { once: true });
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Mixtape Player",
+  "tag": "section",
+  "class": "stellar-mixtape-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Player Settings"
+    },
+    {
+      "type": "text",
+      "id": "mixtape_title",
+      "label": "Mixtape Title",
+      "default": "STELLAR MIX"
+    },
+    {
+      "type": "text",
+      "id": "default_track_name",
+      "label": "Default Track Name",
+      "default": "Loading Transmission..."
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay (Muted)",
+      "default": false,
+      "info": "Starts muted due to browser autoplay policies"
+    },
+    {
+      "type": "range",
+      "id": "default_volume",
+      "label": "Default Volume",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Ambient Hum (Optional)"
+    },
+    {
+      "type": "text",
+      "id": "ambient_hum_url",
+      "label": "Ambient Hum Audio URL",
+      "info": "Low ambient sound that loops (optional)"
+    },
+    {
+      "type": "range",
+      "id": "ambient_volume",
+      "label": "Ambient Volume",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "default": 20,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color",
+      "id": "player_color",
+      "label": "Player Accent Color",
+      "default": "#FF006E"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "track",
+      "name": "Track",
+      "settings": [
+        {
+          "type": "text",
+          "id": "track_name",
+          "label": "Track Name",
+          "default": "Transmission 001"
+        },
+        {
+          "type": "text",
+          "id": "artist_name",
+          "label": "Artist Name",
+          "info": "Optional"
+        },
+        {
+          "type": "text",
+          "id": "audio_url",
+          "label": "Audio URL",
+          "info": "MP3 file URL (required)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mixtape Player",
+      "category": "Stellar Reverb",
+      "blocks": [
+        {
+          "type": "track"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
