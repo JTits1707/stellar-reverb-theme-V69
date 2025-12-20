@@ -11,7 +11,6 @@ Powered by capsule metaobjects + multi-track system.
   • .hero-title, .hero-subtitle, .hero-description, .cta-primary
   • #enterVoid button → scrolls to #timeline
 {% endcomment %}
-
 <section class="lore-hero universal-lore-hero" data-section-type="lore-hero">
   {%- assign all_capsules = metaobjects.capsule.values -%}
 
@@ -130,7 +129,7 @@ Powered by capsule metaobjects + multi-track system.
 
       {%- if hero_image != blank -%}
         <div class="hero-image-frame">
-        <img
+       <img
   src="{{ hero_image | image_url: width: 1200 }}"
   srcset="
     {{ hero_image | image_url: width: 600 }} 600w,
@@ -141,6 +140,10 @@ Powered by capsule metaobjects + multi-track system.
   width="{{ hero_image.width | default: 1200 }}"
   height="{{ hero_image.height | default: 1200 }}"
   alt="{{ spotlight.capsule_title | default: section.settings.heading_override | escape }}"
+  loading="lazy"
+  class="hero-image"
+>
+
   loading="lazy"
   class="hero-image"
 >
