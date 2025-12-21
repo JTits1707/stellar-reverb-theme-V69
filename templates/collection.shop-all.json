@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "stellar-shop-all",
+      "settings": {
+        "hero_kicker": "SHOP ALL TRANSMISSIONS",
+        "hero_title": "COSMIC PRODUCT VAULT",
+        "hero_subtitle": "Every capsule, every relic, every glitchwave echo \u2014 tuned into a single transmission grid.",
+        "products_per_page": 24,
+        "upsell_tag": "limited"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
