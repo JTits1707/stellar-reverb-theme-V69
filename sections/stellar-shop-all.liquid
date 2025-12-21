@@ -3,17 +3,15 @@
   - Use on Shop All collection template
   - Dynamic filters by Capsule + tags
   - FOMO badges + low-stock callouts
-  - Upsell / cross-sell strip at bottom
+  - Upsell / cross-sell strip at bottom (fixed logic)
   - Signal Seeker CTA
 {% endcomment %}
-
 <section
   class="stellar-shop-all"
   data-section-id="{{ section.id }}"
   data-collection-handle="{{ collection.handle }}"
 >
   {{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
-
   <!-- cosmic backdrop shared just for this section -->
   <div class="cosmic-bg"></div>
   <div class="constellation-dot" style="top:15%;left:12%;"></div>
@@ -38,7 +36,6 @@
         </div>
         <div class="logo-text">STELLAR REVERB</div>
       </div>
-
       <nav class="mini-nav">
         <a href="{{ routes.root_url }}">Home</a>
         <a href="{{ routes.collections_url }}">Transmissions</a>
@@ -58,16 +55,13 @@
       {% if section.settings.hero_kicker != blank %}
         <p class="hero-kicker">{{ section.settings.hero_kicker }}</p>
       {% endif %}
-
       <h1 class="hero-title">
         {{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}
       </h1>
-
       <p class="hero-subtitle">
         {{ section.settings.hero_subtitle
           | default: 'Shop every transmission across capsules — analog relics, glitchwave tees, and cosmic hoodies from the Stellar Reverb multiverse.' }}
       </p>
-
       <div class="hero-meta">
         <span>🛰 {{ collection.all_products_count }} relics in orbit</span>
         <span>📼 Capsules 001–014</span>
@@ -80,14 +74,10 @@
       <div class="filter-capsule">
         <div class="filter-line">
           <span class="filter-label">📡 FILTER TRANSMISSIONS</span>
-
           <div class="filter-pills" data-filter-group="capsule">
             <button class="filter-pill is-active" data-filter-value="all">
               All Transmissions
             </button>
-            <!-- NOTE:
-                 these rely on tags like "CAP-001" on your products.
-                 JS matches against data-capsule built from any CAP-* tag. -->
             <button class="filter-pill" data-filter-value="cap-001">Capsule 001</button>
             <button class="filter-pill" data-filter-value="cap-002">Capsule 002</button>
             <button class="filter-pill" data-filter-value="cap-003">Capsule 003</button>
@@ -103,7 +93,6 @@
               Floating Archive
             </button>
           </div>
-
           <div class="sort-shell">
             <label for="cosmic-sort">Sort</label>
             <select id="cosmic-sort" class="sort-select">
@@ -115,7 +104,6 @@
             </select>
           </div>
         </div>
-
         <div class="motif-row" data-filter-group="motif">
           <button class="motif-tag" data-filter-value="cassette">
             <span>📼</span><span>Cassette Glyph</span>
@@ -136,14 +124,8 @@
     <!-- MAIN GRID -->
     <div class="grid-shell">
       {% paginate collection.products by section.settings.products_per_page %}
-        <div
-          class="product-grid"
-          id="stellarProductGrid"
-        >
+        <div class="product-grid" id="stellarProductGrid">
           {% for product in collection.products %}
-            {%- comment -%}
-              Build capsule handle from any CAP-* tag, e.g. "CAP-001" → "cap-001"
-            {%- endcomment -%}
             {% assign capsule_handle = '' %}
             {% assign special_zone = '' %}
             {% for tag in product.tags %}
@@ -157,13 +139,11 @@
                 {% assign special_zone = 'floating-archive' %}
               {% endif %}
             {% endfor %}
-
             {% if capsule_handle == '' %}
               {% assign capsule_handle = special_zone %}
             {% endif %}
 
             {% assign all_tags_down = product.tags | join: ',' | downcase %}
-
             {% assign is_limited = false %}
             {% if all_tags_down contains 'limited' or all_tags_down contains 'exclusive' %}
               {% assign is_limited = true %}
@@ -182,16 +162,11 @@
               data-limited="{{ is_limited }}"
               data-created="{{ product.created_at | date: '%s' }}"
             >
-              {% comment %}capsule tag / limited badges{% endcomment %}
               {% assign capsule_label = product.metafields.custom.capsule_label.value | default: product.metafields.custom.capsule_label | default: '' %}
               {% if capsule_label != '' %}
-                <div class="capsule-tag">
-                  {{ capsule_label }}
-                </div>
+                <div class="capsule-tag">{{ capsule_label }}</div>
               {% elsif capsule_handle != '' %}
-                <div class="capsule-tag">
-                  {{ capsule_handle | replace: 'cap-','CAP-00' | upcase }}
-                </div>
+                <div class="capsule-tag">{{ capsule_handle | replace: 'cap-','CAP-00' | upcase }}</div>
               {% endif %}
 
               {% if is_limited %}
@@ -246,46 +221,26 @@
 
               <div class="card-footer">
                 <div class="price-block">
-                  <span class="price-main">
-                    {{ product.price | money }}
-                  </span>
+                  <span class="price-main">{{ product.price | money }}</span>
                   {% if product.compare_at_price > product.price %}
-                    <span class="price-compare">
-                      {{ product.compare_at_price | money }}
-                    </span>
+                    <span class="price-compare">{{ product.compare_at_price | money }}</span>
                   {% endif %}
-
                   {% if inv_qty > 0 and inv_qty <= 5 %}
-                    <span class="low-stock">
-                      🔥 Only {{ inv_qty }} left in the vault
-                    </span>
+                    <span class="low-stock">🔥 Only {{ inv_qty }} left in the vault</span>
                   {% elsif is_limited %}
-                    <span class="low-stock">
-                      ⏳ Limited run • Once it’s gone, it’s gone
-                    </span>
+                    <span class="low-stock">⏳ Limited run • Once it’s gone, it’s gone</span>
                   {% endif %}
                 </div>
 
                 <div class="card-cta">
-                  <a href="{{ product.url }}" class="btn-outline">
-                    View relic
-                  </a>
-
+                  <a href="{{ product.url }}" class="btn-outline">View relic</a>
                   {% if product.available %}
-                    <form
-                      action="/cart/add"
-                      method="post"
-                      class="add-to-cart-form"
-                    >
+                    <form action="/cart/add" method="post" class="add-to-cart-form">
                       <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                      <button type="submit" class="btn-solid">
-                        Add to cart
-                      </button>
+                      <button type="submit" class="btn-solid">Add to cart</button>
                     </form>
                   {% else %}
-                    <span class="btn-outline" style="opacity:0.6;cursor:not-allowed;">
-                      Sold out
-                    </span>
+                    <span class="btn-outline" style="opacity:0.6;cursor:not-allowed;">Sold out</span>
                   {% endif %}
                 </div>
               </div>
@@ -296,43 +251,37 @@
         {% if paginate.pages > 1 %}
           <div class="mt-8 flex justify-center gap-3 text-sm">
             {% if paginate.previous %}
-              <a href="{{ paginate.previous.url }}" class="btn-outline">
-                ‹ Previous
-              </a>
+              <a href="{{ paginate.previous.url }}" class="btn-outline">‹ Previous</a>
             {% endif %}
             <span style="align-self:center;opacity:0.7;">
               Page {{ paginate.current_page }} of {{ paginate.pages }}
             </span>
             {% if paginate.next %}
-              <a href="{{ paginate.next.url }}" class="btn-outline">
-                Next ›
-              </a>
+              <a href="{{ paginate.next.url }}" class="btn-outline">Next ›</a>
             {% endif %}
           </div>
         {% endif %}
       {% endpaginate %}
     </div>
 
-    <!-- Upsell / Cross-sell Strip -->
+    <!-- Upsell / Cross-sell Strip – FIXED LOGIC -->
     <section class="upsell-shell" aria-label="Almost Gone Relics">
       <div class="upsell-header">
-        <h2 class="upsell-title">
-          ALMOST GONE // SIGNAL HOTSPOTS
-        </h2>
+        <h2 class="upsell-title">ALMOST GONE // SIGNAL HOTSPOTS</h2>
         <p class="upsell-subtitle">
           Handpicked limited transmissions you’ll regret leaving behind.
         </p>
       </div>
 
       <div class="upsell-grid">
-        {% assign upsell_limit = 4 %}
+       {% assign upsell_limit = section.settings.upsell_limit | default: 4 %}
         {% assign upsell_count = 0 %}
 
-        {%- comment -%}
-          Strategy:
-          1) Pull products in this collection tagged with the configured upsell tag OR containing "limited"/"exclusive".
-          2) Stop once upsell_limit is hit.
-        {%- endcomment -%}
+        {% comment %}
+          Pre-normalize the admin-set upsell tag once (avoids repeated downcase inside the loop)
+        {% endcomment %}
+        {% assign upsell_tag_setting = section.settings.upsell_tag | downcase %}
+
         {% for upsell in collection.products %}
           {% if upsell_count >= upsell_limit %}
             {% break %}
@@ -340,7 +289,8 @@
 
           {% assign upsell_tags = upsell.tags | join: ',' | downcase %}
           {% assign match_tag = false %}
-          {% if section.settings.upsell_tag != blank and upsell_tags contains section.settings.upsell_tag | downcase %}
+
+          {% if upsell_tag_setting != blank and upsell_tags contains upsell_tag_setting %}
             {% assign match_tag = true %}
           {% elsif upsell_tags contains 'limited' or upsell_tags contains 'exclusive' %}
             {% assign match_tag = true %}
@@ -365,12 +315,8 @@
                 {% endif %}
               </div>
               <div class="upsell-meta">
-                <div class="upsell-name">
-                  {{ upsell.title }}
-                </div>
-                <div class="upsell-price">
-                  {{ upsell.price | money }}
-                </div>
+                <div class="upsell-name">{{ upsell.title }}</div>
+                <div class="upsell-price">{{ upsell.price | money }}</div>
                 <div class="upsell-tagline">
                   {% if upsell.metafields.custom.lore_snippet != blank %}
                     {{ upsell.metafields.custom.lore_snippet | truncate: 60 }}
@@ -387,11 +333,7 @@
 
     <!-- ROKT / Personalization hook -->
     <div id="stellar-rokt-slot" style="margin-top:2.5rem;">
-      {% comment %}
-        Drop your Rokt / personalization app embed here.
-        Use data attributes if needed:
-        data-collection="{{ collection.handle }}"
-      {% endcomment %}
+      {% comment %}Drop your Rokt / personalization app embed here.{% endcomment %}
     </div>
 
     <!-- SIGNAL SEEKER CTA -->
@@ -403,14 +345,10 @@
               <div class="signal-eye-core"></div>
             </div>
           </div>
-
-          <h2 class="signal-title">
-            JOIN THE SIGNAL SEEKERS
-          </h2>
+          <h2 class="signal-title">JOIN THE SIGNAL SEEKERS</h2>
           <p class="signal-subtitle">
             Early access drops, hidden relics, and encrypted lore from beyond the event horizon.
           </p>
-
           <div class="signal-benefits">
             <div class="signal-benefit">
               <div class="signal-benefit-title">⚡ Priority transmissions</div>
@@ -451,12 +389,12 @@
   </div>
 
   {{ 'stellar-shop-all.js' | asset_url | script_tag }}
-<script>window.StellarShopAll && window.StellarShopAll.init('shopify-section-{{ section.id }}');</script>
+  <script>window.StellarShopAll && window.StellarShopAll.init('shopify-section-{{ section.id }}');</script>
 </section>
 
 {% schema %}
 {
-  "name": "Stellar Shop All – Cosmic Vault",
+  "name": "Stellar Shop All",
   "settings": [
     {
       "type": "text",
@@ -477,24 +415,33 @@
       "default": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid."
     },
     {
-      "type": "number",
+      "type": "range",
       "id": "products_per_page",
       "label": "Products per page",
-      "default": 24,
       "min": 6,
-      "max": 48
+      "max": 48,
+      "step": 6,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "upsell_limit",
+      "label": "Upsell limit",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
     },
     {
       "type": "text",
       "id": "upsell_tag",
-      "label": "Upsell tag (optional)",
-      "info": "Products with this tag will be prioritized for the Almost Gone upsell strip.",
+      "label": "Upsell tag",
       "default": "limited"
     }
   ],
   "presets": [
     {
-      "name": "Stellar Shop All – Cosmic Vault"
+      "name": "Stellar Shop All"
     }
   ]
 }
