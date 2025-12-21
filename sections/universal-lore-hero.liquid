@@ -1,4 +1,4 @@
-  {% comment %}
+ {% comment %}
 UNIVERSAL LORE HERO
 Powered by capsule metaobjects + multi-track system.
 
@@ -127,6 +127,7 @@ Powered by capsule metaobjects + multi-track system.
       {%- if hero_image == blank and section.settings.fallback_hero_image != blank -%}
         {%- assign hero_image = section.settings.fallback_hero_image -%}
       {%- endif -%}
+
       {%- if hero_image != blank -%}
         <div class="hero-image-frame">
           <img
