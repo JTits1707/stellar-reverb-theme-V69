@@ -127,28 +127,23 @@ Powered by capsule metaobjects + multi-track system.
       {%- if hero_image == blank and section.settings.fallback_hero_image != blank -%}
         {%- assign hero_image = section.settings.fallback_hero_image -%}
       {%- endif -%}
-
       {%- if hero_image != blank -%}
         <div class="hero-image-frame">
-       <img
-  src="{{ hero_image | image_url: width: 1200 }}"
-  srcset="
-    {{ hero_image | image_url: width: 600 }} 600w,
-    {{ hero_image | image_url: width: 900 }} 900w,
-    {{ hero_image | image_url: width: 1200 }} 1200w
-  "
-  sizes="(min-width: 1024px) 50vw, 100vw"
-  width="{{ hero_image.width | default: 1200 }}"
-  height="{{ hero_image.height | default: 1200 }}"
-  alt="{{ spotlight.capsule_title | default: section.settings.heading_override | escape }}"
-  loading="lazy"
-  class="hero-image"
->
-
-  loading="lazy"
-  class="hero-image"
->
-           >
+          <img
+            src="{{ hero_image | image_url: width: 1200 }}"
+            srcset="
+              {{ hero_image | image_url: width: 600 }} 600w,
+              {{ hero_image | image_url: width: 900 }} 900w,
+              {{ hero_image | image_url: width: 1200 }} 1200w,
+              {{ hero_image | image_url: width: 1800 }} 1800w
+            "
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            width="{{ hero_image.width | default: 1200 }}"
+            height="{{ hero_image.height | default: 800 }}"
+            alt="{{ spotlight.capsule_title | default: section.settings.heading_override | default: 'Stellar Reverb Universal Lore' | escape }}"
+            loading="lazy"
+            class="hero-image"
+          >
           <div class="hero-image-overlay"></div>
         </div>
       {%- else -%}
