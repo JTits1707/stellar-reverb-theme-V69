@@ -9,12 +9,12 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "floating-archive-main",
+    "hero": {
+      "type": "universal-lore-hero",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "hero"
   ]
 }
