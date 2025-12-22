@@ -2,22 +2,23 @@
   ═══════════════════════════════════════════════════════════
   STELLAR REVERB - FOOTER SECTION
   ═══════════════════════════════════════════════════════════
-
+  
   Purpose: 3-column footer with capsule links, info, and social
   Structure:
     Column 1: Capsules (dynamic list from metaobjects)
     Column 2: Info (FAQ, Contact, Shipping, etc.)
     Column 3: Connect (Social media links)
-
+  
   Features:
     - Dynamic capsule list
     - Optional Signal Seeker badge
     - Social media icons
     - Copyright info
 {% endcomment %}
+
 {% liquid
   # Fetch all published capsules from metaobjects
-{% assign capsules = metaobjects.capsule.values | sort: 'capsule_number' %}
+  assign all_capsules = metaobjects.capsule.values | sort: 'capsule_number'
   
   # Footer settings
   assign show_signal_badge = section.settings.show_signal_badge | default: true
@@ -80,7 +81,7 @@
                 View All Capsules →
               </a>
             </li>
-          {% endif %}
+       {% endif %}
         </ul>
       </div>
       
