@@ -179,23 +179,27 @@
                 </div>
               {% endif %}
 
-              <div class="card-media">
-                <a href="{{ product.url }}">
-                  {% if product.featured_image %}
-                    <img
-                      src="{{ product.featured_image | image_url: width: 600 }}"
-                      alt="{{ product.featured_image.alt | escape }}"
-                      loading="lazy"
-                    >
-                  {% else %}
-                    <img
-                      src="{{ 'placeholder-image.png' | asset_url }}"
-                      alt="{{ product.title | escape }}"
-                      loading="lazy"
-                    >
-                  {% endif %}
-                </a>
-              </div>
+              <div class="card-media relic-visual-terminal">
+  <a href="{{ product.url }}" class="relic-link">
+    {% if product.featured_image %}
+      <img
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        alt="{{ product.featured_image.alt | escape }}"
+        class="relic-img-base"
+        loading="lazy"
+      >
+    {% endif %}
+    
+    <div class="relic-wireframe-overlay"></div>
+    
+    <div class="relic-hud-meta">
+      <span class="hud-bit">ID: {{ product.variants.first.sku | default: 'UNKNOWN' }}</span>
+      <span class="hud-bit">STATUS: STABLE</span>
+    </div>
+    
+    <div class="relic-scanning-beam"></div>
+  </a>
+</div>
 
               <h3 class="product-title">
                 <a href="{{ product.url }}" style="color:inherit;text-decoration:none;">
@@ -235,10 +239,18 @@
                 <div class="card-cta">
                   <a href="{{ product.url }}" class="btn-outline">View relic</a>
                   {% if product.available %}
-                    <form action="/cart/add" method="post" class="add-to-cart-form">
-                      <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                      <button type="submit" class="btn-solid">Add to cart</button>
-                    </form>
+                    <form action="/cart/add" method="post" class="add-to-cart-form relic-extraction-module" data-product-id="{{ product.variants.first.id }}">
+  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+  <button type="submit" class="btn-solid btn-extraction" data-extraction-trigger>
+    <span class="btn-text">Add to cart</span>
+    <span class="btn-glitch-layer"></span>
+  </button>
+  <div class="extraction-terminal-output" aria-live="polite">
+    <div class="terminal-loader-bar"></div>
+    <p class="terminal-log-text">> STANDBY...</p>
+  </div>
+</form>
+
                   {% else %}
                     <span class="btn-outline" style="opacity:0.6;cursor:not-allowed;">Sold out</span>
                   {% endif %}
