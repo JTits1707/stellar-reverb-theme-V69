@@ -66,7 +66,6 @@
     },
     "hero": {
       "type": "universal-lore-hero",
-      "disabled": true,
       "settings": {
         "kicker_text": "UNIVERSAL LORE ARCHIVE",
         "heading_override": "Universal Lore Index",
