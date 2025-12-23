@@ -17,67 +17,52 @@
 
   {% if is_signal_seeker %}
 
-    {%- comment -%} ✅ SIGNAL SEEKER - SHOW DASHBOARD {%- endcomment -%}
-    <div class="dashboard-unlocked">
-      <div class="container">
+   <div class="dashboard-unlocked terminal-interface">
+  <div class="container">
+    
+    {% comment %} TOP HUD BAR {% endcomment %}
+    <div class="terminal-hud-bar">
+      <div class="hud-status-group">
+        <span class="status-led animate-pulse"></span>
+        <span class="status-text">UPLINK_STABLE // USER: {{ customer.first_name | upcase }}</span>
+      </div>
+      <div class="hud-location">SECTOR: EVENT_HORIZON</div>
+    </div>
 
-        <div class="dashboard-header">
-          <div class="welcome-badge">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2l2.5 5 5.5.7-4 3.9 1 5.4-5-2.6-5 2.6 1-5.4-4-3.9 5.5-.7z"/>
-            </svg>
-            <span>Signal Seeker</span>
-          </div>
+    <div class="dashboard-header text-center">
+      <h1 class="dashboard-title glitch-text" data-text="SIGNAL SEEKER HUB">SIGNAL SEEKER HUB</h1>
+      <p class="dashboard-intro">Welcome to the inner frequency. Your extraction logs are active.</p>
+    </div>
 
-          <h1 class="dashboard-title">
-            Welcome Back, {{ customer.first_name | default: 'Signal Seeker' }}
-          </h1>
+    {% comment %} ACTIVE HUD STATS {% endcomment %}
+    <div class="dashboard-stats hud-grid">
+      <div class="stat-card terminal-frame">
+        <span class="stat-label">// RELICS_SECURED</span>
+        <div class="stat-value text-cyan">{{ customer.orders_count | default: '00' | prepend: '0' | slice: -2, 2 }}</div>
+      </div>
+      <div class="stat-card terminal-frame">
+        <span class="stat-label">// UPLINK_STABLISHED</span>
+        <div class="stat-value text-magenta">{{ customer.created_at | date: "%Y.%m" }}</div>
+      </div>
+      <div class="stat-card terminal-frame">
+        <span class="stat-label">// CLEARANCE_LEVEL</span>
+        <div class="stat-value text-green">OMEGA</div>
+      </div>
+    </div>
 
-          <p class="dashboard-intro">
-            Your cosmic transmissions. Your exclusive archive. Your Signal.
-          </p>
+    {% comment %} ACTION GRID WITH WIREFRAME HOVER {% endcomment %}
+    <div class="dashboard-actions hud-action-grid">
+      <a href="/pages/floating-archive" class="relic-visual-terminal action-card">
+        <div class="relic-wireframe-overlay"></div>
+        <div class="action-content">
+          <h3 class="action-title">FLOATING ARCHIVE</h3>
+          <p class="action-description">Access restricted relics.</p>
         </div>
-
-        <div class="dashboard-stats">
-
-          <div class="stat-card">
-            <div class="stat-icon" aria-hidden="true">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M9 2a1 1 0 00-.894.553L6.382 6H4a1 1 0 00-1 1v11a2 2 0 002 2h14a2 2 0 002-2V7a1 1 0 00-1-1h-2.382l-1.724-3.447A1 1 0 0015 2H9z" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="stat-content">
-              <div class="stat-value">{{ customer.orders_count | default: 0 }}</div>
-              <div class="stat-label">Capsules Collected</div>
-            </div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-icon" aria-hidden="true">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <circle cx="12" cy="12" r="10" stroke-width="2"/>
-                <path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div class="stat-content">
-              <div class="stat-value">{{ customer.created_at | date: "%b %Y" }}</div>
-              <div class="stat-label">Member Since</div>
-            </div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-icon" aria-hidden="true">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-width="2" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="stat-content">
-              <div class="stat-value">∞</div>
-              <div class="stat-label">Exclusive Access</div>
-            </div>
-          </div>
-
-        </div>
+      </a>
+      {% comment %} Add more action cards with the .relic-visual-terminal class {% endcomment %}
+    </div>
+  </div>
+</div>
 
         <div class="dashboard-actions">
 
