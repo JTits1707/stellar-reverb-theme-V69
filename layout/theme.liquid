@@ -1,18 +1,9 @@
 <!doctype html>
-<html
-  class="no-js"
-  lang="{{ request.locale.iso_code }}"
->
+<html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
     <meta charset="utf-8">
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1"
-    >
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    {%- comment -%}
-      SEO / Title
-    {%- endcomment -%}
     <title>
       {%- if page_title == blank -%}
         {{ 'general.meta.title' | t: shop_name: shop.name }}
@@ -22,38 +13,15 @@
     </title>
 
     {%- if page_description -%}
-      <meta
-        name="description"
-        content="{{ page_description | escape }}"
-      >
+      <meta name="description" content="{{ page_description | escape }}">
     {%- else -%}
-      <meta
-        name="description"
-        content="Stellar Reverb – cosmic apparel, analog mysticism, and wearable soundscapes broadcasting from the edge of reality."
-      >
+      <meta name="description" content="Stellar Reverb – cosmic apparel, analog mysticism, and wearable soundscapes broadcasting from the edge of reality.">
     {%- endif -%}
 
     <meta name="theme-color" content="#0D0D0D">
-
-    {%- comment -%}
-      Favicon (update file name as needed)
-    {%- endcomment -%}
-    <link
-      rel="icon"
-      type="image/png"
-      href="{{ 'favicon.png' | asset_url }}"
-    >
-
-    {%- comment -%}
-      Preconnects for performance
-      (No Google Fonts needed now that fonts are self-hosted)
-    {%- endcomment -%}
+    <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    {%- comment -%}
-      CSS Variables from Theme Settings (Brand Tokens)
-      + font families wired to self-hosted fonts
-    {%- endcomment -%}
     <style>
       :root {
         --void-black: {{ settings.color_void_black | default: '#0D0D0D' }};
@@ -64,7 +32,6 @@
         --electric-yellow: {{ settings.color_electric_yellow | default: '#F4FF30' }};
         --chrome-silver: {{ settings.color_chrome_silver | default: '#B0B0B0' }};
 
-        /* Font families (self-hosted via brand-fonts.css) */
         --font-title: 'Orbitron', system-ui, sans-serif;
         --font-body: 'PP Mori', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         --font-accent: 'PP Neue Machina', system-ui, sans-serif;
@@ -77,56 +44,21 @@
       }
     </style>
 
-    {%- comment -%}
-      Core CSS – order matters:
-      1) Critical (above-the-fold, if you have it)
-      2) Base / theme
-      3) Brand fonts
-      4) Hero / floating elements / capsule styling
-    {%- endcomment -%}
-    {% comment %}
-      If you truly want conditional loading you’d need an app/extension;
-      using "if 'file' | asset_url" will always be truthy, so you can
-      just include the files directly.
-    {% endcomment %}
-
     {{ 'brand-fonts.css' | asset_url | stylesheet_tag }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'theme-base.css' | asset_url | stylesheet_tag }}
     {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
 
-    {% if 'stellar-reverb-critical.css' | asset_url %}
-      {{ 'stellar-reverb-critical.css' | asset_url | stylesheet_tag }}
-    {% endif %}
+    {%- comment -%} Load Beast Mode Styles {%- endcomment -%}
+    {{ 'stellar-transmission-archive.css' | asset_url | stylesheet_tag }}
 
-    {% if 'stellar-reverb-performance.css' | asset_url %}
-      {{ 'stellar-reverb-performance.css' | asset_url | stylesheet_tag }}
-    {% endif %}
+    {%- comment -%} Optional/Existing Logic {%- endcomment -%}
+    {% if 'stellar-reverb-performance.css' | asset_url %}{{ 'stellar-reverb-performance.css' | asset_url | stylesheet_tag }}{% endif %}
+    {% if 'hero-decoding.css' | asset_url %}{{ 'hero-decoding.css' | asset_url | stylesheet_tag }}{% endif %}
+    {% if 'floating-elements.css' | asset_url %}{{ 'floating-elements.css' | asset_url | stylesheet_tag }}{% endif %}
 
-    {% if 'cosmic-hero.css' | asset_url %}
-      {{ 'cosmic-hero.css' | asset_url | stylesheet_tag }}
-    {% endif %}
-
-    {% if 'hero-decoding.css' | asset_url %}
-      {{ 'hero-decoding.css' | asset_url | stylesheet_tag }}
-    {% endif %}
-
-    {% if 'floating-elements.css' | asset_url %}
-      {{ 'floating-elements.css' | asset_url | stylesheet_tag }}
-    {% endif %}
-
-    {% if 'stellar-rev-mance.css' | asset_url %}
-      {{ 'stellar-rev-mance.css' | asset_url | stylesheet_tag }}
-    {% endif %}
-
-    {%- comment -%}
-      Shopify required, apps, analytics, etc.
-    {%- endcomment -%}
     {{ content_for_header }}
 
-    {%- comment -%}
-      JSON-LD baseline schema (you can expand later)
-    {%- endcomment -%}
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -141,82 +73,51 @@
     </script>
   </head>
 
-  <body
-    class="
-      template-{{ template.name | handle }}
-      template-{{ template | replace: '.', '-' | replace: '/', '-' }}
-    "
-  >
-    {%- comment -%}
-      Accessibility: skip link
-    {%- endcomment -%}
-    <a
-      class="skip-to-content sr-only focus:not-sr-only"
-      href="#MainContent"
-    >
+  <body class="template-{{ template.name | handle }} template-{{ template | replace: '.', '-' | replace: '/', '-' }}">
+    
+    {%- comment -%} 🛰️ GLOBAL TERMINAL HANDSHAKE OVERLAY {%- endcomment -%}
+    <div id="stellar-terminal-handshake" class="terminal-boot-overlay" aria-hidden="true">
+      <div class="terminal-boot-frame">
+        <div class="terminal-boot-scanline"></div>
+        <div class="terminal-boot-content">
+          <div class="boot-header">
+            <span class="boot-icon">🛰️</span>
+            <span class="boot-title">STELLAR_REVERB_OS // V.69</span>
+          </div>
+          <div class="boot-loader">
+            <div id="boot-progress-bar"></div>
+          </div>
+          <div class="boot-logs" id="boot-logs">
+            <p class="log-entry">> INITIALIZING_CONNECTION...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a class="skip-to-content sr-only focus:not-sr-only" href="#MainContent">
       {{ 'accessibility.skip_to_content' | t | default: 'Skip to main content' }}
     </a>
 
-    {%- comment -%}
-      Header (navigation, logo, cart, etc.)
-      Use enhanced header for all pages.
-    {%- endcomment -%}
     {% section 'header-enhanced' %}
 
-    {%- comment -%}
-      Page main content
-    {%- endcomment -%}
-    <main
-      id="MainContent"
-      role="main"
-      tabindex="-1"
-      class="main-content"
-    >
+    <main id="MainContent" role="main" tabindex="-1" class="main-content">
       {{ content_for_layout }}
     </main>
 
-    {%- comment -%}
-      Footer (global footer; Stellar variant)
-    {%- endcomment -%}
     {% section 'stellar-footer' %}
 
-    {%- comment -%}
-      Core JS – global theme logic
-    {%- endcomment -%}
-    {% if 'global.js' | asset_url %}
-      <script src="{{ 'global.js' | asset_url }}" defer></script>
-    {% endif %}
+    {%- comment -%} Core JS Logic {%- endcomment -%}
+    <script src="{{ 'stellar-transmission-archive.js' | asset_url }}" defer></script>
+    {% if 'global.js' | asset_url %}<script src="{{ 'global.js' | asset_url }}" defer></script>{% endif %}
 
-    {%- comment -%}
-      Page-specific JS:
-      Lore engine for universal lore pages / sections
-    {%- endcomment -%}
+    {%- comment -%} Page-Specific JS {%- endcomment -%}
     {% if template contains 'universal-lore' or template contains 'lore' %}
-      {% if 'stellar-reverb-lore.js' | asset_url %}
-        <script src="{{ 'stellar-reverb-lore.js' | asset_url }}" defer></script>
-      {% endif %}
+      <script src="{{ 'stellar-reverb-lore.js' | asset_url }}" defer></script>
     {% endif %}
 
-    {%- comment -%}
-      Optional: Shop All filters / interactions
-    {%- endcomment -%}
-    {% if template contains 'collection.shop-all' %}
-      {% if 'stellar-shop-all.js' | asset_url %}
-        <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
-      {% endif %}
+    {% if template contains 'collection' %}
+      <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
     {% endif %}
 
-    {%- comment -%}
-      Optional: service worker for PWA-ish feel
-    {%- endcomment -%}
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-          .register('{{ "sw.js" | asset_url }}')
-          .catch(function (error) {
-            console.log('Service worker registration failed', error);
-          });
-      }
-    </script>
   </body>
 </html>
