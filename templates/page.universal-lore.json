@@ -64,12 +64,9 @@
         "brand_name": "STELLAR REVERB"
       }
     },
-    "loader": {
-      "type": "universal-lore-loader",
-      "settings": {}
-    },
     "hero": {
       "type": "universal-lore-hero",
+      "disabled": true,
       "settings": {
         "kicker_text": "UNIVERSAL LORE ARCHIVE",
         "heading_override": "Universal Lore Index",
@@ -158,11 +155,14 @@
     "konami_modal": {
       "type": "universal-lore-konami-modal",
       "settings": {}
+    },
+    "loader": {
+      "type": "universal-lore-loader",
+      "settings": {}
     }
   },
   "order": [
     "navigation",
-    "loader",
     "hero",
     "myth",
     "timeline",
@@ -170,6 +170,7 @@
     "signals",
     "signup",
     "signal_feed",
-    "konami_modal"
+    "konami_modal",
+    "loader"
   ]
 }
