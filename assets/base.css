@@ -330,3 +330,27 @@ textarea {
   gap: 20px;
   margin-top: 40px;
 }
+/* 1. BRAND FONTS (From your theme-base.css) */
+@font-face { font-family: 'Orbitron'; ... }
+@font-face { font-family: 'PP Mori'; ... }
+@font-face { font-family: 'PP Neue Machina'; ... }
+
+/* 2. GLOBAL RESET & BODY (From your base.css) */
+body {
+  background: var(--void-black);
+  font-family: var(--font-body);
+  ...
+}
+
+/* 3. TYPOGRAPHY & BUTTONS */
+h1, h2, .btn { ... }
+
+/* 4. BEAST MODE ENHANCEMENTS (The "Missing" Additions) */
+/* Protocol Handshake, Wireframe Glitch, and Hardware Synth UI */
+.sr-boot-overlay { ... }
+.relic-visual-terminal { ... }
+.synth-sidebar { ... }
+
+/* 5. ANIMATION KEYFRAMES */
+@keyframes scanLoop { ... }
+@keyframes radarScan { ... }

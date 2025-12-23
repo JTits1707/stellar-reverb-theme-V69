@@ -115,4 +115,49 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, 150);
   }
-});
+})
+.sr-terminal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.98);
+  z-index: 9999;
+  display: none; /* Controlled by JS */
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(20px);
+}
+
+.sr-terminal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
+
+.sr-terminal-window {
+  width: 90%;
+  max-width: 600px;
+  background: #000;
+  border: 2px solid #E13CFA;
+  box-shadow: 0 0 50px rgba(225, 60, 250, 0.4);
+  padding: 20px;
+  font-family: 'Orbitron', monospace;
+}
+
+.sr-progress-container {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 20px 0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.sr-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #28A8D6, #00F0AC);
+  box-shadow: 0 0 15px #00F0AC;
+  transition: width 0.1s linear;
+}
+
+.sr-log-entry {
+  color: #00F0AC;
+  font-size: 12px;
+  margin: 5px 0;
+  animation: glitchText 0.1s;
+}

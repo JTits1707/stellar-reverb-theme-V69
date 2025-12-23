@@ -96,3 +96,15 @@
     </div>
   </div>
 </article>
+<div class="relic-card__visual-terminal">
+  <img src="{{ product.featured_image | image_url: width: 800 }}" class="relic-img__base">
+  
+  <div class="relic-wireframe" style="background-image: url('{{ "wireframe-pattern.svg" | asset_url }}');"></div>
+  
+  <div class="relic-metadata-overlay">
+    <span class="metadata-bit">OBJECT_REF: {{ product.id | slice: -6, 6 }}</span>
+    <span class="metadata-bit">FREQ: 432Hz</span>
+  </div>
+  
+  <div class="relic-scanline"></div>
+</div>

@@ -1,4 +1,4 @@
-/* ============================================
+ /* ============================================
    HERO DECODING — ENHANCEMENTS (SAFE + SCOPED)
    Adds: scanlines, grain, breathing frame,
    title glow, terminal hover lift, ambient stars
@@ -224,4 +224,54 @@
   .hero-decoding__terminal:hover .hero-decoding__title::after {
     animation: none !important;
   }
+}
+.sr-hero-terminal {
+  position: relative;
+  min-height: 100vh;
+  background: var(--void-black);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* The Radar Sweep Effect */
+.sr-hero-radar {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(40, 168, 214, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(40, 168, 214, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: 1;
+}
+
+.sr-hero-radar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--radioactive-green), transparent);
+  height: 2px;
+  opacity: 0.2;
+  animation: radarSweep 4s linear infinite;
+}
+
+@keyframes radarSweep {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+}
+
+.sr-terminal-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.sr-hero-title {
+  font-family: var(--font-primary); /* Orbitron */
+  font-size: clamp(3rem, 10vw, 6rem);
+  color: #fff;
+  text-shadow: 0 0 20px var(--neon-magenta);
 }

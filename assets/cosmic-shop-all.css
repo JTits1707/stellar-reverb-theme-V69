@@ -254,27 +254,3 @@ SHOP ALL — COSMIC GRID
     align-items: stretch;
   }
 }
-/* Linking the Shop All BG to the Global Radar Sweep */
-.stellar-shop-all::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent, rgba(0, 240, 172, 0.03), transparent);
-  height: 5px;
-  width: 100%;
-  animation: radarScan 10s linear infinite;
-  pointer-events: none;
-  z-index: 5;
-}
-
-/* Enhancing the Product Card Glow on the "Shop All" grid */
-.product-card {
-  border: 1px solid rgba(108, 36, 179, 0.3) !important;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.product-card:hover {
-  border-color: var(--neon-magenta) !important;
-  box-shadow: 0 0 40px rgba(225, 60, 250, 0.3) !important;
-  transform: translateY(-10px) scale(1.02) !important;
-}
