@@ -31,10 +31,20 @@
         "upsell_limit": 4,
         "upsell_tag": "limited"
       }
+    },
+    "announcement_bar_8qMzP4": {
+      "type": "announcement-bar",
+      "name": "Announcement bar",
+      "settings": {
+        "message": "FREE SHIPPING ON ALL ORDERS 🌌",
+        "color_scheme": "accent-2",
+        "show_announcement": true
+      }
     }
   },
   "order": [
     "main",
-    "stellar_shop_all_UNk3CU"
+    "stellar_shop_all_UNk3CU",
+    "announcement_bar_8qMzP4"
   ]
 }
