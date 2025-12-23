@@ -55,7 +55,7 @@
         "capsule_number": "008",
         "capsule_title": "GLITCHWAVE ORACLE",
         "subtitle": "The Future Fractures in Neon Prophecy.",
-        "description": "<p><strong>Check Out Our Latest Capsule Drop1</strong></p>",
+        "description": "<p><strong>Check Out Our Latest Capsule Drop.</strong></p>",
         "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag.jpg",
         "lore_preview": "The Oracle speaks in glitch. Neon prophecies burst from corrupted signals, fragments of futures that never happened. Capsule 008 channels these visions into wearable prophecy: fractured waveforms, holographic cassettes, and visions of collapse hidden in every thread.",
         "release_date": "2024.10",
@@ -67,7 +67,7 @@
         "secondary_cta_text": "READ LORE",
         "secondary_cta_link": "",
         "image_position": "left",
-        "padding_top": 52,
+        "padding_top": 36,
         "padding_bottom": 48
       }
     },
@@ -141,6 +141,52 @@
       "custom_css": [],
       "name": "Floating Archive · Gated",
       "settings": {}
+    },
+    "featured_capsules_UQJccL": {
+      "type": "featured-capsules",
+      "blocks": {
+        "product_jQbx7W": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_dwMa9X": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_9VtMYF": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_jQbx7W",
+        "product_dwMa9X",
+        "product_9VtMYF"
+      ],
+      "name": "Featured Capsules",
+      "settings": {
+        "eyebrow_text": "Newest Drops",
+        "eyebrow_color": "#28a8d6",
+        "eyebrow_border": "#28a8d6",
+        "eyebrow_background": "rgba(40, 168, 214, 0.2)",
+        "heading": "Featured Capsules",
+        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
+        "subheading": "Explore our latest cosmic transmissions",
+        "subtitle_color": "#ffffff",
+        "grid_columns": 3,
+        "image_ratio": "square",
+        "show_badges": true,
+        "show_quick_add": true,
+        "show_view_all": true,
+        "view_all_text": "View All Capsules",
+        "view_all_url": "shopify://collections/all"
+      }
     },
     "navigation_matrix_7Htegc": {
       "type": "navigation-matrix",
@@ -237,52 +283,6 @@
         "benefit_4_text": "Access Signal Seeker Dashboard",
         "background_gradient": "...",
         "show_particles": true
-      }
-    },
-    "featured_capsules_UQJccL": {
-      "type": "featured-capsules",
-      "blocks": {
-        "product_jQbx7W": {
-          "type": "product",
-          "settings": {
-            "product": ""
-          }
-        },
-        "product_dwMa9X": {
-          "type": "product",
-          "settings": {
-            "product": ""
-          }
-        },
-        "product_9VtMYF": {
-          "type": "product",
-          "settings": {
-            "product": ""
-          }
-        }
-      },
-      "block_order": [
-        "product_jQbx7W",
-        "product_dwMa9X",
-        "product_9VtMYF"
-      ],
-      "name": "Featured Capsules",
-      "settings": {
-        "eyebrow_text": "Newest Drops",
-        "eyebrow_color": "#28A8D6",
-        "eyebrow_border": "#28A8D6",
-        "eyebrow_background": "rgba(40, 168, 214, 0.2)",
-        "heading": "Featured Capsules",
-        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "subheading": "Explore our latest cosmic transmissions",
-        "subtitle_color": "#FFFFFF",
-        "grid_columns": 3,
-        "image_ratio": "square",
-        "show_badges": true,
-        "show_quick_add": true,
-        "show_view_all": true,
-        "view_all_text": "View All Capsules",
-        "view_all_url": "shopify://collections/all"
       }
     }
   },
