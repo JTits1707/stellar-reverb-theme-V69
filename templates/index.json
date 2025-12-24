@@ -227,8 +227,9 @@
           "type": "nav_item",
           "settings": {
             "title": "Shop",
-            "link_url": "",
+            "link_url": "shopify://collections/frontpage",
             "icon_type": "diamond",
+            "custom_icon": "shopify://shop_images/Universal-lore-hero-image-v16.jpg",
             "glow_color": "gold"
           }
         }
