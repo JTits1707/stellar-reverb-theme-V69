@@ -9,18 +9,31 @@
  */
 {
   "sections": {
+    "stellar_archive_hero_corrected_HeaG8A": {
+      "type": "stellar-archive-hero-corrected",
+      "name": "Archive Hero (Corrected)",
+      "settings": {
+        "title": "STELLAR REVERB",
+        "subtitle": "Sound Style Transmissions Of Cosmic Identity.",
+        "featured_capsule_number": "Limited Capsule Drops // Pushing The Event Horizon.",
+        "enable_particles": true,
+        "enable_cassettes": true
+      }
+    },
     "main": {
       "type": "stellar-shop-all",
       "settings": {
         "hero_kicker": "SHOP ALL TRANSMISSIONS",
         "hero_title": "COSMIC PRODUCT VAULT",
-        "hero_subtitle": "Every capsule, every relic, every glitchwave echo \u2014 tuned into a single transmission grid.",
+        "hero_subtitle": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.",
         "products_per_page": 24,
+        "upsell_limit": 4,
         "upsell_tag": "limited"
       }
     }
   },
   "order": [
+    "stellar_archive_hero_corrected_HeaG8A",
     "main"
   ]
 }
