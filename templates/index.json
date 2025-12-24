@@ -217,8 +217,9 @@
           "type": "nav_item",
           "settings": {
             "title": "Lore",
-            "link_url": "",
+            "link_url": "shopify://pages/universal-lore-1",
             "icon_type": "infinity",
+            "custom_icon": "shopify://shop_images/247B4537-15A4-43B5-B501-0BDA8919FAE2-topaz-denoise_d423d63e-6fcf-4dbb-8bb4-3db5f4269754.jpg",
             "glow_color": "purple"
           }
         },
