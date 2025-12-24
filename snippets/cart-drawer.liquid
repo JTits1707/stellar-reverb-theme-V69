@@ -1,0 +1,18 @@
+<div id="CartDrawer" class="cart-drawer sr-terminal-interface">
+  <div class="cart-drawer-header">
+    <span class="hud-bit">CARGO_BAY // STATUS: ACTIVE</span>
+    <button type="button" class="cart-drawer-close" onclick="closeCartDrawer()">[ CLOSE_BAY ]</button>
+  </div>
+  
+  <div id="CartDrawerContainer" class="cart-drawer-items">
+    {% comment %} Items are injected here via JS {% endcomment %}
+  </div>
+
+  <div class="cart-drawer-footer">
+    <div class="cart-total-row">
+      <span>TOTAL_CREDITS:</span>
+      <span id="CartTotal">{{ cart.total_price | money }}</span>
+    </div>
+    <a href="/checkout" class="btn-solid btn-full">INITIATE_CHECKOUT_PROTOCOL</a>
+  </div>
+</div>
