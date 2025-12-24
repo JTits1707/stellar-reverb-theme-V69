@@ -25,10 +25,22 @@
         "hero_subtitle": "Shop every transmission.",
         "products_per_page": 24
       }
+    },
+    "stellar_archive_hero_corrected_rdKdWE": {
+      "type": "stellar-archive-hero-corrected",
+      "name": "Archive Hero (Corrected)",
+      "settings": {
+        "title": "STELLAR REVERB",
+        "subtitle": "Sound Style Transmissions Of Cosmic Identity",
+        "featured_capsule_number": "",
+        "enable_particles": true,
+        "enable_cassettes": true
+      }
     }
   },
   "order": [
     "main",
-    "stellar_shop_all_7tiKkG"
+    "stellar_shop_all_7tiKkG",
+    "stellar_archive_hero_corrected_rdKdWE"
   ]
 }
