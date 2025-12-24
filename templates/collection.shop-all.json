@@ -54,11 +54,29 @@
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
+    },
+    "stellar_fomo_countdown_M3AJK9": {
+      "type": "stellar-fomo-countdown",
+      "name": "FOMO Countdown",
+      "settings": {
+        "enable_countdown": true,
+        "countdown_date": "2024-12-31T23:59:59",
+        "timer_label": "TRANSMISSION ENDS IN",
+        "low_stock_threshold": 10,
+        "stock_remaining": 7,
+        "urgency_message": "ONLY [X] ECHOES REMAIN",
+        "cta_text": "CLAIM YOUR ECHO",
+        "cta_url": "",
+        "fomo_color": "#00FF88",
+        "show_waveform": true,
+        "show_particles": true
+      }
     }
   },
   "order": [
     "main",
     "stellar_archive_hero_corrected_fHpkQi",
-    "newsletter_cosmic_dN3PTJ"
+    "newsletter_cosmic_dN3PTJ",
+    "stellar_fomo_countdown_M3AJK9"
   ]
 }
