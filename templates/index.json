@@ -196,10 +196,11 @@
         "nav_item_F4a6zh": {
           "type": "nav_item",
           "settings": {
-            "title": "All Capsules",
-            "link_url": "",
+            "title": "THE CAPSULES",
+            "link_url": "shopify://pages/capsules",
             "icon_type": "spiral",
-            "glow_color": "purple"
+            "custom_icon": "shopify://shop_images/11850520087341150600-topaz-enhance-4x.png",
+            "glow_color": "cyan"
           }
         },
         "nav_item_CajKxc": {
