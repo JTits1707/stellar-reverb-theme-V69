@@ -354,3 +354,13 @@ h1, h2, .btn { ... }
 /* 5. ANIMATION KEYFRAMES */
 @keyframes scanLoop { ... }
 @keyframes radarScan { ... }
+/* THE NUCLEAR Z-INDEX OVERRIDE */
+#sr-terminal-boot, 
+.sr-boot-overlay {
+  z-index: 2147483647 !important; /* Maximum possible integer for CSS z-index */
+  background: var(--void-black);
+}
+
+.section-header {
+  z-index: 100 !important; /* High, but much lower than the boot-up screen */
+}

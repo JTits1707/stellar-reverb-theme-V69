@@ -2,60 +2,76 @@
   ═══════════════════════════════════════════════════════════
   STELLAR REVERB - FEATURED TRANSMISSION (SECTION)
   ═══════════════════════════════════════════════════════════
-  
+
   Purpose: Hero spotlight for current featured capsule
   Features:
     - Large image with parallax effect
     - Lore preview text
     - Neon-styled CTA
     - Can pull from metaobject or use manual content
-  
+
   ═══════════════════════════════════════════════════════════
 {% endcomment %}
 
-<section 
-  class="featured-transmission" 
+<section
+  class="featured-transmission"
   data-section-id="{{ section.id }}"
   data-section-type="featured-transmission"
 >
-  
+
+  {%- comment -%} Pull featured capsule from product if specified {%- endcomment -%}
+  {%- if section.settings.featured_product != blank -%}
+    {%- assign featured_capsule = section.settings.featured_product -%}
+  {%- else -%}
+    {%- assign source_collection = collections[section.settings.collection_handle] | default: collections['transmissions'] -%}
+    {%- assign featured_capsule = source_collection.products | first -%}
+  {%- endif -%}
+
   <div class="featured-container">
-    
+
     {%- comment -%} Featured Image Side {%- endcomment -%}
     <div class="featured-image-wrapper">
       <div class="featured-image-container" data-parallax>
-        
-        {% if section.settings.featured_image != blank %}
-          <img 
+
+        {%- comment -%} Try product image first, then manual setting, then placeholder {%- endcomment -%}
+        {% if featured_capsule.featured_image != blank %}
+          <img
+            src="{{ featured_capsule.featured_image | image_url: width: 1200 }}"
+            alt="{{ featured_capsule.title | escape }}"
+            class="featured-image"
+            loading="lazy"
+          >
+        {% elsif section.settings.featured_image != blank %}
+          <img
             src="{{ section.settings.featured_image | image_url: width: 1200 }}"
             alt="{{ section.settings.capsule_title | escape }}"
             class="featured-image"
             loading="lazy"
           >
         {% else %}
-          <img 
+          <img
             src="{{ 'placeholder-capsule.jpg' | asset_url }}"
             alt="Featured Transmission"
             class="featured-image"
             loading="lazy"
           >
         {% endif %}
-        
+
         {%- comment -%} Neon Glow Overlay {%- endcomment -%}
         <div class="featured-image-glow"></div>
-        
+
         {%- comment -%} Badge {%- endcomment -%}
         <div class="featured-badge">
           <span class="badge-icon">✦</span>
           <span class="badge-text">FEATURED</span>
         </div>
-        
+
       </div>
     </div>
-    
+
     {%- comment -%} Content Side {%- endcomment -%}
     <div class="featured-content">
-      
+
       {%- comment -%} Tag {%- endcomment -%}
       <div class="featured-tag orbitron">
         {% if section.settings.capsule_number != blank %}
@@ -64,26 +80,26 @@
           TRANSMISSION
         {% endif %}
       </div>
-      
+
       {%- comment -%} Title {%- endcomment -%}
       <h2 class="featured-title orbitron">
         {{ section.settings.capsule_title | default: 'FEATURED TRANSMISSION' | upcase }}
       </h2>
-      
+
       {%- comment -%} Subtitle {%- endcomment -%}
       {% if section.settings.subtitle != blank %}
         <p class="featured-subtitle">
           {{ section.settings.subtitle }}
         </p>
       {% endif %}
-      
+
       {%- comment -%} Description {%- endcomment -%}
       {% if section.settings.description != blank %}
         <div class="featured-description">
           {{ section.settings.description }}
         </div>
       {% endif %}
-      
+
       {%- comment -%} Lore Preview {%- endcomment -%}
       {% if section.settings.lore_preview != blank %}
         <div class="featured-lore">
@@ -91,10 +107,10 @@
           <p class="lore-text">{{ section.settings.lore_preview }}</p>
         </div>
       {% endif %}
-      
+
       {%- comment -%} Stats/Metadata {%- endcomment -%}
       <div class="featured-meta">
-        
+
         {% if section.settings.release_date != blank %}
           <div class="meta-item">
             <span class="meta-icon">📅</span>
@@ -102,7 +118,7 @@
             <span class="meta-value">{{ section.settings.release_date }}</span>
           </div>
         {% endif %}
-        
+
         {% if section.settings.theme != blank %}
           <div class="meta-item">
             <span class="meta-icon">🎨</span>
@@ -110,7 +126,7 @@
             <span class="meta-value">{{ section.settings.theme | upcase }}</span>
           </div>
         {% endif %}
-        
+
         {% if section.settings.product_count != blank %}
           <div class="meta-item">
             <span class="meta-icon">📦</span>
@@ -118,14 +134,14 @@
             <span class="meta-value">{{ section.settings.product_count }}</span>
           </div>
         {% endif %}
-        
+
       </div>
-      
+
       {%- comment -%} CTA Buttons {%- endcomment -%}
       <div class="featured-ctas">
-        
-        <a 
-          href="{{ section.settings.primary_cta_link | default: '#' }}" 
+
+        <a
+          href="{{ section.settings.primary_cta_link | default: '#' }}"
           class="featured-cta featured-cta-primary"
         >
           {{ section.settings.primary_cta_text | default: 'EXPLORE CAPSULE' }}
@@ -133,10 +149,10 @@
             <path d="M5 10h10M10 5l5 5-5 5"/>
           </svg>
         </a>
-        
+
         {% if section.settings.show_secondary_cta %}
-          <a 
-            href="{{ section.settings.secondary_cta_link | default: '#' }}" 
+          <a
+            href="{{ section.settings.secondary_cta_link | default: '#' }}"
             class="featured-cta featured-cta-secondary"
           >
             {{ section.settings.secondary_cta_text | default: 'READ LORE' }}
@@ -145,13 +161,13 @@
             </svg>
           </a>
         {% endif %}
-        
+
       </div>
-      
+
     </div>
-    
+
   </div>
-  
+
 </section>
 
 {% schema %}
@@ -165,11 +181,24 @@
       "content": "Featured Capsule"
     },
     {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Featured capsule product",
+      "info": "Select a product to pull capsule data from. Leave empty to use manual settings below or first product from collection."
+    },
+    {
+      "type": "text",
+      "id": "collection_handle",
+      "label": "Fallback collection handle",
+      "default": "transmissions",
+      "info": "Used if no product is selected. First product from this collection will be featured."
+    },
+    {
       "type": "text",
       "id": "capsule_number",
-      "label": "Capsule number",
+      "label": "Capsule number (manual override)",
       "default": "008",
-      "info": "e.g., 001, 002, etc."
+      "info": "e.g., 001, 002, etc. Only used if no product selected."
     },
     {
       "type": "text",
@@ -312,14 +341,14 @@
   /* ════════════════════════════════════════
      FEATURED TRANSMISSION STYLES
      ════════════════════════════════════════ */
-  
+
   .featured-transmission {
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
     background: var(--void-black);
     position: relative;
     overflow: hidden;
   }
-  
+
   .featured-transmission::before {
     content: '';
     position: absolute;
@@ -330,7 +359,7 @@
     background: radial-gradient(circle at 30% 50%, rgba(225, 60, 250, 0.08) 0%, transparent 60%);
     pointer-events: none;
   }
-  
+
   .featured-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -340,21 +369,21 @@
     gap: 4rem;
     align-items: center;
   }
-  
+
   /* Reverse layout if image on right */
   .featured-transmission[data-image-position="right"] .featured-container {
     grid-template-columns: 1fr 1fr;
   }
-  
+
   .featured-transmission[data-image-position="right"] .featured-image-wrapper {
     order: 2;
   }
-  
+
   /* Image Side */
   .featured-image-wrapper {
     position: relative;
   }
-  
+
   .featured-image-container {
     position: relative;
     border-radius: 12px;
@@ -363,42 +392,42 @@
     box-shadow: 0 0 40px rgba(40, 168, 214, 0.3);
     transition: all 0.4s ease;
   }
-  
+
   .featured-image-container:hover {
     transform: translateY(-8px);
     box-shadow: 0 10px 60px rgba(40, 168, 214, 0.5);
     border-color: var(--neon-magenta);
   }
-  
+
   .featured-image {
     width: 100%;
     height: auto;
     display: block;
     transition: transform 0.6s ease;
   }
-  
+
   .featured-image-container:hover .featured-image {
     transform: scale(1.05);
   }
-  
+
   .featured-image-glow {
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, 
-      transparent, 
-      rgba(40, 168, 214, 0.2), 
+    background: linear-gradient(90deg,
+      transparent,
+      rgba(40, 168, 214, 0.2),
       transparent);
     transition: left 0.8s ease;
     pointer-events: none;
   }
-  
+
   .featured-image-container:hover .featured-image-glow {
     left: 100%;
   }
-  
+
   /* Featured Badge */
   .featured-badge {
     position: absolute;
@@ -418,16 +447,16 @@
     box-shadow: 0 0 20px var(--neon-magenta);
     animation: pulse-glow 2s ease-in-out infinite;
   }
-  
+
   .badge-icon {
     font-size: 1rem;
   }
-  
+
   /* Content Side */
   .featured-content {
     padding: 2rem 0;
   }
-  
+
   .featured-tag {
     display: inline-block;
     font-size: 0.875rem;
@@ -440,7 +469,7 @@
     border-radius: 30px;
     margin-bottom: 1.5rem;
   }
-  
+
   .featured-title {
     font-size: clamp(2.5rem, 6vw, 4rem);
     font-weight: 900;
@@ -452,32 +481,32 @@
     background-clip: text;
     text-shadow: 0 0 40px var(--neon-magenta);
   }
-  
+
   .featured-subtitle {
     font-size: clamp(1.125rem, 2vw, 1.5rem);
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 2rem;
     line-height: 1.6;
   }
-  
+
   .featured-description {
     color: rgba(255, 255, 255, 0.75);
     line-height: 1.8;
     margin-bottom: 2rem;
     font-size: 1.0625rem;
   }
-  
+
   /* Lore Preview */
   .featured-lore {
-    background: linear-gradient(135deg, 
-      rgba(225, 60, 250, 0.05), 
+    background: linear-gradient(135deg,
+      rgba(225, 60, 250, 0.05),
       rgba(40, 168, 214, 0.05));
     border-left: 4px solid var(--electric-yellow);
     padding: 1.5rem;
     margin-bottom: 2rem;
     border-radius: 4px;
   }
-  
+
   .lore-label {
     font-size: 0.75rem;
     font-weight: 700;
@@ -485,13 +514,13 @@
     color: var(--electric-yellow);
     margin-bottom: 0.75rem;
   }
-  
+
   .lore-text {
     color: rgba(255, 255, 255, 0.85);
     line-height: 1.7;
     font-style: italic;
   }
-  
+
   /* Metadata */
   .featured-meta {
     display: flex;
@@ -503,18 +532,18 @@
     border: 1px solid rgba(40, 168, 214, 0.2);
     border-radius: 8px;
   }
-  
+
   .meta-item {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 0.9375rem;
   }
-  
+
   .meta-icon {
     font-size: 1.25rem;
   }
-  
+
   .meta-label {
     font-family: 'Orbitron', monospace;
     font-weight: 600;
@@ -522,19 +551,19 @@
     font-size: 0.8125rem;
     letter-spacing: 0.05em;
   }
-  
+
   .meta-value {
     color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
   }
-  
+
   /* CTA Buttons */
   .featured-ctas {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
   }
-  
+
   .featured-cta {
     display: inline-flex;
     align-items: center;
@@ -551,15 +580,15 @@
     position: relative;
     overflow: hidden;
   }
-  
+
   .featured-cta svg {
     transition: transform 0.3s ease;
   }
-  
+
   .featured-cta:hover svg {
     transform: translateX(4px);
   }
-  
+
   /* Primary CTA */
   .featured-cta-primary {
     background: var(--neon-magenta);
@@ -567,77 +596,77 @@
     border: 2px solid var(--neon-magenta);
     box-shadow: 0 0 20px var(--neon-magenta);
   }
-  
+
   .featured-cta-primary:hover {
     background: transparent;
     color: var(--neon-magenta);
     box-shadow: 0 0 40px var(--neon-magenta);
     transform: translateY(-2px);
   }
-  
+
   /* Secondary CTA */
   .featured-cta-secondary {
     background: transparent;
     color: var(--cyan-blue);
     border: 2px solid var(--cyan-blue);
   }
-  
+
   .featured-cta-secondary:hover {
     background: var(--cyan-blue);
     color: var(--void-black);
     box-shadow: 0 0 30px var(--cyan-blue);
     transform: translateY(-2px);
   }
-  
+
   /* Responsive */
   @media (max-width: 1024px) {
     .featured-container {
       gap: 3rem;
     }
-    
+
     .featured-title {
       font-size: 2.5rem;
     }
   }
-  
+
   @media (max-width: 768px) {
     .featured-transmission {
       padding: 3rem 0;
     }
-    
+
     .featured-container {
       grid-template-columns: 1fr;
       gap: 2rem;
       padding: 0 1.5rem;
     }
-    
+
     .featured-transmission[data-image-position="right"] .featured-image-wrapper {
       order: 0;
     }
-    
+
     .featured-content {
       padding: 0;
     }
-    
+
     .featured-title {
       font-size: 2rem;
     }
-    
+
     .featured-meta {
       flex-direction: column;
       gap: 1rem;
     }
-    
+
     .featured-ctas {
       flex-direction: column;
     }
-    
+
     .featured-cta {
       width: 100%;
       justify-content: center;
       padding: 1rem 2rem;
     }
-    
+
     .featured-badge {
       top: 1rem;
       right: 1rem;
@@ -645,7 +674,7 @@
       font-size: 0.75rem;
     }
   }
-  
+
   /* Accessibility */
   @media (prefers-reduced-motion: reduce) {
     .featured-image-container,
@@ -655,7 +684,7 @@
       transition: none;
       animation: none;
     }
-    
+
     .featured-badge {
       animation: none;
     }
@@ -667,10 +696,10 @@
   (function() {
     const section = document.querySelector('.featured-transmission');
     if (!section) return;
-    
+
     const imagePosition = '{{ section.settings.image_position }}';
     section.setAttribute('data-image-position', imagePosition);
-    
+
     // Subtle parallax effect on scroll
     const imageContainer = section.querySelector('[data-parallax]');
     if (imageContainer && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
@@ -679,14 +708,14 @@
         const rect = section.getBoundingClientRect();
         const sectionTop = rect.top + scrolled;
         const sectionHeight = rect.height;
-        
+
         if (scrolled > sectionTop - window.innerHeight && scrolled < sectionTop + sectionHeight) {
           const parallaxAmount = (scrolled - (sectionTop - window.innerHeight)) * 0.15;
           imageContainer.style.transform = `translateY(${parallaxAmount}px)`;
         }
       });
     }
-    
+
     // Track CTA clicks
     const ctas = section.querySelectorAll('.featured-cta');
     ctas.forEach(cta => {
