@@ -1,0 +1,131 @@
+{% comment %}
+  Stellar Reverb – COSMIC SHOP ALL SECTION (V.2025)
+  - Fixed duplicate schema error
+  - Integrated Beast-Mode HUD Artifacts
+  - Linked to Global Handshake Protocol
+{% endcomment %}
+<section class="hero sr-terminal-hud">
+  <div class="sr-hud-status-bar">
+    <div class="sr-status-item">
+      <span class="sr-led animate-pulse"></span>
+      <span class="sr-status-label">CONNECTION:</span>
+      <span class="sr-status-value">ENCRYPTED_SIGNAL</span>
+    </div>
+    <div class="sr-status-item">
+      <span class="sr-status-label">ARCHIVE_CAPACITY:</span>
+      <span class="sr-status-value">{{ collection.all_products_count }} / 999_RELICS</span>
+    </div>
+  </div>
+
+  <div class="sr-hero-content-box">
+    {% if section.settings.hero_kicker != blank %}
+      <p class="hero-kicker glitch-text" data-text="{{ section.settings.hero_kicker }}">
+        {{ section.settings.hero_kicker }}
+      </p>
+    {% endif %}
+    
+    <h1 class="hero-title sr-glitch-heading">
+      {{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}
+    </h1>
+
+    <div class="sr-hero-description">
+      <p class="hero-subtitle">
+        {{ section.settings.hero_subtitle | default: 'Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="sr-terminal-footer-bits">
+    <span>// SECTOR: {{ collection.handle | upcase }}</span>
+    <span>// ENCRYPTION: AES-256</span>
+    <span>// TIMESTAMP: {{ 'now' | date: "%Y.%m.%d" }}</span>
+  </div>
+</section>
+<section class="stellar-shop-all" data-section-id="{{ section.id }}" data-collection-handle="{{ collection.handle }}">
+  {{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
+
+  <div class="cosmic-bg"></div>
+  <div class="constellation-dots">
+    <div class="constellation-dot" style="top:15%;left:12%;"></div>
+    <div class="constellation-dot" style="top:55%;left:22%;"></div>
+    <div class="constellation-dot" style="top:82%;left:45%;"></div>
+  </div>
+
+  <header class="section-header">
+    <div class="section-header-inner">
+      <div class="brand-chip">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+            <circle cx="9" cy="14" r="1.3"></circle>
+            <circle cx="15" cy="14" r="1.3"></circle>
+          </svg>
+        </div>
+        <div class="logo-text">STELLAR REVERB</div>
+      </div>
+      <nav class="mini-nav">
+        <a href="{{ routes.root_url }}">Home</a>
+        <a href="{{ routes.collections_url }}">Transmissions</a>
+        <a href="/pages/signal-seekers" class="signal-link"><span>Signal Seekers</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="inner">
+    <section class="hero">
+      <h1 class="hero-title">{{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}</h1>
+      <p class="hero-subtitle">{{ section.settings.hero_subtitle }}</p>
+    </section>
+
+    <div class="grid-shell">
+      {% paginate collection.products by section.settings.products_per_page %}
+        <div class="product-grid" id="stellarProductGrid">
+          {% for product in collection.products %}
+            <article class="product-card" data-capsule="{{ product.tags | join: ',' | downcase }}" data-price="{{ product.price | divided_by: 100.0 }}">
+              
+              {% comment %} BEAST MODE: RELIC HUD VISUAL {% endcomment %}
+              <div class="card-media relic-visual-terminal">
+                <a href="{{ product.url }}">
+                  <img src="{{ product.featured_image | image_url: width: 600 }}" class="relic-img-base" loading="lazy">
+                  <div class="relic-wireframe-overlay"></div>
+                  <div class="relic-scanning-beam"></div>
+                  <div class="relic-hud-meta">
+                    <span class="hud-bit">OBJ_ID: {{ product.variants.first.sku | default: 'UNKNOWN' }}</span>
+                    <span class="hud-bit">FREQ: ACTIVE</span>
+                  </div>
+                </a>
+              </div>
+
+              <h3 class="product-title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+
+              <div class="card-footer">
+                <span class="price-main">{{ product.price | money }}</span>
+                <form action="/cart/add" method="post" class="add-to-cart-form relic-extraction-module">
+                  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                  <button type="submit" class="btn-solid btn-extraction" data-extraction-trigger>
+                    <span class="btn-text">Extract Relic</span>
+                  </button>
+                  <div class="extraction-terminal-output"><p class="terminal-log-text">> STANDBY...</p></div>
+                </form>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% endpaginate %}
+    </div>
+  </div>
+
+  {{ 'stellar-shop-all.js' | asset_url | script_tag }}
+</section>
+
+{% schema %}
+{
+  "name": "Stellar Shop All",
+  "settings": [
+    { "type": "text", "id": "hero_title", "label": "Hero Title", "default": "COSMIC PRODUCT VAULT" },
+    { "type": "textarea", "id": "hero_subtitle", "label": "Hero Subtitle", "default": "Shop every transmission." },
+    { "type": "number", "id": "products_per_page", "label": "Products per page", "default": 24 }
+  ],
+  "presets": [{ "name": "Stellar Shop All" }]
+}
+{% endschema %}
