@@ -1,0 +1,245 @@
+{% comment %}
+  =====================================================
+  SECONDARY DRIFT SECTION (Shopify 2.0)
+  =====================================================
+  
+  Features:
+  - Darker, quieter aesthetic
+  - Additional relics from a secondary collection
+  - Minimal presentation
+  - Deeper into the void
+{% endcomment %}
+
+{%- liquid
+  assign drift_title = section.settings.drift_title | default: 'DEEPER SIGNALS'
+  assign collection_handle = section.settings.collection_handle | default: 'floating-archive-deep'
+  assign max_products = section.settings.max_products | default: 6
+  
+  assign collection = collections[collection_handle]
+-%}
+
+<section class="secondary-drift-section" data-section-id="{{ section.id }}">
+  <div class="drift-container">
+    <h2 class="drift-title">{{ drift_title }}</h2>
+    
+    {% if collection and collection.products.size > 0 %}
+      <div class="drift-grid">
+        {% for product in collection.products limit: max_products %}
+          <div class="drift-item">
+            <a href="{{ product.url }}" class="drift-link">
+              <div class="drift-image-wrapper">
+                {% if product.featured_image %}
+                  <img 
+                    src="{{ product.featured_image | image_url: width: 400 }}"
+                    srcset="{{ product.featured_image | image_url: width: 200 }} 200w,
+                            {{ product.featured_image | image_url: width: 400 }} 400w,
+                            {{ product.featured_image | image_url: width: 600 }} 600w"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    loading="lazy"
+                    class="drift-image"
+                  >
+                {% else %}
+                  <div class="drift-placeholder"></div>
+                {% endif %}
+              </div>
+              
+              <div class="drift-info">
+                <h3 class="drift-name">{{ product.title }}</h3>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="drift-empty">
+        <p class="empty-message">The void is silent here.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .secondary-drift-section {
+    position: relative;
+    padding: 6rem 2rem;
+    z-index: 1;
+    background: linear-gradient(180deg, 
+      transparent 0%, 
+      rgba(0, 0, 0, 0.5) 50%, 
+      transparent 100%
+    );
+  }
+  
+  .drift-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .drift-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: rgba(128, 128, 128, 0.6);
+    text-shadow: 0 0 15px rgba(128, 128, 128, 0.3);
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 4rem;
+    opacity: 0.7;
+  }
+  
+  .drift-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+  
+  .drift-item {
+    opacity: 0;
+    animation: driftFadeIn 0.8s ease-out forwards;
+  }
+  
+  .drift-item:nth-child(1) { animation-delay: 0.2s; }
+  .drift-item:nth-child(2) { animation-delay: 0.3s; }
+  .drift-item:nth-child(3) { animation-delay: 0.4s; }
+  .drift-item:nth-child(4) { animation-delay: 0.5s; }
+  .drift-item:nth-child(5) { animation-delay: 0.6s; }
+  .drift-item:nth-child(6) { animation-delay: 0.7s; }
+  
+  @keyframes driftFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 0.6;
+      transform: translateY(0);
+    }
+  }
+  
+  .drift-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .drift-image-wrapper {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 4px;
+    border: 1px solid rgba(128, 128, 128, 0.15);
+    background: rgba(0, 0, 0, 0.7);
+    margin-bottom: 1rem;
+    transition: all 0.5s ease;
+  }
+  
+  .drift-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  .drift-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(128, 128, 128, 0.05), rgba(64, 64, 64, 0.05));
+  }
+  
+  /* Hover Effects - Subtle */
+  .drift-item:hover {
+    opacity: 1;
+  }
+  
+  .drift-item:hover .drift-image-wrapper {
+    border-color: rgba(128, 128, 128, 0.3);
+  }
+  
+  .drift-item:hover .drift-image {
+    opacity: 0.8;
+    transform: scale(1.03);
+  }
+  
+  .drift-info {
+    text-align: center;
+  }
+  
+  .drift-name {
+    font-family: 'PP Mori', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(192, 192, 192, 0.6);
+    transition: color 0.3s ease;
+  }
+  
+  .drift-item:hover .drift-name {
+    color: rgba(192, 192, 192, 0.9);
+  }
+  
+  /* Empty State */
+  .drift-empty {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  
+  .empty-message {
+    font-family: 'PP Mori', sans-serif;
+    font-size: 1rem;
+    color: rgba(128, 128, 128, 0.5);
+    font-style: italic;
+  }
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    .secondary-drift-section {
+      padding: 4rem 1.5rem;
+    }
+    
+    .drift-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .drift-title {
+      margin-bottom: 3rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Secondary Drift Section",
+  "class": "secondary-drift-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "drift_title",
+      "label": "Section Title",
+      "default": "DEEPER SIGNALS"
+    },
+    {
+      "type": "text",
+      "id": "collection_handle",
+      "label": "Collection Handle",
+      "default": "floating-archive-deep",
+      "info": "The handle of the secondary collection"
+    },
+    {
+      "type": "range",
+      "id": "max_products",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "label": "Maximum Products",
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Secondary Drift Section"
+    }
+  ]
+}
+{% endschema %}

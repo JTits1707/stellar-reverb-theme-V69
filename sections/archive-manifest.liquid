@@ -1,0 +1,174 @@
+{% comment %}
+  =====================================================
+  ARCHIVE MANIFEST (Shopify 2.0)
+  =====================================================
+  
+  Features:
+  - Mystical text block explaining the archive
+  - Holographic UI frame
+  - Calm, confident tone
+  - No aggressive sales language
+{% endcomment %}
+
+{%- liquid
+  assign manifest_title = section.settings.manifest_title | default: 'ARCHIVE MANIFEST'
+  assign manifest_text = section.settings.manifest_text | default: 'These transmissions were never meant to surface. Fragments of collapsed timelines, intercepted signals, and spectral echoes — preserved in the void for those who seek beyond the veil.'
+-%}
+
+<section class="archive-manifest" data-section-id="{{ section.id }}">
+  <div class="manifest-container">
+    <div class="manifest-frame">
+      <div class="frame-line frame-top"></div>
+      <div class="frame-line frame-bottom"></div>
+    </div>
+    
+    <div class="manifest-content">
+      <h2 class="manifest-title">{{ manifest_title }}</h2>
+      <div class="manifest-text">
+        {{ manifest_text }}
+      </div>
+      
+      <div class="manifest-metadata">
+        <span class="metadata-item">CLASSIFICATION: UNINDEXED</span>
+        <span class="metadata-divider">//</span>
+        <span class="metadata-item">CLEARANCE: SIGNAL SEEKER</span>
+        <span class="metadata-divider">//</span>
+        <span class="metadata-item">STATUS: DRIFTING</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .archive-manifest {
+    position: relative;
+    padding: 6rem 2rem;
+    z-index: 1;
+  }
+  
+  .manifest-container {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .manifest-frame {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    bottom: -20px;
+    pointer-events: none;
+  }
+  
+  .frame-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(225, 60, 250, 0.4) 20%,
+      rgba(225, 60, 250, 0.6) 50%,
+      rgba(225, 60, 250, 0.4) 80%,
+      transparent 100%
+    );
+  }
+  
+  .frame-top {
+    top: 0;
+  }
+  
+  .frame-bottom {
+    bottom: 0;
+  }
+  
+  .manifest-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .manifest-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: rgba(225, 60, 250, 0.9);
+    text-shadow: 0 0 20px rgba(225, 60, 250, 0.5);
+    letter-spacing: 3px;
+    margin-bottom: 2rem;
+  }
+  
+  .manifest-text {
+    font-family: 'PP Mori', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 1.8;
+    color: rgba(192, 192, 192, 0.9);
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .manifest-metadata {
+    font-family: 'PP Neuemachina', 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: rgba(0, 240, 172, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .metadata-item {
+    opacity: 0.8;
+  }
+  
+  .metadata-divider {
+    color: rgba(40, 168, 214, 0.5);
+  }
+  
+  @media (max-width: 768px) {
+    .archive-manifest {
+      padding: 4rem 1.5rem;
+    }
+    
+    .manifest-metadata {
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    
+    .metadata-divider {
+      display: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Archive Manifest",
+  "class": "archive-manifest-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "manifest_title",
+      "label": "Manifest Title",
+      "default": "ARCHIVE MANIFEST"
+    },
+    {
+      "type": "textarea",
+      "id": "manifest_text",
+      "label": "Manifest Text",
+      "default": "These transmissions were never meant to surface. Fragments of collapsed timelines, intercepted signals, and spectral echoes — preserved in the void for those who seek beyond the veil."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Archive Manifest"
+    }
+  ]
+}
+{% endschema %}
