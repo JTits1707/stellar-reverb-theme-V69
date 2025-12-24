@@ -71,12 +71,64 @@
         "show_waveform": true,
         "show_particles": true
       }
+    },
+    "stellar_scarcity_marquee_TdCg97": {
+      "type": "stellar-scarcity-marquee",
+      "blocks": {
+        "message_UwUqE7": {
+          "type": "message",
+          "settings": {
+            "message": "⚡ ONLY 20 CAPSULES LEFT"
+          }
+        },
+        "message_6mr8zw": {
+          "type": "message",
+          "settings": {
+            "message": "📡 NEW TRANSMISSION INCOMING"
+          }
+        },
+        "message_BJngYW": {
+          "type": "message",
+          "settings": {
+            "message": "🔐 EXCLUSIVE DROP"
+          }
+        },
+        "message_jg4xqj": {
+          "type": "message",
+          "settings": {
+            "message": "⏰ 48 HOURS ONLY"
+          }
+        },
+        "message_E8JCKf": {
+          "type": "message",
+          "settings": {
+            "message": "🌌 COSMIC ARCHIVE EXPANDING"
+          }
+        }
+      },
+      "block_order": [
+        "message_UwUqE7",
+        "message_6mr8zw",
+        "message_BJngYW",
+        "message_jg4xqj",
+        "message_E8JCKf"
+      ],
+      "name": "Scarcity Marquee",
+      "settings": {
+        "marquee_speed": 30,
+        "show_separator": true,
+        "separator_icon": "◆",
+        "enable_glitch": true,
+        "show_scanlines": true,
+        "text_color": "#00f0ff"
+      }
     }
   },
   "order": [
     "main",
     "stellar_archive_hero_corrected_fHpkQi",
     "newsletter_cosmic_dN3PTJ",
-    "stellar_fomo_countdown_M3AJK9"
+    "stellar_fomo_countdown_M3AJK9",
+    "stellar_scarcity_marquee_TdCg97"
   ]
 }
