@@ -1,0 +1,75 @@
+{% comment %}
+Section: Signals
+- Live X (@StellarReverb) pulls as glitch cards
+- Provide a JSON endpoint in settings (serverless that returns latest posts), else fallback to simple embeds
+- Real semantics: articles with time, author, and links for SEO
+{% endcomment %}
+
+<section class="signals">
+  <div class="wrap grid" style="gap:16px">
+    <h2 class="title-cap" style="font-size:clamp(18px,3.3vw,28px);font-weight:800;color:var(--magenta)">Signals</h2>
+
+    {% if section.settings.x_json_endpoint != blank %}
+      <div id="x-stream" class="grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:clamp(12px,2vw,18px)">
+        <div class="glitch-card" aria-busy="true">Tuning feed…</div>
+      </div>
+      <script>
+        (function(){
+          const url = "{{ section.settings.x_json_endpoint | escape }}";
+          const box = document.getElementById('x-stream');
+          if(!url) return;
+          fetch(url,{credentials:'omit'}).then(r=>{
+            if(!r.ok) throw new Error('Network response failed');
+            return r.json();
+          }).then(data=>{
+            box.innerHTML='';
+            (data.items||[]).slice(0,12).forEach(item=>{
+              const a = document.createElement('article');
+              a.className='glitch-card';
+              a.innerHTML = `
+                <div class="grid" style="gap:8px">
+                  <div class="badge">@StellarReverb</div>
+                  <p>${(item.text||'').replace(/\n/g,'<br>')}</p>
+                  <a class="btn" href="${item.permalink}" target="_blank" rel="nofollow noopener">Open Signal</a>
+                  <time datetime="${item.created_at || ''}" style="color:var(--mute)">${item.created_human || ''}</time>
+                </div>`;
+              box.appendChild(a);
+            });
+            if(!box.children.length){ box.innerHTML='<div class="glitch-card">No signals yet.</div>'; }
+          }).catch(()=>{ box.innerHTML='<div class="glitch-card">Feed failed to tune.</div>'; });
+        })();
+      </script>
+    {% else %}
+      <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:clamp(12px,2vw,18px)">
+        <article class="glitch-card">
+          <div class="grid" style="gap:8px">
+            <div class="badge">@StellarReverb</div>
+            <p>Fallback signal. Configure a JSON endpoint for live pulls.</p>
+            <a class="btn" href="https://x.com/StellarReverb" target="_blank" rel="nofollow noopener">Open Profile</a>
+            <time style="color:var(--mute)">—</time>
+          </div>
+        </article>
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_secret_archive %}
+      <div id="secret-archive" class="grid" style="gap:12px;margin-top:20px">
+        <div class="badge">Secret Archive</div>
+        <div class="glitch-card">
+          <p>Konami unlocked. Hidden stratum of the Transmission Archive revealed.</p>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Transmission Signals",
+  "settings": [
+    { "type": "url", "id": "x_json_endpoint", "label": "X JSON endpoint (serverless)"},
+    { "type": "checkbox", "id": "show_secret_archive", "label": "Enable secret archive container", "default": true }
+  ],
+  "presets": [{ "name": "Transmission Signals" }]
+}
+{% endschema %}
