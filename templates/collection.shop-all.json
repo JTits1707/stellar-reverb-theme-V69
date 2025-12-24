@@ -22,6 +22,7 @@
     },
     "main": {
       "type": "stellar-shop-all",
+      "custom_css": [],
       "settings": {
         "hero_kicker": "ALL CAPSULES // ACTIVE ECHOES",
         "hero_title": "ALL CAPSULES // ACTIVE ECHOES",
