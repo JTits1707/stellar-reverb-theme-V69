@@ -16,9 +16,19 @@
         "hero_subtitle": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.",
         "products_per_page": 24
       }
+    },
+    "stellar_shop_all_7tiKkG": {
+      "type": "stellar-shop-all",
+      "name": "Stellar Shop All",
+      "settings": {
+        "hero_title": "COSMIC PRODUCT VAULT",
+        "hero_subtitle": "Shop every transmission.",
+        "products_per_page": 24
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "stellar_shop_all_7tiKkG"
   ]
 }
