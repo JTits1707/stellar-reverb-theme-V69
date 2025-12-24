@@ -52,8 +52,6 @@
       "type": "featured-transmission",
       "name": "Featured Transmission",
       "settings": {
-        "featured_product": "",
-        "collection_handle": "transmissions",
         "capsule_number": "008",
         "capsule_title": "GLITCHWAVE ORACLE",
         "subtitle": "The Future Fractures in Neon Prophecy.",
@@ -144,72 +142,24 @@
       "name": "Floating Archive · Gated",
       "settings": {}
     },
-    "featured_capsules_UQJccL": {
-      "type": "featured-capsules",
-      "blocks": {
-        "product_jQbx7W": {
-          "type": "product",
-          "settings": {
-            "product": ""
-          }
-        },
-        "product_dwMa9X": {
-          "type": "product",
-          "settings": {
-            "product": ""
-          }
-        },
-        "product_9VtMYF": {
-          "type": "product",
-          "settings": {
-            "product": ""
-          }
-        }
-      },
-      "block_order": [
-        "product_jQbx7W",
-        "product_dwMa9X",
-        "product_9VtMYF"
-      ],
-      "name": "Featured Capsules",
-      "settings": {
-        "eyebrow_text": "Newest Drops",
-        "eyebrow_color": "#28a8d6",
-        "eyebrow_border": "#28a8d6",
-        "eyebrow_background": "rgba(40, 168, 214, 0.2)",
-        "heading": "Featured Capsules",
-        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "subheading": "Explore our latest cosmic transmissions",
-        "subtitle_color": "#ffffff",
-        "grid_columns": 3,
-        "image_ratio": "square",
-        "show_badges": true,
-        "show_quick_add": true,
-        "show_view_all": true,
-        "view_all_text": "View All Capsules",
-        "view_all_url": "shopify://collections/all"
-      }
-    },
     "navigation_matrix_7Htegc": {
       "type": "navigation-matrix",
       "blocks": {
         "nav_item_F4a6zh": {
           "type": "nav_item",
           "settings": {
-            "title": "THE CAPSULES",
-            "link_url": "shopify://pages/capsules",
+            "title": "All Capsules",
+            "link_url": "",
             "icon_type": "spiral",
-            "custom_icon": "shopify://shop_images/11850520087341150600-topaz-enhance-4x.png",
-            "glow_color": "cyan"
+            "glow_color": "purple"
           }
         },
         "nav_item_CajKxc": {
           "type": "nav_item",
           "settings": {
-            "title": "About Us",
-            "link_url": "shopify://pages/about",
-            "icon_type": "custom",
-            "custom_icon": "shopify://shop_images/F22970B0-E525-4A47-8CC1-CCEBBD23C633.jpg",
+            "title": "About",
+            "link_url": "",
+            "icon_type": "brain",
             "glow_color": "magenta"
           }
         },
@@ -217,9 +167,8 @@
           "type": "nav_item",
           "settings": {
             "title": "Lore",
-            "link_url": "shopify://pages/universal-lore-1",
+            "link_url": "",
             "icon_type": "infinity",
-            "custom_icon": "shopify://shop_images/247B4537-15A4-43B5-B501-0BDA8919FAE2-topaz-denoise_d423d63e-6fcf-4dbb-8bb4-3db5f4269754.jpg",
             "glow_color": "purple"
           }
         },
@@ -227,9 +176,8 @@
           "type": "nav_item",
           "settings": {
             "title": "Shop",
-            "link_url": "shopify://collections/frontpage",
+            "link_url": "",
             "icon_type": "diamond",
-            "custom_icon": "shopify://shop_images/Universal-lore-hero-image-v16.jpg",
             "glow_color": "gold"
           }
         }
@@ -289,6 +237,52 @@
         "benefit_4_text": "Access Signal Seeker Dashboard",
         "background_gradient": "...",
         "show_particles": true
+      }
+    },
+    "featured_capsules_UQJccL": {
+      "type": "featured-capsules",
+      "blocks": {
+        "product_jQbx7W": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_dwMa9X": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_9VtMYF": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_jQbx7W",
+        "product_dwMa9X",
+        "product_9VtMYF"
+      ],
+      "name": "Featured Capsules",
+      "settings": {
+        "eyebrow_text": "Newest Drops",
+        "eyebrow_color": "#28A8D6",
+        "eyebrow_border": "#28A8D6",
+        "eyebrow_background": "rgba(40, 168, 214, 0.2)",
+        "heading": "Featured Capsules",
+        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
+        "subheading": "Explore our latest cosmic transmissions",
+        "subtitle_color": "#FFFFFF",
+        "grid_columns": 3,
+        "image_ratio": "square",
+        "show_badges": true,
+        "show_quick_add": true,
+        "show_view_all": true,
+        "view_all_text": "View All Capsules",
+        "view_all_url": "shopify://collections/all"
       }
     }
   },

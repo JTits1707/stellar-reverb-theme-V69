@@ -4,7 +4,43 @@
   - Integrated Beast-Mode HUD Artifacts
   - Linked to Global Handshake Protocol
 {% endcomment %}
+<section class="hero sr-terminal-hud">
+  <div class="sr-hud-status-bar">
+    <div class="sr-status-item">
+      <span class="sr-led animate-pulse"></span>
+      <span class="sr-status-label">CONNECTION:</span>
+      <span class="sr-status-value">ENCRYPTED_SIGNAL</span>
+    </div>
+    <div class="sr-status-item">
+      <span class="sr-status-label">ARCHIVE_CAPACITY:</span>
+      <span class="sr-status-value">{{ collection.all_products_count }} / 999_RELICS</span>
+    </div>
+  </div>
 
+  <div class="sr-hero-content-box">
+    {% if section.settings.hero_kicker != blank %}
+      <p class="hero-kicker glitch-text" data-text="{{ section.settings.hero_kicker }}">
+        {{ section.settings.hero_kicker }}
+      </p>
+    {% endif %}
+    
+    <h1 class="hero-title sr-glitch-heading">
+      {{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}
+    </h1>
+
+    <div class="sr-hero-description">
+      <p class="hero-subtitle">
+        {{ section.settings.hero_subtitle | default: 'Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="sr-terminal-footer-bits">
+    <span>// SECTOR: {{ collection.handle | upcase }}</span>
+    <span>// ENCRYPTION: AES-256</span>
+    <span>// TIMESTAMP: {{ 'now' | date: "%Y.%m.%d" }}</span>
+  </div>
+</section>
 <section class="stellar-shop-all" data-section-id="{{ section.id }}" data-collection-handle="{{ collection.handle }}">
   {{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
 
