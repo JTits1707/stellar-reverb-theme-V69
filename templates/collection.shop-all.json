@@ -12,8 +12,8 @@
     "main": {
       "type": "stellar-shop-all",
       "settings": {
-        "hero_title": "COSMIC PRODUCT VAULT",
-        "hero_subtitle": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.",
+        "hero_title": "COSMIC PRODUCT VAULT // ALL CAPSULES",
+        "hero_subtitle": "Echoes from every capsule. Limited transmissions. Wear the waveform.",
         "products_per_page": 24
       }
     },
