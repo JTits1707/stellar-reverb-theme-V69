@@ -11,6 +11,7 @@
   "sections": {
     "stellar_archive_hero_corrected_HeaG8A": {
       "type": "stellar-archive-hero-corrected",
+      "custom_css": [],
       "name": "Archive Hero (Corrected)",
       "settings": {
         "title": "STELLAR REVERB",
