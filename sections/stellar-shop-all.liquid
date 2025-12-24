@@ -1,35 +1,26 @@
 {% comment %}
-  Stellar Reverb – COSMIC SHOP ALL SECTION
-  - Use on Shop All collection template
-  - Dynamic filters by Capsule + tags
-  - FOMO badges + low-stock callouts
-  - Upsell / cross-sell strip at bottom (fixed logic)
-  - Signal Seeker CTA
+  Stellar Reverb – COSMIC SHOP ALL SECTION (V.2025)
+  - Fixed duplicate schema error
+  - Integrated Beast-Mode HUD Artifacts
+  - Linked to Global Handshake Protocol
 {% endcomment %}
-<section
-  class="stellar-shop-all"
-  data-section-id="{{ section.id }}"
-  data-collection-handle="{{ collection.handle }}"
->
-  {{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
-  <!-- cosmic backdrop shared just for this section -->
-  <div class="cosmic-bg"></div>
-  <div class="constellation-dot" style="top:15%;left:12%;"></div>
-  <div class="constellation-dot" style="top:35%;left:78%;"></div>
-  <div class="constellation-dot" style="top:55%;left:22%;"></div>
-  <div class="constellation-dot" style="top:70%;left:90%;"></div>
-  <div class="constellation-dot" style="top:82%;left:45%;"></div>
 
-  <!-- Sticky section header (mini-brand) -->
+<section class="stellar-shop-all" data-section-id="{{ section.id }}" data-collection-handle="{{ collection.handle }}">
+  {{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
+
+  <div class="cosmic-bg"></div>
+  <div class="constellation-dots">
+    <div class="constellation-dot" style="top:15%;left:12%;"></div>
+    <div class="constellation-dot" style="top:55%;left:22%;"></div>
+    <div class="constellation-dot" style="top:82%;left:45%;"></div>
+  </div>
+
   <header class="section-header">
     <div class="section-header-inner">
       <div class="brand-chip">
         <div class="brand-icon">
-          <!-- simple cassette icon -->
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <rect x="3" y="6" width="18" height="12" rx="2"></rect>
-            <rect x="6" y="9" width="3" height="2" rx="0.5"></rect>
-            <rect x="15" y="9" width="3" height="2" rx="0.5"></rect>
             <circle cx="9" cy="14" r="1.3"></circle>
             <circle cx="15" cy="14" r="1.3"></circle>
           </svg>
@@ -39,422 +30,66 @@
       <nav class="mini-nav">
         <a href="{{ routes.root_url }}">Home</a>
         <a href="{{ routes.collections_url }}">Transmissions</a>
-        <a href="/pages/floating-archive">Floating Archive</a>
-        <a href="/pages/universal-lore">Universal Lore</a>
-        <a href="/pages/about">About</a>
-        <a href="/pages/signal-seekers" class="signal-link">
-          <span>Signal Seekers</span>
-        </a>
+        <a href="/pages/signal-seekers" class="signal-link"><span>Signal Seekers</span></a>
       </nav>
     </div>
   </header>
 
   <div class="inner">
-    <!-- HERO -->
     <section class="hero">
-      {% if section.settings.hero_kicker != blank %}
-        <p class="hero-kicker">{{ section.settings.hero_kicker }}</p>
-      {% endif %}
-      <h1 class="hero-title">
-        {{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}
-      </h1>
-      <p class="hero-subtitle">
-        {{ section.settings.hero_subtitle
-          | default: 'Shop every transmission across capsules — analog relics, glitchwave tees, and cosmic hoodies from the Stellar Reverb multiverse.' }}
-      </p>
-      <div class="hero-meta">
-        <span>🛰 {{ collection.all_products_count }} relics in orbit</span>
-        <span>📼 Capsules 001–014</span>
-        <span>⚡ Limited drops • Signal exclusives</span>
-      </div>
+      <h1 class="hero-title">{{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}</h1>
+      <p class="hero-subtitle">{{ section.settings.hero_subtitle }}</p>
     </section>
 
-    <!-- FILTER + SORT CAPSULE -->
-    <div class="filter-shell">
-      <div class="filter-capsule">
-        <div class="filter-line">
-          <span class="filter-label">📡 FILTER TRANSMISSIONS</span>
-          <div class="filter-pills" data-filter-group="capsule">
-            <button class="filter-pill is-active" data-filter-value="all">
-              All Transmissions
-            </button>
-            <button class="filter-pill" data-filter-value="cap-001">Capsule 001</button>
-            <button class="filter-pill" data-filter-value="cap-002">Capsule 002</button>
-            <button class="filter-pill" data-filter-value="cap-003">Capsule 003</button>
-            <button class="filter-pill" data-filter-value="cap-004">Capsule 004</button>
-            <button class="filter-pill" data-filter-value="cap-005">Capsule 005</button>
-            <button class="filter-pill" data-filter-value="cap-006">Capsule 006</button>
-            <button class="filter-pill" data-filter-value="cap-007">Capsule 007</button>
-            <button class="filter-pill" data-filter-value="cap-008">Capsule 008</button>
-            <button class="filter-pill" data-filter-value="signal-seeker">
-              Signal Seeker Exclusives
-            </button>
-            <button class="filter-pill" data-filter-value="floating-archive">
-              Floating Archive
-            </button>
-          </div>
-          <div class="sort-shell">
-            <label for="cosmic-sort">Sort</label>
-            <select id="cosmic-sort" class="sort-select">
-              <option value="default">Featured Signal</option>
-              <option value="price-asc">Price – Low to High</option>
-              <option value="price-desc">Price – High to Low</option>
-              <option value="limited-first">Limited // Almost Gone</option>
-              <option value="newest">Recently Tuned</option>
-            </select>
-          </div>
-        </div>
-        <div class="motif-row" data-filter-group="motif">
-          <button class="motif-tag" data-filter-value="cassette">
-            <span>📼</span><span>Cassette Glyph</span>
-          </button>
-          <button class="motif-tag" data-filter-value="fractal">
-            <span>🌀</span><span>Fractal Echo</span>
-          </button>
-          <button class="motif-tag" data-filter-value="mythic">
-            <span>🛰</span><span>Mythic Tech</span>
-          </button>
-          <button class="motif-tag" data-filter-value="glitch">
-            <span>👁</span><span>Glitch Oracle</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- MAIN GRID -->
     <div class="grid-shell">
       {% paginate collection.products by section.settings.products_per_page %}
         <div class="product-grid" id="stellarProductGrid">
           {% for product in collection.products %}
-            {% assign capsule_handle = '' %}
-            {% assign special_zone = '' %}
-            {% for tag in product.tags %}
-              {% assign lower_tag = tag | downcase %}
-              {% if lower_tag contains 'cap-' %}
-                {% assign capsule_handle = tag | handleize %}
-              {% endif %}
-              {% if lower_tag contains 'signal seeker' %}
-                {% assign special_zone = 'signal-seeker' %}
-              {% elsif lower_tag contains 'floating archive' %}
-                {% assign special_zone = 'floating-archive' %}
-              {% endif %}
-            {% endfor %}
-            {% if capsule_handle == '' %}
-              {% assign capsule_handle = special_zone %}
-            {% endif %}
-
-            {% assign all_tags_down = product.tags | join: ',' | downcase %}
-            {% assign is_limited = false %}
-            {% if all_tags_down contains 'limited' or all_tags_down contains 'exclusive' %}
-              {% assign is_limited = true %}
-            {% endif %}
-
-            {% assign inv_qty = 0 %}
-            {% if product.variants.first.inventory_management %}
-              {% assign inv_qty = product.variants.first.inventory_quantity %}
-            {% endif %}
-
-            <article
-              class="product-card"
-              data-capsule="{{ capsule_handle }}"
-              data-tags="{{ all_tags_down }}"
-              data-price="{{ product.price | divided_by: 100.0 }}"
-              data-limited="{{ is_limited }}"
-              data-created="{{ product.created_at | date: '%s' }}"
-            >
-              {% assign capsule_label = product.metafields.custom.capsule_label.value | default: product.metafields.custom.capsule_label | default: '' %}
-              {% if capsule_label != '' %}
-                <div class="capsule-tag">{{ capsule_label }}</div>
-              {% elsif capsule_handle != '' %}
-                <div class="capsule-tag">{{ capsule_handle | replace: 'cap-','CAP-00' | upcase }}</div>
-              {% endif %}
-
-              {% if is_limited %}
-                <div class="limited-badge">
-                  {% if all_tags_down contains 'exclusive' %}
-                    EXCLUSIVE
-                  {% else %}
-                    LIMITED
-                  {% endif %}
-                </div>
-              {% endif %}
-
+            <article class="product-card" data-capsule="{{ product.tags | join: ',' | downcase }}" data-price="{{ product.price | divided_by: 100.0 }}">
+              
+              {% comment %} BEAST MODE: RELIC HUD VISUAL {% endcomment %}
               <div class="card-media relic-visual-terminal">
-  <a href="{{ product.url }}" class="relic-link">
-    {% if product.featured_image %}
-      <img
-        src="{{ product.featured_image | image_url: width: 600 }}"
-        alt="{{ product.featured_image.alt | escape }}"
-        class="relic-img-base"
-        loading="lazy"
-      >
-    {% endif %}
-    
-    <div class="relic-wireframe-overlay"></div>
-    
-    <div class="relic-hud-meta">
-      <span class="hud-bit">ID: {{ product.variants.first.sku | default: 'UNKNOWN' }}</span>
-      <span class="hud-bit">STATUS: STABLE</span>
-    </div>
-    
-    <div class="relic-scanning-beam"></div>
-  </a>
-</div>
-
-              <h3 class="product-title">
-                <a href="{{ product.url }}" style="color:inherit;text-decoration:none;">
-                  {{ product.title }}
+                <a href="{{ product.url }}">
+                  <img src="{{ product.featured_image | image_url: width: 600 }}" class="relic-img-base" loading="lazy">
+                  <div class="relic-wireframe-overlay"></div>
+                  <div class="relic-scanning-beam"></div>
+                  <div class="relic-hud-meta">
+                    <span class="hud-bit">OBJ_ID: {{ product.variants.first.sku | default: 'UNKNOWN' }}</span>
+                    <span class="hud-bit">FREQ: ACTIVE</span>
+                  </div>
                 </a>
-              </h3>
-
-              <p class="product-snippet">
-                {% if product.metafields.custom.lore_snippet != blank %}
-                  {{ product.metafields.custom.lore_snippet }}
-                {% elsif product.description != blank %}
-                  {{ product.description | strip_html | truncate: 110 }}
-                {% else %}
-                  Transmission fragment awaiting full decryption.
-                {% endif %}
-              </p>
-
-              <div class="tag-chips">
-                {% for tag in product.tags limit: 4 %}
-                  <span class="tag-chip">#{{ tag | handle }}</span>
-                {% endfor %}
               </div>
 
+              <h3 class="product-title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+
               <div class="card-footer">
-                <div class="price-block">
-                  <span class="price-main">{{ product.price | money }}</span>
-                  {% if product.compare_at_price > product.price %}
-                    <span class="price-compare">{{ product.compare_at_price | money }}</span>
-                  {% endif %}
-                  {% if inv_qty > 0 and inv_qty <= 5 %}
-                    <span class="low-stock">🔥 Only {{ inv_qty }} left in the vault</span>
-                  {% elsif is_limited %}
-                    <span class="low-stock">⏳ Limited run • Once it’s gone, it’s gone</span>
-                  {% endif %}
-                </div>
-
-                <div class="card-cta">
-                  <a href="{{ product.url }}" class="btn-outline">View relic</a>
-                  {% if product.available %}
-                    <form action="/cart/add" method="post" class="add-to-cart-form relic-extraction-module" data-product-id="{{ product.variants.first.id }}">
-  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-  <button type="submit" class="btn-solid btn-extraction" data-extraction-trigger>
-    <span class="btn-text">Add to cart</span>
-    <span class="btn-glitch-layer"></span>
-  </button>
-  <div class="extraction-terminal-output" aria-live="polite">
-    <div class="terminal-loader-bar"></div>
-    <p class="terminal-log-text">> STANDBY...</p>
-  </div>
-</form>
-
-                  {% else %}
-                    <span class="btn-outline" style="opacity:0.6;cursor:not-allowed;">Sold out</span>
-                  {% endif %}
-                </div>
+                <span class="price-main">{{ product.price | money }}</span>
+                <form action="/cart/add" method="post" class="add-to-cart-form relic-extraction-module">
+                  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                  <button type="submit" class="btn-solid btn-extraction" data-extraction-trigger>
+                    <span class="btn-text">Extract Relic</span>
+                  </button>
+                  <div class="extraction-terminal-output"><p class="terminal-log-text">> STANDBY...</p></div>
+                </form>
               </div>
             </article>
           {% endfor %}
         </div>
-
-        {% if paginate.pages > 1 %}
-          <div class="mt-8 flex justify-center gap-3 text-sm">
-            {% if paginate.previous %}
-              <a href="{{ paginate.previous.url }}" class="btn-outline">‹ Previous</a>
-            {% endif %}
-            <span style="align-self:center;opacity:0.7;">
-              Page {{ paginate.current_page }} of {{ paginate.pages }}
-            </span>
-            {% if paginate.next %}
-              <a href="{{ paginate.next.url }}" class="btn-outline">Next ›</a>
-            {% endif %}
-          </div>
-        {% endif %}
       {% endpaginate %}
     </div>
-
-    <!-- Upsell / Cross-sell Strip – FIXED LOGIC -->
-    <section class="upsell-shell" aria-label="Almost Gone Relics">
-      <div class="upsell-header">
-        <h2 class="upsell-title">ALMOST GONE // SIGNAL HOTSPOTS</h2>
-        <p class="upsell-subtitle">
-          Handpicked limited transmissions you’ll regret leaving behind.
-        </p>
-      </div>
-
-      <div class="upsell-grid">
-       {% assign upsell_limit = section.settings.upsell_limit | default: 4 %}
-        {% assign upsell_count = 0 %}
-
-        {% comment %}
-          Pre-normalize the admin-set upsell tag once (avoids repeated downcase inside the loop)
-        {% endcomment %}
-        {% assign upsell_tag_setting = section.settings.upsell_tag | downcase %}
-
-        {% for upsell in collection.products %}
-          {% if upsell_count >= upsell_limit %}
-            {% break %}
-          {% endif %}
-
-          {% assign upsell_tags = upsell.tags | join: ',' | downcase %}
-          {% assign match_tag = false %}
-
-          {% if upsell_tag_setting != blank and upsell_tags contains upsell_tag_setting %}
-            {% assign match_tag = true %}
-          {% elsif upsell_tags contains 'limited' or upsell_tags contains 'exclusive' %}
-            {% assign match_tag = true %}
-          {% endif %}
-
-          {% if match_tag %}
-            {% assign upsell_count = upsell_count | plus: 1 %}
-            <a href="{{ upsell.url }}" class="upsell-card">
-              <div class="upsell-media">
-                {% if upsell.featured_image %}
-                  <img
-                    src="{{ upsell.featured_image | image_url: width: 200 }}"
-                    alt="{{ upsell.featured_image.alt | escape }}"
-                    loading="lazy"
-                  >
-                {% else %}
-                  <img
-                    src="{{ 'placeholder-image.png' | asset_url }}"
-                    alt="{{ upsell.title | escape }}"
-                    loading="lazy"
-                  >
-                {% endif %}
-              </div>
-              <div class="upsell-meta">
-                <div class="upsell-name">{{ upsell.title }}</div>
-                <div class="upsell-price">{{ upsell.price | money }}</div>
-                <div class="upsell-tagline">
-                  {% if upsell.metafields.custom.lore_snippet != blank %}
-                    {{ upsell.metafields.custom.lore_snippet | truncate: 60 }}
-                  {% else %}
-                    Last echoes from this frequency lane.
-                  {% endif %}
-                </div>
-              </div>
-            </a>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </section>
-
-    <!-- ROKT / Personalization hook -->
-    <div id="stellar-rokt-slot" style="margin-top:2.5rem;">
-      {% comment %}Drop your Rokt / personalization app embed here.{% endcomment %}
-    </div>
-
-    <!-- SIGNAL SEEKER CTA -->
-    <section class="signal-shell">
-      <div class="signal-card">
-        <div class="signal-inner">
-          <div class="signal-eye">
-            <div class="signal-eye-shape">
-              <div class="signal-eye-core"></div>
-            </div>
-          </div>
-          <h2 class="signal-title">JOIN THE SIGNAL SEEKERS</h2>
-          <p class="signal-subtitle">
-            Early access drops, hidden relics, and encrypted lore from beyond the event horizon.
-          </p>
-          <div class="signal-benefits">
-            <div class="signal-benefit">
-              <div class="signal-benefit-title">⚡ Priority transmissions</div>
-              <div>First in line for capsule drops & restocks.</div>
-            </div>
-            <div class="signal-benefit">
-              <div class="signal-benefit-title">📼 Vault-only relics</div>
-              <div>Signal Seeker exclusives you won’t see on the main grid.</div>
-            </div>
-            <div class="signal-benefit">
-              <div class="signal-benefit-title">🛰 Lore fragments</div>
-              <div>Encrypted stories, concept art, and world-building leaks.</div>
-            </div>
-            <div class="signal-benefit">
-              <div class="signal-benefit-title">💸 Secret discounts</div>
-              <div>Occasional code drops and insider perks.</div>
-            </div>
-          </div>
-
-          {% form 'customer', id: 'signal-seeker-form' %}
-            <div class="signal-form">
-              <input
-                class="signal-input"
-                type="email"
-                name="contact[email]"
-                required
-                placeholder="Enter your transmission frequency..."
-              >
-              <input type="hidden" name="contact[tags]" value="newsletter,signal-seekers">
-              <button class="signal-btn" type="submit">
-                <span>INITIATE SIGNAL</span> <span>📡</span>
-              </button>
-            </div>
-          {% endform %}
-        </div>
-      </div>
-    </section>
   </div>
 
   {{ 'stellar-shop-all.js' | asset_url | script_tag }}
-  <script>window.StellarShopAll && window.StellarShopAll.init('shopify-section-{{ section.id }}');</script>
 </section>
 
 {% schema %}
 {
   "name": "Stellar Shop All",
   "settings": [
-    {
-      "type": "text",
-      "id": "hero_kicker",
-      "label": "Hero kicker",
-      "default": "SHOP ALL TRANSMISSIONS"
-    },
-    {
-      "type": "text",
-      "id": "hero_title",
-      "label": "Hero title",
-      "default": "COSMIC PRODUCT VAULT"
-    },
-    {
-      "type": "textarea",
-      "id": "hero_subtitle",
-      "label": "Hero subtitle",
-      "default": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid."
-    },
-    {
-      "type": "range",
-      "id": "products_per_page",
-      "label": "Products per page",
-      "min": 6,
-      "max": 48,
-      "step": 6,
-      "default": 24
-    },
-    {
-      "type": "range",
-      "id": "upsell_limit",
-      "label": "Upsell limit",
-      "min": 2,
-      "max": 8,
-      "step": 1,
-      "default": 4
-    },
-    {
-      "type": "text",
-      "id": "upsell_tag",
-      "label": "Upsell tag",
-      "default": "limited"
-    }
+    { "type": "text", "id": "hero_title", "label": "Hero Title", "default": "COSMIC PRODUCT VAULT" },
+    { "type": "textarea", "id": "hero_subtitle", "label": "Hero Subtitle", "default": "Shop every transmission." },
+    { "type": "number", "id": "products_per_page", "label": "Products per page", "default": 24 }
   ],
-  "presets": [
-    {
-      "name": "Stellar Shop All"
-    }
-  ]
+  "presets": [{ "name": "Stellar Shop All" }]
 }
 {% endschema %}
