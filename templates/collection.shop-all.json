@@ -17,15 +17,6 @@
         "products_per_page": 24
       }
     },
-    "stellar_shop_all_7tiKkG": {
-      "type": "stellar-shop-all",
-      "name": "Stellar Shop All",
-      "settings": {
-        "hero_title": "COSMIC PRODUCT VAULT",
-        "hero_subtitle": "Shop every transmission.",
-        "products_per_page": 24
-      }
-    },
     "stellar_archive_hero_corrected_rdKdWE": {
       "type": "stellar-archive-hero-corrected",
       "name": "Archive Hero (Corrected)",
@@ -122,7 +113,6 @@
   },
   "order": [
     "main",
-    "stellar_shop_all_7tiKkG",
     "stellar_archive_hero_corrected_rdKdWE",
     "stellar_fomo_countdown_ECfc38",
     "homepage_almost_gone_marquee_xWVF6Q",
