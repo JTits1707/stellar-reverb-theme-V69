@@ -9,15 +9,7 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "stellar-shop-all",
-      "settings": {
-        "hero_title": "COSMIC PRODUCT VAULT // ALL CAPSULES",
-        "hero_subtitle": "Echoes from every capsule. Limited transmissions. Wear the waveform.",
-        "products_per_page": 24
-      }
-    },
-    "stellar_archive_hero_corrected_rdKdWE": {
+    "stellar_archive_hero_corrected_aKt3gH": {
       "type": "stellar-archive-hero-corrected",
       "name": "Archive Hero (Corrected)",
       "settings": {
@@ -28,7 +20,30 @@
         "enable_cassettes": true
       }
     },
-    "stellar_fomo_countdown_ECfc38": {
+    "stellar_shop_all_eWD894": {
+      "type": "stellar-shop-all",
+      "name": "Stellar Shop All",
+      "settings": {
+        "hero_title": "COSMIC PRODUCT VAULT",
+        "hero_subtitle": "Shop every transmission.",
+        "products_per_page": 24
+      }
+    },
+    "homepage_almost_gone_marquee_Xz8wwN": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
+        "scroll_speed": 50,
+        "color_scheme": "yellow"
+      }
+    },
+    "stellar_fomo_countdown_y3GqNn": {
       "type": "stellar-fomo-countdown",
       "name": "FOMO Countdown",
       "settings": {
@@ -44,78 +59,12 @@
         "show_waveform": true,
         "show_particles": true
       }
-    },
-    "homepage_almost_gone_marquee_xWVF6Q": {
-      "type": "homepage-almost-gone-marquee",
-      "name": "Almost Gone Marquee",
-      "settings": {
-        "use_dynamic_products": false,
-        "collection": "",
-        "low_stock_threshold": 5,
-        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
-        "icon": "⚠️",
-        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
-        "scroll_speed": 50,
-        "color_scheme": "yellow"
-      }
-    },
-    "stellar_scarcity_marquee_MjJQaK": {
-      "type": "stellar-scarcity-marquee",
-      "blocks": {
-        "message_GMRBWd": {
-          "type": "message",
-          "settings": {
-            "message": "⚡ ONLY 20 CAPSULES LEFT"
-          }
-        },
-        "message_N8Dyrq": {
-          "type": "message",
-          "settings": {
-            "message": "📡 NEW TRANSMISSION INCOMING"
-          }
-        },
-        "message_PJTggg": {
-          "type": "message",
-          "settings": {
-            "message": "🔐 EXCLUSIVE DROP"
-          }
-        },
-        "message_wDHLmW": {
-          "type": "message",
-          "settings": {
-            "message": "⏰ 48 HOURS ONLY"
-          }
-        },
-        "message_MjHJy6": {
-          "type": "message",
-          "settings": {
-            "message": "🌌 COSMIC ARCHIVE EXPANDING"
-          }
-        }
-      },
-      "block_order": [
-        "message_GMRBWd",
-        "message_N8Dyrq",
-        "message_PJTggg",
-        "message_wDHLmW",
-        "message_MjHJy6"
-      ],
-      "name": "Scarcity Marquee",
-      "settings": {
-        "marquee_speed": 30,
-        "show_separator": true,
-        "separator_icon": "◆",
-        "enable_glitch": true,
-        "show_scanlines": true,
-        "text_color": "#00f0ff"
-      }
     }
   },
   "order": [
-    "main",
-    "stellar_archive_hero_corrected_rdKdWE",
-    "stellar_fomo_countdown_ECfc38",
-    "homepage_almost_gone_marquee_xWVF6Q",
-    "stellar_scarcity_marquee_MjJQaK"
+    "stellar_archive_hero_corrected_aKt3gH",
+    "homepage_almost_gone_marquee_Xz8wwN",
+    "stellar_fomo_countdown_y3GqNn",
+    "stellar_shop_all_eWD894"
   ]
 }
