@@ -1,40 +1,41 @@
 {% liquid
-  assign capsule_num = capsule.capsule_number.value | default: '000'
-  assign theme_hex = capsule.theme_color.value | default: '#E13CFA'
+  assign capsule_number = capsule.capsule_number.value | default: '000'
+  assign theme = capsule.theme_color.value | default: 'cyan-magenta'
+  assign image = capsule.featured_image.value
+  assign title = capsule.title.value | upcase
+  assign url = capsule.page_url.value | default: '#'
 %}
 
-<article class="stellar-capsule terminal-card" 
-         data-capsule-number="{{ capsule_num }}"
-         style="--card-glow: {{ theme_hex }};">
-  
-  <div class="stellar-capsule__image-wrapper">
-    <div class="terminal-hud">
-      <span class="hud-id">SYS_REF: {{ capsule_num }}</span>
-      <div class="hud-decrypt-bar">
-        <div class="hud-progress animate-pulse"></div>
+<article class="sr-archive-card" data-theme="{{ theme }}" data-capsule="{{ capsule_number }}">
+  <a href="{{ url }}" class="sr-card-link">
+    <div class="sr-card-image-container">
+      {% if image %}
+        <img src="{{ image | image_url: width: 800 }}" alt="{{ title }}" class="sr-main-img" loading="lazy">
+        <div class="sr-glitch-overlay"></div>
+      {% endif %}
+      
+      {% comment %} HUD Overlay Elements {% endcomment %}
+      <div class="sr-hud-frame">
+        <div class="sr-hud-top">
+          <span class="sr-hud-status">SIGNAL DETECTED [{{ capsule_number }}]</span>
+          <span class="sr-hud-corner"></span>
+        </div>
+        <div class="sr-hud-bottom">
+          <span class="sr-hud-decrypt">DECRYPTING... 21%</span>
+        </div>
       </div>
     </div>
-    
-    {% if capsule.featured_image %}
-      <img class="stellar-capsule__image" 
-           src="{{ capsule.featured_image | image_url: width: 800 }}"
-           alt="{{ capsule.title.value }}"
-           loading="lazy">
-    {% endif %}
-  </div>
 
-  <div class="stellar-capsule__content">
-    <div class="terminal-header">
-      <span class="terminal-status">SIGNAL DETECTED</span>
-      <span class="terminal-date">{{ capsule.release_date.value | date: "%Y.%m" }}</span>
+    <div class="sr-card-content">
+      <div class="sr-card-header">
+        <span class="sr-capsule-label">TRANSMISSION</span>
+        <span class="sr-capsule-id">#{{ capsule_number }}</span>
+      </div>
+      <h3 class="sr-capsule-title">{{ title }}</h3>
+      <div class="sr-card-footer">
+        <span class="sr-cta-text">EXPLORE FREQUENCY</span>
+        <svg class="sr-cta-arrow" width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h18M13 0l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </div>
     </div>
-    
-    <h3 class="stellar-capsule__title glitch-text" data-text="{{ capsule.title.value }}">
-      <a href="{{ capsule.page_url.value }}">{{ capsule.title.value }}</a>
-    </h3>
-
-    <div class="terminal-footer">
-      <a href="{{ capsule.page_url.value }}" class="btn-terminal">DECRYPT TRANSMISSION</a>
-    </div>
-  </div>
+  </a>
 </article>

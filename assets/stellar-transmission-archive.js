@@ -382,3 +382,33 @@ if (document.readyState === 'loading') {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = StellarCore;
 }
+// Add this inside your StellarCore.init() or as a standalone script
+const Handshake = {
+  init() {
+    this.boot = document.getElementById('sr-terminal-boot');
+    this.bar = document.getElementById('sr-boot-bar');
+    this.logs = document.getElementById('sr-boot-logs');
+    
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (!link || link.hostname !== window.location.hostname || link.hash) return;
+      
+      e.preventDefault();
+      this.triggerShift(link.href);
+    });
+  },
+  
+  triggerShift(url) {
+    this.boot.classList.add('active');
+    let p = 0;
+    const interval = setInterval(() => {
+      p += Math.random() * 25;
+      this.bar.style.width = `${Math.min(p, 100)}%`;
+      if (p >= 100) {
+        clearInterval(interval);
+        window.location.href = url;
+      }
+    }, 100);
+  }
+};
+Handshake.init();
