@@ -1,32 +1,59 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "name": "Transmission Archive V3.0",
   "sections": {
     "fomo_countdown": {
       "type": "stellar-fomo-countdown",
       "settings": {
+        "enable_countdown": true,
         "countdown_date": "2025-01-15T23:59:59",
+        "timer_label": "NEXT TRANSMISSION IN",
+        "low_stock_threshold": 10,
         "stock_remaining": 7,
-        "urgency_message": "ONLY [X] ECHOES REMAIN"
+        "urgency_message": "ONLY [X] ECHOES REMAIN",
+        "cta_text": "CLAIM YOUR ECHO",
+        "cta_url": "/collections/capsules",
+        "fomo_color": "#00FF88",
+        "show_waveform": true,
+        "show_particles": true
       }
     },
     "stellar_hero": {
       "type": "stellar-archive-hero-corrected",
       "settings": {
-        "featured_capsule_number": "001"
+        "title": "STELLAR REVERB",
+        "subtitle": "Sound Style Transmissions Of Cosmic Identity",
+        "featured_capsule_number": "001",
+        "enable_particles": true,
+        "enable_cassettes": true
       }
     },
     "oracle_teaser": {
       "type": "stellar-oracle-teaser",
       "settings": {
         "trigger_probability": 15,
-        "trigger_on": "scroll"
+        "trigger_on": "scroll",
+        "alert_text": "INCOMING SIGNAL DETECTED",
+        "no_signal_text": "No future transmissions detected... yet.",
+        "show_cta": true,
+        "cta_text": "PREPARE FOR TRANSMISSION",
+        "oracle_color": "#FF006E"
       }
     },
     "transmission_grid": {
-      "type": "stellar-transmission-grid-corrected",
+      "type": "stellar-transmission-grid",
       "settings": {
+        "section_title": "TRANSMISSION ARCHIVE",
         "grid_columns": 3,
-        "enable_filters": true
+        "enable_theme_filter": true,
+        "default_sort": "date_desc"
       }
     },
     "lore_accordion": {
@@ -36,19 +63,68 @@
           "type": "lore_node",
           "settings": {
             "title": "THE FIRST TRANSMISSION",
-            "content": "<p>Sample lore text...</p>"
+            "node_number": "001",
+            "content": "<p>Deep within the void, the first signal emerged. A frequency that shouldn't exist, carrying patterns that defied explanation. Those who heard it felt something awaken—a memory of futures yet to come, echoes of identities waiting to be discovered.</p><p>The Stellar Reverb was born not as sound, but as consciousness seeking form.</p>",
+            "audio_url": "",
+            "link_url": "/pages/lore",
+            "link_text": "Explore the Origin"
+          }
+        },
+        "lore_node_2": {
+          "type": "lore_node",
+          "settings": {
+            "title": "THE CAPSULE PROTOCOL",
+            "node_number": "002",
+            "content": "<p>Each capsule contains more than fabric and design—it holds compressed reality, fragments of the greater transmission. Wear one, and you become a node in the network. A receiver. A transmitter. The style you wear is the frequency you broadcast.</p><p>Choose your signal wisely.</p>",
+            "audio_url": "",
+            "link_url": "/collections/capsules",
+            "link_text": "Browse Capsules"
+          }
+        },
+        "lore_node_3": {
+          "type": "lore_node",
+          "settings": {
+            "title": "THE SEEKERS",
+            "node_number": "003",
+            "content": "<p>Not everyone can hear the transmission. Most walk past, oblivious to the frequencies humming beneath reality's surface. But the Seekers—you who found this archive—possess the resonance. You feel the pull of something greater.</p><p>This is not fashion. This is identity warfare. Welcome to the Rift.</p>",
+            "audio_url": "",
+            "link_url": "/pages/manifesto",
+            "link_text": "Read the Manifesto"
           }
         }
+      },
+      "block_order": [
+        "lore_node_1",
+        "lore_node_2",
+        "lore_node_3"
+      ],
+      "settings": {
+        "heading": "FRACTURED NARRATIVES",
+        "subtitle": "Expand the nodes. Decode the transmissions.",
+        "lore_color": "#28A8D6"
       }
     },
     "signal_feed": {
-      "type": "stellar-transmission-signals"
+      "type": "stellar-transmission-signals",
+      "settings": {}
     },
     "ar_portal": {
-      "type": "stellar-ar-portal"
+      "type": "stellar-ar-portal",
+      "settings": {
+        "product_handle": "",
+        "trigger_text": "ENTER THE RIFT",
+        "subtitle": "Holographic Quickview",
+        "show_product_info": true
+      }
     },
     "rift_signup": {
-      "type": "stellar-rift-signup"
+      "type": "stellar-rift-signup",
+      "settings": {
+        "title": "ENTER THE RIFT",
+        "subtitle": "Receive encrypted transmissions from the void",
+        "mailchimp_action": "",
+        "enable_konami": true
+      }
     },
     "mixtape_player": {
       "type": "stellar-mixtape-player",
@@ -56,9 +132,41 @@
         "track_1": {
           "type": "track",
           "settings": {
-            "track_name": "VOID FREQUENCIES"
+            "track_name": "VOID FREQUENCIES",
+            "artist_name": "Stellar Reverb",
+            "audio_url": ""
+          }
+        },
+        "track_2": {
+          "type": "track",
+          "settings": {
+            "track_name": "COSMIC ECHO",
+            "artist_name": "Stellar Reverb",
+            "audio_url": ""
+          }
+        },
+        "track_3": {
+          "type": "track",
+          "settings": {
+            "track_name": "TRANSMISSION PROTOCOL",
+            "artist_name": "Stellar Reverb",
+            "audio_url": ""
           }
         }
+      },
+      "block_order": [
+        "track_1",
+        "track_2",
+        "track_3"
+      ],
+      "settings": {
+        "mixtape_title": "STELLAR MIX VOL. 1",
+        "default_track_name": "Loading Transmission...",
+        "autoplay": false,
+        "default_volume": 50,
+        "ambient_hum_url": "",
+        "ambient_volume": 20,
+        "player_color": "#FF006E"
       }
     }
   },
