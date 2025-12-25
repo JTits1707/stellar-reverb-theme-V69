@@ -108,3 +108,11 @@
   
   <div class="relic-scanline"></div>
 </div>
+<div class="card-media relic-visual-terminal">
+  <img src="{{ product.featured_image | image_url: width: 600 }}" class="relic-img-base">
+  <div class="relic-wireframe-overlay"></div>
+  <div class="relic-scanning-beam"></div>
+  <div class="relic-hud-meta">
+    <span class="hud-bit">OBJ_ID: {{ product.variants.first.sku | default: 'UNKNOWN' }}</span>
+  </div>
+</div>
