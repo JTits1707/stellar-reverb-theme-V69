@@ -1,49 +1,14 @@
 {% comment %}
   Stellar Reverb – COSMIC SHOP ALL SECTION (V.2025)
-  - Fixed duplicate schema error
+  - Unified Terminal HUD & Product Grid
   - Integrated Beast-Mode HUD Artifacts
-  - Linked to Global Handshake Protocol
 {% endcomment %}
-<section class="hero sr-terminal-hud">
-  <div class="sr-hud-status-bar">
-    <div class="sr-status-item">
-      <span class="sr-led animate-pulse"></span>
-      <span class="sr-status-label">CONNECTION:</span>
-      <span class="sr-status-value">ENCRYPTED_SIGNAL</span>
-    </div>
-    <div class="sr-status-item">
-      <span class="sr-status-label">ARCHIVE_CAPACITY:</span>
-      <span class="sr-status-value">{{ collection.all_products_count }} / 999_RELICS</span>
-    </div>
-  </div>
 
-  <div class="sr-hero-content-box">
-    {% if section.settings.hero_kicker != blank %}
-      <p class="hero-kicker glitch-text" data-text="{{ section.settings.hero_kicker }}">
-        {{ section.settings.hero_kicker }}
-      </p>
-    {% endif %}
-    
-    <h1 class="hero-title sr-glitch-heading">
-      {{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}
-    </h1>
+{{ 'shop-all-beast.css' | asset_url | stylesheet_tag }}
 
-    <div class="sr-hero-description">
-      <p class="hero-subtitle">
-        {{ section.settings.hero_subtitle | default: 'Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.' }}
-      </p>
-    </div>
-  </div>
-
-  <div class="sr-terminal-footer-bits">
-    <span>// SECTOR: {{ collection.handle | upcase }}</span>
-    <span>// ENCRYPTION: AES-256</span>
-    <span>// TIMESTAMP: {{ 'now' | date: "%Y.%m.%d" }}</span>
-  </div>
-</section>
-<section class="stellar-shop-all" data-section-id="{{ section.id }}" data-collection-handle="{{ collection.handle }}">
-  {{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
-
+<section class="stellar-shop-all shop-all-cosmic" data-section-id="{{ section.id }}" data-collection-handle="{{ collection.handle }}">
+  
+  {%- comment -%} 1. GLOBAL BACKGROUND ELEMENTS [cite: 281] {%- endcomment -%}
   <div class="cosmic-bg"></div>
   <div class="constellation-dots">
     <div class="constellation-dot" style="top:15%;left:12%;"></div>
@@ -51,6 +16,7 @@
     <div class="constellation-dot" style="top:82%;left:45%;"></div>
   </div>
 
+  {%- comment -%} 2. STICKY HEADER [cite: 282] {%- endcomment -%}
   <header class="section-header">
     <div class="section-header-inner">
       <div class="brand-chip">
@@ -72,18 +38,52 @@
   </header>
 
   <div class="inner">
-    <section class="hero">
-      <h1 class="hero-title">{{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}</h1>
-      <p class="hero-subtitle">{{ section.settings.hero_subtitle }}</p>
-    </section>
+    {%- comment -%} 3. TERMINAL HUD HERO [cite: 274] {%- endcomment -%}
+    <div class="hero sr-terminal-hud">
+      <div class="sr-hud-status-bar">
+        <div class="sr-status-item">
+          <span class="sr-led animate-pulse"></span>
+          <span class="sr-status-label">CONNECTION:</span>
+          <span class="sr-status-value">ENCRYPTED_SIGNAL</span>
+        </div>
+        <div class="sr-status-item">
+          <span class="sr-status-label">ARCHIVE_CAPACITY:</span>
+          <span class="sr-status-value">{{ collection.all_products_count }} / 999_RELICS</span>
+        </div>
+      </div>
 
+      <div class="sr-hero-content-box">
+        {% if section.settings.hero_kicker != blank %}
+          <p class="hero-kicker glitch-text" data-text="{{ section.settings.hero_kicker }}">
+            {{ section.settings.hero_kicker }}
+          </p>
+        {% endif %}
+        
+        <h1 class="hero-title sr-glitch-heading">
+          {{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}
+        </h1>
+
+        <div class="sr-hero-description">
+          <p class="hero-subtitle">
+            {{ section.settings.hero_subtitle | default: 'Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.' }}
+          </p>
+        </div>
+      </div>
+
+      <div class="sr-terminal-footer-bits">
+        <span>// SECTOR: {{ collection.handle | upcase }}</span>
+        <span>// ENCRYPTION: AES-256</span>
+        <span>// TIMESTAMP: {{ 'now' | date: "%Y.%m.%d" }}</span>
+      </div>
+    </div>
+
+    {%- comment -%} 4. MAIN PRODUCT GRID [cite: 284, 285] {%- endcomment -%}
     <div class="grid-shell">
       {% paginate collection.products by section.settings.products_per_page %}
         <div class="product-grid" id="stellarProductGrid">
           {% for product in collection.products %}
             <article class="product-card" data-capsule="{{ product.tags | join: ',' | downcase }}" data-price="{{ product.price | divided_by: 100.0 }}">
               
-              {% comment %} BEAST MODE: RELIC HUD VISUAL {% endcomment %}
               <div class="card-media relic-visual-terminal">
                 <a href="{{ product.url }}">
                   <img src="{{ product.featured_image | image_url: width: 600 }}" class="relic-img-base" loading="lazy">
@@ -122,6 +122,7 @@
 {
   "name": "Stellar Shop All",
   "settings": [
+    { "type": "text", "id": "hero_kicker", "label": "Hero Kicker", "default": "TRANSMISSION: ALL_RELICS" },
     { "type": "text", "id": "hero_title", "label": "Hero Title", "default": "COSMIC PRODUCT VAULT" },
     { "type": "textarea", "id": "hero_subtitle", "label": "Hero Subtitle", "default": "Shop every transmission." },
     { "type": "number", "id": "products_per_page", "label": "Products per page", "default": 24 }
