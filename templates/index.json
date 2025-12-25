@@ -218,7 +218,8 @@
           "settings": {
             "title": "Lore",
             "link_url": "",
-            "icon_type": "infinity",
+            "icon_type": "custom",
+            "custom_icon": "shopify://shop_images/26D1B2B8-ADE2-491F-976F-A0CBB9918B12-topaz-denoise.jpg",
             "glow_color": "purple"
           }
         },
