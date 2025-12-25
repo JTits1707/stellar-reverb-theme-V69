@@ -197,7 +197,7 @@
           "type": "nav_item",
           "settings": {
             "title": "All Capsules",
-            "link_url": "",
+            "link_url": "shopify://pages/capsules",
             "icon_type": "custom",
             "custom_icon": "shopify://shop_images/transmission-archive-branded-icon.png",
             "glow_color": "purple"
