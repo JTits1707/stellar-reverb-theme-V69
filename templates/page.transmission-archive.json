@@ -173,6 +173,27 @@
         "ambient_volume": 20,
         "player_color": "#ff006e"
       }
+    },
+    "stellar_transmission_grid_EUQMkx": {
+      "type": "stellar-transmission-grid",
+      "name": "Transmission Grid",
+      "settings": {
+        "section_title": "TRANSMISSION ARCHIVE",
+        "grid_columns": 3,
+        "enable_theme_filter": true,
+        "default_sort": "number_asc"
+      }
+    },
+    "transmission_vault_xVdfCH": {
+      "type": "transmission-vault",
+      "name": "Transmission Vault",
+      "settings": {
+        "vault_title": "THE VAULT",
+        "vault_subtitle": "Archive of All Intercepted Transmissions",
+        "grid_columns": 3,
+        "enable_fomo": true,
+        "low_stock_threshold": 5
+      }
     }
   },
   "order": [
@@ -184,6 +205,8 @@
     "signal_feed",
     "ar_portal",
     "rift_signup",
-    "mixtape_player"
+    "mixtape_player",
+    "stellar_transmission_grid_EUQMkx",
+    "transmission_vault_xVdfCH"
   ]
 }
