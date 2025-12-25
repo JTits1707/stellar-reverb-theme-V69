@@ -22,40 +22,25 @@
     <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    <style>
-      :root {
-        --void-black: {{ settings.color_void_black | default: '#0D0D0D' }};
-        --neon-magenta: {{ settings.color_neon_magenta | default: '#E13CFA' }};
-        --cyan-blue: {{ settings.color_cyan_blue | default: '#28A8D6' }};
-        --radioactive-green: {{ settings.color_radioactive_green | default: '#00F0AC' }};
-        --cosmic-purple: {{ settings.color_cosmic_purple | default: '#6C24B3' }};
-        --electric-yellow: {{ settings.color_electric_yellow | default: '#F4FF30' }};
-        --chrome-silver: {{ settings.color_chrome_silver | default: '#B0B0B0' }};
-
-        --font-title: 'Orbitron', system-ui, sans-serif;
-        --font-body: 'PP Mori', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        --font-accent: 'PP Neue Machina', system-ui, sans-serif;
-      }
-
-      html {
-        font-family: var(--font-body);
-        background-color: var(--void-black);
-        color: #f9fafb;
-      }
-    </style>
-
+    {% comment %} 1. DESIGN TOKENS & VARIABLES {% endcomment %}
+    {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
+    
+    {% comment %} 2. BRAND FONTS & CORE ENGINE {% endcomment %}
     {{ 'brand-fonts.css' | asset_url | stylesheet_tag }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'theme-base.css' | asset_url | stylesheet_tag }}
-    {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
 
-    {%- comment -%} Load Beast Mode Styles {%- endcomment -%}
+    {% comment %} 3. BEAST MODE ENHANCEMENTS {% endcomment %}
     {{ 'stellar-transmission-archive.css' | asset_url | stylesheet_tag }}
-
-    {%- comment -%} Optional/Existing Logic {%- endcomment -%}
-    {% if 'stellar-reverb-performance.css' | asset_url %}{{ 'stellar-reverb-performance.css' | asset_url | stylesheet_tag }}{% endif %}
-    {% if 'hero-decoding.css' | asset_url %}{{ 'hero-decoding.css' | asset_url | stylesheet_tag }}{% endif %}
-    {% if 'floating-elements.css' | asset_url %}{{ 'floating-elements.css' | asset_url | stylesheet_tag }}{% endif %}
+    {{ 'archive-card-ENHANCED.css' | asset_url | stylesheet_tag }}
+    
+    {% comment %} 4. PAGE-SPECIFIC DYNAMIC LOADING {% endcomment %}
+    {% if template contains 'shop-all' %}
+      {{ 'shop-all-beast.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+    {% if template contains 'floating-archive' %}
+      {{ 'floating-archive.css' | asset_url | stylesheet_tag }}
+    {% endif %}
 
     {{ content_for_header }}
 
@@ -87,7 +72,7 @@
           <div class="boot-loader">
             <div id="boot-progress-bar"></div>
           </div>
-          <div class="boot-logs" id="boot-logs">
+          <div id="boot-logs" class="boot-logs">
             <p class="log-entry">> INITIALIZING_CONNECTION...</p>
           </div>
         </div>
@@ -106,16 +91,16 @@
 
     {% section 'stellar-footer' %}
 
-    {%- comment -%} Core JS Logic {%- endcomment -%}
+    {% comment %} LOADING GLOBAL SCRIPTS {% endcomment %}
     <script src="{{ 'stellar-transmission-archive.js' | asset_url }}" defer></script>
-    {% if 'global.js' | asset_url %}<script src="{{ 'global.js' | asset_url }}" defer></script>{% endif %}
+    <script src="{{ 'archive-card-tilt.js' | asset_url }}" defer></script>
 
-    {%- comment -%} Page-Specific JS {%- endcomment -%}
+    {%- comment -%} PAGE-SPECIFIC JS {%- endcomment -%}
     {% if template contains 'universal-lore' or template contains 'lore' %}
       <script src="{{ 'stellar-reverb-lore.js' | asset_url }}" defer></script>
     {% endif %}
 
-    {% if template contains 'collection' %}
+    {% if template contains 'collection' or template contains 'shop-all' %}
       <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
     {% endif %}
 
