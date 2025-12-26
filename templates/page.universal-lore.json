@@ -85,19 +85,6 @@
         "subtitle": "Deciphering the fragments of a fractured reality."
       }
     },
-    "hero": {
-      "type": "universal-lore-hero",
-      "disabled": true,
-      "settings": {
-        "kicker_text": "UNIVERSAL LORE ARCHIVE",
-        "heading_override": "Universal Lore Index",
-        "subheading_override": "From the first distortion to the last echo in the archives",
-        "primary_cta_label": "Enter the Timeline",
-        "secondary_cta_label": "Explore This Transmission",
-        "fallback_secondary_url": "",
-        "show_hero_meta": true
-      }
-    },
     "myth": {
       "type": "universal-lore-myth",
       "settings": {
@@ -181,7 +168,6 @@
     "navigation",
     "loader",
     "lore_mainframe_hero_hG8wkt",
-    "hero",
     "myth",
     "timeline",
     "vault",
