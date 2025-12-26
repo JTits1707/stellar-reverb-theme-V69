@@ -9,6 +9,16 @@
  */
 {
   "sections": {
+    "announcement_bar_UjctQJ": {
+      "type": "announcement-bar",
+      "disabled": true,
+      "name": "Announcement bar",
+      "settings": {
+        "message": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
+        "color_scheme": "accent-1",
+        "show_announcement": true
+      }
+    },
     "hero_decoding_NxTcDf": {
       "type": "hero-decoding",
       "custom_css": [],
@@ -292,6 +302,7 @@
     }
   },
   "order": [
+    "announcement_bar_UjctQJ",
     "hero_decoding_NxTcDf",
     "featured_transmission_nkwbyg",
     "stellar_scarcity_marquee_aQHLzd",
