@@ -1,0 +1,53 @@
+{% comment %}
+  =====================================================
+  UNIVERSAL LORE: THE VAULT (Beast Mode)
+  - Interactive Glyph Grid with Distortion Effects
+  - Live Signal Feed (X/Social Intercept)
+  =====================================================
+{% endcomment %}
+
+<section class="lore-vault" id="lore-vault">
+  <div class="container">
+    <header class="vault-header">
+      <span class="hud-label">STORAGE_SECTOR: OMEGA</span>
+      <h2 class="vault-title">THE DEEP VAULT</h2>
+    </header>
+
+    <div class="glyph-grid">
+      {% comment %} 
+         These glyphs represent the different "Forces" in the SR Multiverse.
+         Hovering triggers the Distortion Logic in universal-lore-beast.js 
+      {% endcomment %}
+      <div class="glyph-item" data-glyph="echo-prism" data-section-type="glyph-item">
+        <div class="glyph-visual">∆</div>
+        <span class="glyph-name">ECHO_PRISM</span>
+      </div>
+
+      <div class="glyph-item" data-glyph="void-harmonic" data-section-type="glyph-item">
+        <div class="glyph-visual">ø</div>
+        <span class="glyph-name">VOID_HARMONIC</span>
+      </div>
+
+      <div class="glyph-item" data-glyph="quantum-thread" data-section-type="glyph-item">
+        <div class="glyph-visual">§</div>
+        <span class="glyph-name">QUANTUM_THREAD</span>
+      </div>
+
+      <div class="glyph-item" data-glyph="astral-cassette" data-section-type="glyph-item">
+        <div class="glyph-visual">∞</div>
+        <span class="glyph-name">ASTRAL_CASSETTE</span>
+      </div>
+    </div>
+
+    {% comment %} --- LIVE SIGNAL INTERCEPT --- {% endcomment %}
+    <div class="signal-feed-terminal">
+      <div class="terminal-header">
+        <span class="terminal-id">LIVE_SIGNAL_INTERCEPT // X_STREAM</span>
+      </div>
+      <div class="terminal-body" id="x-embed-lore">
+        {% comment %} Inject your X/Twitter widget code here {% endcomment %}
+        <div class="signal-placeholder">SCANNING_FREQUENCIES...</div>
+      </div>
+    </div>
+  </div>
+</section>

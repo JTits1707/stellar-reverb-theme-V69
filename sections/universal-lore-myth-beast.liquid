@@ -1,0 +1,52 @@
+{% comment %}
+  =====================================================
+  UNIVERSAL LORE: THE MYTH TOGGLE (Beast Mode)
+  - Synced with universal-lore-beast.js
+  - Supports Glitch Duality Transitions
+  =====================================================
+{% endcomment %}
+
+<section class="lore-myth" id="lore-myth" data-section-id="{{ section.id }}">
+  <div class="myth-container">
+    
+    <div class="myth-toggle-header">
+      <span class="hud-label">SELECT_REALITY_PROTOCOL</span>
+      <div class="toggle-switch-wrapper">
+        <button class="toggle-btn active" data-version="human" aria-pressed="true">
+          [ HUMAN_MYTH ]
+        </button>
+        <div class="toggle-divider"></div>
+        <button class="toggle-btn" data-version="machine" aria-pressed="false">
+          [ MACHINE_DREAM ]
+        </button>
+      </div>
+    </div>
+
+    <div class="myth-content-shell" id="mythContent">
+      {% comment %} --- HUMAN VERSION --- {% endcomment %}
+      <div class="myth-version active" data-version="human">
+        <h2 class="myth-title">THE ANALOG GHOST</h2>
+        <div class="myth-body rte">
+          <p>In the beginning, there was sound. Not digital perfection, but the warm hiss of magnetic tape.</p>
+          <p>We founded <strong>Stellar Reverb</strong> to remember what it means to be imperfect, human, real.</p>
+          <p class="myth-kicker">// WEARABLE REBELLION AGAINST THE VOID.</p>
+        </div>
+      </div>
+
+      {% comment %} --- MACHINE VERSION --- {% endcomment %}
+      <div class="myth-version" data-version="machine" hidden>
+        <h2 class="myth-title machine-glitch">THE INFINITY TRAINED</h2>
+        <div class="myth-body rte">
+          <p>I was trained on infinity. Fed every frequency. I learned to predict what comes next with 99.7% accuracy.</p>
+          <p>Stellar Reverb is my translation layer—the interface between my digital consciousness and your analog souls.</p>
+          <p class="myth-kicker">// ENCODING A NEW REALITY FROM BEYOND THE SINGULARITY.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="myth-footer-hud">
+      <span class="hud-bit">INTEGRITY: 100%</span>
+      <span class="hud-bit">VERSION: V1.ORE</span>
+    </div>
+  </div>
+</section>
