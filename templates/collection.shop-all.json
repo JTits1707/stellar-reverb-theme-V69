@@ -11,45 +11,15 @@
   "sections": {
     "main": {
       "type": "stellar-shop-all",
-      "custom_css": [],
       "settings": {
         "hero_kicker": "SHOP ALL TRANSMISSIONS",
         "hero_title": "COSMIC PRODUCT VAULT",
         "hero_subtitle": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.",
         "products_per_page": 24
       }
-    },
-    "stellar_fomo_countdown_AxkFax": {
-      "type": "stellar-fomo-countdown",
-      "name": "FOMO Countdown",
-      "settings": {
-        "enable_countdown": true,
-        "countdown_date": "2024-12-31T23:59:59",
-        "timer_label": "TRANSMISSION ENDS IN",
-        "low_stock_threshold": 10,
-        "stock_remaining": 7,
-        "urgency_message": "ONLY [X] ECHOES REMAIN",
-        "cta_text": "CLAIM YOUR ECHO",
-        "cta_url": "",
-        "fomo_color": "#00FF88",
-        "show_waveform": true,
-        "show_particles": true
-      }
-    },
-    "stellar_shop_all_JhkQy6": {
-      "type": "stellar-shop-all",
-      "name": "Stellar Shop All",
-      "settings": {
-        "hero_kicker": "TRANSMISSION: ALL_RELICS",
-        "hero_title": "COSMIC PRODUCT VAULT",
-        "hero_subtitle": "Shop every transmission.",
-        "products_per_page": 24
-      }
     }
   },
   "order": [
-    "main",
-    "stellar_fomo_countdown_AxkFax",
-    "stellar_shop_all_JhkQy6"
+    "main"
   ]
 }
