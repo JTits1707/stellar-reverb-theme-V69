@@ -11,9 +11,6 @@
   "sections": {
     "navigation": {
       "type": "universal-lore-navigation",
-      "settings": {
-        "brand_name": "STELLAR REVERB"
-      },
       "blocks": {
         "nav_link_1": {
           "type": "nav_link",
@@ -62,7 +59,10 @@
         "nav_link_3",
         "nav_link_4",
         "nav_link_5"
-      ]
+      ],
+      "settings": {
+        "brand_name": "STELLAR REVERB"
+      }
     },
     "loader": {
       "type": "universal-lore-loader",
@@ -70,11 +70,34 @@
     },
     "hero": {
       "type": "universal-lore-hero",
-      "settings": {}
+      "settings": {
+        "kicker_text": "UNIVERSAL LORE ARCHIVE",
+        "heading_override": "Universal Lore Index",
+        "subheading_override": "From the first distortion to the last echo in the archives",
+        "fallback_hero_image": "shopify://shop_images/stellar-universal-lore-hero-image_bc09d203-030c-45a0-8e13-1c6120feba51.jpg",
+        "primary_cta_label": "Enter the Timeline",
+        "secondary_cta_label": "Explore This Transmission",
+        "fallback_secondary_url": "",
+        "show_hero_meta": true
+      }
     },
     "myth": {
       "type": "universal-lore-myth",
-      "settings": {}
+      "settings": {
+        "kicker": "MYTH / INTERPRETATION / GLITCHED RECORD",
+        "heading_override": "",
+        "subtitle_override": "",
+        "label_human": "Human Myth",
+        "label_machine": "Machine Log",
+        "label_signal": "Raw Signal",
+        "heading_human": "The Story Humans Tell",
+        "body_human": "",
+        "heading_machine": "The Machine's Reconstruction",
+        "body_machine": "",
+        "heading_signal": "Raw Signal / Untranslated",
+        "body_signal": "",
+        "show_capsule_meta": true
+      }
     },
     "timeline": {
       "type": "universal-lore-timeline",
@@ -82,19 +105,55 @@
     },
     "vault": {
       "type": "universal-lore-vault",
-      "settings": {}
+      "settings": {
+        "kicker": "RELIC VAULT · ACTIVE SIGNALS",
+        "heading": "Choose Your Transmission",
+        "subheading": "Each capsule is a self-contained myth, broadcast across time. Pick a node and step into its frequency.",
+        "max_items": 12,
+        "show_cta": false,
+        "cta_url": "",
+        "cta_label": "Explore All Capsules"
+      }
     },
     "signals": {
       "type": "universal-lore-signals",
-      "settings": {}
+      "settings": {
+        "kicker": "INCOMING SIGNALS",
+        "heading": "The Next Transmission Is Already Looking For You",
+        "subheading": "Some capsules haven't fully resolved into this reality yet",
+        "door_heading": "Open the Next Transmission Early",
+        "door_copy": "Step through and you'll get first contact when the next capsule stabilizes",
+        "door_cta_label": "Become a Signal Seeker",
+        "phrase_one": "Some transmissions only exist if you hear them",
+        "phrase_two": "Every email is a fragment of a larger myth",
+        "phrase_three": "You're not joining a list. You're tuning a receiver"
+      }
     },
     "signup": {
       "type": "universal-lore-signup",
-      "settings": {}
+      "settings": {
+        "kicker": "SIGNAL SEEKER REGISTRY",
+        "heading": "Get The Next Transmission Before It Drops",
+        "subheading": "No spam. No filler. Just capsule drops, lore fragments, and early-access relics.",
+        "email_label": "Email address",
+        "email_placeholder": "you@yourfrequency.com",
+        "button_label": "Join the Signal",
+        "loading_label": "Connecting…",
+        "legal_copy": "Your frequency is safe with us",
+        "service": "shopify",
+        "list_id": "your-list-id"
+      }
     },
     "signal_feed": {
       "type": "universal-lore-signal-feed",
-      "settings": {}
+      "settings": {
+        "section_title": "LIVE SIGNAL FEED",
+        "subtitle": "Real-time transmissions from the cosmic community",
+        "enable_live_feed": true,
+        "auto_refresh": false,
+        "search_query": "@StellarReverb OR #StellarReverb",
+        "signal_count": 10
+      }
     },
     "konami_modal": {
       "type": "universal-lore-konami-modal",
