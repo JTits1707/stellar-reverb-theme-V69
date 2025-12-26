@@ -291,6 +291,11 @@
       "type": "floating-archive-main",
       "name": "Floating Archive · Gated",
       "settings": {}
+    },
+    "signal_seeker_dash_main_9RUaiW": {
+      "type": "signal-seeker-dash-main",
+      "name": "Signal Seeker Dashboard",
+      "settings": {}
     }
   },
   "order": [
@@ -304,6 +309,7 @@
     "navigation_matrix_7Htegc",
     "homepage_almost_gone_marquee_RtwpQ6",
     "newsletter_cosmic_DXqMDB",
-    "floating_archive_main_E8MDMM"
+    "floating_archive_main_E8MDMM",
+    "signal_seeker_dash_main_9RUaiW"
   ]
 }
