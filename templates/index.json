@@ -183,16 +183,6 @@
     "navigation_matrix_7Htegc": {
       "type": "navigation-matrix",
       "blocks": {
-        "nav_item_F4a6zh": {
-          "type": "nav_item",
-          "settings": {
-            "title": "All Capsules",
-            "link_url": "shopify://pages/capsules",
-            "icon_type": "custom",
-            "custom_icon": "shopify://shop_images/3BAF770B-8DD3-4823-98E1-423B7A95A481-topaz-denoise.jpg",
-            "glow_color": "purple"
-          }
-        },
         "nav_item_CajKxc": {
           "type": "nav_item",
           "settings": {
@@ -234,7 +224,6 @@
         }
       },
       "block_order": [
-        "nav_item_F4a6zh",
         "nav_item_CajKxc",
         "nav_item_tknqnD",
         "nav_item_yqA8JL",
