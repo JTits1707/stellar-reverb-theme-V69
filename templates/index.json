@@ -207,8 +207,9 @@
           "type": "nav_item",
           "settings": {
             "title": "About",
-            "link_url": "",
-            "icon_type": "brain",
+            "link_url": "shopify://pages/about",
+            "icon_type": "custom",
+            "custom_icon": "shopify://shop_images/F17BD571-F980-49BD-9393-7E45A789B344-topaz-enhance-1.7x.jpg",
             "glow_color": "magenta"
           }
         },
