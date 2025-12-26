@@ -286,6 +286,11 @@
         "background_gradient": "...",
         "show_particles": true
       }
+    },
+    "floating_archive_main_E8MDMM": {
+      "type": "floating-archive-main",
+      "name": "Floating Archive · Gated",
+      "settings": {}
     }
   },
   "order": [
@@ -298,6 +303,7 @@
     "featured_capsules_UQJccL",
     "navigation_matrix_7Htegc",
     "homepage_almost_gone_marquee_RtwpQ6",
-    "newsletter_cosmic_DXqMDB"
+    "newsletter_cosmic_DXqMDB",
+    "floating_archive_main_E8MDMM"
   ]
 }
