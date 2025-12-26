@@ -1,0 +1,73 @@
+{% comment %}
+  Stellar Reverb – UNIVERSAL LORE MAINFRAME
+  The central narrative hub for the multiverse.
+{% endcomment %}
+
+{{ 'lore-mainframe.css' | asset_url | stylesheet_tag }}
+
+<section class="lore-mainframe" data-section-id="{{ section.id }}">
+  <div class="mainframe-scanlines"></div>
+  
+  <div class="mainframe-container">
+    <div class="mainframe-hud-top">
+      <div class="hud-left">
+        <span class="hud-label">SYSTEM_OS:</span>
+        <span class="hud-value">REVERB_CORE_V.69</span>
+      </div>
+      <div class="hud-right">
+        <span class="hud-label">DATA_STREAM:</span>
+        <span class="hud-value animate-pulse">CONNECTED</span>
+      </div>
+    </div>
+
+    <div class="mainframe-content">
+      <div class="mainframe-glitch-box">
+        <p class="mainframe-kicker glitch-text" data-text="CLASSIFIED TRANSMISSION ARCHIVE">
+          CLASSIFIED TRANSMISSION ARCHIVE
+        </p>
+        
+        <h1 class="mainframe-title">
+          {{ section.settings.title | default: 'UNIVERSAL LORE' }}
+        </h1>
+        
+        <div class="mainframe-divider"></div>
+        
+        <p class="mainframe-subtitle">
+          {{ section.settings.subtitle | default: 'Deciphering the fragments of a fractured reality.' }}
+        </p>
+      </div>
+
+      <div class="mainframe-terminal">
+        <div class="terminal-header">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-id">MAIN_FRAME_LOGIN // AUTH_REQ</span>
+        </div>
+        <div class="terminal-body" id="LoreTerminalLog">
+          <p class="log-line">> INITIATING_NEURAL_LINK...</p>
+          <p class="log-line">> BYPASSING_EVENT_HORIZON_FIREWALL...</p>
+          <p class="log-line">> ACCESSING_MULTIVERSAL_CHRONICLES...</p>
+          <p class="log-line terminal-cursor">_</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mainframe-footer-hud">
+      <span>COORD: 34.09°N // 118.32°W</span>
+      <span>SECTOR: OMEGA_ARCHIVE</span>
+      <span>STATUS: {{ 'now' | date: "%H:%M:%S" }} UTC</span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lore Mainframe Hero",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "UNIVERSAL LORE" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Deciphering the fragments of a fractured reality." }
+  ],
+  "presets": [{ "name": "Lore Mainframe Hero" }]
+}
+{% endschema %}

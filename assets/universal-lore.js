@@ -281,6 +281,56 @@ class StellarReverbLore {
         this.state.sectionsInitialized.hero = true;
         this.performance.sectionInitTimes.hero = performance.now() - startTime;
     }
+    /**
+ * STELLAR REVERB - LORE TERMINAL SEQUENCER
+ * Animates the mainframe log entries on page load.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  const terminal = document.getElementById('LoreTerminalLog');
+  if (!terminal) return;
+
+  const logs = [
+    "> INITIATING_NEURAL_LINK...",
+    "> BYPASSING_EVENT_HORIZON_FIREWALL...",
+    "> DECRYPTING_MULTIVERSAL_CHRONICLES...",
+    "> ACCESS_GRANTED: SECTOR_OMEGA",
+    "> WELCOME, SIGNAL_SEEKER."
+  ];
+
+  let currentLine = 0;
+  terminal.innerHTML = ''; // Clear initial liquid placeholder
+
+  function typeLog() {
+    if (currentLine < logs.length) {
+      const p = document.createElement('p');
+      p.className = 'log-line';
+      terminal.appendChild(p);
+      
+      let charIndex = 0;
+      const text = logs[currentLine];
+
+      const typer = setInterval(() => {
+        p.textContent += text[charIndex];
+        charIndex++;
+        
+        if (charIndex === text.length) {
+          clearInterval(typer);
+          currentLine++;
+          setTimeout(typeLog, 400); // Wait before starting next line
+        }
+      }, 30); // Typing speed
+    } else {
+      // Add the final blinking cursor
+      const cursor = document.createElement('p');
+      cursor.className = 'log-line terminal-cursor';
+      cursor.textContent = '_';
+      terminal.appendChild(cursor);
+    }
+  }
+  // Trigger sequence with a slight delay for dramatic effect
+  setTimeout(typeLog, 1000);
+});
 
     /**
      * Initialize myth toggle section
