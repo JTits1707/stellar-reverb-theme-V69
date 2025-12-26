@@ -34,10 +34,21 @@
         "show_waveform": true,
         "show_particles": true
       }
+    },
+    "stellar_shop_all_JhkQy6": {
+      "type": "stellar-shop-all",
+      "name": "Stellar Shop All",
+      "settings": {
+        "hero_kicker": "TRANSMISSION: ALL_RELICS",
+        "hero_title": "COSMIC PRODUCT VAULT",
+        "hero_subtitle": "Shop every transmission.",
+        "products_per_page": 24
+      }
     }
   },
   "order": [
     "main",
-    "stellar_fomo_countdown_AxkFax"
+    "stellar_fomo_countdown_AxkFax",
+    "stellar_shop_all_JhkQy6"
   ]
 }
