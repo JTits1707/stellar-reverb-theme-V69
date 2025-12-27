@@ -1,0 +1,73 @@
+.lore-timeline {
+  position: relative;
+  padding: 8rem 2rem;
+  background: transparent;
+}
+
+/* The vertical "Signal Path" line */
+.timeline-signal-path {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 2px; height: 100%;
+  background: linear-gradient(180deg, 
+    var(--cyan-blue) 0%, 
+    rgba(225, 60, 250, 0.5) 50%, 
+    transparent 100%
+  );
+  transform: translateX(-50%);
+  opacity: 0.3;
+}
+
+.timeline-node {
+  display: flex;
+  margin-bottom: 12rem;
+  opacity: 0; /* Animated via JS */
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.timeline-node.animate-slide-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.node-content {
+  flex: 1;
+  padding-left: 4rem;
+  max-width: 500px;
+}
+
+.node-marker {
+  width: 20px; height: 20px;
+  border: 2px solid var(--cyan-blue);
+  background: var(--void-black);
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-node.active .node-marker {
+  border-color: var(--neon-magenta);
+  box-shadow: 0 0 20px var(--neon-magenta);
+}
+
+.node-id {
+  font-family: var(--font-accent); /* PP Neue Machina */
+  color: var(--radioactive-green);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+}
+
+.waveform-mini {
+  display: flex;
+  gap: 3px;
+  height: 20px;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.wave-bar {
+  width: 2px;
+  height: 100%;
+  background: var(--radioactive-green);
+}

@@ -9,12 +9,35 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "floating-archive-main",
+    "loader": {
+      "type": "universal-lore-loader",
+      "settings": {}
+    },
+    "hero": {
+      "type": "lore-mainframe-hero",
+      "settings": {
+        "title": "UNIVERSAL LORE",
+        "subtitle": "Deciphering the fragments of a fractured reality."
+      }
+    },
+    "myth": {
+      "type": "universal-lore-myth-beast",
+      "settings": {}
+    },
+    "timeline": {
+      "type": "universal-lore-timeline-beast",
+      "settings": {}
+    },
+    "vault": {
+      "type": "universal-lore-vault-beast",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "loader",
+    "hero",
+    "myth",
+    "timeline",
+    "vault"
   ]
 }
