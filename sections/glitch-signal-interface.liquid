@@ -1,294 +1,104 @@
 {% comment %}
   =====================================================
-  GLITCH SIGNAL INTERFACE (Shopify 2.0)
+  GLITCH SIGNAL INTERFACE (Beast Mode)
+  - Synced with signal-tuner-beast.js
+  - Interactive "Deck" aesthetic
   =====================================================
-  
-  Features:
-  - Mid-page glitch signal interface
-  - Corrupted system text fragments
-  - Unstable, sacred aesthetic
-  - Analog sci-fi vibes
 {% endcomment %}
 
-{%- liquid
-  assign enable_corruption = section.settings.enable_corruption | default: true
--%}
+{{ 'glitch-interface-beast.css' | asset_url | stylesheet_tag }}
 
-<section class="glitch-signal-interface" data-section-id="{{ section.id }}" data-corruption="{{ enable_corruption }}">
-  <div class="signal-container">
-    <div class="signal-grid">
-      <div class="signal-panel panel-1">
-        <div class="panel-header">
-          <span class="panel-indicator"></span>
-          <span class="panel-label">SIGNAL INTEGRITY</span>
-        </div>
-        <div class="panel-content">
-          <div class="signal-bar">
-            <div class="signal-fill" style="width: 73%;"></div>
-          </div>
-          <p class="panel-text">73% // DEGRADING</p>
-        </div>
-      </div>
-      
-      <div class="signal-panel panel-2">
-        <div class="panel-header">
-          <span class="panel-indicator"></span>
-          <span class="panel-label">TEMPORAL DRIFT</span>
-        </div>
-        <div class="panel-content">
-          <p class="panel-text glitch-text" data-text="+0.034 CYCLES">+0.034 CYCLES</p>
-        </div>
-      </div>
-      
-      <div class="signal-panel panel-3">
-        <div class="panel-header">
-          <span class="panel-indicator"></span>
-          <span class="panel-label">ARCHIVE STATUS</span>
-        </div>
-        <div class="panel-content">
-          <p class="panel-text">UNINDEXED</p>
-          <p class="panel-subtext">RELICS DRIFTING</p>
-        </div>
-      </div>
-    </div>
+<section class="glitch-signal-interface tuner-mode" data-section-id="{{ section.id }}" data-corruption="{{ section.settings.enable_corruption }}">
+  <div class="deck-frame">
+    <div class="deck-led-strip"></div>
     
-    <div class="signal-terminal">
-      <div class="terminal-header">
-        <span class="terminal-dot"></span>
-        <span class="terminal-dot"></span>
-        <span class="terminal-dot"></span>
-        <span class="terminal-title">SYSTEM FRAGMENTS</span>
+    <div class="signal-container">
+      <div class="signal-grid tuner-grid">
+        
+        {% comment %} Panel 1: Frequency Tuner {% endcomment %}
+        <div class="signal-panel tuner-knob" id="FrequencyTuner">
+          <div class="panel-header">
+            <span class="panel-indicator"></span>
+            <span class="panel-label">SIGNAL_STRENGTH</span>
+          </div>
+          <div class="panel-content">
+            <div class="signal-bar">
+              <div class="signal-fill" style="width: 73%;"></div>
+            </div>
+            <p class="panel-text">73% // DEGRADING</p>
+          </div>
+        </div>
+        
+        {% comment %} Panel 2: Temporal Drift {% endcomment %}
+        <div class="signal-panel tuner-knob active-glitch">
+          <div class="panel-header">
+            <span class="panel-indicator"></span>
+            <span class="panel-label">TEMPORAL_DRIFT</span>
+          </div>
+          <div class="panel-content">
+            <p class="panel-text glitch-text" data-text="+0.034 CYCLES">+0.034 CYCLES</p>
+          </div>
+        </div>
+        
+        {% comment %} Panel 3: Archive Status {% endcomment %}
+        <div class="signal-panel tuner-knob">
+          <div class="panel-header">
+            <span class="panel-indicator"></span>
+            <span class="panel-label">ARCHIVE_STATUS</span>
+          </div>
+          <div class="panel-content">
+            <p class="panel-text">UNINDEXED</p>
+            <p class="panel-subtext">RELICS_DRIFTING</p>
+          </div>
+        </div>
+
       </div>
-      <div class="terminal-body">
-        <p class="terminal-line">>> ACCESSING FORBIDDEN FREQUENCIES...</p>
-        <p class="terminal-line">>> REALITY BREACH DETECTED</p>
-        <p class="terminal-line">>> SIGNAL SOURCE: UNKNOWN</p>
-        <p class="terminal-line">>> CLASSIFICATION: SPECTRAL</p>
-        <p class="terminal-line">>> WARNING: TIMELINE INSTABILITY</p>
-        <p class="terminal-line">>> CONTINUE? [Y/N]</p>
-        <p class="terminal-line terminal-cursor">_</p>
+      
+      {% comment %} The AI Neural Terminal {% endcomment %}
+      <div class="signal-terminal deck-terminal">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-title">NEURAL_TRANSLATION_LAYER</span>
+        </div>
+        <div class="terminal-body" id="NeuralTerminalBody">
+          <p class="terminal-line">> Dreaming in analog...</p>
+          <p class="terminal-line terminal-cursor">_</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<style>
-  .glitch-signal-interface {
-    position: relative;
-    padding: 8rem 2rem;
-    z-index: 1;
-    background: linear-gradient(180deg, 
-      transparent 0%, 
-      rgba(0, 10, 20, 0.3) 50%, 
-      transparent 100%
-    );
-  }
-  
-  .signal-container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .signal-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-  }
-  
-  .signal-panel {
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(40, 168, 214, 0.3);
-    border-radius: 4px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-  }
-  
-  .signal-panel:hover {
-    border-color: rgba(40, 168, 214, 0.6);
-    box-shadow: 0 0 20px rgba(40, 168, 214, 0.2);
-  }
-  
-  .panel-header {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .panel-indicator {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(0, 240, 172, 0.8);
-    box-shadow: 0 0 10px rgba(0, 240, 172, 0.6);
-    animation: indicatorPulse 2s ease-in-out infinite;
-  }
-  
-  @keyframes indicatorPulse {
-    0%, 100% {
-      opacity: 1;
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const neuralPhrases = [
+      "> DECODING_TIMELINE_DELTA...",
+      "> INTERCEPTING_VOID_FREQUENCIES...",
+      "> NEURAL_RESONANCE_ESTABLISHED",
+      "> ERROR: ANALOG_SATURATION_DETECTED",
+      "> SYNCING_WITH_SINGULARITY..."
+    ];
+
+    function typeNeuralLog() {
+      const terminal = document.getElementById('NeuralTerminalBody');
+      if (!terminal) return;
+      
+      const p = document.createElement('p');
+      p.className = 'terminal-line';
+      p.innerText = neuralPhrases[Math.floor(Math.random() * neuralPhrases.length)];
+      terminal.prepend(p);
+      
+      if (terminal.childNodes.length > 6) {
+        terminal.removeChild(terminal.lastChild);
+      }
     }
-    50% {
-      opacity: 0.4;
-    }
-  }
-  
-  .panel-label {
-    font-family: 'PP Neuemachina', 'Courier New', monospace;
-    font-size: 0.75rem;
-    color: rgba(192, 192, 192, 0.7);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  
-  .panel-content {
-    font-family: 'PP Neuemachina', 'Courier New', monospace;
-  }
-  
-  .signal-bar {
-    width: 100%;
-    height: 6px;
-    background: rgba(40, 168, 214, 0.2);
-    border-radius: 3px;
-    overflow: hidden;
-    margin-bottom: 0.5rem;
-  }
-  
-  .signal-fill {
-    height: 100%;
-    background: linear-gradient(90deg, rgba(0, 240, 172, 0.8), rgba(40, 168, 214, 0.8));
-    animation: signalFlicker 3s ease-in-out infinite;
-  }
-  
-  @keyframes signalFlicker {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.7;
-    }
-  }
-  
-  .panel-text {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
-  }
-  
-  .panel-subtext {
-    font-size: 0.85rem;
-    color: rgba(128, 128, 128, 0.7);
-    margin: 0.3rem 0 0 0;
-  }
-  
-  .glitch-text {
-    position: relative;
-  }
-  
-  .glitch-signal-interface[data-corruption="true"] .glitch-text {
-    animation: textGlitch 5s infinite;
-  }
-  
-  @keyframes textGlitch {
-    0%, 90%, 100% {
-      transform: translate(0);
-      filter: hue-rotate(0deg);
-    }
-    92% {
-      transform: translate(-2px, 2px);
-      filter: hue-rotate(90deg);
-    }
-    94% {
-      transform: translate(2px, -2px);
-      filter: hue-rotate(180deg);
-    }
-    96% {
-      transform: translate(-2px, -2px);
-      filter: hue-rotate(270deg);
-    }
-  }
-  
-  .signal-terminal {
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(0, 240, 172, 0.3);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  
-  .terminal-header {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.8rem 1.2rem;
-    background: rgba(0, 240, 172, 0.1);
-    border-bottom: 1px solid rgba(0, 240, 172, 0.2);
-  }
-  
-  .terminal-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(128, 128, 128, 0.5);
-  }
-  
-  .terminal-dot:nth-child(1) {
-    background: rgba(225, 60, 250, 0.6);
-  }
-  
-  .terminal-dot:nth-child(2) {
-    background: rgba(244, 255, 48, 0.6);
-  }
-  
-  .terminal-dot:nth-child(3) {
-    background: rgba(0, 240, 172, 0.6);
-  }
-  
-  .terminal-title {
-    font-family: 'PP Neuemachina', 'Courier New', monospace;
-    font-size: 0.75rem;
-    color: rgba(192, 192, 192, 0.7);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-left: auto;
-  }
-  
-  .terminal-body {
-    padding: 1.5rem;
-  }
-  
-  .terminal-line {
-    font-family: 'PP Neuemachina', 'Courier New', monospace;
-    font-size: 0.9rem;
-    color: rgba(0, 240, 172, 0.8);
-    line-height: 1.8;
-    margin: 0;
-  }
-  
-  .terminal-cursor {
-    animation: cursorBlink 1s step-end infinite;
-  }
-  
-  @keyframes cursorBlink {
-    0%, 50% {
-      opacity: 1;
-    }
-    51%, 100% {
-      opacity: 0;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .glitch-signal-interface {
-      padding: 5rem 1.5rem;
-    }
-    
-    .signal-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-  }
-</style>
+
+    // Fire a new log every 4-7 seconds
+    setInterval(typeNeuralLog, Math.random() * 3000 + 4000);
+  });
+</script>
 
 {% schema %}
 {
@@ -299,8 +109,7 @@
       "type": "checkbox",
       "id": "enable_corruption",
       "label": "Enable Glitch Corruption",
-      "default": true,
-      "info": "Adds subtle glitch effects to text"
+      "default": true
     }
   ],
   "presets": [
