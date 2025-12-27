@@ -224,24 +224,10 @@
 {% schema %}
 {
   "name": "Archive Exit Nav",
-  "class": "archive-exit-nav-section",
   "settings": [
-    {
-      "type": "text",
-      "id": "exit_text",
-      "label": "Exit Link Text",
-      "default": "Return to Transmission Archive"
-    },
-    {
-      "type": "url",
-      "id": "exit_url",
-      "label": "Exit URL"
-    }
+    { "type": "text", "id": "exit_text", "label": "Link Text", "default": "Return to Archive" },
+    { "type": "url", "id": "exit_url", "label": "Exit URL" }
   ],
-  "presets": [
-    {
-      "name": "Archive Exit Nav"
-    }
-  ]
+  "presets": [{ "name": "Archive Exit Nav" }]
 }
 {% endschema %}

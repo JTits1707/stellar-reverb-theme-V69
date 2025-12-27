@@ -9,35 +9,42 @@
  */
 {
   "sections": {
-    "loader": {
-      "type": "universal-lore-loader",
+    "hero": {
+      "type": "floating-archive-hero",
       "settings": {}
     },
-    "hero": {
-      "type": "lore-mainframe-hero",
+    "manifest": {
+      "type": "archive-manifest",
       "settings": {
-        "title": "UNIVERSAL LORE",
-        "subtitle": "Deciphering the fragments of a fractured reality."
+        "manifest_title": "ARCHIVE MANIFEST"
       }
     },
-    "myth": {
-      "type": "universal-lore-myth-beast",
-      "settings": {}
+    "relic_field_primary": {
+      "type": "floating-relic-grid",
+      "settings": {
+        "grid_title": "PRIMARY_EXTRACTION_ZONE",
+        "collection_handle": "floating-archive"
+      }
     },
-    "timeline": {
-      "type": "universal-lore-timeline-beast",
-      "settings": {}
+    "relic_field_deep": {
+      "type": "floating-relic-grid",
+      "settings": {
+        "grid_title": "DEEP_VOID_RELICS",
+        "collection_handle": "floating-archive-deep"
+      }
     },
-    "vault": {
-      "type": "universal-lore-vault-beast",
-      "settings": {}
+    "exit_node": {
+      "type": "floating-archive-exit-nav",
+      "settings": {
+        "exit_text": "Return to Transmission Archive"
+      }
     }
   },
   "order": [
-    "loader",
     "hero",
-    "myth",
-    "timeline",
-    "vault"
+    "manifest",
+    "relic_field_primary",
+    "relic_field_deep",
+    "exit_node"
   ]
 }
