@@ -6,7 +6,7 @@
 
     <title>
       {%- if page_title == blank -%}
-        {{ 'general.meta.title' | t: shop_name: shop.name }}
+        {{ shop.name }}
       {%- else -%}
         {{ page_title }}{% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}
       {%- endif -%}
@@ -14,51 +14,54 @@
 
     {%- if page_description -%}
       <meta name="description" content="{{ page_description | escape }}">
-    {%- else -%}
-      <meta name="description" content="Stellar Reverb – cosmic apparel, analog mysticism, and wearable soundscapes broadcasting from the edge of reality.">
     {%- endif -%}
 
     <meta name="theme-color" content="#0D0D0D">
     <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    {% comment %} 1. DESIGN TOKENS & VARIABLES {% endcomment %}
+    {% comment %} 1. DESIGN TOKENS & CORE ENGINE {% endcomment %}
     {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
-    
-    {% comment %} 2. BRAND FONTS & CORE ENGINE {% endcomment %}
     {{ 'brand-fonts.css' | asset_url | stylesheet_tag }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'theme-base.css' | asset_url | stylesheet_tag }}
 
-    {% comment %} 3. BEAST MODE ENHANCEMENTS {% endcomment %}
+    {% comment %} 2. GLOBAL BEAST MODE ENHANCEMENTS {% endcomment %}
     {{ 'stellar-transmission-archive.css' | asset_url | stylesheet_tag }}
     {{ 'archive-card-ENHANCED.css' | asset_url | stylesheet_tag }}
     
-    {% comment %} 4. PAGE-SPECIFIC DYNAMIC LOADING {% endcomment %}
-    {% if template contains 'shop-all' %}
+    {% comment %} 3. PAGE-SPECIFIC DYNAMIC CSS LOADING {% endcomment %}
+    {% if template contains 'shop-all' or template contains 'collection' %}
       {{ 'shop-all-beast.css' | asset_url | stylesheet_tag }}
     {% endif %}
+
     {% if template contains 'floating-archive' %}
       {{ 'floating-archive.css' | asset_url | stylesheet_tag }}
+      {{ 'floating-archive-beast.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+    {% if template contains 'lore' %}
+      {{ 'lore-mainframe.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-myth-beast.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-timeline-beast.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-vault-beast.css' | asset_url | stylesheet_tag }}
     {% endif %}
 
     {{ content_for_header }}
 
+    {%- comment -%} Structured Data for SEO {%- endcomment -%}
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "{{ shop.name | escape }}",
         "url": "{{ shop.url }}",
-        "logo": "{{ 'stellar-logo.png' | asset_url }}",
-        "sameAs": [
-          {% if settings.social_instagram != blank %}"{{ settings.social_instagram }}"{% endif %}
-        ]
+        "logo": "{{ 'stellar-logo.png' | asset_url }}"
       }
     </script>
   </head>
 
-  <body class="template-{{ template.name | handle }} template-{{ template | replace: '.', '-' | replace: '/', '-' }}">
+  <body class="template-{{ template.name | handle }} stellar-os-active">
     
     {%- comment -%} 🛰️ GLOBAL TERMINAL HANDSHAKE OVERLAY {%- endcomment -%}
     <div id="stellar-terminal-handshake" class="terminal-boot-overlay" aria-hidden="true">
@@ -80,7 +83,7 @@
     </div>
 
     <a class="skip-to-content sr-only focus:not-sr-only" href="#MainContent">
-      {{ 'accessibility.skip_to_content' | t | default: 'Skip to main content' }}
+      Skip to main content
     </a>
 
     {% section 'header-enhanced' %}
@@ -91,17 +94,25 @@
 
     {% section 'stellar-footer' %}
 
-    {% comment %} LOADING GLOBAL SCRIPTS {% endcomment %}
+    {% comment %} --- LOADING GLOBAL SCRIPTS --- {% endcomment %}
     <script src="{{ 'stellar-transmission-archive.js' | asset_url }}" defer></script>
     <script src="{{ 'archive-card-tilt.js' | asset_url }}" defer></script>
 
-    {%- comment -%} PAGE-SPECIFIC JS {%- endcomment -%}
-    {% if template contains 'universal-lore' or template contains 'lore' %}
-      <script src="{{ 'stellar-reverb-lore.js' | asset_url }}" defer></script>
+    {%- comment -%} 🚀 BEAST MODE PAGE-SPECIFIC JS {%- endcomment -%}
+    
+    {% comment %} 1. Universal Lore Engine (Integrated Terminal + Myth Swapper) {% endcomment %}
+    {% if template contains 'lore' %}
+      <script src="{{ 'universal-lore-beast.js' | asset_url }}" defer></script>
     {% endif %}
 
-    {% if template contains 'collection' or template contains 'shop-all' %}
+    {% comment %} 2. Shop All / Collection Logic {% endcomment %}
+    {% if template contains 'shop-all' or template contains 'collection' %}
       <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
+    {% endif %}
+
+    {% comment %} 3. Floating Archive Reactive Systems {% endcomment %}
+    {% if template contains 'floating-archive' %}
+      <script src="{{ 'floating-archive-beast.js' | asset_url }}" defer></script>
     {% endif %}
 
   </body>
