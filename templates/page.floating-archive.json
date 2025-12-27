@@ -16,27 +16,33 @@
     "manifest": {
       "type": "archive-manifest",
       "settings": {
-        "manifest_title": "ARCHIVE MANIFEST"
+        "manifest_title": "ARCHIVE MANIFEST",
+        "manifest_text": "These transmissions were never meant to surface. Fragments of collapsed timelines, intercepted signals, and spectral echoes — preserved in the void for those who seek beyond the veil."
       }
     },
     "relic_field_primary": {
       "type": "floating-relic-grid",
       "settings": {
         "grid_title": "PRIMARY_EXTRACTION_ZONE",
-        "collection_handle": "floating-archive"
+        "collection_handle": "floating-archive",
+        "grid_columns": 3,
+        "enable_hover_glow": true
       }
     },
     "relic_field_deep": {
       "type": "floating-relic-grid",
       "settings": {
         "grid_title": "DEEP_VOID_RELICS",
-        "collection_handle": "floating-archive-deep"
+        "collection_handle": "floating-archive-deep",
+        "grid_columns": 3,
+        "enable_hover_glow": true
       }
     },
     "exit_node": {
       "type": "floating-archive-exit-nav",
       "settings": {
-        "exit_text": "Return to Transmission Archive"
+        "exit_text": "Return to Transmission Archive",
+        "exit_url": "shopify://collections/frontpage"
       }
     }
   },
