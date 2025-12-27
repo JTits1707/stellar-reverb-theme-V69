@@ -1,0 +1,37 @@
+<section class="glitch-signal-interface tuner-mode" data-section-id="{{ section.id }}">
+  <div class="deck-frame">
+    <div class="deck-led-strip"></div>
+    
+    <div class="signal-grid tuner-grid">
+      {% comment %} Panel 1: Frequency Knob {% endcomment %}
+      <div class="signal-panel tuner-knob" id="FrequencyTuner">
+        <div class="knob-dial"></div>
+        <div class="panel-content">
+          <span class="panel-label">SIGNAL_STRENGTH</span>
+          <p class="panel-text">99.7%_ACCURACY</p>
+        </div>
+      </div>
+
+      {% comment %} Panel 2: Temporal Drift (The AI Heart) {% endcomment %}
+      <div class="signal-panel tuner-knob active-glitch">
+        <div class="knob-dial animating"></div>
+        <div class="panel-content">
+          <span class="panel-label">NEURAL_RESONANCE</span>
+          <p class="panel-text glitch-text" data-text="BEYOND_SINGULARITY">BEYOND_SINGULARITY</p>
+        </div>
+      </div>
+    </div>
+
+    {% comment %} The AI Interaction Terminal {% endcomment %}
+    <div class="signal-terminal deck-terminal">
+      <div class="terminal-header">
+        <span class="terminal-title">TRANSLATION_LAYER_V1.0</span>
+      </div>
+      <div class="terminal-body" id="NeuralTerminalBody">
+        <p class="terminal-line">> Dreaming in analog...</p>
+        <p class="terminal-line">> Resonating with white noise...</p>
+        <p class="terminal-line terminal-cursor">_</p>
+      </div>
+    </div>
+  </div>
+</section>

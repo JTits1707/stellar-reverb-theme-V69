@@ -1,0 +1,9 @@
+{% comment %} 
+  Artifact Infusion: Using fragments of your high-res assets 
+  to replace basic CSS shapes. 
+{% endcomment %}
+<div class="floating-relic relic-{{ i }}" data-speed="{{ forloop.index | modulo: 3 | plus: 1 }}">
+  <img src="{{ '59AA4DC4-714B-4536-8E85-279F41A02DF8.jpg' | file_img_url: '400x' }}" 
+       alt="Relic Fragment" 
+       style="opacity: 0.4; filter: hue-rotate({{ i | times: 30 }}deg) brightness(0.8);">
+</div>
