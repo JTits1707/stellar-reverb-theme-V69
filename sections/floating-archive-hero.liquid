@@ -1,240 +1,27 @@
 {% comment %}
   =====================================================
-  FLOATING ARCHIVE HERO (Shopify 2.0)
+  BEAST MODE HERO: CINEMATIC ASSET INTEGRATION
   =====================================================
-  
-  Features:
-  - Minimal headline with holographic frame
-  - Corrupted system text
-  - Cinematic lighting
-  - Mystical, calm aesthetic
 {% endcomment %}
 
-{%- liquid
-  assign hero_title = section.settings.hero_title | default: 'THE FLOATING ARCHIVE'
-  assign hero_subtitle = section.settings.hero_subtitle | default: 'UNINDEXED RELICS FROM THE VOID'
-  assign system_text = section.settings.system_text | default: '>> ACCESSING FORBIDDEN FREQUENCIES...'
--%}
-
 <section class="floating-archive-hero" data-section-id="{{ section.id }}">
+  {% comment %} The "Relic" Background Image {% endcomment %}
+  <div class="hero-relic-bg">
+    <img src="{{ 'F575AEE6-7A78-4A89-AA9B-BAFAC0243FFF.jpg' | asset_url }}" 
+         alt="Archive Hero Relic" 
+         class="hero-bg-image"
+         loading="eager">
+    <div class="hero-vignette"></div>
+    <div class="hero-scanlines"></div>
+  </div>
+
   <div class="hero-container">
-    <div class="hero-hologram-frame">
-      <div class="frame-corner frame-tl"></div>
-      <div class="frame-corner frame-tr"></div>
-      <div class="frame-corner frame-bl"></div>
-      <div class="frame-corner frame-br"></div>
-    </div>
-    
+    {% comment %} Your existing Hologram Frame and Content logic {% endcomment %}
     <div class="hero-content">
-      <div class="system-header">
-        <p class="system-line">{{ system_text }}</p>
-        <p class="system-line">{{ 'now' | date: '%Y.%m.%d // %H:%M:%S' }} UTC</p>
-      </div>
-      
-      <h1 class="hero-title">
-        {{ hero_title }}
-      </h1>
-      
-      <p class="hero-subtitle">{{ hero_subtitle }}</p>
-      
-      <div class="hero-divider"></div>
+       <h1 class="hero-title glitch-text" data-text="{{ section.settings.hero_title }}">
+         {{ section.settings.hero_title | default: 'THE FLOATING ARCHIVE' }}
+       </h1>
+       <p class="hero-subtitle">{{ section.settings.hero_subtitle }}</p>
     </div>
   </div>
 </section>
-
-<style>
-  .floating-archive-hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem 2rem;
-    z-index: 1;
-  }
-  
-  .hero-container {
-    position: relative;
-    max-width: 900px;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .hero-hologram-frame {
-    position: absolute;
-    top: -40px;
-    left: -40px;
-    right: -40px;
-    bottom: -40px;
-    pointer-events: none;
-  }
-  
-  .frame-corner {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    border: 2px solid rgba(40, 168, 214, 0.4);
-  }
-  
-  .frame-tl {
-    top: 0;
-    left: 0;
-    border-right: none;
-    border-bottom: none;
-  }
-  
-  .frame-tr {
-    top: 0;
-    right: 0;
-    border-left: none;
-    border-bottom: none;
-  }
-  
-  .frame-bl {
-    bottom: 0;
-    left: 0;
-    border-right: none;
-    border-top: none;
-  }
-  
-  .frame-br {
-    bottom: 0;
-    right: 0;
-    border-left: none;
-    border-top: none;
-  }
-  
-  .hero-content {
-    position: relative;
-    z-index: 2;
-  }
-  
-  .system-header {
-    font-family: 'PP Neuemachina', 'Courier New', monospace;
-    font-size: 0.75rem;
-    color: rgba(0, 240, 172, 0.7);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 3rem;
-  }
-  
-  .system-line {
-    margin: 0.3rem 0;
-  }
-  
-  .hero-title {
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(2.5rem, 7vw, 5rem);
-    font-weight: 900;
-    color: #FFFFFF;
-    text-shadow: 
-      0 0 30px rgba(40, 168, 214, 0.6),
-      0 0 60px rgba(40, 168, 214, 0.3);
-    letter-spacing: 4px;
-    margin-bottom: 1.5rem;
-    animation: titleGlow 4s ease-in-out infinite;
-  }
-  
-  @keyframes titleGlow {
-    0%, 100% {
-      text-shadow: 
-        0 0 30px rgba(40, 168, 214, 0.6),
-        0 0 60px rgba(40, 168, 214, 0.3);
-    }
-    50% {
-      text-shadow: 
-        0 0 40px rgba(40, 168, 214, 0.8),
-        0 0 80px rgba(40, 168, 214, 0.5),
-        0 0 120px rgba(40, 168, 214, 0.2);
-    }
-  }
-  
-  .hero-subtitle {
-    font-family: 'PP Mori', sans-serif;
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    color: rgba(192, 192, 192, 0.9);
-    letter-spacing: 2px;
-    margin-bottom: 3rem;
-  }
-  
-  .hero-divider {
-    width: 100px;
-    height: 2px;
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      rgba(40, 168, 214, 0.8) 50%, 
-      transparent 100%);
-    margin: 0 auto;
-    animation: dividerPulse 3s ease-in-out infinite;
-  }
-  
-  @keyframes dividerPulse {
-    0%, 100% {
-      opacity: 0.5;
-      width: 100px;
-    }
-    50% {
-      opacity: 1;
-      width: 150px;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .floating-archive-hero {
-      min-height: 80vh;
-      padding: 3rem 1.5rem;
-    }
-    
-    .hero-hologram-frame {
-      top: -20px;
-      left: -20px;
-      right: -20px;
-      bottom: -20px;
-    }
-    
-    .frame-corner {
-      width: 40px;
-      height: 40px;
-    }
-    
-    .hero-title {
-      letter-spacing: 2px;
-    }
-    
-    .hero-subtitle {
-      letter-spacing: 1px;
-    }
-  }
-</style>
-
-{% schema %}
-{
-  "name": "Floating Archive Hero",
-  "class": "floating-archive-hero-section",
-  "settings": [
-    {
-      "type": "text",
-      "id": "hero_title",
-      "label": "Hero Title",
-      "default": "THE FLOATING ARCHIVE"
-    },
-    {
-      "type": "text",
-      "id": "hero_subtitle",
-      "label": "Hero Subtitle",
-      "default": "UNINDEXED RELICS FROM THE VOID"
-    },
-    {
-      "type": "text",
-      "id": "system_text",
-      "label": "System Text",
-      "default": ">> ACCESSING FORBIDDEN FREQUENCIES..."
-    }
-  ],
-  "presets": [
-    {
-      "name": "Floating Archive Hero"
-    }
-  ]
-}
-{% endschema %}
