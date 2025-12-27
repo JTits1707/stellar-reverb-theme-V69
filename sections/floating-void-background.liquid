@@ -1,0 +1,148 @@
+{% comment %}
+  =====================================================
+  FLOATING VOID BACKGROUND (Shopify 2.0)
+  =====================================================
+  
+  Features:
+  - Deep void black background
+  - VHS grain texture
+  - Scanline overlay
+  - Subtle animated noise
+{% endcomment %}
+
+{%- liquid
+  assign enable_grain = section.settings.enable_grain | default: true
+  assign enable_scanlines = section.settings.enable_scanlines | default: true
+  assign grain_opacity = section.settings.grain_opacity | default: 0.08
+-%}
+
+<div class="floating-void-bg" data-section-id="{{ section.id }}">
+  <div class="void-layer"></div>
+  {% if enable_grain %}
+    <div class="grain-layer" style="opacity: {{ grain_opacity }};"></div>
+  {% endif %}
+  {% if enable_scanlines %}
+    <div class="scanline-layer"></div>
+  {% endif %}
+</div>
+
+<style>
+  .floating-void-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    pointer-events: none;
+  }
+  
+  .void-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+  }
+  
+  .grain-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+    background-repeat: repeat;
+    animation: grainMove 0.5s steps(2) infinite;
+    mix-blend-mode: overlay;
+  }
+  
+  @keyframes grainMove {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-5%, -5%); }
+    20% { transform: translate(-10%, 5%); }
+    30% { transform: translate(5%, -10%); }
+    40% { transform: translate(-5%, 15%); }
+    50% { transform: translate(-10%, 5%); }
+    60% { transform: translate(15%, 0%); }
+    70% { transform: translate(0%, 10%); }
+    80% { transform: translate(-15%, 0%); }
+    90% { transform: translate(10%, 5%); }
+  }
+  
+  .scanline-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    animation: scanlineScroll 10s linear infinite;
+  }
+  
+  @keyframes scanlineScroll {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(10px);
+    }
+  }
+  
+  /* Reduce animations on mobile */
+  @media (max-width: 768px) {
+    .grain-layer {
+      animation: none;
+      opacity: 0.05;
+    }
+    
+    .scanline-layer {
+      animation: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Floating Void Background",
+  "class": "floating-void-background-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_grain",
+      "label": "Enable VHS Grain",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_scanlines",
+      "label": "Enable Scanlines",
+      "default": true
+    },
+    {
+  "type": "range",
+  "id": "grain_opacity",
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "unit": "%",
+  "label": "Grain Opacity",
+  "default": 8
+}
+
+  ],
+  "presets": [
+    {
+      "name": "Floating Void Background"
+    }
+  ]
+}
+{% endschema %}
