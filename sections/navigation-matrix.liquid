@@ -48,3 +48,62 @@
     </div>
   </div>
 </section>
+
+{% schema %}
+{
+  "name": "Navigation Matrix",
+  "tag": "section",
+  "class": "section-navigation-matrix",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "header", "content": "Section Settings" },
+    { "type": "checkbox", "id": "show_heading", "label": "Show section heading", "default": true },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "NAVIGATE THE SIGNAL" },
+    { "type": "range", "id": "grid_columns", "label": "Columns (desktop)", "min": 2, "max": 6, "step": 1, "default": 4 }
+  ],
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Navigation Item",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Archive" },
+        { "type": "url", "id": "link_url", "label": "Link URL" },
+        {
+          "type": "select",
+          "id": "icon_type",
+          "label": "Icon Type",
+          "options": [
+            { "value": "spiral", "label": "Spiral" },
+            { "value": "custom", "label": "Custom Image" }
+          ],
+          "default": "spiral"
+        },
+        { "type": "image_picker", "id": "custom_icon", "label": "Custom Icon Image" },
+        {
+          "type": "select",
+          "id": "glow_color",
+          "label": "Hover Glow Color",
+          "options": [
+            { "value": "cyan", "label": "Cyan" },
+            { "value": "magenta", "label": "Magenta" },
+            { "value": "purple", "label": "Purple" },
+            { "value": "gold", "label": "Gold" }
+          ],
+          "default": "cyan"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Navigation Matrix",
+      "blocks": [
+        { "type": "nav_item", "settings": { "title": "All Capsules" } },
+        { "type": "nav_item", "settings": { "title": "About" } },
+        { "type": "nav_item", "settings": { "title": "Lore" } },
+        { "type": "nav_item", "settings": { "title": "Shop" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
