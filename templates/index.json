@@ -135,9 +135,10 @@
           "type": "nav_item",
           "settings": {
             "title": "Shop",
-            "link_url": "",
-            "icon_type": "spiral",
-            "glow_color": "cyan"
+            "link_url": "shopify://collections/frontpage",
+            "icon_type": "custom",
+            "custom_icon": "shopify://shop_images/17185184-34E4-45C7-BB32-B48DB907F157-topaz-denoise.jpg",
+            "glow_color": "gold"
           }
         }
       },
