@@ -158,6 +158,14 @@
     "konami_modal": {
       "type": "universal-lore-konami-modal",
       "settings": {}
+    },
+    "lore_mainframe_hero_bjFWeg": {
+      "type": "lore-mainframe-hero",
+      "name": "Lore Mainframe Hero",
+      "settings": {
+        "title": "UNIVERSAL LORE",
+        "subtitle": "Deciphering the fragments of a fractured reality."
+      }
     }
   },
   "order": [
@@ -170,6 +178,7 @@
     "signals",
     "signup",
     "signal_feed",
-    "konami_modal"
+    "konami_modal",
+    "lore_mainframe_hero_bjFWeg"
   ]
 }
