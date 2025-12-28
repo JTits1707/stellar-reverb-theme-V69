@@ -9,6 +9,22 @@
  */
 {
   "sections": {
+    "fomo_countdown": {
+      "type": "stellar-fomo-countdown",
+      "settings": {
+        "enable_countdown": true,
+        "countdown_date": "2025-01-15T23:59:59",
+        "timer_label": "NEXT TRANSMISSION IN",
+        "low_stock_threshold": 10,
+        "stock_remaining": 7,
+        "urgency_message": "ONLY [X] ECHOES REMAIN",
+        "cta_text": "CLAIM YOUR ECHO",
+        "cta_url": "/collections/capsules",
+        "fomo_color": "#00FF88",
+        "show_waveform": true,
+        "show_particles": true
+      }
+    },
     "stellar_hero": {
       "type": "stellar-archive-hero-corrected",
       "settings": {
@@ -28,34 +44,7 @@
         "no_signal_text": "No future transmissions detected... yet.",
         "show_cta": true,
         "cta_text": "PREPARE FOR TRANSMISSION",
-        "oracle_color": "#ff006e"
-      }
-    },
-    "fomo_countdown": {
-      "type": "stellar-fomo-countdown",
-      "settings": {
-        "enable_countdown": true,
-        "countdown_date": "2025-01-15T23:59:59",
-        "timer_label": "NEXT TRANSMISSION IN",
-        "low_stock_threshold": 10,
-        "stock_remaining": 7,
-        "urgency_message": "ONLY [X] ECHOES REMAIN",
-        "cta_text": "CLAIM YOUR ECHO",
-        "cta_url": "/collections/capsules",
-        "fomo_color": "#00ff88",
-        "show_waveform": true,
-        "show_particles": true
-      }
-    },
-    "transmission_vault_7hcTdR": {
-      "type": "transmission-vault",
-      "name": "Transmission Vault",
-      "settings": {
-        "vault_title": "THE VAULT",
-        "vault_subtitle": "Archive of All Intercepted Transmissions",
-        "grid_columns": 3,
-        "enable_fomo": true,
-        "low_stock_threshold": 5
+        "oracle_color": "#FF006E"
       }
     },
     "transmission_grid": {
@@ -112,15 +101,12 @@
       "settings": {
         "heading": "FRACTURED NARRATIVES",
         "subtitle": "Expand the nodes. Decode the transmissions.",
-        "lore_color": "#28a8d6"
+        "lore_color": "#28A8D6"
       }
     },
     "signal_feed": {
       "type": "stellar-transmission-signals",
-      "settings": {
-        "x_json_endpoint": "",
-        "show_secret_archive": true
-      }
+      "settings": {}
     },
     "ar_portal": {
       "type": "stellar-ar-portal",
@@ -137,9 +123,7 @@
         "title": "ENTER THE RIFT",
         "subtitle": "Receive encrypted transmissions from the void",
         "mailchimp_action": "",
-        "cta_text": "INITIATE TRANSMISSION",
-        "enable_konami": true,
-        "secret_message": "🌌 SECRET ARCHIVE UNLOCKED"
+        "enable_konami": true
       }
     },
     "mixtape_player": {
@@ -182,15 +166,14 @@
         "default_volume": 50,
         "ambient_hum_url": "",
         "ambient_volume": 20,
-        "player_color": "#ff006e"
+        "player_color": "#FF006E"
       }
     }
   },
   "order": [
+    "fomo_countdown",
     "stellar_hero",
     "oracle_teaser",
-    "fomo_countdown",
-    "transmission_vault_7hcTdR",
     "transmission_grid",
     "lore_accordion",
     "signal_feed",
