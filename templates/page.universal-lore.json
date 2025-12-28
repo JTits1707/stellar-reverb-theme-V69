@@ -81,6 +81,14 @@
         "show_hero_meta": true
       }
     },
+    "lore_mainframe_hero_bjFWeg": {
+      "type": "lore-mainframe-hero",
+      "name": "Lore Mainframe Hero",
+      "settings": {
+        "title": "UNIVERSAL LORE",
+        "subtitle": "Deciphering the fragments of a fractured reality."
+      }
+    },
     "myth": {
       "type": "universal-lore-myth",
       "settings": {
@@ -158,27 +166,19 @@
     "konami_modal": {
       "type": "universal-lore-konami-modal",
       "settings": {}
-    },
-    "lore_mainframe_hero_bjFWeg": {
-      "type": "lore-mainframe-hero",
-      "name": "Lore Mainframe Hero",
-      "settings": {
-        "title": "UNIVERSAL LORE",
-        "subtitle": "Deciphering the fragments of a fractured reality."
-      }
     }
   },
   "order": [
     "navigation",
     "loader",
     "hero",
+    "lore_mainframe_hero_bjFWeg",
     "myth",
     "timeline",
     "vault",
     "signals",
     "signup",
     "signal_feed",
-    "konami_modal",
-    "lore_mainframe_hero_bjFWeg"
+    "konami_modal"
   ]
 }
