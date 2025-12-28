@@ -115,9 +115,10 @@
           "type": "nav_item",
           "settings": {
             "title": "About",
-            "link_url": "",
-            "icon_type": "spiral",
-            "glow_color": "cyan"
+            "link_url": "shopify://pages/about",
+            "icon_type": "custom",
+            "custom_icon": "shopify://shop_images/F17BD571-F980-49BD-9393-7E45A789B344-topaz-enhance-1.7x.jpg",
+            "glow_color": "magenta"
           }
         },
         "nav_item_nMYy37": {
