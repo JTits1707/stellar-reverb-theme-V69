@@ -21,7 +21,10 @@
     },
     "hero_decoding_NxTcDf": {
       "type": "hero-decoding",
-      "custom_css": [],
+      "custom_css": [
+        "/* Hero decode text + button */.hero__decode-text,.hero__description,.hero__content p,.hero__content .rte {font-family: 'Exo 2', 'Orbitron', sans-serif !important; letter-spacing: 0.1em !important;}",
+        "/* That yellow button */.hero__button .button,.hero__button a {font-family: 'Orbitron', 'Exo 2', sans-serif !important; font-weight: 900 !important;}"
+      ],
       "name": "Hero · Decoding Terminal",
       "settings": {
         "hero_background": "shopify://shop_images/stellar-reverb-homepage-hero-image.1-topaz-denoise.jpg",
