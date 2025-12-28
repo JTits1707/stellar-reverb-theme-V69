@@ -1,13 +1,14 @@
 {% comment %}
   =====================================================
-  BEAST MODE HERO: CINEMATIC ASSET INTEGRATION
+  BEAST MODE HERO: CINEMATIC ASSET SYNC
+  Using specific Shopify File URL for reliability
   =====================================================
 {% endcomment %}
 
 <section class="floating-archive-hero" data-section-id="{{ section.id }}">
-  {% comment %} The "Relic" Background Image {% endcomment %}
   <div class="hero-relic-bg">
-    <img src="{{ 'F575AEE6-7A78-4A89-AA9B-BAFAC0243FFF.jpg' | asset_url }}" 
+    {% comment %} Corrected to use your specific Shopify file name {% endcomment %}
+    <img src="{{ 'stellar-universal-lore-hero-image_219d5e8d-4dc4-44b4-967a-8144fb637b55.jpg' | file_img_url: '2000x' }}" 
          alt="Archive Hero Relic" 
          class="hero-bg-image"
          loading="eager">
@@ -16,12 +17,11 @@
   </div>
 
   <div class="hero-container">
-    {% comment %} Your existing Hologram Frame and Content logic {% endcomment %}
     <div class="hero-content">
-       <h1 class="hero-title glitch-text" data-text="{{ section.settings.hero_title }}">
+       <h1 class="hero-title glitch-text" data-text="{{ section.settings.hero_title | default: 'THE FLOATING ARCHIVE' }}">
          {{ section.settings.hero_title | default: 'THE FLOATING ARCHIVE' }}
        </h1>
-       <p class="hero-subtitle">{{ section.settings.hero_subtitle }}</p>
+       <p class="hero-subtitle">{{ section.settings.hero_subtitle | default: 'UNINDEXED RELICS FROM THE VOID' }}</p>
     </div>
   </div>
 </section>
