@@ -163,7 +163,7 @@
         "button_text": "Subscribe",
         "button_icon": "📡",
         "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "button_color": "#FFFFFF",
+        "button_color": "#ffffff",
         "subscriber_tags": "newsletter",
         "success_message": "Thanks for joining the signal!",
         "show_privacy_note": true,
@@ -176,6 +176,59 @@
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
+    },
+    "navigation_matrix_ermprY": {
+      "type": "navigation-matrix",
+      "blocks": {
+        "nav_item_69ichJ": {
+          "type": "nav_item",
+          "settings": {
+            "title": "All Capsules",
+            "link_url": "",
+            "icon_type": "spiral",
+            "glow_color": "cyan"
+          }
+        },
+        "nav_item_dqbJwj": {
+          "type": "nav_item",
+          "settings": {
+            "title": "About",
+            "link_url": "",
+            "icon_type": "spiral",
+            "glow_color": "cyan"
+          }
+        },
+        "nav_item_qM69Rf": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Lore",
+            "link_url": "",
+            "icon_type": "spiral",
+            "glow_color": "cyan"
+          }
+        },
+        "nav_item_ccfHRj": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Shop",
+            "link_url": "",
+            "icon_type": "spiral",
+            "glow_color": "cyan"
+          }
+        }
+      },
+      "block_order": [
+        "nav_item_69ichJ",
+        "nav_item_dqbJwj",
+        "nav_item_qM69Rf",
+        "nav_item_ccfHRj"
+      ],
+      "name": "Navigation Matrix",
+      "settings": {
+        "show_heading": true,
+        "heading": "NAVIGATE THE SIGNAL",
+        "grid_columns": 4
+      }
     }
   },
   "order": [
@@ -186,6 +239,7 @@
     "homepage_almost_gone_marquee_VGpgcP",
     "floating_archive_main_TpkgJQ",
     "signal_seeker_dash_main_WrCrad",
-    "newsletter_cosmic_eLYFLA"
+    "newsletter_cosmic_eLYFLA",
+    "navigation_matrix_ermprY"
   ]
 }
