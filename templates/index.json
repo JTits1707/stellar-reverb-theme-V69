@@ -14,6 +14,7 @@
       "disabled": true,
       "settings": {
         "message": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
+        "color_scheme": "accent-1",
         "show_announcement": true
       }
     },
@@ -21,17 +22,51 @@
       "type": "hero-decoding",
       "settings": {
         "hero_background": "shopify://shop_images/stellar-reverb-homepage-hero-image.1-topaz-denoise.jpg",
+        "content_alignment": "left",
+        "terminal_label": "STELLAR·REVERB/DECRYPT",
+        "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
         "hero_title": "STELLAR REVERB",
+        "hero_subtitle": "Sound. Style. Transmissions Of Cosmic Identity.",
+        "decode_text": "DECRYPTING: SIGNAL ECHO MATCHED [21%]",
+        "show_progress_bar": true,
+        "decode_progress": 21,
+        "cta_text": "ENTER THE TRANSMISSION",
+        "cta_link": "",
+        "cta_secondary_text": "Or browse all transmissions →",
         "headline_color": "#00f0ff",
-        "subtitle_color": "#ff00ff"
+        "subtitle_color": "#ff00ff",
+        "transmission_color": "#f4ff30",
+        "decode_color": "#f4ff30",
+        "cta_bg_color": "#00f0ac",
+        "cta_text_color": "#000000",
+        "show_floating_elements": true,
+        "show_lower_status": true,
+        "status_left": "CHANNEL: COSMIC-001",
+        "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
       }
     },
     "featured_transmission": {
       "type": "featured-transmission",
       "settings": {
+        "featured_product": "",
+        "collection_handle": "transmissions",
         "capsule_number": "008",
         "capsule_title": "GLITCHWAVE ORACLE",
-        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag.jpg"
+        "subtitle": "The latest transmission from the cosmic void",
+        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
+        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag.jpg",
+        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
+        "release_date": "2024.10",
+        "theme": "Neon Magenta",
+        "product_count": "12",
+        "primary_cta_text": "EXPLORE CAPSULE",
+        "primary_cta_link": "",
+        "show_secondary_cta": true,
+        "secondary_cta_text": "READ LORE",
+        "secondary_cta_link": "",
+        "image_position": "left",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "scarcity_marquee": {
@@ -50,56 +85,42 @@
           }
         }
       },
-      "block_order": ["m1", "m2"],
+      "block_order": [
+        "m1",
+        "m2"
+      ],
       "settings": {
-        "enable_glitch": true
+        "marquee_speed": 30,
+        "show_separator": true,
+        "separator_icon": "◆",
+        "enable_glitch": true,
+        "show_scanlines": true,
+        "text_color": "#00f0ff"
       }
     },
-    "navigation_matrix": {
-      "type": "navigation-matrix",
-      "blocks": {
-        "nav1": {
-          "type": "nav_item",
-          "settings": {
-            "title": "All Capsules",
-            "link_url": "/collections/all",
-            "icon_type": "spiral",
-            "glow_color": "cyan"
-          }
-        },
-        "nav2": {
-          "type": "nav_item",
-          "settings": {
-            "title": "About",
-            "link_url": "/pages/about",
-            "icon_type": "spiral",
-            "glow_color": "magenta"
-          }
-        },
-        "nav3": {
-          "type": "nav_item",
-          "settings": {
-            "title": "Lore",
-            "link_url": "/pages/lore",
-            "icon_type": "spiral",
-            "glow_color": "purple"
-          }
-        },
-        "nav4": {
-          "type": "nav_item",
-          "settings": {
-            "title": "Shop",
-            "link_url": "/collections",
-            "icon_type": "spiral",
-            "glow_color": "gold"
-          }
-        }
-      },
-      "block_order": ["nav1", "nav2", "nav3", "nav4"],
+    "featured_transmission_yG9ciF": {
+      "type": "featured-transmission",
+      "name": "Featured Transmission",
       "settings": {
-        "show_heading": true,
-        "heading": "NAVIGATE THE SIGNAL",
-        "grid_columns": 4
+        "featured_product": "",
+        "collection_handle": "transmissions",
+        "capsule_number": "008",
+        "capsule_title": "GLITCHWAVE ORACLE",
+        "subtitle": "The latest transmission from the cosmic void",
+        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
+        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag_e82689bf-891d-42df-9756-6eed65ab41f1.jpg",
+        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
+        "release_date": "2024.10",
+        "theme": "Neon Magenta",
+        "product_count": "16",
+        "primary_cta_text": "EXPLORE CAPSULE",
+        "primary_cta_link": "",
+        "show_secondary_cta": true,
+        "secondary_cta_text": "READ LORE",
+        "secondary_cta_link": "",
+        "image_position": "left",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     }
   },
@@ -108,6 +129,6 @@
     "hero_decoding",
     "featured_transmission",
     "scarcity_marquee",
-    "navigation_matrix"
+    "featured_transmission_yG9ciF"
   ]
 }
