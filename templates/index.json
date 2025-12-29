@@ -116,7 +116,8 @@
           "settings": {
             "title": "About",
             "link_url": "/pages/about",
-            "icon_type": "spiral",
+            "icon_type": "custom",
+            "custom_icon": "shopify://shop_images/611666FC-9019-428C-851E-E263FDCF217F.jpg",
             "glow_color": "magenta"
           }
         },
