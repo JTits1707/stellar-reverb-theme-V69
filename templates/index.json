@@ -97,9 +97,10 @@
           "type": "nav_item",
           "settings": {
             "title": "Lore",
-            "link_url": "",
-            "icon_type": "spiral",
-            "glow_color": "cyan"
+            "link_url": "shopify://pages/lore",
+            "icon_type": "custom",
+            "custom_icon": "shopify://shop_images/26D1B2B8-ADE2-491F-976F-A0CBB9918B12-topaz-denoise.jpg",
+            "glow_color": "purple"
           }
         },
         "nav_item_mJyC77": {
