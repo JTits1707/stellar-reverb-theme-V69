@@ -74,10 +74,12 @@
       "blocks": {
         "nav_item_HkYVrK": {
           "type": "nav_item",
+          "disabled": true,
           "settings": {
             "title": "All Capsules",
-            "link_url": "",
-            "icon_type": "spiral",
+            "link_url": "shopify://pages/capsules-1",
+            "icon_type": "custom",
+            "custom_icon": "shopify://shop_images/3A18CD51-5BA0-4C81-82C4-F72AF025C851-topaz-denoise.jpg",
             "glow_color": "cyan"
           }
         },
