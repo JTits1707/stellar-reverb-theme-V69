@@ -105,9 +105,9 @@
           "type": "nav_item",
           "settings": {
             "title": "All Capsules",
-            "link_url": "shopify://collections/frontpage",
+            "link_url": "shopify://pages/capsules-1",
             "icon_type": "custom",
-            "custom_icon": "shopify://shop_images/17185184-34E4-45C7-BB32-B48DB907F157-topaz-denoise.jpg",
+            "custom_icon": "shopify://shop_images/3A18CD51-5BA0-4C81-82C4-F72AF025C851-topaz-denoise.jpg",
             "glow_color": "cyan"
           }
         },
