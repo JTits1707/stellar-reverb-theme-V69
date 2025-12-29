@@ -33,8 +33,23 @@
     <div class="featured-image-wrapper">
       <div class="featured-image-container" data-parallax>
 
-        {%- comment -%} Try product image first, then manual setting, then placeholder {%- endcomment -%}
-        {% if featured_capsule.featured_image != blank %}
+        {%- comment -%} Capsule Tag Image (Primary Visual) {%- endcomment -%}
+        {% if section.settings.capsule_tag_image != blank %}
+          <img
+            src="{{ section.settings.capsule_tag_image | image_url: width: 1200 }}"
+            alt="{{ section.settings.capsule_title | escape }} - Capsule Tag"
+            class="featured-image capsule-tag-image"
+            loading="lazy"
+          >
+        {% elsif featured_capsule.metafields.custom.capsule_tag_image != blank %}
+          <img
+            src="{{ featured_capsule.metafields.custom.capsule_tag_image | image_url: width: 1200 }}"
+            alt="{{ featured_capsule.title | escape }} - Capsule Tag"
+            class="featured-image capsule-tag-image"
+            loading="lazy"
+          >
+        {%- comment -%} Fallback to product image if no capsule tag {%- endcomment -%}
+        {% elsif featured_capsule.featured_image != blank %}
           <img
             src="{{ featured_capsule.featured_image | image_url: width: 1200 }}"
             alt="{{ featured_capsule.title | escape }}"
@@ -220,8 +235,14 @@
     },
     {
       "type": "image_picker",
+      "id": "capsule_tag_image",
+      "label": "Capsule tag image",
+      "info": "The designed capsule tag graphic (prioritized over featured image)"
+    },
+    {
+      "type": "image_picker",
       "id": "featured_image",
-      "label": "Featured image"
+      "label": "Featured image (fallback)"
     },
     {
       "type": "header",
