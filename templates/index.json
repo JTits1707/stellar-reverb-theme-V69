@@ -209,6 +209,16 @@
             "glow_color": "cyan"
           }
         },
+        "nav_item_zUpyYf": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Archive",
+            "link_url": "shopify://pages/capsules-1",
+            "icon_type": "custom",
+            "custom_icon": "shopify://shop_images/3A18CD51-5BA0-4C81-82C4-F72AF025C851-topaz-denoise.jpg",
+            "glow_color": "purple"
+          }
+        },
         "nav_item_ccfHRj": {
           "type": "nav_item",
           "settings": {
@@ -223,6 +233,7 @@
         "nav_item_69ichJ",
         "nav_item_dqbJwj",
         "nav_item_qM69Rf",
+        "nav_item_zUpyYf",
         "nav_item_ccfHRj"
       ],
       "name": "Navigation Matrix",
