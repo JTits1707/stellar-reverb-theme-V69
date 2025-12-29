@@ -152,6 +152,7 @@
     },
     "featured_transmission_LYwaiw": {
       "type": "featured-transmission",
+      "custom_css": [],
       "name": "Featured Transmission",
       "settings": {
         "featured_product": "",
