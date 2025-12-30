@@ -1,0 +1,34 @@
+<div class="sr-lore-vault" data-capsule-id="{{ capsule.capsule_number.value }}">
+  <div class="sr-vault-header">
+    <div class="sr-vault-scanner"></div>
+    <span class="sr-vault-id">DATA_STREAM // CAP_{{ capsule.capsule_number.value }}</span>
+    <span class="sr-vault-status animate-pulse">CONNECTION: SECURE</span>
+  </div>
+
+  <div class="sr-accordion">
+    {%- for i in (1..3) -%}
+      {% comment %} 
+         Assumes fields in Metaobject: lore_title_1, lore_body_1, etc.
+      {% endcomment %}
+      <div class="sr-node" data-node="0{{ i }}">
+        <button class="sr-node-trigger" aria-expanded="false">
+          <span class="sr-node-num">0{{ i }}</span>
+          <span class="sr-node-label glitch-text" data-text="DECRYPTING...">DECRYPTING...</span>
+          <div class="sr-node-plus-icon"></div>
+        </button>
+        
+        <div class="sr-node-content">
+          <div class="sr-node-inner">
+            <div class="sr-tech-specs">
+              <span>SECTOR: EVENT_HORIZON</span>
+              <span>BITRATE: 1411kbps</span>
+            </div>
+            <div class="sr-lore-text">
+              {{ capsule.capsule_lore.value }}
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
