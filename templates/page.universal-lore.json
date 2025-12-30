@@ -10,95 +10,65 @@
 {
   "sections": {
     "navigation": {
-      "type": "universal-lore-navigation",
+      "type": "navigation-matrix",
       "settings": {
-        "brand_name": "STELLAR REVERB"
-      },
-      "blocks": {
-        "nav_link_1": {
-          "type": "nav_link",
-          "settings": {
-            "label": "LORE",
-            "link": "#lore-hero",
-            "section_id": "lore-hero"
-          }
-        },
-        "nav_link_2": {
-          "type": "nav_link",
-          "settings": {
-            "label": "TIMELINE",
-            "link": "#lore-timeline",
-            "section_id": "lore-timeline"
-          }
-        },
-        "nav_link_3": {
-          "type": "nav_link",
-          "settings": {
-            "label": "VAULT",
-            "link": "#lore-vault",
-            "section_id": "lore-vault"
-          }
-        },
-        "nav_link_4": {
-          "type": "nav_link",
-          "settings": {
-            "label": "SIGNALS",
-            "link": "#lore-signals",
-            "section_id": "lore-signals"
-          }
-        },
-        "nav_link_5": {
-          "type": "nav_link",
-          "settings": {
-            "label": "MYTH",
-            "link": "#lore-myth",
-            "section_id": "lore-myth"
-          }
-        }
-      },
-      "block_order": [
-        "nav_link_1",
-        "nav_link_2",
-        "nav_link_3",
-        "nav_link_4",
-        "nav_link_5"
-      ]
+        "heading": "SYSTEM_NAV",
+        "grid_columns": 4
+      }
     },
     "loader": {
-      "type": "universal-lore-loader",
-      "settings": {}
+      "type": "floating-void-background",
+      "settings": {
+        "enable_grain": true,
+        "grain_opacity": 10
+      }
     },
     "hero": {
-      "type": "universal-lore-hero",
+      "type": "floating-archive-hero",
       "settings": {}
     },
     "myth": {
-      "type": "universal-lore-myth",
-      "settings": {}
+      "type": "archive-manifest",
+      "settings": {
+        "manifest_title": "THE_MYTH_ENGINE"
+      }
     },
     "timeline": {
-      "type": "universal-lore-timeline",
-      "settings": {}
+      "type": "stellar-timeline",
+      "settings": {
+        "heading": "CHRONOS_DECRYPTED"
+      }
     },
     "vault": {
-      "type": "universal-lore-vault",
-      "settings": {}
+      "type": "floating-relic-grid",
+      "settings": {
+        "grid_title": "THE_VAULT",
+        "collection_handle": "floating-archive"
+      }
     },
     "signals": {
-      "type": "universal-lore-signals",
-      "settings": {}
+      "type": "glitch-signal-interface",
+      "settings": {
+        "enable_corruption": true
+      }
     },
     "signup": {
-      "type": "universal-lore-signup",
-      "settings": {}
+      "type": "newsletter-cosmic",
+      "settings": {
+        "heading": "BECOME_A_SEEKER"
+      }
     },
     "signal_feed": {
-      "type": "universal-lore-signal-feed",
-      "settings": {}
+      "type": "secondary-drift-section",
+      "settings": {
+        "drift_title": "LIVE_EXTRUDED_FEED"
+      }
     },
     "konami_modal": {
-      "type": "universal-lore-konami-modal",
-      "settings": {}
+      "type": "floating-archive-gate",
+      "settings": {
+        "gate_title": "SECRET_ENCRYPTION_LAYER"
+      }
     }
   },
   "order": [
