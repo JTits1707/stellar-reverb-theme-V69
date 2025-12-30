@@ -125,17 +125,6 @@
             "glow_color": "magenta"
           }
         },
-        "nav_item_tV7kMj": {
-          "type": "nav_item",
-          "settings": {
-            "title": "View All Capsules",
-            "description": "Explore the complete transmission archive.",
-            "link_url": "",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "📦",
-            "glow_color": "cyan"
-          }
-        },
         "nav3": {
           "type": "nav_item",
           "settings": {
@@ -153,8 +142,9 @@
           "settings": {
             "title": "Shop",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/collections",
+            "link_url": "shopify://collections/frontpage",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/17185184-34E4-45C7-BB32-B48DB907F157-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "gold"
           }
@@ -163,7 +153,6 @@
       "block_order": [
         "nav1",
         "nav2",
-        "nav_item_tV7kMj",
         "nav3",
         "nav4"
       ],
