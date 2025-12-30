@@ -9,17 +9,51 @@
  */
 {
   "sections": {
-    "main": {
+    "stellar_shop_all_L3AMjG": {
       "type": "stellar-shop-all",
+      "name": "Stellar Shop All",
       "settings": {
-        "hero_kicker": "SHOP ALL TRANSMISSIONS",
+        "hero_kicker": "TRANSMISSION: ALL_RELICS",
         "hero_title": "COSMIC PRODUCT VAULT",
-        "hero_subtitle": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.",
+        "hero_subtitle": "Shop every transmission.",
         "products_per_page": 24
+      }
+    },
+    "stellar_fomo_countdown_XRc6cV": {
+      "type": "stellar-fomo-countdown",
+      "name": "FOMO Countdown",
+      "settings": {
+        "enable_countdown": true,
+        "countdown_date": "2024-12-31T23:59:59",
+        "timer_label": "TRANSMISSION ENDS IN",
+        "low_stock_threshold": 10,
+        "stock_remaining": 7,
+        "urgency_message": "ONLY [X] ECHOES REMAIN",
+        "cta_text": "CLAIM YOUR ECHO",
+        "cta_url": "",
+        "fomo_color": "#00FF88",
+        "show_waveform": true,
+        "show_particles": true
+      }
+    },
+    "homepage_almost_gone_marquee_6MAdEj": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
+        "scroll_speed": 50,
+        "color_scheme": "yellow"
       }
     }
   },
   "order": [
-    "main"
+    "stellar_shop_all_L3AMjG",
+    "stellar_fomo_countdown_XRc6cV",
+    "homepage_almost_gone_marquee_6MAdEj"
   ]
 }
