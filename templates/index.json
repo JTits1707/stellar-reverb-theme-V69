@@ -130,8 +130,9 @@
           "settings": {
             "title": "Lore",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/pages/lore",
+            "link_url": "shopify://pages/lore",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/26D1B2B8-ADE2-491F-976F-A0CBB9918B12-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "purple"
           }
