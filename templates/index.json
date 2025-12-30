@@ -118,8 +118,9 @@
           "settings": {
             "title": "About",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/pages/about",
+            "link_url": "shopify://pages/about",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/2EE09319-93C4-4185-8F5D-4BEEB75A01A0-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "magenta"
           }
