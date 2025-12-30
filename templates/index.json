@@ -118,10 +118,22 @@
           "settings": {
             "title": "About",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/pages/about",
+            "link_url": "shopify://pages/about",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/F22970B0-E525-4A47-8CC1-CCEBBD23C633-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "magenta"
+          }
+        },
+        "nav_item_tV7kMj": {
+          "type": "nav_item",
+          "settings": {
+            "title": "View All Capsules",
+            "description": "Explore the complete transmission archive.",
+            "link_url": "",
+            "cta_text": "EXPLORE",
+            "emoji_icon": "📦",
+            "glow_color": "cyan"
           }
         },
         "nav3": {
@@ -150,6 +162,7 @@
       "block_order": [
         "nav1",
         "nav2",
+        "nav_item_tV7kMj",
         "nav3",
         "nav4"
       ],
