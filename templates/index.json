@@ -191,7 +191,7 @@
         "button_text": "Subscribe",
         "button_icon": "📡",
         "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "button_color": "#FFFFFF",
+        "button_color": "#ffffff",
         "subscriber_tags": "newsletter",
         "success_message": "Thanks for joining the signal!",
         "show_privacy_note": true,
