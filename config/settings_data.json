@@ -23,7 +23,7 @@
     "footer_tagline": "Sound. Style. Transmissions of Cosmic Identity.",
     "base_font_size": 17,
     "heading_scale": 1.4,
-    "main_menu": "main-menu",
+    "main_menu": "main-menu-homepage",
     "footer_shop_menu": "footer",
     "footer_about_menu": "footer",
     "enable_sticky_header": true,
