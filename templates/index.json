@@ -204,6 +204,20 @@
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
+    },
+    "homepage_almost_gone_marquee_PziYTK": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
+        "scroll_speed": 50,
+        "color_scheme": "yellow"
+      }
     }
   },
   "order": [
@@ -213,6 +227,7 @@
     "stellar_timeline_M9hrKD",
     "scarcity_marquee",
     "navigation_matrix",
-    "newsletter_cosmic_GTpbrB"
+    "newsletter_cosmic_GTpbrB",
+    "homepage_almost_gone_marquee_PziYTK"
   ]
 }
