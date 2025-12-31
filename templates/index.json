@@ -162,6 +162,19 @@
         "subheading": "Access points to the cosmic network",
         "grid_columns": 4
       }
+    },
+    "stellar_timeline_LNWXwt": {
+      "type": "stellar-timeline",
+      "name": "Stellar Timeline",
+      "settings": {
+        "show_heading": true,
+        "heading": "COSMIC TRANSMISSION TIMELINE",
+        "subtitle": "Journey through the capsule drops across space and time",
+        "show_scroll_controls": false,
+        "enable_sound": false,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
     }
   },
   "order": [
@@ -169,6 +182,7 @@
     "hero_decoding",
     "featured_transmission",
     "scarcity_marquee",
-    "navigation_matrix"
+    "navigation_matrix",
+    "stellar_timeline_LNWXwt"
   ]
 }
