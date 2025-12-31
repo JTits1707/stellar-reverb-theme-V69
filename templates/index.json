@@ -142,8 +142,9 @@
           "settings": {
             "title": "Shop",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/collections",
+            "link_url": "shopify://collections/frontpage",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/brand_icon_SR-topaz-denoise-enhance-3.4x-sharpen.png",
             "emoji_icon": "📦",
             "glow_color": "gold"
           }
