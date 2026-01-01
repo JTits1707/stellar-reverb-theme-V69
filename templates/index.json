@@ -58,30 +58,6 @@
         "padding_bottom": 64
       }
     },
-    "featured_transmission": {
-      "type": "featured-transmission",
-      "settings": {
-        "featured_product": "",
-        "collection_handle": "transmissions",
-        "capsule_number": "008",
-        "capsule_title": "GLITCHWAVE ORACLE",
-        "subtitle": "The latest transmission from the cosmic void",
-        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
-        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag_2fcf7617-7029-470b-8d83-a2abdc38f51d.jpg",
-        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
-        "release_date": "2024.10",
-        "theme": "Neon Magenta",
-        "product_count": "12",
-        "primary_cta_text": "EXPLORE CAPSULE",
-        "primary_cta_link": "",
-        "show_secondary_cta": true,
-        "secondary_cta_text": "READ LORE",
-        "secondary_cta_link": "",
-        "image_position": "left",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
     "scarcity_marquee": {
       "type": "stellar-scarcity-marquee",
       "blocks": {
@@ -109,6 +85,30 @@
         "enable_glitch": true,
         "show_scanlines": true,
         "text_color": "#00f0ff"
+      }
+    },
+    "featured_transmission": {
+      "type": "featured-transmission",
+      "settings": {
+        "featured_product": "",
+        "collection_handle": "transmissions",
+        "capsule_number": "008",
+        "capsule_title": "GLITCHWAVE ORACLE",
+        "subtitle": "The latest transmission from the cosmic void",
+        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
+        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag_2fcf7617-7029-470b-8d83-a2abdc38f51d.jpg",
+        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
+        "release_date": "2024.10",
+        "theme": "Neon Magenta",
+        "product_count": "12",
+        "primary_cta_text": "EXPLORE CAPSULE",
+        "primary_cta_link": "",
+        "show_secondary_cta": true,
+        "secondary_cta_text": "READ LORE",
+        "secondary_cta_link": "",
+        "image_position": "left",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "navigation_matrix": {
@@ -210,8 +210,8 @@
     "announcement_bar",
     "hero_decoding",
     "stellar_timeline_hMzWJf",
-    "featured_transmission",
     "scarcity_marquee",
+    "featured_transmission",
     "navigation_matrix",
     "newsletter_cosmic_nNT7L3"
   ]
