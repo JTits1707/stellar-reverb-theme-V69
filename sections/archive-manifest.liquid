@@ -1,174 +1,127 @@
 {% comment %}
   =====================================================
-  ARCHIVE MANIFEST (Shopify 2.0)
+  ARCHIVE MANIFEST (Beast Mode V2 - Myth Swapper)
   =====================================================
-  
-  Features:
-  - Mystical text block explaining the archive
-  - Holographic UI frame
-  - Calm, confident tone
-  - No aggressive sales language
 {% endcomment %}
 
 {%- liquid
   assign manifest_title = section.settings.manifest_title | default: 'ARCHIVE MANIFEST'
-  assign manifest_text = section.settings.manifest_text | default: 'These transmissions were never meant to surface. Fragments of collapsed timelines, intercepted signals, and spectral echoes — preserved in the void for those who seek beyond the veil.'
+  assign manifest_text = section.settings.manifest_text
 -%}
 
-<section class="archive-manifest" data-section-id="{{ section.id }}">
+<section class="archive-manifest lore-beast" data-section-id="{{ section.id }}">
   <div class="manifest-container">
+    {% comment %} Holographic UI Frame {% endcomment %}
     <div class="manifest-frame">
       <div class="frame-line frame-top"></div>
       <div class="frame-line frame-bottom"></div>
     </div>
     
+    {% comment %} THE MYTH SWAPPER INTERFACE {% endcomment %}
+    <div class="myth-toggle-wrapper">
+      <button class="myth-toggle active" data-mode="analog">ANALOG_MYTH</button>
+      <div class="toggle-divider">//</div>
+      <button class="myth-toggle" data-mode="ai">AI_LOGIC</button>
+    </div>
+
     <div class="manifest-content">
-      <h2 class="manifest-title">{{ manifest_title }}</h2>
-      <div class="manifest-text">
-        {{ manifest_text }}
+      <h2 class="manifest-title glitch-text" data-text="{{ manifest_title }}">{{ manifest_title }}</h2>
+      
+      <div id="MythTextContainer" class="manifest-text">
+        <div class="myth-text-block active" data-mode="analog">
+          {{ manifest_text }}
+        </div>
+        <div class="myth-text-block" data-mode="ai" style="display: none;">
+          <p class="terminal-line">>> ERROR: NARRATIVE_CORRUPTION. Intercepting neural fragments...</p>
+          <p class="terminal-line">>> Timeline Delta: +0.034. Archive Status: UNINDEXED.</p>
+          <p class="terminal-line">>> The machines remember what the seekers forgot.</p>
+        </div>
       </div>
       
       <div class="manifest-metadata">
         <span class="metadata-item">CLASSIFICATION: UNINDEXED</span>
         <span class="metadata-divider">//</span>
         <span class="metadata-item">CLEARANCE: SIGNAL SEEKER</span>
-        <span class="metadata-divider">//</span>
-        <span class="metadata-item">STATUS: DRIFTING</span>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .archive-manifest {
-    position: relative;
-    padding: 6rem 2rem;
-    z-index: 1;
+  .lore-beast {
+    padding: 8rem 2rem;
+    background: radial-gradient(circle at center, rgba(225, 60, 250, 0.05) 0%, transparent 70%);
   }
   
-  .manifest-container {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-  }
-  
-  .manifest-frame {
-    position: absolute;
-    top: -20px;
-    left: 0;
-    right: 0;
-    bottom: -20px;
-    pointer-events: none;
-  }
-  
-  .frame-line {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(225, 60, 250, 0.4) 20%,
-      rgba(225, 60, 250, 0.6) 50%,
-      rgba(225, 60, 250, 0.4) 80%,
-      transparent 100%
-    );
-  }
-  
-  .frame-top {
-    top: 0;
-  }
-  
-  .frame-bottom {
-    bottom: 0;
-  }
-  
-  .manifest-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-  }
-  
-  .manifest-title {
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 700;
-    color: rgba(225, 60, 250, 0.9);
-    text-shadow: 0 0 20px rgba(225, 60, 250, 0.5);
-    letter-spacing: 3px;
-    margin-bottom: 2rem;
-  }
-  
-  .manifest-text {
-    font-family: 'PP Mori', sans-serif;
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    line-height: 1.8;
-    color: rgba(192, 192, 192, 0.9);
-    margin-bottom: 3rem;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .manifest-metadata {
-    font-family: 'PP Neuemachina', 'Courier New', monospace;
-    font-size: 0.75rem;
-    color: rgba(0, 240, 172, 0.7);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  .myth-toggle-wrapper {
     display: flex;
-    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    font-family: 'PP Neuemachina', monospace;
   }
   
-  .metadata-item {
-    opacity: 0.8;
+  .myth-toggle {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
   }
   
-  .metadata-divider {
-    color: rgba(40, 168, 214, 0.5);
+  .myth-toggle.active {
+    color: #E13CFA;
+    text-shadow: 0 0 10px rgba(225, 60, 250, 0.6);
   }
   
-  @media (max-width: 768px) {
-    .archive-manifest {
-      padding: 4rem 1.5rem;
-    }
-    
-    .manifest-metadata {
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-    
-    .metadata-divider {
-      display: none;
-    }
+  .toggle-divider { color: rgba(40, 168, 214, 0.3); }
+
+  .myth-text-block.glitch-entry {
+    animation: textFlash 0.4s ease-out;
   }
+
+  @keyframes textFlash {
+    0% { opacity: 0; filter: brightness(2) blur(10px); }
+    100% { opacity: 1; filter: brightness(1) blur(0); }
+  }
+
+  /* Existing Frame Styles */
+  .manifest-frame { position: absolute; inset: -20px 0; pointer-events: none; }
+  .frame-line { position: absolute; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(225, 60, 250, 0.6), transparent); }
+  .frame-top { top: 0; }
+  .frame-bottom { bottom: 0; }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.myth-toggle');
+  const texts = document.querySelectorAll('.myth-text-block');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      texts.forEach(txt => {
+        txt.style.display = (txt.dataset.mode === mode) ? 'block' : 'none';
+        if(txt.dataset.mode === mode) txt.classList.add('glitch-entry');
+      });
+    });
+  });
+});
+</script>
 
 {% schema %}
 {
   "name": "Archive Manifest",
-  "class": "archive-manifest-section",
   "settings": [
-    {
-      "type": "text",
-      "id": "manifest_title",
-      "label": "Manifest Title",
-      "default": "ARCHIVE MANIFEST"
-    },
-    {
-      "type": "textarea",
-      "id": "manifest_text",
-      "label": "Manifest Text",
-      "default": "These transmissions were never meant to surface. Fragments of collapsed timelines, intercepted signals, and spectral echoes — preserved in the void for those who seek beyond the veil."
-    }
+    { "type": "text", "id": "manifest_title", "label": "Title", "default": "ARCHIVE MANIFEST" },
+    { "type": "textarea", "id": "manifest_text", "label": "Analog Text", "default": "Fragments of collapsed timelines..." }
   ],
-  "presets": [
-    {
-      "name": "Archive Manifest"
-    }
-  ]
+  "presets": [{ "name": "Archive Manifest" }]
 }
 {% endschema %}
