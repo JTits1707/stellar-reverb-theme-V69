@@ -14,7 +14,6 @@
       "disabled": true,
       "settings": {
         "message": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
-        "color_scheme": "accent-1",
         "show_announcement": true
       }
     },
@@ -22,40 +21,17 @@
       "type": "hero-decoding",
       "settings": {
         "hero_background": "shopify://shop_images/stellar-reverb-homepage-hero-image.1-topaz-denoise.jpg",
-        "content_alignment": "left",
-        "terminal_label": "STELLAR·REVERB/DECRYPT",
-        "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
         "hero_title": "STELLAR REVERB",
-        "hero_subtitle": "Sound. Style. Transmissions Of Cosmic Identity.",
-        "decode_text": "DECRYPTING: SIGNAL ECHO MATCHED [21%]",
-        "show_progress_bar": true,
-        "decode_progress": 21,
-        "cta_text": "ENTER THE TRANSMISSION",
-        "cta_link": "shopify://collections/frontpage",
-        "cta_secondary_text": "Or browse all transmissions →",
         "headline_color": "#00f0ff",
-        "subtitle_color": "#ff00ff",
-        "transmission_color": "#f4ff30",
-        "decode_color": "#f4ff30",
-        "cta_bg_color": "#00f0ac",
-        "cta_text_color": "#000000",
-        "show_floating_elements": true,
-        "show_lower_status": true,
-        "status_left": "CHANNEL: COSMIC-001",
-        "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
+        "subtitle_color": "#ff00ff"
       }
     },
-    "stellar_timeline_hMzWJf": {
-      "type": "stellar-timeline",
-      "name": "Stellar Timeline",
+    "featured_transmission": {
+      "type": "featured-transmission",
       "settings": {
-        "show_heading": true,
-        "heading": "TRANSMISSION TIMELINE",
-        "subtitle": "Journey through the capsule drops across space and time",
-        "show_scroll_controls": true,
-        "enable_sound": true,
-        "padding_top": 64,
-        "padding_bottom": 64
+        "capsule_number": "008",
+        "capsule_title": "GLITCHWAVE ORACLE",
+        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag.jpg"
       }
     },
     "scarcity_marquee": {
@@ -79,36 +55,7 @@
         "m2"
       ],
       "settings": {
-        "marquee_speed": 30,
-        "show_separator": true,
-        "separator_icon": "◆",
-        "enable_glitch": true,
-        "show_scanlines": true,
-        "text_color": "#00f0ff"
-      }
-    },
-    "featured_transmission": {
-      "type": "featured-transmission",
-      "settings": {
-        "featured_product": "",
-        "collection_handle": "transmissions",
-        "capsule_number": "008",
-        "capsule_title": "GLITCHWAVE ORACLE",
-        "subtitle": "The latest transmission from the cosmic void",
-        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
-        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag_2fcf7617-7029-470b-8d83-a2abdc38f51d.jpg",
-        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
-        "release_date": "2024.10",
-        "theme": "Neon Magenta",
-        "product_count": "12",
-        "primary_cta_text": "EXPLORE CAPSULE",
-        "primary_cta_link": "",
-        "show_secondary_cta": true,
-        "secondary_cta_text": "READ LORE",
-        "secondary_cta_link": "",
-        "image_position": "left",
-        "padding_top": 80,
-        "padding_bottom": 80
+        "enable_glitch": true
       }
     },
     "navigation_matrix": {
@@ -118,11 +65,7 @@
           "type": "nav_item",
           "settings": {
             "title": "All Capsules",
-            "description": "Explore the complete transmission archive.",
-            "link_url": "shopify://pages/capsules-1",
-            "cta_text": "EXPLORE",
-            "custom_icon": "shopify://shop_images/C2B33862-1BC0-462C-8C82-C84B6DE0E6F5-topaz-sharpen.jpg",
-            "emoji_icon": "📦",
+            "link_url": "/collections/all",
             "glow_color": "cyan"
           }
         },
@@ -130,11 +73,7 @@
           "type": "nav_item",
           "settings": {
             "title": "About",
-            "description": "Explore the complete transmission archive.",
             "link_url": "/pages/about",
-            "cta_text": "EXPLORE",
-            "custom_icon": "shopify://shop_images/A3467033-1AF0-4C69-939E-10D38F2C4075-topaz-denoise.jpg",
-            "emoji_icon": "📦",
             "glow_color": "magenta"
           }
         },
@@ -142,11 +81,7 @@
           "type": "nav_item",
           "settings": {
             "title": "Lore",
-            "description": "Explore the complete transmission archive.",
             "link_url": "/pages/lore",
-            "cta_text": "EXPLORE",
-            "custom_icon": "shopify://shop_images/523F87FE-0805-4E83-AECF-0FFE47E9287B-topaz-sharpen.jpg",
-            "emoji_icon": "📦",
             "glow_color": "purple"
           }
         },
@@ -154,11 +89,7 @@
           "type": "nav_item",
           "settings": {
             "title": "Shop",
-            "description": "Explore the complete transmission archive.",
             "link_url": "/collections",
-            "cta_text": "EXPLORE",
-            "custom_icon": "shopify://shop_images/5C11BB4F-BE20-427B-BA1A-0EA0B2EB294F-topaz-denoise.jpg",
-            "emoji_icon": "📦",
             "glow_color": "gold"
           }
         }
@@ -169,50 +100,18 @@
         "nav3",
         "nav4"
       ],
-      "custom_css": [],
       "settings": {
         "show_heading": true,
         "heading": "NAVIGATE THE SIGNAL",
-        "subheading": "Stellar Reverb Ethos.",
         "grid_columns": 4
-      }
-    },
-    "newsletter_cosmic_nNT7L3": {
-      "type": "newsletter-cosmic",
-      "custom_css": [],
-      "name": "Newsletter - Cosmic",
-      "settings": {
-        "show_icon": true,
-        "custom_icon": "",
-        "heading": "Join the Signal",
-        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "subheading": "Get early access to new drops, exclusive relics, and cosmic transmissions.",
-        "input_placeholder": "your@email.com",
-        "button_text": "Subscribe",
-        "button_icon": "📡",
-        "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "button_color": "#ffffff",
-        "subscriber_tags": "newsletter",
-        "success_message": "Thanks for joining the signal!",
-        "show_privacy_note": true,
-        "privacy_text": "✨ Get early access + exclusive drops. No spam, ever.",
-        "show_benefits": true,
-        "benefit_1_text": "Early access to drops",
-        "benefit_2_text": "Exclusive relics",
-        "benefit_3_text": "Member discounts",
-        "benefit_4_text": "Cosmic transmissions",
-        "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
-        "show_particles": true
       }
     }
   },
   "order": [
     "announcement_bar",
     "hero_decoding",
-    "stellar_timeline_hMzWJf",
-    "scarcity_marquee",
     "featured_transmission",
-    "navigation_matrix",
-    "newsletter_cosmic_nNT7L3"
+    "scarcity_marquee",
+    "navigation_matrix"
   ]
 }

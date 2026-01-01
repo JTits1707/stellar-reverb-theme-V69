@@ -90,7 +90,17 @@
     },
     "signup": {
       "type": "universal-lore-signup",
-      "settings": {}
+      "settings": {
+        "kicker": "SIGNAL SEEKER REGISTRY",
+        "heading": "Get The Next Transmission Before It Drops",
+        "subheading": "No spam. No filler. Just capsule drops, lore fragments, and early-access relics when the signal hits.",
+        "email_label": "Email address",
+        "email_placeholder": "you@yourfrequency.com",
+        "button_label": "Join the Signal",
+        "loading_label": "Connecting…",
+        "service": "shopify",
+        "list_id": ""
+      }
     },
     "signal_feed": {
       "type": "universal-lore-signal-feed",

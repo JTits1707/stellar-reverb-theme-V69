@@ -1,0 +1,146 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>
+      {%- if page_title == blank -%}
+        {{ shop.name }}
+      {%- else -%}
+        {{ page_title }}{% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}
+      {%- endif -%}
+    </title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    <meta name="theme-color" content="#0D0D0D">
+    <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {% comment %} ═══════════════════════════════════════════════════════════
+                  CRITICAL PATH CSS - LOADS FIRST
+         ═══════════════════════════════════════════════════════════ {% endcomment %}
+    
+    {% comment %} 1. DESIGN TOKENS & CORE ENGINE {% endcomment %}
+    {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
+    {{ 'brand-fonts.css' | asset_url | stylesheet_tag }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'theme-base.css' | asset_url | stylesheet_tag }}
+
+    {% comment %} 2. GLOBAL ENHANCEMENTS {% endcomment %}
+    {{ 'stellar-transmission-archive.css' | asset_url | stylesheet_tag }}
+    {{ 'archive-card-ENHANCED.css' | asset_url | stylesheet_tag }}
+    
+    {% comment %} ═══════════════════════════════════════════════════════════
+                  PAGE-SPECIFIC DYNAMIC CSS LOADING
+         ═══════════════════════════════════════════════════════════ {% endcomment %}
+    
+    {% if template contains 'shop-all' or template contains 'collection' %}
+      {{ 'shop-all-beast.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+    {% if template contains 'floating-archive' %}
+      {{ 'floating-archive.css' | asset_url | stylesheet_tag }}
+      {{ 'floating-archive-beast.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+    {% if template contains 'lore' %}
+      {{ 'lore-mainframe.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-myth-beast.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-timeline-beast.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-vault-beast.css' | asset_url | stylesheet_tag }}
+      
+      {% comment %} ⚡ LEGENDARY v13.0 LORE STYLES ⚡ {% endcomment %}
+      {{ 'stellar-lore-LEGENDARY.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+    {{ content_for_header }}
+
+    {%- comment -%} Structured Data for SEO {%- endcomment -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "{{ shop.name | escape }}",
+        "url": "{{ shop.url }}",
+        "logo": "{{ 'stellar-logo.png' | asset_url }}"
+      }
+    </script>
+  </head>
+
+  <body class="template-{{ template.name | handle }} stellar-os-active">
+    
+    {% comment %} ═══════════════════════════════════════════════════════════
+                  LEGENDARY v13.0 VISUAL EFFECTS OVERLAY
+         ═══════════════════════════════════════════════════════════ {% endcomment %}
+    {% if template contains 'lore' %}
+      <div class="scanlines"></div>
+    {% endif %}
+    
+    {%- comment -%} 🛰️ GLOBAL TERMINAL HANDSHAKE OVERLAY {%- endcomment -%}
+    <div id="stellar-terminal-handshake" class="terminal-boot-overlay" aria-hidden="true">
+      <div class="terminal-boot-frame">
+        <div class="terminal-boot-scanline"></div>
+        <div class="terminal-boot-content">
+          <div class="boot-header">
+            <span class="boot-icon">🛰️</span>
+            <span class="boot-title">STELLAR_REVERB_OS // V.69</span>
+          </div>
+          <div class="boot-loader">
+            <div id="boot-progress-bar"></div>
+          </div>
+          <div id="boot-logs" class="boot-logs">
+            <p class="log-entry">> INITIALIZING_CONNECTION...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a class="skip-to-content sr-only focus:not-sr-only" href="#MainContent">
+      Skip to main content
+    </a>
+
+    {% section 'header-enhanced' %}
+
+    <main id="MainContent" role="main" tabindex="-1" class="main-content">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'stellar-footer' %}
+
+    {% comment %} ═══════════════════════════════════════════════════════════
+                  JAVASCRIPT - LOADED AT END FOR PERFORMANCE
+         ═══════════════════════════════════════════════════════════ {% endcomment %}
+    
+    {% comment %} Global Scripts {% endcomment %}
+    <script src="{{ 'stellar-transmission-archive.js' | asset_url }}" defer></script>
+    <script src="{{ 'archive-card-tilt.js' | asset_url }}" defer></script>
+
+    {% comment %} ═══════════════════════════════════════════════════════════
+                  PAGE-SPECIFIC JAVASCRIPT
+         ═══════════════════════════════════════════════════════════ {% endcomment %}
+    
+    {% comment %} 1. Universal Lore Engine - LEGENDARY v13.0 ⚡ {% endcomment %}
+    {% if template contains 'lore' %}
+      {% comment %} 
+        ⚠️ IMPORTANT: Only loading LEGENDARY version
+        Old universal-lore-beast.js is REPLACED by stellar-lore-LEGENDARY.js
+      {% endcomment %}
+      {{ 'stellar-lore-LEGENDARY.js' | asset_url | script_tag }}
+    {% endif %}
+
+    {% comment %} 2. Shop All / Collection Logic {% endcomment %}
+    {% if template contains 'shop-all' or template contains 'collection' %}
+      <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
+    {% endif %}
+
+    {% comment %} 3. Floating Archive Reactive Systems {% endcomment %}
+    {% if template contains 'floating-archive' %}
+      <script src="{{ 'floating-archive-beast.js' | asset_url }}" defer></script>
+    {% endif %}
+
+  </body>
+</html>
