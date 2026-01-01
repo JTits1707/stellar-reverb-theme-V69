@@ -20,17 +20,24 @@
     <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
+    {% comment %} ═══════════════════════════════════════════════════════════
+                  CRITICAL PATH CSS - LOADS FIRST
+         ═══════════════════════════════════════════════════════════ {% endcomment %}
+    
     {% comment %} 1. DESIGN TOKENS & CORE ENGINE {% endcomment %}
     {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
     {{ 'brand-fonts.css' | asset_url | stylesheet_tag }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'theme-base.css' | asset_url | stylesheet_tag }}
 
-    {% comment %} 2. GLOBAL BEAST MODE ENHANCEMENTS {% endcomment %}
+    {% comment %} 2. GLOBAL ENHANCEMENTS {% endcomment %}
     {{ 'stellar-transmission-archive.css' | asset_url | stylesheet_tag }}
     {{ 'archive-card-ENHANCED.css' | asset_url | stylesheet_tag }}
     
-    {% comment %} 3. PAGE-SPECIFIC DYNAMIC CSS LOADING {% endcomment %}
+    {% comment %} ═══════════════════════════════════════════════════════════
+                  PAGE-SPECIFIC DYNAMIC CSS LOADING
+         ═══════════════════════════════════════════════════════════ {% endcomment %}
+    
     {% if template contains 'shop-all' or template contains 'collection' %}
       {{ 'shop-all-beast.css' | asset_url | stylesheet_tag }}
     {% endif %}
@@ -45,6 +52,9 @@
       {{ 'lore-myth-beast.css' | asset_url | stylesheet_tag }}
       {{ 'lore-timeline-beast.css' | asset_url | stylesheet_tag }}
       {{ 'lore-vault-beast.css' | asset_url | stylesheet_tag }}
+      
+      {% comment %} ⚡ LEGENDARY v13.0 LORE STYLES ⚡ {% endcomment %}
+      {{ 'stellar-lore-LEGENDARY.css' | asset_url | stylesheet_tag }}
     {% endif %}
 
     {{ content_for_header }}
@@ -62,6 +72,13 @@
   </head>
 
   <body class="template-{{ template.name | handle }} stellar-os-active">
+    
+    {% comment %} ═══════════════════════════════════════════════════════════
+                  LEGENDARY v13.0 VISUAL EFFECTS OVERLAY
+         ═══════════════════════════════════════════════════════════ {% endcomment %}
+    {% if template contains 'lore' %}
+      <div class="scanlines"></div>
+    {% endif %}
     
     {%- comment -%} 🛰️ GLOBAL TERMINAL HANDSHAKE OVERLAY {%- endcomment -%}
     <div id="stellar-terminal-handshake" class="terminal-boot-overlay" aria-hidden="true">
@@ -94,15 +111,25 @@
 
     {% section 'stellar-footer' %}
 
-    {% comment %} --- LOADING GLOBAL SCRIPTS --- {% endcomment %}
+    {% comment %} ═══════════════════════════════════════════════════════════
+                  JAVASCRIPT - LOADED AT END FOR PERFORMANCE
+         ═══════════════════════════════════════════════════════════ {% endcomment %}
+    
+    {% comment %} Global Scripts {% endcomment %}
     <script src="{{ 'stellar-transmission-archive.js' | asset_url }}" defer></script>
     <script src="{{ 'archive-card-tilt.js' | asset_url }}" defer></script>
 
-    {%- comment -%} 🚀 BEAST MODE PAGE-SPECIFIC JS {%- endcomment -%}
+    {% comment %} ═══════════════════════════════════════════════════════════
+                  PAGE-SPECIFIC JAVASCRIPT
+         ═══════════════════════════════════════════════════════════ {% endcomment %}
     
-    {% comment %} 1. Universal Lore Engine (Integrated Terminal + Myth Swapper) {% endcomment %}
+    {% comment %} 1. Universal Lore Engine - LEGENDARY v13.0 ⚡ {% endcomment %}
     {% if template contains 'lore' %}
-      <script src="{{ 'universal-lore-beast.js' | asset_url }}" defer></script>
+      {% comment %} 
+        ⚠️ IMPORTANT: Only loading LEGENDARY version
+        Old universal-lore-beast.js is REPLACED by stellar-lore-LEGENDARY.js
+      {% endcomment %}
+      {{ 'stellar-lore-LEGENDARY.js' | asset_url | script_tag }}
     {% endif %}
 
     {% comment %} 2. Shop All / Collection Logic {% endcomment %}
