@@ -45,6 +45,19 @@
         "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
       }
     },
+    "stellar_timeline_hMzWJf": {
+      "type": "stellar-timeline",
+      "name": "Stellar Timeline",
+      "settings": {
+        "show_heading": true,
+        "heading": "TRANSMISSION TIMELINE",
+        "subtitle": "Journey through the capsule drops across space and time",
+        "show_scroll_controls": true,
+        "enable_sound": true,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
     "featured_transmission": {
       "type": "featured-transmission",
       "settings": {
@@ -54,7 +67,7 @@
         "capsule_title": "GLITCHWAVE ORACLE",
         "subtitle": "The latest transmission from the cosmic void",
         "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
-        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag.jpg",
+        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag_2fcf7617-7029-470b-8d83-a2abdc38f51d.jpg",
         "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
         "release_date": "2024.10",
         "theme": "Neon Magenta",
@@ -67,19 +80,6 @@
         "image_position": "left",
         "padding_top": 80,
         "padding_bottom": 80
-      }
-    },
-    "stellar_timeline_hMzWJf": {
-      "type": "stellar-timeline",
-      "name": "Stellar Timeline",
-      "settings": {
-        "show_heading": true,
-        "heading": "TRANSMISSION TIMELINE",
-        "subtitle": "Journey through the capsule drops across space and time",
-        "show_scroll_controls": true,
-        "enable_sound": true,
-        "padding_top": 64,
-        "padding_bottom": 64
       }
     },
     "scarcity_marquee": {
@@ -209,8 +209,8 @@
   "order": [
     "announcement_bar",
     "hero_decoding",
-    "featured_transmission",
     "stellar_timeline_hMzWJf",
+    "featured_transmission",
     "scarcity_marquee",
     "navigation_matrix",
     "newsletter_cosmic_nNT7L3"
