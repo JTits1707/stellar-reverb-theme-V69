@@ -1,5 +1,3 @@
-{{ 'lore-popup-modal.css' | asset_url | stylesheet_tag }}
-{{ 'lore-popup-modal.js' | asset_url | script_tag }}
 {% comment %}
   ═══════════════════════════════════════════════════════════
   STELLAR REVERB - COSMIC TIMELINE SECTION
@@ -49,7 +47,8 @@
       {%- endcomment -%}
       
 {% assign capsules = metaobjects.capsule.values | sort: 'capsule_number' %}
-      
+       {{ 'lore-popup-modal.css' | asset_url | stylesheet_tag }}
+         {{ 'lore-popup-modal.js' | asset_url | script_tag }}
       {% if capsules.size > 0 %}
         {%- comment -%} Dynamic from metaobjects {%- endcomment -%}
         {% for capsule in capsules limit: 10 %}
@@ -112,7 +111,7 @@
             <p class="lore-footer">Released: April 2023 | Theme: Cyan Spiral</p>
           </div>
         </div>
-        
+
         {%- comment -%} CAPSULE 003: ECHOES FROM THE SIMULATION {%- endcomment -%}
         <div class="timeline-node" data-capsule="003" data-status="released">
           <div class="node-date orbitron">2023.6</div>
