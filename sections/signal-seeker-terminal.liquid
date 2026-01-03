@@ -1,0 +1,356 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - SIGNAL SEEKER TERMINAL (LEGENDARY v13.0)
+  ═══════════════════════════════════════════════════════════
+  
+  Purpose: Final conversion section before footer
+  Features: Neon terminal, triangle logo, 4 benefits, email capture
+  
+  Integration: Mailchimp (add your URL in JavaScript section)
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<section class="signal-seeker-terminal" data-section-id="{{ section.id }}" data-section-type="signal-seeker">
+  
+  {%- comment -%} Background Effects {%- endcomment -%}
+  <div class="terminal-background">
+    <canvas class="terminal-particles" id="terminalParticles"></canvas>
+    <div class="terminal-matrix-rain"></div>
+    <div class="terminal-scanlines"></div>
+  </div>
+
+  <div class="terminal-container">
+    
+    {%- comment -%} Triangle Logo (SVG based on Image 2) {%- endcomment -%}
+    <div class="terminal-logo">
+      <svg class="triangle-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        {%- comment -%} Outer Triangle {%- endcomment -%}
+        <path class="triangle-outer" d="M100 20 L180 180 L20 180 Z" fill="none" stroke="url(#gradient1)" stroke-width="3"/>
+        
+        {%- comment -%} Middle Triangle {%- endcomment -%}
+        <path class="triangle-middle" d="M100 40 L160 160 L40 160 Z" fill="none" stroke="url(#gradient2)" stroke-width="2.5"/>
+        
+        {%- comment -%} Inner Triangle {%- endcomment -%}
+        <path class="triangle-inner" d="M100 60 L140 140 L60 140 Z" fill="none" stroke="url(#gradient3)" stroke-width="2"/>
+        
+        {%- comment -%} Center Cassette Icon {%- endcomment -%}
+        <g class="cassette-icon" transform="translate(100, 100)">
+          <rect x="-20" y="-12" width="40" height="24" rx="2" fill="none" stroke="url(#gradient4)" stroke-width="1.5"/>
+          <circle cx="-10" cy="0" r="4" fill="none" stroke="url(#gradient4)" stroke-width="1"/>
+          <circle cx="10" cy="0" r="4" fill="none" stroke="url(#gradient4)" stroke-width="1"/>
+          <rect x="-15" y="-3" width="30" height="6" fill="url(#gradient4)" opacity="0.3"/>
+          <line x1="-8" y1="8" x2="-12" y2="8" stroke="url(#gradient4)" stroke-width="1"/>
+          <line x1="8" y1="8" x2="12" y2="8" stroke="url(#gradient4)" stroke-width="1"/>
+        </g>
+        
+        {%- comment -%} Waveform above cassette {%- endcomment -%}
+        <path class="waveform" d="M 70 50 Q 85 45, 100 50 T 130 50" fill="none" stroke="url(#gradient5)" stroke-width="1.5" opacity="0.6"/>
+        
+        {%- comment -%} Gradient Definitions {%- endcomment -%}
+        <defs>
+          <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FF00FF;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#00F0FF;stop-opacity:1" />
+          </linearGradient>
+          <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#00F0FF;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#00FF41;stop-opacity:1" />
+          </linearGradient>
+          <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#00FF41;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#FF00FF;stop-opacity:1" />
+          </linearGradient>
+          <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#FF00FF;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#00F0FF;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#00FF41;stop-opacity:1" />
+          </linearGradient>
+          <linearGradient id="gradient5" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#00F0FF;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#FF00FF;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    {%- comment -%} Main Heading {%- endcomment -%}
+    <div class="terminal-header">
+      <h2 class="terminal-title">
+        <span class="glitch-text" data-text="SIGNAL SEEKER PROTOCOL DETECTED">
+          SIGNAL SEEKER PROTOCOL DETECTED
+        </span>
+      </h2>
+      <p class="terminal-subtitle">
+        <span class="restricted-text">UNAUTHORIZED ACCESS RESTRICTED</span><br>
+        <span class="subtitle-light">Activate your clearance to unlock the network</span>
+      </p>
+    </div>
+
+    {%- comment -%} Terminal Window {%- endcomment -%}
+    <div class="terminal-window">
+      
+      {%- comment -%} Terminal Header Bar {%- endcomment -%}
+      <div class="terminal-window-header">
+        <div class="terminal-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <div class="terminal-window-title">SIGNAL_SEEKER_PROTOCOL.EXE</div>
+      </div>
+
+      {%- comment -%} Terminal Content {%- endcomment -%}
+      <div class="terminal-content">
+        
+        <div class="terminal-prompt">
+          <span class="prompt-symbol">></span>
+          <span class="prompt-text typing-text">CLEARANCE_LEVEL: SIGNAL_SEEKER</span>
+        </div>
+        
+        <div class="terminal-divider">════════════════════════════════════════════</div>
+
+        {%- comment -%} Benefits Grid {%- endcomment -%}
+        <div class="benefits-grid">
+          
+          {%- comment -%} Benefit 1: Instant Discount {%- endcomment -%}
+          <div class="benefit-card" data-benefit="1">
+            <div class="benefit-icon">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="url(#iconGrad1)" stroke-width="3"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="url(#iconGrad1)" stroke-width="2" opacity="0.5"/>
+                {%- comment -%} Speed/Signal icon {%- endcomment -%}
+                <path d="M 30 50 L 45 50 M 50 35 L 50 65 M 55 50 L 70 50" stroke="url(#iconGrad1)" stroke-width="4" stroke-linecap="round"/>
+                <path d="M 45 45 L 50 50 L 45 55" fill="url(#iconGrad1)"/>
+                <path d="M 55 45 L 50 50 L 55 55" fill="url(#iconGrad1)"/>
+                <defs>
+                  <linearGradient id="iconGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#00F0FF;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#00FF41;stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="benefit-content">
+              <h3 class="benefit-title">INSTANT_ACCESS_DISCOUNT</h3>
+              <p class="benefit-desc">15% OFF + FREE SHIPPING on your first order</p>
+              <p class="benefit-subdesc">Activated the moment you sync your signal</p>
+            </div>
+          </div>
+
+          {%- comment -%} Benefit 2: Exclusive Drops {%- endcomment -%}
+          <div class="benefit-card" data-benefit="2">
+            <div class="benefit-icon">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="url(#iconGrad2)" stroke-width="3"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="url(#iconGrad2)" stroke-width="2" opacity="0.5"/>
+                {%- comment -%} Eye in Triangle {%- endcomment -%}
+                <path d="M 50 25 L 70 65 L 30 65 Z" fill="none" stroke="url(#iconGrad2)" stroke-width="2.5"/>
+                <ellipse cx="50" cy="50" rx="15" ry="10" fill="none" stroke="url(#iconGrad2)" stroke-width="2"/>
+                <circle cx="50" cy="50" r="5" fill="url(#iconGrad2)"/>
+                <defs>
+                  <linearGradient id="iconGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#FF00FF;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#00F0FF;stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="benefit-content">
+              <h3 class="benefit-title">MEMBERS_ONLY_FREQUENCIES</h3>
+              <p class="benefit-desc">Exclusive drops. Limited quantities.</p>
+              <p class="benefit-subdesc">Never restocked. Seekers only.</p>
+            </div>
+          </div>
+
+          {%- comment -%} Benefit 3: Early Access {%- endcomment -%}
+          <div class="benefit-card" data-benefit="3">
+            <div class="benefit-icon">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="url(#iconGrad3)" stroke-width="3"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="url(#iconGrad3)" stroke-width="2" opacity="0.5"/>
+                {%- comment -%} Skull with speed lines {%- endcomment -%}
+                <ellipse cx="50" cy="45" rx="18" ry="22" fill="none" stroke="url(#iconGrad3)" stroke-width="2.5"/>
+                <circle cx="42" cy="40" r="4" fill="url(#iconGrad3)"/>
+                <circle cx="58" cy="40" r="4" fill="url(#iconGrad3)"/>
+                <path d="M 38 58 L 42 54 L 46 58 L 50 54 L 54 58 L 58 54 L 62 58" fill="none" stroke="url(#iconGrad3)" stroke-width="2"/>
+                <line x1="20" y1="45" x2="30" y2="45" stroke="url(#iconGrad3)" stroke-width="2"/>
+                <line x1="70" y1="45" x2="80" y2="45" stroke="url(#iconGrad3)" stroke-width="2"/>
+                <defs>
+                  <linearGradient id="iconGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#00FF41;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#00F0FF;stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="benefit-content">
+              <h3 class="benefit-title">PRIORITY_LAUNCH_CLEARANCE</h3>
+              <p class="benefit-desc">24-hour head start on every capsule drop</p>
+              <p class="benefit-subdesc">First access. Every time. Guaranteed.</p>
+            </div>
+          </div>
+
+          {%- comment -%} Benefit 4: Dashboard {%- endcomment -%}
+          <div class="benefit-card" data-benefit="4">
+            <div class="benefit-icon">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="url(#iconGrad4)" stroke-width="3"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="url(#iconGrad4)" stroke-width="2" opacity="0.5"/>
+                {%- comment -%} Brain icon {%- endcomment -%}
+                <path d="M 35 45 Q 35 30, 50 30 Q 65 30, 65 45 Q 65 55, 60 60 L 55 60 Q 55 50, 50 50 Q 45 50, 45 60 L 40 60 Q 35 55, 35 45 Z" fill="none" stroke="url(#iconGrad4)" stroke-width="2"/>
+                <path d="M 40 40 Q 42 35, 45 40" fill="none" stroke="url(#iconGrad4)" stroke-width="1.5"/>
+                <path d="M 55 40 Q 58 35, 60 40" fill="none" stroke="url(#iconGrad4)" stroke-width="1.5"/>
+                <line x1="50" y1="45" x2="50" y2="55" stroke="url(#iconGrad4)" stroke-width="1.5"/>
+                <defs>
+                  <linearGradient id="iconGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#FF00FF;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#00FF41;stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="benefit-content">
+              <h3 class="benefit-title">COMMAND_CENTER_ACCESS</h3>
+              <p class="benefit-desc">Personal Signal Seeker dashboard</p>
+              <p class="benefit-subdesc">Track drops. Manage alerts. Unlock rewards.</p>
+            </div>
+          </div>
+
+        </div>
+
+        {%- comment -%} Email Capture Form {%- endcomment -%}
+        <div class="terminal-signup">
+          
+          {%- comment -%} Small triangle icon above input {%- endcomment -%}
+          <div class="signup-triangle">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 30 10 L 50 45 L 10 45 Z" fill="none" stroke="url(#smallTriGrad)" stroke-width="2"/>
+              <path d="M 30 18 L 42 38 L 18 38 Z" fill="none" stroke="url(#smallTriGrad)" stroke-width="1.5"/>
+              <defs>
+                <linearGradient id="smallTriGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#00F0FF;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#FF00FF;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <form class="signal-seeker-form" id="signalSeekerForm">
+            
+            <div class="form-prompt">
+              <span class="prompt-symbol">></span>
+              <span class="prompt-label">ENTER_SIGNAL_FREQUENCY:</span>
+            </div>
+
+            <div class="form-input-wrapper">
+              <input 
+                type="email" 
+                name="email" 
+                id="seekerEmail" 
+                class="terminal-input" 
+                placeholder="your.signal@frequency.com"
+                required
+                autocomplete="email"
+              >
+              <span class="input-cursor"></span>
+            </div>
+
+            <button type="submit" class="terminal-button">
+              <span class="button-icon">⚡</span>
+              <span class="button-text">INITIATE PROTOCOL</span>
+              <span class="button-icon">⚡</span>
+            </button>
+
+            {%- comment -%} Powered by Mailchimp (subtle) {%- endcomment -%}
+            <div class="form-footer">
+              <span class="powered-by">Powered by <strong>Mailchimp</strong></span>
+            </div>
+
+          </form>
+
+          {%- comment -%} Success Message (hidden by default) {%- endcomment -%}
+          <div class="success-message" id="successMessage">
+            <div class="success-icon">✓</div>
+            <h3 class="success-title">SIGNAL ACQUIRED</h3>
+            <p class="success-text">
+              Transmission received, Seeker.<br>
+              Welcome to the network.
+            </p>
+            <p class="success-subtext">
+              Check your inbox for your 15% discount code<br>
+              and exclusive access instructions.
+            </p>
+          </div>
+
+          {%- comment -%} Error Message (hidden by default) {%- endcomment -%}
+          <div class="error-message" id="errorMessage">
+            <div class="error-icon">✗</div>
+            <p class="error-text">SIGNAL TRANSMISSION FAILED</p>
+            <p class="error-subtext">Please check your frequency and try again.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+{%- comment -%} Section Settings Schema {%- endcomment -%}
+{% schema %}
+{
+  "name": "Signal Seeker Terminal",
+  "tag": "section",
+  "class": "section-signal-seeker",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Mailchimp Integration"
+    },
+    {
+      "type": "text",
+      "id": "mailchimp_url",
+      "label": "Mailchimp Form Action URL",
+      "info": "Get this from your Mailchimp embedded form code"
+    },
+    {
+      "type": "header",
+      "content": "Visual Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_particles",
+      "label": "Show particle effects",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_matrix",
+      "label": "Show matrix rain background",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sound",
+      "label": "Enable sound effects",
+      "default": false,
+      "info": "Keyboard clicks, success chime, etc."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_haptic",
+      "label": "Enable haptic feedback (mobile)",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Signal Seeker Terminal"
+    }
+  ]
+}
+{% endschema %}
