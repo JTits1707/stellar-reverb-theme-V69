@@ -1,0 +1,570 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - LORE POPUP MODAL
+  ═══════════════════════════════════════════════════════════
+  
+  Purpose: Full-screen modal for displaying capsule lore
+  
+  Triggered by: JavaScript from timeline nodes
+  Content: Injected dynamically via JS (data-lore attribute)
+  
+  Features:
+  - Full-screen dark overlay
+  - Centered modal with cosmic styling
+  - Close on X button, ESC key, or click outside
+  - Smooth animations
+  - Scrollable content
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<div class="lore-popup-modal" data-modal="lore-popup">
+  
+  {%- comment -%} Dark Overlay {%- endcomment -%}
+  <div class="modal-overlay" data-modal-overlay></div>
+  
+  {%- comment -%} Particle Background (optional) {%- endcomment -%}
+  <canvas class="modal-particles" id="modal-particle-canvas"></canvas>
+  
+  {%- comment -%} Modal Container {%- endcomment -%}
+  <div class="modal-container" data-modal-container>
+    
+    {%- comment -%} Close Button {%- endcomment -%}
+    <button 
+      class="modal-close" 
+      data-modal-close
+      aria-label="Close modal"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    
+    {%- comment -%} Modal Header {%- endcomment -%}
+    <div class="modal-header">
+      <div class="modal-signal-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor">
+          <circle cx="16" cy="16" r="12" stroke-width="2"/>
+          <circle cx="16" cy="16" r="8" stroke-width="2"/>
+          <circle cx="16" cy="16" r="4" stroke-width="2"/>
+        </svg>
+      </div>
+      <h2 class="modal-title">
+        <span class="modal-label">TRANSMISSION DECODING</span>
+        <span class="modal-status">SIGNAL LOCKED</span>
+      </h2>
+    </div>
+    
+    {%- comment -%} Modal Content (Injected by JS) {%- endcomment -%}
+    <div class="modal-content">
+      <div class="modal-lore-content">
+        {%- comment -%} Content will be injected here by JavaScript {%- endcomment -%}
+        <p>Loading transmission...</p>
+      </div>
+    </div>
+    
+    {%- comment -%} Modal Footer {%- endcomment -%}
+    <div class="modal-footer">
+      <div class="modal-scanline"></div>
+      <p class="modal-hint">
+        <kbd>ESC</kbd> to close • Click outside to dismiss
+      </p>
+    </div>
+    
+  </div>
+  
+</div>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   LORE POPUP MODAL STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+.lore-popup-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lore-popup-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ────────────────────────────────────────────────────────────
+   OVERLAY
+   ──────────────────────────────────────────────────────────── */
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+/* ────────────────────────────────────────────────────────────
+   PARTICLE CANVAS
+   ──────────────────────────────────────────────────────────── */
+
+.modal-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* ────────────────────────────────────────────────────────────
+   MODAL CONTAINER
+   ──────────────────────────────────────────────────────────── */
+
+.modal-container {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  border: 2px solid rgba(0, 240, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 
+    0 0 40px rgba(0, 240, 255, 0.2),
+    0 0 80px rgba(255, 0, 255, 0.1),
+    inset 0 0 60px rgba(0, 240, 255, 0.05);
+  overflow: hidden;
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lore-popup-modal.active .modal-container {
+  transform: scale(1) translateY(0);
+}
+
+/* ────────────────────────────────────────────────────────────
+   CLOSE BUTTON
+   ──────────────────────────────────────────────────────────── */
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 0, 0, 0.1);
+  border: 2px solid rgba(255, 0, 0, 0.3);
+  border-radius: 8px;
+  color: #ff0055;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  background: rgba(255, 0, 0, 0.2);
+  border-color: rgba(255, 0, 0, 0.6);
+  box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
+  transform: rotate(90deg);
+}
+
+.modal-close:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+/* ────────────────────────────────────────────────────────────
+   HEADER
+   ──────────────────────────────────────────────────────────── */
+
+.modal-header {
+  padding: 40px 40px 20px;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.modal-signal-icon {
+  flex-shrink: 0;
+  color: #00f0ff;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.6));
+  }
+  50% {
+    opacity: 0.7;
+    filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.8));
+  }
+}
+
+.modal-title {
+  flex: 1;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.modal-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(0, 240, 255, 0.6);
+}
+
+.modal-status {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #00f0ff 0%, #ff00ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ────────────────────────────────────────────────────────────
+   CONTENT
+   ──────────────────────────────────────────────────────────── */
+
+.modal-content {
+  padding: 40px;
+  max-height: calc(85vh - 240px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 240, 255, 0.3) rgba(0, 0, 0, 0.2);
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.3);
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.5);
+}
+
+.modal-lore-content {
+  color: #e0e0e0;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.modal-lore-content h1,
+.modal-lore-content h2,
+.modal-lore-content h3 {
+  color: #00f0ff;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.modal-lore-content h1 {
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+.modal-lore-content h2 {
+  font-size: 1.5rem;
+}
+
+.modal-lore-content h3 {
+  font-size: 1.25rem;
+}
+
+.modal-lore-content p {
+  margin-bottom: 1.5rem;
+}
+
+.modal-lore-content strong {
+  color: #ff00ff;
+  font-weight: 700;
+}
+
+.modal-lore-content em {
+  color: #ffd700;
+  font-style: italic;
+}
+
+.modal-lore-content ul,
+.modal-lore-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-lore-content li {
+  margin-bottom: 0.5rem;
+}
+
+.modal-lore-content code {
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #00f0ff;
+  font-size: 0.9em;
+}
+
+.modal-lore-content blockquote {
+  border-left: 4px solid rgba(255, 0, 255, 0.5);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ────────────────────────────────────────────────────────────
+   FOOTER
+   ──────────────────────────────────────────────────────────── */
+
+.modal-footer {
+  padding: 20px 40px;
+  border-top: 1px solid rgba(0, 240, 255, 0.2);
+  position: relative;
+}
+
+.modal-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #00f0ff 50%, transparent 100%);
+  animation: scanline-sweep 3s ease-in-out infinite;
+}
+
+@keyframes scanline-sweep {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.modal-hint {
+  margin: 0;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.modal-hint kbd {
+  display: inline-block;
+  padding: 4px 8px;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #00f0ff;
+  margin: 0 4px;
+}
+
+/* ────────────────────────────────────────────────────────────
+   RESPONSIVE
+   ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .modal-container {
+    width: 95%;
+    max-height: 90vh;
+  }
+  
+  .modal-header {
+    padding: 30px 20px 15px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .modal-content {
+    padding: 20px;
+    max-height: calc(90vh - 200px);
+  }
+  
+  .modal-footer {
+    padding: 15px 20px;
+  }
+  
+  .modal-close {
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .modal-status {
+    font-size: 1.25rem;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   ACCESSIBILITY
+   ──────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-container,
+  .modal-close,
+  .modal-signal-icon,
+  .modal-scanline {
+    animation: none;
+    transition: none;
+  }
+}
+
+.modal-close:focus-visible {
+  outline: 2px solid #00f0ff;
+  outline-offset: 4px;
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+  
+  const modal = document.querySelector('[data-modal="lore-popup"]');
+  if (!modal) return;
+  
+  const overlay = modal.querySelector('[data-modal-overlay]');
+  const closeBtn = modal.querySelector('[data-modal-close]');
+  const container = modal.querySelector('[data-modal-container]');
+  
+  // ──────────────────────────────────────────────────────────
+  // CLOSE FUNCTIONS
+  // ──────────────────────────────────────────────────────────
+  
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Track analytics
+    if (window.stellarAnalytics) {
+      window.stellarAnalytics.trackEvent('lore_modal_closed');
+    }
+  }
+  
+  // Close on X button
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  }
+  
+  // Close on overlay click
+  if (overlay) {
+    overlay.addEventListener('click', closeModal);
+  }
+  
+  // Close on ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+  
+  // Prevent clicks inside modal from closing
+  if (container) {
+    container.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  }
+  
+  // ──────────────────────────────────────────────────────────
+  // PARTICLE BACKGROUND (SIMPLE VERSION)
+  // ──────────────────────────────────────────────────────────
+  
+  const canvas = modal.querySelector('#modal-particle-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationId;
+    
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    
+    function createParticles() {
+      particles = [];
+      const particleCount = 50;
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2 + 0.5,
+          speedY: Math.random() * 0.5 + 0.2
+        });
+      }
+    }
+    
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(p => {
+        p.y += p.speedY;
+        if (p.y > canvas.height) p.y = 0;
+        
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 240, 255, 0.4)';
+        ctx.fill();
+      });
+      
+      animationId = requestAnimationFrame(drawParticles);
+    }
+    
+    // Initialize when modal opens
+    modal.addEventListener('transitionend', (e) => {
+      if (e.target === modal && modal.classList.contains('active')) {
+        resizeCanvas();
+        createParticles();
+        drawParticles();
+      } else if (e.target === modal && !modal.classList.contains('active')) {
+        cancelAnimationFrame(animationId);
+      }
+    });
+    
+    window.addEventListener('resize', () => {
+      if (modal.classList.contains('active')) {
+        resizeCanvas();
+        createParticles();
+      }
+    });
+  }
+  
+})();
+</script>
