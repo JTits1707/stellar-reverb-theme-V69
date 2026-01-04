@@ -108,7 +108,7 @@
         "show_scanlines": true,
         "show_nav_arrows": true,
         "auto_scroll": true,
-        "particle_density": 50,
+        "particle_density": 60,
         "padding_top": 80,
         "padding_bottom": 80
       }
