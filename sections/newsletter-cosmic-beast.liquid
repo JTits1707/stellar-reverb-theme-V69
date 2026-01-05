@@ -1,0 +1,64 @@
+{% comment %}
+  =====================================================
+  NEWSLETTER COSMIC - BEAST MODE V2.0
+  Tactile Handshake / Satellite Resonance
+  =====================================================
+{% endcomment %}
+
+{{ 'newsletter-cosmic-beast.css' | asset_url | stylesheet_tag }}
+
+<section class="newsletter-cosmic-beast" data-section-id="{{ section.id }}">
+  <div class="newsletter-frame">
+    <div class="satellite-dish-bg">
+      <svg viewBox="0 0 100 100" class="orbit-path"><circle cx="50" cy="50" r="48" /></svg>
+    </div>
+
+    <div class="newsletter-container">
+      <div class="signal-header">
+        <div class="signal-meter">
+          <div class="bar bar-1"></div><div class="bar bar-2"></div><div class="bar bar-3"></div>
+        </div>
+        <span class="signal-status">ENCRYPTED_LINE_OPEN</span>
+      </div>
+
+      <div class="newsletter-content">
+        <h2 class="newsletter-heading glitch-text" data-text="{{ section.settings.heading }}">
+          {{ section.settings.heading | default: 'JOIN THE SIGNAL' }}
+        </h2>
+        <p class="newsletter-sub">
+          {{ section.settings.subheading | default: 'Get exclusive relics and cosmic transmissions.' }}
+        </p>
+      </div>
+
+      {% form 'customer', class: 'newsletter-form-beast' %}
+        <input type="hidden" name="contact[tags]" value="newsletter, signal_seeker">
+        
+        <div class="input-wrapper">
+          <input type="email" name="contact[email]" 
+                 class="newsletter-input" 
+                 placeholder="ENTER_COORDINATES@EMAIL.COM" 
+                 required>
+          <button type="submit" class="newsletter-btn">
+            <span class="btn-text">TRANSMIT</span>
+            <span class="btn-icon">📡</span>
+          </button>
+        </div>
+
+        {% if form.posted_successfully? %}
+          <div class="signal-success">>> TRANSMISSION_RECEIVED // WELCOME SEEKER</div>
+        {% endif %}
+      {% endform %}
+
+      <div class="newsletter-benefits">
+        {% for i in (1..4) %}
+          {% assign benefit_key = "benefit_" | append: i | append: "_text" %}
+          {% if section.settings[benefit_key] != blank %}
+            <div class="benefit-tag">
+              <span class="benefit-dot"></span> {{ section.settings[benefit_key] }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
