@@ -28,11 +28,7 @@
     },
     "featured_transmission": {
       "type": "featured-transmission",
-      "settings": {
-        "capsule_number": "008",
-        "capsule_title": "GLITCHWAVE ORACLE",
-        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag.jpg"
-      }
+      "settings": {}
     },
     "scarcity_marquee": {
       "type": "stellar-scarcity-marquee",
