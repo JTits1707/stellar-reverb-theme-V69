@@ -364,3 +364,21 @@ h1, h2, .btn { ... }
 .section-header {
   z-index: 100 !important; /* High, but much lower than the boot-up screen */
 }
+/* FEATURED TRANSMISSION - CORE IMAGE FIX */
+.featured-image-container {
+  min-height: 450px; /* Prevents container collapse [cite: 401] */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4); /* Backdrop for transparency [cite: 394] */
+}
+
+.capsule-tag-image {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important; /* Disables global grayscale/blur interference [cite: 404] */
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  z-index: 10;
+}
