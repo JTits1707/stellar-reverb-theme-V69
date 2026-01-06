@@ -177,6 +177,29 @@
         "item_count": "",
         "theme_color": "cyan-magenta"
       }
+    },
+    "featured_transmission_spotlight_NTMNKx": {
+      "type": "featured-transmission-spotlight",
+      "name": "Featured Transmission Spotlight",
+      "settings": {
+        "show_heading": true,
+        "heading": "FEATURED TRANSMISSION",
+        "subheading": "",
+        "featured_capsule": "",
+        "manual_number": "001",
+        "manual_title": "UNTITLED",
+        "manual_description": "",
+        "lore_preview": "",
+        "manual_url": "",
+        "show_badge": true,
+        "badge_text": "FEATURED TRANSMISSION",
+        "primary_cta_text": "EXPLORE_CAPSULE",
+        "secondary_cta_text": "READ_LORE",
+        "secondary_cta_url": "",
+        "show_metadata": true,
+        "item_count": "",
+        "theme_color": "cyan-magenta"
+      }
     }
   },
   "order": [
@@ -185,6 +208,7 @@
     "featured_transmission",
     "scarcity_marquee",
     "navigation_matrix",
-    "featured_transmission_spotlight_peF4ma"
+    "featured_transmission_spotlight_peF4ma",
+    "featured_transmission_spotlight_NTMNKx"
   ]
 }
