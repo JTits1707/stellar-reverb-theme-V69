@@ -242,6 +242,20 @@
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
+    },
+    "capsule_low_stock_sidebar_Aetayk": {
+      "type": "capsule-low-stock-sidebar",
+      "name": "Capsule Low-stock Sidebar",
+      "settings": {
+        "heading": "Fading Signals",
+        "subheading": "Relics slipping beyond the event horizon.",
+        "collection": "",
+        "products_to_show": 4,
+        "low_stock_threshold": 5,
+        "show_total_low_stock": true,
+        "show_view_all": true,
+        "view_all_link": ""
+      }
     }
   },
   "order": [
@@ -253,6 +267,7 @@
     "featured_transmission_spotlight_peF4ma",
     "featured_transmission_spotlight_NTMNKx",
     "stellar_timeline_t4mP37",
-    "newsletter_cosmic_hWqFeN"
+    "newsletter_cosmic_hWqFeN",
+    "capsule_low_stock_sidebar_Aetayk"
   ]
 }
