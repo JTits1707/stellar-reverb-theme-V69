@@ -200,6 +200,21 @@
         "item_count": "",
         "theme_color": "cyan-magenta"
       }
+    },
+    "stellar_timeline_t4mP37": {
+      "type": "stellar-timeline",
+      "name": "Cosmic Timeline",
+      "settings": {
+        "heading": "COSMIC TRANSMISSION TIMELINE",
+        "subtitle": "Journey through space-time across capsule drops",
+        "show_particles": true,
+        "show_scanlines": true,
+        "show_nav_arrows": true,
+        "auto_scroll": true,
+        "particle_density": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
@@ -209,6 +224,7 @@
     "scarcity_marquee",
     "navigation_matrix",
     "featured_transmission_spotlight_peF4ma",
-    "featured_transmission_spotlight_NTMNKx"
+    "featured_transmission_spotlight_NTMNKx",
+    "stellar_timeline_t4mP37"
   ]
 }
