@@ -45,13 +45,28 @@
         "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
       }
     },
+    "stellar_timeline_t4mP37": {
+      "type": "stellar-timeline",
+      "name": "Cosmic Timeline",
+      "settings": {
+        "heading": "TRANSMISSION TIMELINE",
+        "subtitle": "Journey through space-time across capsule drops",
+        "show_particles": true,
+        "show_scanlines": true,
+        "show_nav_arrows": true,
+        "auto_scroll": true,
+        "particle_density": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "featured_transmission": {
       "type": "featured-transmission",
       "settings": {
         "mode": "pick",
         "capsule_metaobject": "",
         "kicker": "FEATURED TRANSMISSION",
-        "heading": "FEATURED\nTRANSMISSION",
+        "heading": "FEATUREDTRANSMISSION",
         "badge_text": "FEATURED TRANSMISSION",
         "badge_bg": "#f4ff30",
         "badge_text_color": "#0d0d0d",
@@ -178,21 +193,6 @@
         "theme_color": "cyan-magenta"
       }
     },
-    "stellar_timeline_t4mP37": {
-      "type": "stellar-timeline",
-      "name": "Cosmic Timeline",
-      "settings": {
-        "heading": "COSMIC TRANSMISSION TIMELINE",
-        "subtitle": "Journey through space-time across capsule drops",
-        "show_particles": true,
-        "show_scanlines": true,
-        "show_nav_arrows": true,
-        "auto_scroll": true,
-        "particle_density": 50,
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
     "newsletter_cosmic_hWqFeN": {
       "type": "newsletter-cosmic",
       "name": "Newsletter - Cosmic",
@@ -238,11 +238,11 @@
   "order": [
     "announcement_bar",
     "hero_decoding",
+    "stellar_timeline_t4mP37",
     "featured_transmission",
     "scarcity_marquee",
     "navigation_matrix",
     "featured_transmission_spotlight_peF4ma",
-    "stellar_timeline_t4mP37",
     "newsletter_cosmic_hWqFeN",
     "capsule_low_stock_sidebar_Aetayk"
   ]
