@@ -211,6 +211,20 @@
         "grid_columns": 4
       }
     },
+    "homepage_almost_gone_marquee_gcGdyA": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
+        "scroll_speed": 50,
+        "color_scheme": "yellow"
+      }
+    },
     "newsletter_cosmic_CyAfF6": {
       "type": "newsletter-cosmic",
       "name": "Newsletter - Cosmic",
@@ -236,20 +250,6 @@
         "benefit_4_text": "Cosmic transmissions",
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
-      }
-    },
-    "homepage_almost_gone_marquee_gcGdyA": {
-      "type": "homepage-almost-gone-marquee",
-      "name": "Almost Gone Marquee",
-      "settings": {
-        "use_dynamic_products": false,
-        "collection": "",
-        "low_stock_threshold": 5,
-        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
-        "icon": "⚠️",
-        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
-        "scroll_speed": 50,
-        "color_scheme": "yellow"
       }
     }
   },
