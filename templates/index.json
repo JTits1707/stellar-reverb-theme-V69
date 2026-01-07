@@ -154,7 +154,7 @@
         "grid_columns": 4
       }
     },
-    "featured_transmission_enhanced_FmBPh8": {
+    "featured_transmission_enhanced_naitUW": {
       "type": "featured-transmission-enhanced",
       "custom_css": [],
       "name": "Featured Transmission",
@@ -163,11 +163,10 @@
         "capsule_title": "GLITCHWAVE ORACLE",
         "subtitle": "The latest transmission from the cosmic void",
         "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
-        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag_2fcf7617-7029-470b-8d83-a2abdc38f51d.png",
         "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
         "release_date": "2024.10",
         "theme": "Neon Magenta",
-        "product_count": "16",
+        "product_count": "12",
         "primary_cta_text": "EXPLORE CAPSULE",
         "primary_cta_link": "",
         "show_secondary_cta": true,
@@ -185,6 +184,6 @@
     "featured_transmission",
     "scarcity_marquee",
     "navigation_matrix",
-    "featured_transmission_enhanced_FmBPh8"
+    "featured_transmission_enhanced_naitUW"
   ]
 }
