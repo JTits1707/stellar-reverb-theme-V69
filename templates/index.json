@@ -45,52 +45,17 @@
         "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
       }
     },
-    "featured_transmission": {
-      "type": "featured-transmission",
+    "stellar_timeline_enhanced_T8U8Mm": {
+      "type": "stellar-timeline-enhanced",
+      "name": "Stellar Timeline",
       "settings": {
-        "mode": "pick",
-        "capsule_metaobject": "",
-        "kicker": "FEATURED TRANSMISSION",
-        "heading": "FEATUREDTRANSMISSION",
-        "badge_text": "FEATURED TRANSMISSION",
-        "badge_bg": "#f4ff30",
-        "badge_text_color": "#0d0d0d",
-        "card_border": "#28a8d6",
-        "tag_image_width": 320,
-        "show_lore": false,
-        "cta_text": "READ_LORE",
-        "manual_number": "CAPSULE 001",
-        "manual_title": "UNTITLED",
-        "manual_link": ""
-      }
-    },
-    "scarcity_marquee": {
-      "type": "stellar-scarcity-marquee",
-      "blocks": {
-        "m1": {
-          "type": "message",
-          "settings": {
-            "message": "⚡ ONLY 20 CAPSULES LEFT"
-          }
-        },
-        "m2": {
-          "type": "message",
-          "settings": {
-            "message": "📡 NEW TRANSMISSION INCOMING"
-          }
-        }
-      },
-      "block_order": [
-        "m1",
-        "m2"
-      ],
-      "settings": {
-        "marquee_speed": 30,
-        "show_separator": true,
-        "separator_icon": "◆",
-        "enable_glitch": true,
-        "show_scanlines": true,
-        "text_color": "#00f0ff"
+        "show_heading": true,
+        "heading": "COSMIC TRANSMISSION TIMELINE",
+        "subtitle": "Journey through the capsule drops across space and time",
+        "show_scroll_controls": false,
+        "enable_sound": false,
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "navigation_matrix": {
@@ -177,14 +142,126 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "capsule_low_stock_sidebar_irz4q8": {
+      "type": "capsule-low-stock-sidebar",
+      "name": "Capsule Low-stock Sidebar",
+      "settings": {
+        "heading": "Fading Signals",
+        "subheading": "Relics slipping beyond the event horizon.",
+        "collection": "",
+        "products_to_show": 4,
+        "low_stock_threshold": 5,
+        "show_total_low_stock": true,
+        "show_view_all": true,
+        "view_all_link": ""
+      }
+    },
+    "navigation_matrix_enhanced_og_fTkaXM": {
+      "type": "navigation-matrix-enhanced-og",
+      "blocks": {
+        "nav_item_MjMEAB": {
+          "type": "nav_item",
+          "settings": {
+            "title": "All Capsules",
+            "link_url": "",
+            "icon_type": "spiral",
+            "glow_color": "cyan"
+          }
+        },
+        "nav_item_Lnxbdz": {
+          "type": "nav_item",
+          "settings": {
+            "title": "About",
+            "link_url": "",
+            "icon_type": "brain",
+            "glow_color": "magenta"
+          }
+        },
+        "nav_item_wCx3fL": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Lore",
+            "link_url": "",
+            "icon_type": "infinity",
+            "glow_color": "purple"
+          }
+        },
+        "nav_item_jchkdH": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Shop",
+            "link_url": "",
+            "icon_type": "diamond",
+            "glow_color": "gold"
+          }
+        }
+      },
+      "block_order": [
+        "nav_item_MjMEAB",
+        "nav_item_Lnxbdz",
+        "nav_item_wCx3fL",
+        "nav_item_jchkdH"
+      ],
+      "name": "Navigation Matrix",
+      "settings": {
+        "show_heading": true,
+        "heading": "NAVIGATE THE SIGNAL",
+        "subheading": "",
+        "grid_columns": 4
+      }
+    },
+    "newsletter_cosmic_CyAfF6": {
+      "type": "newsletter-cosmic",
+      "name": "Newsletter - Cosmic",
+      "settings": {
+        "show_icon": true,
+        "custom_icon": "",
+        "heading": "Join the Signal",
+        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
+        "subheading": "Get early access to new drops, exclusive relics, and cosmic transmissions.",
+        "input_placeholder": "your@email.com",
+        "button_text": "Subscribe",
+        "button_icon": "📡",
+        "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
+        "button_color": "#FFFFFF",
+        "subscriber_tags": "newsletter",
+        "success_message": "Thanks for joining the signal!",
+        "show_privacy_note": true,
+        "privacy_text": "✨ Get early access + exclusive drops. No spam, ever.",
+        "show_benefits": true,
+        "benefit_1_text": "Early access to drops",
+        "benefit_2_text": "Exclusive relics",
+        "benefit_3_text": "Member discounts",
+        "benefit_4_text": "Cosmic transmissions",
+        "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
+        "show_particles": true
+      }
+    },
+    "homepage_almost_gone_marquee_gcGdyA": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
+        "scroll_speed": 50,
+        "color_scheme": "yellow"
+      }
     }
   },
   "order": [
     "announcement_bar",
     "hero_decoding",
-    "featured_transmission",
-    "scarcity_marquee",
+    "stellar_timeline_enhanced_T8U8Mm",
     "navigation_matrix",
-    "featured_transmission_enhanced_naitUW"
+    "featured_transmission_enhanced_naitUW",
+    "capsule_low_stock_sidebar_irz4q8",
+    "navigation_matrix_enhanced_og_fTkaXM",
+    "homepage_almost_gone_marquee_gcGdyA",
+    "newsletter_cosmic_CyAfF6"
   ]
 }
