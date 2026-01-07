@@ -1,0 +1,80 @@
+{% comment %}
+  Section: home-almost-gone.liquid (v1)
+  Purpose: "Almost Gone" carousel/grid for low-stock products
+  Usage: Add to homepage; point to a collection (e.g., products auto-tagged `low-stock` via Shopify Flow)
+{% endcomment %}
+
+<section class="sr-almost-gone sr-container" aria-labelledby="almost-gone-title-{{ section.id }}">
+  <div class="sr-ag-head">
+    <h2 id="almost-gone-title-{{ section.id }}" class="sr-ag-title">{{ section.settings.heading | default: 'Almost Gone' }}</h2>
+    {%- if section.settings.subheading != blank -%}
+      <p class="sr-ag-sub">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- assign coll = section.settings.collection -%}
+  {%- if coll == blank -%}
+    <div class="sr-ag-empty">
+      <p>Please choose a collection that contains low-stock items (e.g., a collection built on the <code>low-stock</code> product tag).</p>
+    </div>
+  {%- else -%}
+    {%- assign max_items = section.settings.products_to_show | default: 8 -%}
+    <div class="sr-ag-grid cols-{{ section.settings.columns_desktop }}">
+      {%- for product in coll.products limit: max_items -%}
+        {% render 'product-card',
+          product: product,
+          low_stock_threshold: section.settings.low_stock_threshold | default: settings.low_stock_threshold | default: 5,
+          show_total_low_stock: section.settings.show_total_low_stock | default: true
+        %}
+      {%- else -%}
+        <div class="sr-ag-empty">
+          <p>No products found in this collection.</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.show_view_all and section.settings.view_all_link != blank -%}
+    <div class="sr-ag-cta">
+      <a class="sr-ag-link" href="{{ section.settings.view_all_link }}">View all low-stock</a>
+    </div>
+  {%- endif -%}
+</section>
+
+<style>
+.sr-almost-gone { padding: 40px 20px; }
+.sr-ag-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:16px; }
+.sr-ag-title { font-family:'Orbitron','Exo 2',sans-serif; font-size:clamp(1.5rem, 3vw, 2rem); background: linear-gradient(45deg, var(--sr-magenta,#E13CFA), var(--sr-cyan,#28A8D6)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.sr-ag-sub { opacity:.85; }
+.sr-ag-grid { display:grid; gap:16px; }
+.sr-ag-grid.cols-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.sr-ag-grid.cols-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.sr-ag-grid.cols-4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+@media (max-width: 900px){ .sr-ag-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 540px){ .sr-ag-grid { grid-template-columns: repeat(1, minmax(0,1fr)); } }
+.sr-ag-cta { text-align:center; margin-top:16px; }
+.sr-ag-link { display:inline-block; padding:10px 16px; border-radius:999px; text-decoration:none; color:#fff; background: linear-gradient(45deg, var(--sr-magenta,#E13CFA), var(--sr-cyan,#28A8D6)); }
+.sr-ag-empty { padding:16px; background: rgba(15,15,25,.6); border:1px solid #2a2a40; border-radius:8px; }
+</style>
+
+{% schema %}
+{
+  "name": "Almost Gone",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Almost Gone" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Low-stock relics—last chance before the signal fades." },
+    { "type": "collection", "id": "collection", "label": "Low-stock collection" },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 24, "step": 1, "default": 8 },
+    { "type": "select", "id": "columns_desktop", "label": "Columns on desktop", "default": "4", "options": [
+      { "value": "2", "label": "2" },
+      { "value": "3", "label": "3" },
+      { "value": "4", "label": "4" }
+    ] },
+    { "type": "range", "id": "low_stock_threshold", "label": "Low-stock threshold (override)", "min": 1, "max": 25, "step": 1, "default": 5 },
+    { "type": "checkbox", "id": "show_total_low_stock", "label": "Show total-across-variants badge", "default": true },
+    { "type": "checkbox", "id": "show_view_all", "label": "Show view-all button", "default": true },
+    { "type": "url", "id": "view_all_link", "label": "View-all link" }
+  ],
+  "presets": [ { "name": "Almost Gone", "category": "Promotional" } ]
+}
+{% endschema %}
