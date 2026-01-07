@@ -47,6 +47,7 @@
     },
     "stellar_timeline_t4mP37": {
       "type": "stellar-timeline",
+      "custom_css": [],
       "name": "Cosmic Timeline",
       "settings": {
         "heading": "TRANSMISSION TIMELINE",
