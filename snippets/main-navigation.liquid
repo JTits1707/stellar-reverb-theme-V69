@@ -1,0 +1,75 @@
+{% comment %}
+  Main site navigation
+  Include in theme.liquid: {% render 'main-navigation' %}
+{% endcomment %}
+
+<nav class="stellar-nav">
+  <div class="container">
+    
+    {%- comment -%} Logo {%- endcomment -%}
+    <a href="/" class="nav-logo">
+      <h1>STELLAR REVERB</h1>
+    </a>
+    
+    {%- comment -%} Menu Items {%- endcomment -%}
+    <ul class="nav-menu">
+      {% for link in linklists.main-menu.links %}
+        <li class="nav-item {% if link.active %}active{% endif %}">
+          <a href="{{ link.url }}" class="nav-link">
+            {{ link.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    
+  </div>
+</nav>
+
+<style>
+  .stellar-nav {
+    background: #0a0a0a;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+  }
+  
+  .stellar-nav .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-logo h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0;
+    background: linear-gradient(135deg, #00f0ff 0%, #ff00ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .nav-menu {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.875rem;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover,
+  .nav-item.active .nav-link {
+    color: #00f0ff;
+  }
+</style>

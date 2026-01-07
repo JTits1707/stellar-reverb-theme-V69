@@ -14,7 +14,6 @@
       "disabled": true,
       "settings": {
         "message": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
-        "color_scheme": "accent-1",
         "show_announcement": true
       }
     },
@@ -22,186 +21,93 @@
       "type": "hero-decoding",
       "settings": {
         "hero_background": "shopify://shop_images/stellar-reverb-homepage-hero-image.1-topaz-denoise.jpg",
-        "content_alignment": "left",
-        "terminal_label": "STELLAR·REVERB/DECRYPT",
-        "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
         "hero_title": "STELLAR REVERB",
-        "hero_subtitle": "Sound. Style. Transmissions Of Cosmic Identity.",
-        "decode_text": "DECRYPTING: SIGNAL ECHO MATCHED [21%]",
-        "show_progress_bar": true,
-        "decode_progress": 21,
-        "cta_text": "ENTER THE TRANSMISSION",
-        "cta_link": "shopify://collections/frontpage",
-        "cta_secondary_text": "Or browse all transmissions →",
         "headline_color": "#00f0ff",
-        "subtitle_color": "#ff00ff",
-        "transmission_color": "#f4ff30",
-        "decode_color": "#f4ff30",
-        "cta_bg_color": "#00f0ac",
-        "cta_text_color": "#000000",
-        "show_floating_elements": true,
-        "show_lower_status": true,
-        "status_left": "CHANNEL: COSMIC-001",
-        "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
+        "subtitle_color": "#ff00ff"
       }
     },
-    "homepage_almost_gone_marquee_gcGdyA": {
-      "type": "homepage-almost-gone-marquee",
-      "name": "Almost Gone Marquee",
-      "settings": {
-        "use_dynamic_products": false,
-        "collection": "",
-        "low_stock_threshold": 5,
-        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
-        "icon": "⚠️",
-        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
-        "scroll_speed": 50,
-        "color_scheme": "yellow"
-      }
+    "featured_transmission": {
+      "type": "featured-transmission",
+      "settings": {}
     },
-    "featured_transmission_enhanced_naitUW": {
-      "type": "featured-transmission-enhanced",
-      "custom_css": [],
-      "name": "Featured Transmission",
-      "settings": {
-        "capsule_number": "008",
-        "capsule_title": "GLITCHWAVE ORACLE",
-        "subtitle": "The latest transmission from the cosmic void",
-        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
-        "featured_image": "shopify://shop_images/capsule008-glitchwave-oracle-capsule-image-tag_2fcf7617-7029-470b-8d83-a2abdc38f51d.png",
-        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
-        "release_date": "2024.10",
-        "theme": "Neon Magenta",
-        "product_count": "16",
-        "primary_cta_text": "EXPLORE CAPSULE",
-        "primary_cta_link": "",
-        "show_secondary_cta": true,
-        "secondary_cta_text": "READ LORE",
-        "secondary_cta_link": "",
-        "image_position": "left",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "stellar_timeline_tT8adj": {
-      "type": "stellar-timeline",
-      "name": "Cosmic Timeline",
-      "settings": {
-        "heading": "TRANSMISSION TIMELINE",
-        "subtitle": "Journey through space-time across capsule drops",
-        "show_particles": true,
-        "show_scanlines": true,
-        "show_nav_arrows": true,
-        "auto_scroll": true,
-        "particle_density": 50,
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "capsule_low_stock_sidebar_irz4q8": {
-      "type": "capsule-low-stock-sidebar",
-      "name": "Capsule Low-stock Sidebar",
-      "settings": {
-        "heading": "Fading Signals",
-        "subheading": "Relics slipping beyond the event horizon.",
-        "collection": "",
-        "products_to_show": 4,
-        "low_stock_threshold": 5,
-        "show_total_low_stock": true,
-        "show_view_all": true,
-        "view_all_link": ""
-      }
-    },
-    "navigation_matrix_enhanced_og_fTkaXM": {
-      "type": "navigation-matrix-enhanced-og",
+    "scarcity_marquee": {
+      "type": "stellar-scarcity-marquee",
       "blocks": {
-        "nav_item_MjMEAB": {
+        "m1": {
+          "type": "message",
+          "settings": {
+            "message": "⚡ ONLY 20 CAPSULES LEFT"
+          }
+        },
+        "m2": {
+          "type": "message",
+          "settings": {
+            "message": "📡 NEW TRANSMISSION INCOMING"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2"
+      ],
+      "settings": {
+        "enable_glitch": true
+      }
+    },
+    "navigation_matrix": {
+      "type": "navigation-matrix",
+      "blocks": {
+        "nav1": {
           "type": "nav_item",
           "settings": {
             "title": "All Capsules",
-            "link_url": "",
-            "icon_type": "spiral",
+            "link_url": "/collections/all",
             "glow_color": "cyan"
           }
         },
-        "nav_item_Lnxbdz": {
+        "nav2": {
           "type": "nav_item",
           "settings": {
             "title": "About",
-            "link_url": "",
-            "icon_type": "brain",
+            "link_url": "/pages/about",
             "glow_color": "magenta"
           }
         },
-        "nav_item_wCx3fL": {
+        "nav3": {
           "type": "nav_item",
           "settings": {
             "title": "Lore",
-            "link_url": "",
-            "icon_type": "infinity",
+            "link_url": "/pages/lore",
             "glow_color": "purple"
           }
         },
-        "nav_item_jchkdH": {
+        "nav4": {
           "type": "nav_item",
           "settings": {
             "title": "Shop",
-            "link_url": "",
-            "icon_type": "diamond",
+            "link_url": "/collections",
             "glow_color": "gold"
           }
         }
       },
       "block_order": [
-        "nav_item_MjMEAB",
-        "nav_item_Lnxbdz",
-        "nav_item_wCx3fL",
-        "nav_item_jchkdH"
+        "nav1",
+        "nav2",
+        "nav3",
+        "nav4"
       ],
-      "name": "Navigation Matrix",
       "settings": {
         "show_heading": true,
         "heading": "NAVIGATE THE SIGNAL",
-        "subheading": "",
         "grid_columns": 4
-      }
-    },
-    "newsletter_cosmic_CyAfF6": {
-      "type": "newsletter-cosmic",
-      "name": "Newsletter - Cosmic",
-      "settings": {
-        "show_icon": true,
-        "custom_icon": "",
-        "heading": "Join the Signal",
-        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "subheading": "Get early access to new drops, exclusive relics, and cosmic transmissions.",
-        "input_placeholder": "your@email.com",
-        "button_text": "Subscribe",
-        "button_icon": "📡",
-        "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "button_color": "#ffffff",
-        "subscriber_tags": "newsletter",
-        "success_message": "Thanks for joining the signal!",
-        "show_privacy_note": true,
-        "privacy_text": "✨ Get early access + exclusive drops. No spam, ever.",
-        "show_benefits": true,
-        "benefit_1_text": "Early access to drops",
-        "benefit_2_text": "Exclusive relics",
-        "benefit_3_text": "Member discounts",
-        "benefit_4_text": "Cosmic transmissions",
-        "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
-        "show_particles": true
       }
     }
   },
   "order": [
     "announcement_bar",
     "hero_decoding",
-    "homepage_almost_gone_marquee_gcGdyA",
-    "featured_transmission_enhanced_naitUW",
-    "stellar_timeline_tT8adj",
-    "capsule_low_stock_sidebar_irz4q8",
-    "navigation_matrix_enhanced_og_fTkaXM",
-    "newsletter_cosmic_CyAfF6"
+    "featured_transmission",
+    "scarcity_marquee",
+    "navigation_matrix"
   ]
 }
