@@ -175,6 +175,60 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "navigation_matrix_enhanced_og_BRgAEU": {
+      "type": "navigation-matrix-enhanced-og",
+      "blocks": {
+        "nav_item_VfBHxD": {
+          "type": "nav_item",
+          "settings": {
+            "title": "All Capsules",
+            "link_url": "",
+            "icon_type": "spiral",
+            "glow_color": "cyan"
+          }
+        },
+        "nav_item_XgMy9W": {
+          "type": "nav_item",
+          "settings": {
+            "title": "About",
+            "link_url": "",
+            "icon_type": "brain",
+            "glow_color": "magenta"
+          }
+        },
+        "nav_item_3ErkHY": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Lore",
+            "link_url": "",
+            "icon_type": "infinity",
+            "glow_color": "purple"
+          }
+        },
+        "nav_item_nh8hwF": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Shop",
+            "link_url": "",
+            "icon_type": "diamond",
+            "glow_color": "gold"
+          }
+        }
+      },
+      "block_order": [
+        "nav_item_VfBHxD",
+        "nav_item_XgMy9W",
+        "nav_item_3ErkHY",
+        "nav_item_nh8hwF"
+      ],
+      "name": "Navigation Matrix",
+      "settings": {
+        "show_heading": true,
+        "heading": "NAVIGATE THE SIGNAL",
+        "subheading": "",
+        "grid_columns": 4
+      }
     }
   },
   "order": [
@@ -183,6 +237,7 @@
     "featured_transmission",
     "scarcity_marquee",
     "navigation_matrix",
-    "featured_transmission_enhanced_Dgm8C9"
+    "featured_transmission_enhanced_Dgm8C9",
+    "navigation_matrix_enhanced_og_BRgAEU"
   ]
 }
