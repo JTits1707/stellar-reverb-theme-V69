@@ -64,6 +64,22 @@
         "manual_link": ""
       }
     },
+    "stellar_timeline_mEVz7m": {
+      "type": "stellar-timeline",
+      "custom_css": [],
+      "name": "Cosmic Timeline",
+      "settings": {
+        "heading": "TRANSMISSION TIMELINE",
+        "subtitle": "Journey through space-time across capsule drops",
+        "show_particles": true,
+        "show_scanlines": true,
+        "show_nav_arrows": true,
+        "auto_scroll": true,
+        "particle_density": 50,
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
     "scarcity_marquee": {
       "type": "stellar-scarcity-marquee",
       "blocks": {
@@ -244,7 +260,7 @@
         "button_text": "Subscribe",
         "button_icon": "📡",
         "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "button_color": "#FFFFFF",
+        "button_color": "#ffffff",
         "subscriber_tags": "newsletter",
         "success_message": "Thanks for joining the signal!",
         "show_privacy_note": true,
@@ -263,6 +279,7 @@
     "announcement_bar",
     "hero_decoding",
     "featured_transmission",
+    "stellar_timeline_mEVz7m",
     "scarcity_marquee",
     "navigation_matrix",
     "featured_transmission_enhanced_Dgm8C9",
