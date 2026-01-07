@@ -20,6 +20,7 @@
     },
     "hero_decoding": {
       "type": "hero-decoding",
+      "custom_css": [],
       "settings": {
         "hero_background": "shopify://shop_images/stellar-reverb-homepage-hero-image.1-topaz-denoise.jpg",
         "content_alignment": "left",
@@ -200,6 +201,20 @@
         "grid_columns": 4
       }
     },
+    "homepage_almost_gone_marquee_MeyiFN": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
+        "scroll_speed": 50,
+        "color_scheme": "yellow"
+      }
+    },
     "capsule_low_stock_sidebar_Aetayk": {
       "type": "capsule-low-stock-sidebar",
       "name": "Capsule Low-stock Sidebar",
@@ -240,20 +255,6 @@
         "benefit_4_text": "Cosmic transmissions",
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
-      }
-    },
-    "homepage_almost_gone_marquee_MeyiFN": {
-      "type": "homepage-almost-gone-marquee",
-      "name": "Almost Gone Marquee",
-      "settings": {
-        "use_dynamic_products": false,
-        "collection": "",
-        "low_stock_threshold": 5,
-        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
-        "icon": "⚠️",
-        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
-        "scroll_speed": 50,
-        "color_scheme": "yellow"
       }
     }
   },
