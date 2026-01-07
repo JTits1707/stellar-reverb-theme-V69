@@ -233,6 +233,20 @@
         "show_view_all": true,
         "view_all_link": ""
       }
+    },
+    "homepage_almost_gone_marquee_MeyiFN": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
+        "scroll_speed": 50,
+        "color_scheme": "yellow"
+      }
     }
   },
   "order": [
@@ -244,6 +258,7 @@
     "navigation_matrix",
     "featured_transmission_spotlight_peF4ma",
     "newsletter_cosmic_hWqFeN",
-    "capsule_low_stock_sidebar_Aetayk"
+    "capsule_low_stock_sidebar_Aetayk",
+    "homepage_almost_gone_marquee_MeyiFN"
   ]
 }
