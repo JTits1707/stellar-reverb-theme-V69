@@ -178,29 +178,6 @@
         "theme_color": "cyan-magenta"
       }
     },
-    "featured_transmission_spotlight_NTMNKx": {
-      "type": "featured-transmission-spotlight",
-      "name": "Featured Transmission Spotlight",
-      "settings": {
-        "show_heading": true,
-        "heading": "FEATURED TRANSMISSION",
-        "subheading": "",
-        "featured_capsule": "",
-        "manual_number": "001",
-        "manual_title": "UNTITLED",
-        "manual_description": "",
-        "lore_preview": "",
-        "manual_url": "",
-        "show_badge": true,
-        "badge_text": "FEATURED TRANSMISSION",
-        "primary_cta_text": "EXPLORE_CAPSULE",
-        "secondary_cta_text": "READ_LORE",
-        "secondary_cta_url": "",
-        "show_metadata": true,
-        "item_count": "",
-        "theme_color": "cyan-magenta"
-      }
-    },
     "stellar_timeline_t4mP37": {
       "type": "stellar-timeline",
       "name": "Cosmic Timeline",
@@ -229,7 +206,7 @@
         "button_text": "Subscribe",
         "button_icon": "📡",
         "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "button_color": "#FFFFFF",
+        "button_color": "#ffffff",
         "subscriber_tags": "newsletter",
         "success_message": "Thanks for joining the signal!",
         "show_privacy_note": true,
@@ -265,7 +242,6 @@
     "scarcity_marquee",
     "navigation_matrix",
     "featured_transmission_spotlight_peF4ma",
-    "featured_transmission_spotlight_NTMNKx",
     "stellar_timeline_t4mP37",
     "newsletter_cosmic_hWqFeN",
     "capsule_low_stock_sidebar_Aetayk"
