@@ -109,68 +109,6 @@
         "text_color": "#00f0ff"
       }
     },
-    "navigation_matrix": {
-      "type": "navigation-matrix",
-      "blocks": {
-        "nav1": {
-          "type": "nav_item",
-          "settings": {
-            "title": "All Capsules",
-            "description": "Explore the complete transmission archive.",
-            "link_url": "/collections/all",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "📦",
-            "glow_color": "cyan"
-          }
-        },
-        "nav2": {
-          "type": "nav_item",
-          "settings": {
-            "title": "About",
-            "description": "Explore the complete transmission archive.",
-            "link_url": "/pages/about",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "📦",
-            "glow_color": "magenta"
-          }
-        },
-        "nav3": {
-          "type": "nav_item",
-          "settings": {
-            "title": "Lore",
-            "description": "Explore the complete transmission archive.",
-            "link_url": "/pages/lore",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "📦",
-            "glow_color": "purple"
-          }
-        },
-        "nav4": {
-          "type": "nav_item",
-          "settings": {
-            "title": "Shop",
-            "description": "Explore the complete transmission archive.",
-            "link_url": "/collections",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "📦",
-            "glow_color": "gold"
-          }
-        }
-      },
-      "block_order": [
-        "nav1",
-        "nav2",
-        "nav3",
-        "nav4"
-      ],
-      "custom_css": [],
-      "settings": {
-        "show_heading": true,
-        "heading": "NAVIGATE THE SIGNAL",
-        "subheading": "Access points to the cosmic network",
-        "grid_columns": 4
-      }
-    },
     "featured_transmission_spotlight_peF4ma": {
       "type": "featured-transmission-spotlight",
       "name": "Featured Transmission Spotlight",
@@ -223,6 +161,69 @@
         "show_particles": true
       }
     },
+    "navigation_matrix_beast_wWcGzM": {
+      "type": "navigation-matrix-beast",
+      "blocks": {
+        "nav_item_TDrx8W": {
+          "type": "nav_item",
+          "settings": {
+            "title": "All Capsules",
+            "description": "Explore the complete transmission archive.",
+            "link_url": "/collections/all",
+            "cta_text": "EXPLORE",
+            "emoji_icon": "📦",
+            "glow_color": "cyan"
+          }
+        },
+        "nav_item_cQcHbW": {
+          "type": "nav_item",
+          "settings": {
+            "title": "About",
+            "description": "Explore the complete transmission archive.",
+            "link_url": "/pages/about",
+            "cta_text": "EXPLORE",
+            "emoji_icon": "🌀",
+            "glow_color": "magenta"
+          }
+        },
+        "nav_item_wRXiQK": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Lore",
+            "description": "Explore the complete transmission archive.",
+            "link_url": "/pages/lore",
+            "cta_text": "EXPLORE",
+            "emoji_icon": "📖",
+            "glow_color": "purple"
+          }
+        },
+        "nav_item_r3r8Te": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Shop",
+            "description": "Explore the complete transmission archive.",
+            "link_url": "/collections/all",
+            "cta_text": "EXPLORE",
+            "emoji_icon": "🛒",
+            "glow_color": "gold"
+          }
+        }
+      },
+      "block_order": [
+        "nav_item_TDrx8W",
+        "nav_item_cQcHbW",
+        "nav_item_wRXiQK",
+        "nav_item_r3r8Te"
+      ],
+      "custom_css": [],
+      "name": "Navigation Matrix",
+      "settings": {
+        "show_heading": true,
+        "heading": "NAVIGATE THE SIGNAL",
+        "subheading": "Access points to the cosmic network",
+        "grid_columns": 4
+      }
+    },
     "capsule_low_stock_sidebar_Aetayk": {
       "type": "capsule-low-stock-sidebar",
       "name": "Capsule Low-stock Sidebar",
@@ -258,9 +259,9 @@
     "stellar_timeline_t4mP37",
     "featured_transmission",
     "scarcity_marquee",
-    "navigation_matrix",
     "featured_transmission_spotlight_peF4ma",
     "newsletter_cosmic_hWqFeN",
+    "navigation_matrix_beast_wWcGzM",
     "capsule_low_stock_sidebar_Aetayk",
     "homepage_almost_gone_marquee_MeyiFN"
   ]
