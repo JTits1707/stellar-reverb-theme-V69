@@ -236,8 +236,9 @@
           "type": "nav_item",
           "settings": {
             "title": "Shop",
-            "link_url": "",
+            "link_url": "shopify://collections/frontpage",
             "icon_type": "diamond",
+            "custom_icon": "shopify://shop_images/0E9D062B-D727-4E04-BF18-141EFB123691-topaz-denoise.jpg",
             "glow_color": "gold"
           }
         }
