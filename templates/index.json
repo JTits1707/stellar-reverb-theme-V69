@@ -274,6 +274,35 @@
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
+    },
+    "almost_gone_XGRQ8X": {
+      "type": "almost-gone",
+      "name": "Almost Gone",
+      "settings": {
+        "heading": "Almost Gone",
+        "subheading": "Low-stock relics—last chance before the signal fades.",
+        "collection": "",
+        "products_to_show": 8,
+        "columns_desktop": "4",
+        "low_stock_threshold": 5,
+        "show_total_low_stock": true,
+        "show_view_all": true,
+        "view_all_link": ""
+      }
+    },
+    "homepage_almost_gone_marquee_DBbKaz": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
+        "scroll_speed": 50,
+        "color_scheme": "yellow"
+      }
     }
   },
   "order": [
@@ -285,6 +314,8 @@
     "navigation_matrix",
     "featured_transmission_enhanced_Dgm8C9",
     "navigation_matrix_enhanced_og_BRgAEU",
-    "newsletter_cosmic_Y9zzAR"
+    "newsletter_cosmic_Y9zzAR",
+    "almost_gone_XGRQ8X",
+    "homepage_almost_gone_marquee_DBbKaz"
   ]
 }
