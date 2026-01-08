@@ -199,65 +199,6 @@
         "padding_bottom": 80
       }
     },
-    "navigation_matrix_enhanced_og_BRgAEU": {
-      "type": "navigation-matrix-enhanced-og",
-      "blocks": {
-        "nav_item_VfBHxD": {
-          "type": "nav_item",
-          "settings": {
-            "title": "ALL CAPSULES",
-            "link_url": "shopify://pages/capsules-1",
-            "icon_type": "spiral",
-            "custom_icon": "shopify://shop_images/stellar-reverb-astronaut-capsule-page.jpg",
-            "glow_color": "cyan"
-          }
-        },
-        "nav_item_XgMy9W": {
-          "type": "nav_item",
-          "settings": {
-            "title": "About",
-            "link_url": "shopify://pages/about",
-            "icon_type": "brain",
-            "custom_icon": "shopify://shop_images/5C11BB4F-BE20-427B-BA1A-0EA0B2EB294F-topaz-denoise.jpg",
-            "glow_color": "magenta"
-          }
-        },
-        "nav_item_3ErkHY": {
-          "type": "nav_item",
-          "settings": {
-            "title": "Lore",
-            "link_url": "shopify://pages/lore",
-            "icon_type": "infinity",
-            "custom_icon": "shopify://shop_images/90ED3767-6D52-4EF8-92BA-6343A094A0CB-topaz-denoise.jpg",
-            "glow_color": "purple"
-          }
-        },
-        "nav_item_nh8hwF": {
-          "type": "nav_item",
-          "settings": {
-            "title": "Shop",
-            "link_url": "shopify://collections/frontpage",
-            "icon_type": "diamond",
-            "custom_icon": "shopify://shop_images/0E9D062B-D727-4E04-BF18-141EFB123691-topaz-denoise.jpg",
-            "glow_color": "gold"
-          }
-        }
-      },
-      "block_order": [
-        "nav_item_VfBHxD",
-        "nav_item_XgMy9W",
-        "nav_item_3ErkHY",
-        "nav_item_nh8hwF"
-      ],
-      "custom_css": [],
-      "name": "Navigation Matrix",
-      "settings": {
-        "show_heading": true,
-        "heading": "NAVIGATE THE SIGNAL",
-        "subheading": "Explore the Stellar Reverb Ethos.",
-        "grid_columns": 4
-      }
-    },
     "newsletter_cosmic_Y9zzAR": {
       "type": "newsletter-cosmic",
       "name": "Newsletter - Cosmic",
@@ -323,7 +264,6 @@
     "scarcity_marquee",
     "navigation_matrix",
     "featured_transmission_enhanced_Dgm8C9",
-    "navigation_matrix_enhanced_og_BRgAEU",
     "newsletter_cosmic_Y9zzAR",
     "almost_gone_XGRQ8X",
     "homepage_almost_gone_marquee_DBbKaz"
