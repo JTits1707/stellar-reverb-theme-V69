@@ -117,8 +117,9 @@
           "settings": {
             "title": "All Capsules",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/collections/all",
+            "link_url": "shopify://pages/capsules-1",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/26B4738D-A4D9-4AD4-83EC-34D5801E81C1-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "cyan"
           }
