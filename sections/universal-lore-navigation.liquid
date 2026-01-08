@@ -15,7 +15,7 @@
     <ul class="lore-nav__menu" id="loreNavMenu">
       {% for block in section.blocks %}
         <li>
-          <a href="{{ block.settings.link }}" class="lore-nav__link orbitron" data-section="{{ block.settings.section_id }}">
+          <a href="{{ block.settings.link.url }}" class="lore-nav__link orbitron" data-section="{{ block.settings.section_id }}">
             {{ block.settings.label }}
           </a>
         </li>
