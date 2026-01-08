@@ -143,6 +143,7 @@
             "description": "Explore the complete transmission archive.",
             "link_url": "/pages/lore",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/AC8B0FF1-5058-45ED-9C4B-15F3962C24FD-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "purple"
           }
