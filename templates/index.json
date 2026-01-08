@@ -155,6 +155,7 @@
             "description": "Explore the complete transmission archive.",
             "link_url": "/collections",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/0E9D062B-D727-4E04-BF18-141EFB123691-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "gold"
           }
