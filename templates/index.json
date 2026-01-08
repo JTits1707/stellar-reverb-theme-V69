@@ -205,9 +205,10 @@
         "nav_item_VfBHxD": {
           "type": "nav_item",
           "settings": {
-            "title": "All Capsules",
-            "link_url": "",
+            "title": "ALL CAPSULES",
+            "link_url": "shopify://pages/capsules-1",
             "icon_type": "spiral",
+            "custom_icon": "shopify://shop_images/26B4738D-A4D9-4AD4-83EC-34D5801E81C1-topaz-denoise.jpg",
             "glow_color": "cyan"
           }
         },
