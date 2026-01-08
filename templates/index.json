@@ -216,8 +216,9 @@
           "type": "nav_item",
           "settings": {
             "title": "About",
-            "link_url": "",
+            "link_url": "shopify://pages/about",
             "icon_type": "brain",
+            "custom_icon": "shopify://shop_images/5C11BB4F-BE20-427B-BA1A-0EA0B2EB294F-topaz-denoise.jpg",
             "glow_color": "magenta"
           }
         },
