@@ -226,8 +226,9 @@
           "type": "nav_item",
           "settings": {
             "title": "Lore",
-            "link_url": "",
+            "link_url": "shopify://pages/lore",
             "icon_type": "infinity",
+            "custom_icon": "shopify://shop_images/90ED3767-6D52-4EF8-92BA-6343A094A0CB-topaz-denoise.jpg",
             "glow_color": "purple"
           }
         },
