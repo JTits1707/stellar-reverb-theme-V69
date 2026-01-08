@@ -172,6 +172,7 @@
     },
     "featured_transmission_enhanced_Dgm8C9": {
       "type": "featured-transmission-enhanced",
+      "custom_css": [],
       "name": "Featured Transmission",
       "settings": {
         "capsule_number": "004",
