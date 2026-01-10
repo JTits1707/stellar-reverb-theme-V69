@@ -109,6 +109,20 @@
         "text_color": "#00f0ff"
       }
     },
+    "homepage_almost_gone_marquee_DBbKaz": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
+        "scroll_speed": 50,
+        "color_scheme": "yellow"
+      }
+    },
     "navigation_matrix": {
       "type": "navigation-matrix",
       "blocks": {
@@ -241,20 +255,6 @@
         "view_all_link": ""
       }
     },
-    "homepage_almost_gone_marquee_DBbKaz": {
-      "type": "homepage-almost-gone-marquee",
-      "name": "Almost Gone Marquee",
-      "settings": {
-        "use_dynamic_products": false,
-        "collection": "",
-        "low_stock_threshold": 5,
-        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
-        "icon": "⚠️",
-        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
-        "scroll_speed": 50,
-        "color_scheme": "yellow"
-      }
-    },
     "almost_gone_BmdTPP": {
       "type": "almost-gone",
       "name": "Almost Gone",
@@ -269,6 +269,20 @@
         "show_view_all": true,
         "view_all_link": ""
       }
+    },
+    "capsule_low_stock_sidebar_8M3MDt": {
+      "type": "capsule-low-stock-sidebar",
+      "name": "Capsule Low-stock Sidebar",
+      "settings": {
+        "heading": "Fading Signals",
+        "subheading": "Relics slipping beyond the event horizon.",
+        "collection": "",
+        "products_to_show": 4,
+        "low_stock_threshold": 5,
+        "show_total_low_stock": true,
+        "show_view_all": true,
+        "view_all_link": ""
+      }
     }
   },
   "order": [
@@ -277,11 +291,12 @@
     "featured_transmission",
     "stellar_timeline_mEVz7m",
     "scarcity_marquee",
+    "homepage_almost_gone_marquee_DBbKaz",
     "navigation_matrix",
     "featured_transmission_enhanced_Dgm8C9",
+    "capsule_low_stock_sidebar_8M3MDt",
     "newsletter_cosmic_Y9zzAR",
     "almost_gone_XGRQ8X",
-    "homepage_almost_gone_marquee_DBbKaz",
     "almost_gone_BmdTPP"
   ]
 }
