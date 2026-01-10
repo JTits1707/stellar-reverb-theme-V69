@@ -213,6 +213,20 @@
         "padding_bottom": 80
       }
     },
+    "capsule_low_stock_sidebar_8M3MDt": {
+      "type": "capsule-low-stock-sidebar",
+      "name": "Capsule Low-stock Sidebar",
+      "settings": {
+        "heading": "Fading Signals",
+        "subheading": "Relics slipping beyond the event horizon.",
+        "collection": "",
+        "products_to_show": 4,
+        "low_stock_threshold": 5,
+        "show_total_low_stock": true,
+        "show_view_all": true,
+        "view_all_link": ""
+      }
+    },
     "newsletter_cosmic_Y9zzAR": {
       "type": "newsletter-cosmic",
       "name": "Newsletter - Cosmic",
@@ -240,21 +254,6 @@
         "show_particles": true
       }
     },
-    "almost_gone_XGRQ8X": {
-      "type": "almost-gone",
-      "name": "Almost Gone",
-      "settings": {
-        "heading": "Almost Gone",
-        "subheading": "Low-stock relics—last chance before the signal fades.",
-        "collection": "",
-        "products_to_show": 8,
-        "columns_desktop": "4",
-        "low_stock_threshold": 5,
-        "show_total_low_stock": true,
-        "show_view_all": true,
-        "view_all_link": ""
-      }
-    },
     "almost_gone_BmdTPP": {
       "type": "almost-gone",
       "name": "Almost Gone",
@@ -264,20 +263,6 @@
         "collection": "",
         "products_to_show": 8,
         "columns_desktop": "4",
-        "low_stock_threshold": 5,
-        "show_total_low_stock": true,
-        "show_view_all": true,
-        "view_all_link": ""
-      }
-    },
-    "capsule_low_stock_sidebar_8M3MDt": {
-      "type": "capsule-low-stock-sidebar",
-      "name": "Capsule Low-stock Sidebar",
-      "settings": {
-        "heading": "Fading Signals",
-        "subheading": "Relics slipping beyond the event horizon.",
-        "collection": "",
-        "products_to_show": 4,
         "low_stock_threshold": 5,
         "show_total_low_stock": true,
         "show_view_all": true,
@@ -296,7 +281,6 @@
     "featured_transmission_enhanced_Dgm8C9",
     "capsule_low_stock_sidebar_8M3MDt",
     "newsletter_cosmic_Y9zzAR",
-    "almost_gone_XGRQ8X",
     "almost_gone_BmdTPP"
   ]
 }
