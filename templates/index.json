@@ -45,25 +45,6 @@
         "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
       }
     },
-    "featured_transmission": {
-      "type": "featured-transmission",
-      "settings": {
-        "mode": "pick",
-        "capsule_metaobject": "",
-        "kicker": "FEATURED TRANSMISSION",
-        "heading": "FEATURED\nTRANSMISSION",
-        "badge_text": "FEATURED TRANSMISSION",
-        "badge_bg": "#f4ff30",
-        "badge_text_color": "#0d0d0d",
-        "card_border": "#28a8d6",
-        "tag_image_width": 320,
-        "show_lore": false,
-        "cta_text": "READ_LORE",
-        "manual_number": "CAPSULE 001",
-        "manual_title": "UNTITLED",
-        "manual_link": ""
-      }
-    },
     "stellar_timeline_mEVz7m": {
       "type": "stellar-timeline",
       "custom_css": [],
@@ -273,7 +254,6 @@
   "order": [
     "announcement_bar",
     "hero_decoding",
-    "featured_transmission",
     "stellar_timeline_mEVz7m",
     "scarcity_marquee",
     "homepage_almost_gone_marquee_DBbKaz",
