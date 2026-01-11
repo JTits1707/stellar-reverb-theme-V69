@@ -77,6 +77,9 @@
     "content_for_index": []
   },
   "platform_customizations": {
-    "custom_css": []
+    "custom_css": [
+      "/* ═══════════════════════════════════════════════════════════ FIX FOR NON-CLICKABLE NAVIGATION LINKS ═══════════════════════════════════════════════════════════ */#sr-terminal-boot,.sr-boot-overlay,.terminal-boot-overlay,#stellar-terminal-handshake {pointer-events: none !important;}",
+      "/* Ensure child elements of the overlay also don't block clicks */#sr-terminal-boot *,.sr-boot-overlay *,.terminal-boot-overlay *,#stellar-terminal-handshake * {pointer-events: none !important;}"
+    ]
   }
 }
