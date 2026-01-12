@@ -76,12 +76,6 @@
     "content_for_index": []
   },
   "platform_customizations": {
-    "custom_css": [
-      "/* ═══════════════════════════════════════════════════════════ FIX FOR NON-CLICKABLE NAVIGATION LINKS ═══════════════════════════════════════════════════════════ PROBLEM: The terminal boot overlay (#sr-terminal-boot, .sr-boot-overlay, .terminal-boot-overlay) has z-index: 2147483647 !important which places it above all other elements, blocking clicks on navigation links and CTAs. SOLUTION: Add pointer-events: none to allow clicks to pass through the overlay. ═══════════════════════════════════════════════════════════ */#sr-terminal-boot,.sr-boot-overlay,.terminal-boot-overlay,#stellar-terminal-handshake {pointer-events: none !important;}",
-      "/* Ensure child elements of the overlay also don't block clicks */#sr-terminal-boot *,.sr-boot-overlay *,.terminal-boot-overlay *,#stellar-terminal-handshake * {pointer-events: none !important;}",
-      "/* ═══════════════════════════════════════════════════════════ ADDITIONAL FIX: Ensure navigation links are clickable ═══════════════════════════════════════════════════════════ */.stellar-nav,.nav-links,.nav-menu,.nav-link {pointer-events: auto !important; z-index: 1001 !important;}",
-      "/* Ensure CTAs and buttons are clickable */.btn,.button,[class*=\"cta\"],[class*=\"CTA\"] {pointer-events: auto !important;}",
-      "/* ═══════════════════════════════════════════════════════════ END OF FIX ═══════════════════════════════════════════════════════════ */"
-    ]
+    "custom_css": []
   }
 }
