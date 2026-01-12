@@ -20,7 +20,7 @@
         "urgency_message": "ONLY [X] ECHOES REMAIN",
         "cta_text": "CLAIM YOUR ECHO",
         "cta_url": "/collections/capsules",
-        "fomo_color": "#00ff88",
+        "fomo_color": "#00FF88",
         "show_waveform": true,
         "show_particles": true
       }
@@ -37,7 +37,6 @@
     },
     "oracle_teaser": {
       "type": "stellar-oracle-teaser",
-      "custom_css": [],
       "settings": {
         "trigger_probability": 15,
         "trigger_on": "scroll",
@@ -45,7 +44,7 @@
         "no_signal_text": "No future transmissions detected... yet.",
         "show_cta": true,
         "cta_text": "PREPARE FOR TRANSMISSION",
-        "oracle_color": "#ff006e"
+        "oracle_color": "#FF006E"
       }
     },
     "transmission_grid": {
@@ -102,15 +101,12 @@
       "settings": {
         "heading": "FRACTURED NARRATIVES",
         "subtitle": "Expand the nodes. Decode the transmissions.",
-        "lore_color": "#28a8d6"
+        "lore_color": "#28A8D6"
       }
     },
     "signal_feed": {
       "type": "stellar-transmission-signals",
-      "settings": {
-        "x_json_endpoint": "",
-        "show_secret_archive": true
-      }
+      "settings": {}
     },
     "ar_portal": {
       "type": "stellar-ar-portal",
@@ -127,9 +123,7 @@
         "title": "ENTER THE RIFT",
         "subtitle": "Receive encrypted transmissions from the void",
         "mailchimp_action": "",
-        "cta_text": "INITIATE TRANSMISSION",
-        "enable_konami": true,
-        "secret_message": "🌌 SECRET ARCHIVE UNLOCKED"
+        "enable_konami": true
       }
     },
     "mixtape_player": {
@@ -172,7 +166,7 @@
         "default_volume": 50,
         "ambient_hum_url": "",
         "ambient_volume": 20,
-        "player_color": "#ff006e"
+        "player_color": "#FF006E"
       }
     }
   },
