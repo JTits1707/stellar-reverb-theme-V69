@@ -1,0 +1,103 @@
+{% comment %}
+  Stellar Reverb Terminal Boot Sequence
+  A retro-futuristic welcome animation matching the brand aesthetic
+{% endcomment %}
+
+<div id="stellar-boot-overlay" class="stellar-boot-overlay">
+  <div class="stellar-boot-backdrop"></div>
+  
+  <div class="stellar-boot-terminal">
+    <!-- Terminal Header -->
+    <div class="stellar-boot-header">
+      <div class="stellar-boot-dots">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+      </div>
+      <div class="stellar-boot-title">STELLAR·REVERB/DECRYPT</div>
+    </div>
+    
+    <!-- Terminal Content -->
+    <div class="stellar-boot-content">
+      <!-- Line 1: OS Version -->
+      <div class="stellar-boot-line" data-delay="0">
+        <span class="stellar-boot-icon">🛸</span>
+        <span class="stellar-boot-text stellar-boot-type">STELLAR_REVERB_OS // V.69</span>
+      </div>
+      
+      <!-- Line 2: Initializing -->
+      <div class="stellar-boot-line" data-delay="400">
+        <span class="stellar-boot-prompt">&gt;</span>
+        <span class="stellar-boot-text stellar-boot-type">INITIALIZING_CONNECTION...</span>
+      </div>
+      
+      <!-- Line 3: Scanning -->
+      <div class="stellar-boot-line" data-delay="900">
+        <span class="stellar-boot-prompt">&gt;</span>
+        <span class="stellar-boot-text stellar-boot-type">SCANNING_COSMIC_FREQUENCIES...</span>
+      </div>
+      
+      <!-- Line 4: Signal Detection with Progress -->
+      <div class="stellar-boot-line" data-delay="1400">
+        <span class="stellar-boot-prompt">&gt;</span>
+        <span class="stellar-boot-text stellar-boot-type stellar-boot-glitch">SIGNAL_DETECTED:</span>
+        <span class="stellar-boot-progress-text" id="signal-progress">0%</span>
+      </div>
+      
+      <!-- Progress Bar -->
+      <div class="stellar-boot-progress-container" data-delay="1600">
+        <div class="stellar-boot-progress-bar" id="progress-bar"></div>
+      </div>
+      
+      <!-- Line 5: Decrypting -->
+      <div class="stellar-boot-line" data-delay="2200">
+        <span class="stellar-boot-prompt">&gt;</span>
+        <span class="stellar-boot-text stellar-boot-type">DECRYPTING_TRANSMISSION...</span>
+      </div>
+      
+      <!-- Line 6: Echo Matched -->
+      <div class="stellar-boot-line" data-delay="2600">
+        <span class="stellar-boot-prompt">&gt;</span>
+        <span class="stellar-boot-text stellar-boot-type">SIGNAL_ECHO_MATCHED</span>
+        <span class="stellar-boot-success">[100%]</span>
+      </div>
+      
+      <!-- Line 7: Connection Established -->
+      <div class="stellar-boot-line" data-delay="2900">
+        <span class="stellar-boot-prompt">&gt;</span>
+        <span class="stellar-boot-text stellar-boot-type stellar-boot-glitch">REVERB_ACTIVE // CONNECTION_ESTABLISHED</span>
+      </div>
+      
+      <!-- Line 8: Online -->
+      <div class="stellar-boot-line stellar-boot-line-spaced" data-delay="3200">
+        <span class="stellar-boot-prompt">&gt;</span>
+        <span class="stellar-boot-text stellar-boot-type stellar-boot-brand">STELLAR_REVERB // ONLINE</span>
+      </div>
+      
+      <!-- Line 9: Brand Quote -->
+      <div class="stellar-boot-line" data-delay="3500">
+        <span class="stellar-boot-prompt">&gt;</span>
+        <span class="stellar-boot-text stellar-boot-type stellar-boot-quote">"Reality fractured. Signal received."</span>
+      </div>
+      
+      <!-- Line 10: Call to Action -->
+      <div class="stellar-boot-line" data-delay="3800">
+        <span class="stellar-boot-prompt">&gt;</span>
+        <span class="stellar-boot-text stellar-boot-type stellar-boot-cta">BROADCAST_YOUR_IDENTITY</span>
+      </div>
+      
+      <!-- Skip Button -->
+      <div class="stellar-boot-skip" data-delay="500">
+        <button class="stellar-boot-skip-btn" id="stellar-skip-btn">
+          [PRESS ANY KEY TO CONTINUE]
+        </button>
+      </div>
+    </div>
+    
+    <!-- CRT Scanlines Effect -->
+    <div class="stellar-boot-scanlines"></div>
+  </div>
+</div>
+
+<script src="{{ 'stellar-boot-sequence.js' | asset_url }}" defer></script>
+<link rel="stylesheet" href="{{ 'stellar-boot-sequence.css' | asset_url }}">
