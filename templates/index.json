@@ -303,6 +303,29 @@
         "view_all_text": "View All Capsules",
         "view_all_url": "shopify://collections/all"
       }
+    },
+    "featured_transmission_enhanced_xY4MKH": {
+      "type": "featured-transmission-enhanced",
+      "name": "Featured Transmission",
+      "settings": {
+        "capsule_number": "004",
+        "capsule_title": "HOLLOW MOON ARCHIVES",
+        "subtitle": "The latest transmission from the cosmic void",
+        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
+        "featured_image": "shopify://shop_images/capsule004-image-tags_fd66ddd8-3fea-4b9f-b069-279ff31f76b3.jpg",
+        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
+        "release_date": "2024.10",
+        "theme": "Neon Magenta",
+        "product_count": "16",
+        "primary_cta_text": "EXPLORE CAPSULE",
+        "primary_cta_link": "",
+        "show_secondary_cta": true,
+        "secondary_cta_text": "READ LORE",
+        "secondary_cta_link": "",
+        "image_position": "left",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
@@ -317,6 +340,7 @@
     "homepage_almost_gone_marquee_kQhneY",
     "capsule_low_stock_sidebar_bbArMK",
     "almost_gone_U7KrAm",
-    "featured_capsules_biACzd"
+    "featured_capsules_biACzd",
+    "featured_transmission_enhanced_xY4MKH"
   ]
 }
