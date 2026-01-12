@@ -242,6 +242,21 @@
         "show_view_all": true,
         "view_all_link": ""
       }
+    },
+    "almost_gone_U7KrAm": {
+      "type": "almost-gone",
+      "name": "Almost Gone",
+      "settings": {
+        "heading": "Almost Gone",
+        "subheading": "Low-stock relics—last chance before the signal fades.",
+        "collection": "",
+        "products_to_show": 8,
+        "columns_desktop": "4",
+        "low_stock_threshold": 5,
+        "show_total_low_stock": true,
+        "show_view_all": true,
+        "view_all_link": ""
+      }
     }
   },
   "order": [
@@ -254,6 +269,7 @@
     "stellar_timeline_cosmic_nxXcXX",
     "newsletter_cosmic_9Jkn4L",
     "homepage_almost_gone_marquee_kQhneY",
-    "capsule_low_stock_sidebar_bbArMK"
+    "capsule_low_stock_sidebar_bbArMK",
+    "almost_gone_U7KrAm"
   ]
 }
