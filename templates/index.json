@@ -64,6 +64,21 @@
         "manual_link": ""
       }
     },
+    "stellar_timeline_cosmic_BktpTj": {
+      "type": "stellar-timeline-cosmic",
+      "name": "Cosmic Timeline",
+      "settings": {
+        "heading": "TRANSMISSION TIMELINE",
+        "subtitle": "Journey through space-time across capsule drops",
+        "show_particles": true,
+        "show_scanlines": true,
+        "show_nav_arrows": true,
+        "auto_scroll": true,
+        "particle_density": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "scarcity_marquee": {
       "type": "stellar-scarcity-marquee",
       "blocks": {
@@ -163,6 +178,7 @@
     "announcement_bar",
     "hero_decoding",
     "featured_transmission",
+    "stellar_timeline_cosmic_BktpTj",
     "scarcity_marquee",
     "navigation_matrix"
   ]
