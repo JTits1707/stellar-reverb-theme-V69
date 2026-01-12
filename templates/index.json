@@ -228,6 +228,20 @@
         "scroll_speed": 50,
         "color_scheme": "yellow"
       }
+    },
+    "capsule_low_stock_sidebar_bbArMK": {
+      "type": "capsule-low-stock-sidebar",
+      "name": "Capsule Low-stock Sidebar",
+      "settings": {
+        "heading": "Fading Signals",
+        "subheading": "Relics slipping beyond the event horizon.",
+        "collection": "",
+        "products_to_show": 4,
+        "low_stock_threshold": 5,
+        "show_total_low_stock": true,
+        "show_view_all": true,
+        "view_all_link": ""
+      }
     }
   },
   "order": [
@@ -239,6 +253,7 @@
     "navigation_matrix",
     "stellar_timeline_cosmic_nxXcXX",
     "newsletter_cosmic_9Jkn4L",
-    "homepage_almost_gone_marquee_kQhneY"
+    "homepage_almost_gone_marquee_kQhneY",
+    "capsule_low_stock_sidebar_bbArMK"
   ]
 }
