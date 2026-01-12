@@ -257,6 +257,52 @@
         "show_view_all": true,
         "view_all_link": ""
       }
+    },
+    "featured_capsules_biACzd": {
+      "type": "featured-capsules",
+      "blocks": {
+        "product_HEbDYa": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_EUEXyW": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_tnqrRW": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_HEbDYa",
+        "product_EUEXyW",
+        "product_tnqrRW"
+      ],
+      "name": "Featured Capsules",
+      "settings": {
+        "eyebrow_text": "Newest Drops",
+        "eyebrow_color": "#28A8D6",
+        "eyebrow_border": "#28A8D6",
+        "eyebrow_background": "rgba(40, 168, 214, 0.2)",
+        "heading": "Featured Capsules",
+        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
+        "subheading": "Explore our latest cosmic transmissions",
+        "subtitle_color": "#FFFFFF",
+        "grid_columns": 3,
+        "image_ratio": "square",
+        "show_badges": true,
+        "show_quick_add": true,
+        "show_view_all": true,
+        "view_all_text": "View All Capsules",
+        "view_all_url": "shopify://collections/all"
+      }
     }
   },
   "order": [
@@ -270,6 +316,7 @@
     "newsletter_cosmic_9Jkn4L",
     "homepage_almost_gone_marquee_kQhneY",
     "capsule_low_stock_sidebar_bbArMK",
-    "almost_gone_U7KrAm"
+    "almost_gone_U7KrAm",
+    "featured_capsules_biACzd"
   ]
 }
