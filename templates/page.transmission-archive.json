@@ -20,13 +20,14 @@
         "urgency_message": "ONLY [X] ECHOES REMAIN",
         "cta_text": "CLAIM YOUR ECHO",
         "cta_url": "/collections/capsules",
-        "fomo_color": "#00FF88",
+        "fomo_color": "#00ff88",
         "show_waveform": true,
         "show_particles": true
       }
     },
     "stellar_hero": {
       "type": "stellar-archive-hero-corrected",
+      "custom_css": [],
       "settings": {
         "title": "STELLAR REVERB",
         "subtitle": "Sound Style Transmissions Of Cosmic Identity",
@@ -44,7 +45,7 @@
         "no_signal_text": "No future transmissions detected... yet.",
         "show_cta": true,
         "cta_text": "PREPARE FOR TRANSMISSION",
-        "oracle_color": "#FF006E"
+        "oracle_color": "#ff006e"
       }
     },
     "transmission_grid": {
@@ -101,12 +102,15 @@
       "settings": {
         "heading": "FRACTURED NARRATIVES",
         "subtitle": "Expand the nodes. Decode the transmissions.",
-        "lore_color": "#28A8D6"
+        "lore_color": "#28a8d6"
       }
     },
     "signal_feed": {
       "type": "stellar-transmission-signals",
-      "settings": {}
+      "settings": {
+        "x_json_endpoint": "",
+        "show_secret_archive": true
+      }
     },
     "ar_portal": {
       "type": "stellar-ar-portal",
@@ -123,7 +127,9 @@
         "title": "ENTER THE RIFT",
         "subtitle": "Receive encrypted transmissions from the void",
         "mailchimp_action": "",
-        "enable_konami": true
+        "cta_text": "INITIATE TRANSMISSION",
+        "enable_konami": true,
+        "secret_message": "🌌 SECRET ARCHIVE UNLOCKED"
       }
     },
     "mixtape_player": {
@@ -166,7 +172,7 @@
         "default_volume": 50,
         "ambient_hum_url": "",
         "ambient_volume": 20,
-        "player_color": "#FF006E"
+        "player_color": "#ff006e"
       }
     }
   },
