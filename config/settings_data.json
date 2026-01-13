@@ -23,7 +23,7 @@
     "footer_tagline": "Sound. Style. Transmissions of Cosmic Identity.",
     "base_font_size": 17,
     "heading_scale": 1.4,
-    "main_menu": "main-menu",
+    "main_menu": "home-menu",
     "footer_shop_menu": "footer",
     "footer_about_menu": "footer",
     "enable_sticky_header": true,
@@ -67,7 +67,7 @@
         "type": "header-enhanced",
         "custom_css": [],
         "settings": {
-          "show_announcement": false,
+          "show_announcement": true,
           "announcement_text": "FREE SHIPPING ALL WEEK, & GET 20% DISC.",
           "logo": "shopify://shop_images/stellar-reverb-transparent-brand-logo.png"
         }
