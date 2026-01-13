@@ -12,9 +12,9 @@
     "main": {
       "type": "stellar-shop-all",
       "settings": {
-        "hero_kicker": "SHOP ALL TRANSMISSIONS",
+        "hero_kicker": "We don’t archive products. We transmit lost futures. Distort the signal.",
         "hero_title": "COSMIC PRODUCT VAULT",
-        "hero_subtitle": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.",
+        "hero_subtitle": "14 Relics In Orbit ⚡ Capsules 001-010 ⚡ Incoming Signals Detected // Limited Drops Only”",
         "products_per_page": 24
       }
     }
