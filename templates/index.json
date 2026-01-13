@@ -20,6 +20,7 @@
     },
     "hero_decoding": {
       "type": "hero-decoding",
+      "custom_css": [],
       "settings": {
         "hero_background": "shopify://shop_images/stellar-reverb-homepage-hero-image.1-topaz-denoise.jpg",
         "content_alignment": "left",
