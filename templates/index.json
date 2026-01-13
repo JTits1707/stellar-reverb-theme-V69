@@ -180,6 +180,43 @@
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
+    },
+    "featured_transmission_enhanced_4Wcz9d": {
+      "type": "featured-transmission-enhanced",
+      "name": "Featured Transmission",
+      "settings": {
+        "capsule_number": "008",
+        "capsule_title": "GLITCHWAVE ORACLE",
+        "subtitle": "The latest transmission from the cosmic void",
+        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
+        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
+        "release_date": "2024.10",
+        "theme": "Neon Magenta",
+        "product_count": "12",
+        "primary_cta_text": "EXPLORE CAPSULE",
+        "primary_cta_link": "",
+        "show_secondary_cta": true,
+        "secondary_cta_text": "READ LORE",
+        "secondary_cta_link": "",
+        "image_position": "left",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "stellar_timeline_cosmic_GxGdCA": {
+      "type": "stellar-timeline-cosmic",
+      "name": "Cosmic Timeline",
+      "settings": {
+        "heading": "COSMIC TRANSMISSION TIMELINE",
+        "subtitle": "Journey through space-time across capsule drops",
+        "show_particles": true,
+        "show_scanlines": true,
+        "show_nav_arrows": true,
+        "auto_scroll": true,
+        "particle_density": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
@@ -188,6 +225,8 @@
     "featured_transmission",
     "scarcity_marquee",
     "navigation_matrix",
-    "newsletter_cosmic_TLEK8z"
+    "newsletter_cosmic_TLEK8z",
+    "featured_transmission_enhanced_4Wcz9d",
+    "stellar_timeline_cosmic_GxGdCA"
   ]
 }
