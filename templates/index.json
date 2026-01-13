@@ -160,7 +160,7 @@
       "name": "Cosmic Timeline",
       "settings": {
         "heading": "TRANSMISSION TIMELINE",
-        "subtitle": "Journey through space-time across capsule drops",
+        "subtitle": "Journey through space-time across capsule drops.\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
         "show_particles": true,
         "show_scanlines": true,
         "show_nav_arrows": true,
