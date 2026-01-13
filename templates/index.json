@@ -47,6 +47,7 @@
     },
     "featured_transmission_enhanced_NrY6NQ": {
       "type": "featured-transmission-enhanced",
+      "custom_css": [],
       "name": "Featured Transmission",
       "settings": {
         "capsule_number": "008",
