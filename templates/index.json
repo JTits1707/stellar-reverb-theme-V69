@@ -224,8 +224,9 @@
           "settings": {
             "title": "Lore",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/pages/lore",
+            "link_url": "shopify://pages/lore",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/704A4B29-B5A0-4D27-ACDD-8A1CB43FB37E-topaz-sharpen.jpg",
             "emoji_icon": "📦",
             "glow_color": "purple"
           }
