@@ -31,7 +31,7 @@
         "show_progress_bar": true,
         "decode_progress": 21,
         "cta_text": "ENTER THE TRANSMISSION",
-        "cta_link": "shopify://collections/shop-all",
+        "cta_link": "shopify://collections/frontpage",
         "cta_secondary_text": "Or browse all transmissions →",
         "headline_color": "#00f0ff",
         "subtitle_color": "#ff00ff",
@@ -200,8 +200,9 @@
           "settings": {
             "title": "All Capsules",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/collections/all",
+            "link_url": "shopify://pages/capsules-1",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/3FDFB3C1-F819-456C-BFB4-B6AC65EC4FCD-topaz-sharpen.jpg",
             "emoji_icon": "📦",
             "glow_color": "cyan"
           }
