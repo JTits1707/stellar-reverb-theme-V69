@@ -1,40 +1,59 @@
-{% comment %}
-STELLAR REVERB — UNIVERSAL LORE LOADER
-Sacred triangle animation + performance metrics
-Fades out after 1s or on page load
-{% endcomment %}
-
-<section id="lore-loader" class="loader-container" aria-label="Loading animation">
-  <style>
-    #lore-loader{position:fixed;inset:0;background:var(--void-black,#0A0A0A);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;transition:opacity 0.3s ease}
-    #lore-loader.hidden{opacity:0;pointer-events:none}
-    .loader-inner{display:flex;align-items:center;justify-content:center;gap:2rem}
-    .triangle{width:80px;height:80px;border:3px solid var(--cyan-blue,#28A8D6);clip-path:polygon(50% 0%,0% 100%,100% 100%);animation:rotate-triangle 2s linear infinite}
-    @keyframes rotate-triangle{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-    .loader-text{font-family:'Orbitron',monospace;color:var(--neon-magenta,#E13CFA);letter-spacing:0.15em;font-size:clamp(0.9rem,2vw,1.2rem);text-transform:uppercase;animation:pulse-text 1.5s ease-in-out infinite}
-    @keyframes pulse-text{0%,100%{opacity:0.6}50%{opacity:1}}
-    @media (prefers-reduced-motion:reduce){.triangle,  .loader-text{animation:none}}
-  </style>
-
-  <div class="loader-inner">
-    <div class="triangle" aria-hidden="true"></div>
-    <span class="loader-text">Receiving Transmission…</span>
+<div id="lore-loader" class="lore-loader">
+  <div class="loader-content">
+    <div class="loader-scanline"></div>
+    <div class="loader-terminal">
+      <p class="loader-line">> BOOTING_STELLAR_REVERB_OS...</p>
+      <p class="loader-line">> LOADING_CHRONICLE_DATABASE...</p>
+      <p class="loader-line">> SYNCING_MULTIVERSAL_FREQUENCIES...</p>
+      <div class="loader-progress">
+        <div class="loader-progress-bar" id="loaderProgressBar"></div>
+      </div>
+    </div>
   </div>
-</section>
+</div>
+
+<style>
+  .lore-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+  }
+  .loader-terminal {
+    font-family: var(--font-accent);
+    color: var(--radioactive-green);
+    font-size: 0.8rem;
+    text-align: left;
+  }
+  .loader-progress {
+    width: 200px;
+    height: 2px;
+    background: rgba(0, 240, 172, 0.2);
+    margin-top: 1rem;
+  }
+  .loader-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--radioactive-green);
+    transition: width 1s linear;
+  }
+</style>
 
 <script>
-(function(){
-  const loader = document.getElementById('lore-loader');
-  if (!loader) return;
-  
-  // Hide after 1.2s (gives animations time to complete)
-  setTimeout(function(){
-    loader.classList.add('hidden');
-    setTimeout(function(){ if (loader.parentNode) loader.parentNode.removeChild(loader); }, 300);
-  }, 1200);
-})();
+  document.addEventListener('DOMContentLoaded', () => {
+    const bar = document.getElementById('loaderProgressBar');
+    if(bar) bar.style.width = '100%';
+  });
 </script>
 
 {% schema %}
-{"name":"Lore Loader","settings":[]}
+{
+  "name": "Lore Loader",
+  "settings": [],
+  "presets": [{"name": "Lore Loader"}]
+}
 {% endschema %}

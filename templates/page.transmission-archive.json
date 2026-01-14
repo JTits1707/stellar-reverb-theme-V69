@@ -110,12 +110,7 @@
     },
     "ar_portal": {
       "type": "stellar-ar-portal",
-      "settings": {
-        "product_handle": "",
-        "trigger_text": "ENTER THE RIFT",
-        "subtitle": "Holographic Quickview",
-        "show_product_info": true
-      }
+      "settings": {}
     },
     "rift_signup": {
       "type": "stellar-rift-signup",
