@@ -32,29 +32,32 @@
 
     {% comment %} 2. GLOBAL ENHANCEMENTS {% endcomment %}
     {{ 'stellar-transmission-archive.css' | asset_url | stylesheet_tag }}
-    {{ 'archive-card-ENHANCED.css' | asset_url | stylesheet_tag }}
+    {{ 'archive-card.css' | asset_url | stylesheet_tag }}
     
     {% comment %} ═══════════════════════════════════════════════════════════
                   PAGE-SPECIFIC DYNAMIC CSS LOADING
          ═══════════════════════════════════════════════════════════ {% endcomment %}
     
     {% if template contains 'shop-all' or template contains 'collection' %}
-      {{ 'shop-all-beast.css' | asset_url | stylesheet_tag }}
+      {{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
     {% endif %}
 
     {% if template contains 'floating-archive' %}
       {{ 'floating-archive.css' | asset_url | stylesheet_tag }}
-      {{ 'floating-archive-beast.css' | asset_url | stylesheet_tag }}
+      {{ 'floating-elements.css' | asset_url | stylesheet_tag }}
     {% endif %}
 
     {% if template contains 'lore' %}
       {{ 'lore-mainframe.css' | asset_url | stylesheet_tag }}
-      {{ 'lore-myth-beast.css' | asset_url | stylesheet_tag }}
-      {{ 'lore-timeline-beast.css' | asset_url | stylesheet_tag }}
-      {{ 'lore-vault-beast.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-myth.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-timeline.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-vault.css' | asset_url | stylesheet_tag }}
       
-      {% comment %} ⚡ LEGENDARY v13.0 LORE STYLES ⚡ {% endcomment %}
-      {{ 'stellar-lore-LEGENDARY.css' | asset_url | stylesheet_tag }}
+      {%- comment -%} Optional modal styling if you use it on lore pages {%- endcomment -%}
+      {{ 'lore-popup-modal.css' | asset_url | stylesheet_tag }}
+      
+      {% comment %} ⚡ LEGENDARY LORE STYLES (match actual asset name) ⚡ {% endcomment %}
+      {{ 'stellar-lore-legendary.css' | asset_url | stylesheet_tag }}
     {% endif %}
 
     {{ content_for_header }}
@@ -203,11 +206,8 @@
     
     {% comment %} 1. Universal Lore Engine - LEGENDARY v13.0 ⚡ {% endcomment %}
     {% if template contains 'lore' %}
-      {% comment %} 
-        ⚠️ IMPORTANT: Only loading LEGENDARY version
-        Old universal-lore-beast.js is REPLACED by stellar-lore-LEGENDARY.js
-      {% endcomment %}
-      {{ 'stellar-lore-LEGENDARY.js' | asset_url | script_tag }}
+      {{ 'stellar-lore-legendary.js' | asset_url | script_tag }}
+      <script src="{{ 'lore-popup-modal.js' | asset_url }}" defer></script>
     {% endif %}
 
     {% comment %} 2. Shop All / Collection Logic {% endcomment %}
@@ -217,7 +217,8 @@
 
     {% comment %} 3. Floating Archive Reactive Systems {% endcomment %}
     {% if template contains 'floating-archive' %}
-      <script src="{{ 'floating-archive-beast.js' | asset_url }}" defer></script>
+      <script src="{{ 'floating-archive.js' | asset_url }}" defer></script>
+      <script src="{{ 'floating-elements.js' | asset_url }}" defer></script>
     {% endif %}
 
   </body>
