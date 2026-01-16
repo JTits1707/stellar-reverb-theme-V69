@@ -174,7 +174,7 @@
           "type": "nav_item",
           "settings": {
             "title": "Shop",
-            "description": "Explore the complete transmission archive.",
+            "description": "Shop the full Stellar Reverb collection, all capsules, all drops.",
             "link_url": "shopify://collections/frontpage",
             "cta_text": "EXPLORE",
             "custom_icon": "shopify://shop_images/stellar-reverb-astronaut-capsule-page.jpg",
