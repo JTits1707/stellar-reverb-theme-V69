@@ -175,8 +175,9 @@
           "settings": {
             "title": "Shop",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/collections",
+            "link_url": "shopify://collections/frontpage",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/stellar-reverb-astronaut-capsule-page.jpg",
             "emoji_icon": "📦",
             "glow_color": "gold"
           }
