@@ -162,7 +162,7 @@
           "type": "nav_item",
           "settings": {
             "title": "Lore",
-            "description": "Explore the complete transmission archive.",
+            "description": "Explore the history of stellar reverb, and the Signal Seekers backstory.",
             "link_url": "/pages/lore",
             "cta_text": "EXPLORE",
             "custom_icon": "shopify://shop_images/A8B85329-DA5F-40E4-BA7B-07E38A1DE58E-topaz-denoise.jpg",
