@@ -168,6 +168,42 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "featured_transmission_enhanced_zJ3XaQ": {
+      "type": "featured-transmission-enhanced",
+      "name": "Featured Transmission",
+      "settings": {
+        "capsule_number": "008",
+        "capsule_title": "GLITCHWAVE ORACLE",
+        "subtitle": "The latest transmission from the cosmic void",
+        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
+        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
+        "release_date": "2024.10",
+        "theme": "Neon Magenta",
+        "product_count": "12",
+        "primary_cta_text": "EXPLORE CAPSULE",
+        "primary_cta_link": "",
+        "show_secondary_cta": true,
+        "secondary_cta_text": "READ LORE",
+        "secondary_cta_link": "",
+        "image_position": "left",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "homepage_almost_gone_marquee_RghQVG": {
+      "type": "homepage-almost-gone-marquee",
+      "name": "Almost Gone Marquee",
+      "settings": {
+        "use_dynamic_products": false,
+        "collection": "",
+        "low_stock_threshold": 5,
+        "message": "LIMITED TRANSMISSIONS AVAILABLE - ACT FAST",
+        "icon": "⚠️",
+        "default_message": "LIMITED TRANSMISSIONS AVAILABLE",
+        "scroll_speed": 50,
+        "color_scheme": "yellow"
+      }
     }
   },
   "order": [
@@ -176,6 +212,8 @@
     "featured_transmission",
     "scarcity_marquee",
     "navigation_matrix",
-    "stellar_timeline_cosmic_x6g8UR"
+    "stellar_timeline_cosmic_x6g8UR",
+    "featured_transmission_enhanced_zJ3XaQ",
+    "homepage_almost_gone_marquee_RghQVG"
   ]
 }
