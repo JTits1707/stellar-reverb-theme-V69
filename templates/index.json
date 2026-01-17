@@ -156,9 +156,10 @@
     },
     "stellar_timeline_cosmic_x6g8UR": {
       "type": "stellar-timeline-cosmic",
+      "custom_css": [],
       "name": "Cosmic Timeline",
       "settings": {
-        "heading": "COSMIC TRANSMISSION TIMELINE",
+        "heading": "TRANSMISSION TIMELINE",
         "subtitle": "Journey through space-time across capsule drops",
         "show_particles": true,
         "show_scanlines": true,
