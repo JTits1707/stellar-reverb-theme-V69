@@ -26,9 +26,9 @@
     
     {% comment %} 1. DESIGN TOKENS & CORE ENGINE {% endcomment %}
     {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
-    {{ 'brand-fonts.css.liquid' | asset_url | stylesheet_tag }}
+    {{ 'brand-fonts.css' | asset_url | stylesheet_tag }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
-    {{ 'theme-base.css.liquid' | asset_url | stylesheet_tag }}
+    {{ 'theme-base.css' | asset_url | stylesheet_tag }}
 
     {% comment %} 2. GLOBAL ENHANCEMENTS {% endcomment %}
     {{ 'stellar-transmission-archive.css' | asset_url | stylesheet_tag }}
