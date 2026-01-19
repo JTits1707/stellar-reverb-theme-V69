@@ -31,7 +31,7 @@
         "show_progress_bar": true,
         "decode_progress": 21,
         "cta_text": "ENTER THE TRANSMISSION",
-        "cta_link": "",
+        "cta_link": "shopify://collections/frontpage",
         "cta_secondary_text": "Or browse all transmissions →",
         "headline_color": "#00f0ff",
         "subtitle_color": "#ff00ff",
@@ -85,6 +85,21 @@
         "manual_number": "CAPSULE 001",
         "manual_title": "UNTITLED",
         "manual_link": ""
+      }
+    },
+    "stellar_timeline_DRzapa": {
+      "type": "stellar-timeline",
+      "name": "Cosmic Timeline",
+      "settings": {
+        "heading": "TRANSMISSION TIMELINE",
+        "subtitle": "Journey through space-time across capsule drops",
+        "show_particles": true,
+        "show_scanlines": true,
+        "show_nav_arrows": true,
+        "auto_scroll": true,
+        "particle_density": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "scarcity_marquee": {
@@ -182,21 +197,6 @@
         "grid_columns": 4
       }
     },
-    "stellar_timeline_DRzapa": {
-      "type": "stellar-timeline",
-      "name": "Cosmic Timeline",
-      "settings": {
-        "heading": "COSMIC TRANSMISSION TIMELINE",
-        "subtitle": "Journey through space-time across capsule drops",
-        "show_particles": true,
-        "show_scanlines": true,
-        "show_nav_arrows": true,
-        "auto_scroll": true,
-        "particle_density": 50,
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
     "almost_gone_aPccP4": {
       "type": "almost-gone",
       "name": "Almost Gone",
@@ -218,9 +218,9 @@
     "hero_decoding",
     "featured_transmission_enhanced_yeQfQT",
     "featured_transmission",
+    "stellar_timeline_DRzapa",
     "scarcity_marquee",
     "navigation_matrix",
-    "stellar_timeline_DRzapa",
     "almost_gone_aPccP4"
   ]
 }
