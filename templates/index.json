@@ -45,6 +45,29 @@
         "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
       }
     },
+    "featured_transmission_enhanced_eGDBah": {
+      "type": "featured-transmission-enhanced",
+      "name": "Featured Transmission",
+      "settings": {
+        "capsule_number": "004",
+        "capsule_title": "HOLLOW MOON ARCHIVES",
+        "subtitle": "Secrets Buried in Lunar Silence.",
+        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
+        "featured_image": "shopify://shop_images/capsule004-image-tags_43c12d79-4c5c-436a-9d3b-37a48cd49fe9.jpg",
+        "lore_preview": "A forgotten vault inside the moon transmits alien nostalgia — not human, not AI, but something other. Cassette relics wrapped in vine, glowing runes etched into stone, and spectral reverb echo endlessly inside the Hollow Moon Archives. Each piece carries the hush of lunar myth.",
+        "release_date": "2024.10",
+        "theme": "Neon Magenta",
+        "product_count": "16",
+        "primary_cta_text": "EXPLORE CAPSULE",
+        "primary_cta_link": "",
+        "show_secondary_cta": true,
+        "secondary_cta_text": "READ LORE",
+        "secondary_cta_link": "",
+        "image_position": "left",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "featured_transmission": {
       "type": "featured-transmission",
       "settings": {
@@ -173,6 +196,7 @@
   "order": [
     "announcement_bar",
     "hero_decoding",
+    "featured_transmission_enhanced_eGDBah",
     "featured_transmission",
     "scarcity_marquee",
     "navigation_matrix",
