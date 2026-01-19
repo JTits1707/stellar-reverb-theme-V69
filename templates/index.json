@@ -45,6 +45,29 @@
         "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
       }
     },
+    "featured_transmission_enhanced_yeQfQT": {
+      "type": "featured-transmission-enhanced",
+      "name": "Featured Transmission",
+      "settings": {
+        "capsule_number": "008",
+        "capsule_title": "GLITCHWAVE ORACLE",
+        "subtitle": "The latest transmission from the cosmic void",
+        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
+        "featured_image": "shopify://shop_images/capsule004-image-tags_fd66ddd8-3fea-4b9f-b069-279ff31f76b3.jpg",
+        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
+        "release_date": "2024.10",
+        "theme": "Neon Magenta",
+        "product_count": "16",
+        "primary_cta_text": "EXPLORE CAPSULE",
+        "primary_cta_link": "",
+        "show_secondary_cta": true,
+        "secondary_cta_text": "READ LORE",
+        "secondary_cta_link": "",
+        "image_position": "left",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "featured_transmission": {
       "type": "featured-transmission",
       "settings": {
@@ -169,28 +192,6 @@
         "padding_bottom": 80
       }
     },
-    "featured_transmission_enhanced_yeQfQT": {
-      "type": "featured-transmission-enhanced",
-      "name": "Featured Transmission",
-      "settings": {
-        "capsule_number": "008",
-        "capsule_title": "GLITCHWAVE ORACLE",
-        "subtitle": "The latest transmission from the cosmic void",
-        "description": "<p>Dive into the latest capsule featuring exclusive designs inspired by retro-futuristic aesthetics and analog mysticism.</p>",
-        "lore_preview": "In the depths of the digital cosmos, signals pulse through the void—fragments of forgotten futures and alternate timelines converging...",
-        "release_date": "2024.10",
-        "theme": "Neon Magenta",
-        "product_count": "12",
-        "primary_cta_text": "EXPLORE CAPSULE",
-        "primary_cta_link": "",
-        "show_secondary_cta": true,
-        "secondary_cta_text": "READ LORE",
-        "secondary_cta_link": "",
-        "image_position": "left",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
     "almost_gone_aPccP4": {
       "type": "almost-gone",
       "name": "Almost Gone",
@@ -210,11 +211,11 @@
   "order": [
     "announcement_bar",
     "hero_decoding",
+    "featured_transmission_enhanced_yeQfQT",
     "featured_transmission",
     "scarcity_marquee",
     "navigation_matrix",
     "stellar_timeline_DRzapa",
-    "featured_transmission_enhanced_yeQfQT",
     "almost_gone_aPccP4"
   ]
 }
