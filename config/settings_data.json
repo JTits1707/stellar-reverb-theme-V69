@@ -23,7 +23,7 @@
     "footer_tagline": "Sound. Style. Transmissions of Cosmic Identity.",
     "base_font_size": 17,
     "heading_scale": 1.4,
-    "main_menu": "home-menu",
+    "main_menu": "main-menu",
     "footer_shop_menu": "footer",
     "footer_about_menu": "footer",
     "enable_sticky_header": true,
@@ -36,7 +36,6 @@
     "social_instagram_url": "https://www.instagram.com/stellar_reverb?igsh=ajc1YWNkcDlpaWpv&utm_source=qr",
     "newsletter_text": "",
     "newsletter_success_message": "Transmission received. Check your inbox!",
-    "signal_seekers_page": "signal-seeker-dashboard-1",
     "signal_seekers_cta_text": "Signal Seekers",
     "show_signal_cta_header": true,
     "show_signal_cta_footer": true,
@@ -68,7 +67,7 @@
         "type": "header-enhanced",
         "custom_css": [],
         "settings": {
-          "show_announcement": true,
+          "show_announcement": false,
           "announcement_text": "FREE SHIPPING ALL WEEK, & GET 20% DISC.",
           "logo": "shopify://shop_images/stellar-reverb-transparent-brand-logo.png"
         }
