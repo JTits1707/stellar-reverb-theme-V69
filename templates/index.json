@@ -160,8 +160,9 @@
           "settings": {
             "title": "Shop",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/collections",
+            "link_url": "shopify://collections/frontpage",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/2EE09319-93C4-4185-8F5D-4BEEB75A01A0.jpg",
             "emoji_icon": "📦",
             "glow_color": "gold"
           }
