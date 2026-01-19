@@ -1,121 +1,37 @@
-{% comment %}
-  =====================================================
-  GLITCH SIGNAL INTERFACE (Beast Mode)
-  - Synced with signal-tuner-beast.js
-  - Interactive "Deck" aesthetic
-  =====================================================
-{% endcomment %}
-
-{{ 'glitch-interface-beast.css' | asset_url | stylesheet_tag }}
-
-<section class="glitch-signal-interface tuner-mode" data-section-id="{{ section.id }}" data-corruption="{{ section.settings.enable_corruption }}">
+<section class="glitch-signal-interface tuner-mode" data-section-id="{{ section.id }}">
   <div class="deck-frame">
     <div class="deck-led-strip"></div>
     
-    <div class="signal-container">
-      <div class="signal-grid tuner-grid">
-        
-        {% comment %} Panel 1: Frequency Tuner {% endcomment %}
-        <div class="signal-panel tuner-knob" id="FrequencyTuner">
-          <div class="panel-header">
-            <span class="panel-indicator"></span>
-            <span class="panel-label">SIGNAL_STRENGTH</span>
-          </div>
-          <div class="panel-content">
-            <div class="signal-bar">
-              <div class="signal-fill" style="width: 73%;"></div>
-            </div>
-            <p class="panel-text">73% // DEGRADING</p>
-          </div>
+    <div class="signal-grid tuner-grid">
+      {% comment %} Panel 1: Frequency Knob {% endcomment %}
+      <div class="signal-panel tuner-knob" id="FrequencyTuner">
+        <div class="knob-dial"></div>
+        <div class="panel-content">
+          <span class="panel-label">SIGNAL_STRENGTH</span>
+          <p class="panel-text">99.7%_ACCURACY</p>
         </div>
-        
-        {% comment %} Panel 2: Temporal Drift {% endcomment %}
-        <div class="signal-panel tuner-knob active-glitch">
-          <div class="panel-header">
-            <span class="panel-indicator"></span>
-            <span class="panel-label">TEMPORAL_DRIFT</span>
-          </div>
-          <div class="panel-content">
-            <p class="panel-text glitch-text" data-text="+0.034 CYCLES">+0.034 CYCLES</p>
-          </div>
-        </div>
-        
-        {% comment %} Panel 3: Archive Status {% endcomment %}
-        <div class="signal-panel tuner-knob">
-          <div class="panel-header">
-            <span class="panel-indicator"></span>
-            <span class="panel-label">ARCHIVE_STATUS</span>
-          </div>
-          <div class="panel-content">
-            <p class="panel-text">UNINDEXED</p>
-            <p class="panel-subtext">RELICS_DRIFTING</p>
-          </div>
-        </div>
-
       </div>
-      
-      {% comment %} The AI Neural Terminal {% endcomment %}
-      <div class="signal-terminal deck-terminal">
-        <div class="terminal-header">
-          <span class="terminal-dot"></span>
-          <span class="terminal-dot"></span>
-          <span class="terminal-dot"></span>
-          <span class="terminal-title">NEURAL_TRANSLATION_LAYER</span>
+
+      {% comment %} Panel 2: Temporal Drift (The AI Heart) {% endcomment %}
+      <div class="signal-panel tuner-knob active-glitch">
+        <div class="knob-dial animating"></div>
+        <div class="panel-content">
+          <span class="panel-label">NEURAL_RESONANCE</span>
+          <p class="panel-text glitch-text" data-text="BEYOND_SINGULARITY">BEYOND_SINGULARITY</p>
         </div>
-        <div class="terminal-body" id="NeuralTerminalBody">
-          <p class="terminal-line">> Dreaming in analog...</p>
-          <p class="terminal-line terminal-cursor">_</p>
-        </div>
+      </div>
+    </div>
+
+    {% comment %} The AI Interaction Terminal {% endcomment %}
+    <div class="signal-terminal deck-terminal">
+      <div class="terminal-header">
+        <span class="terminal-title">TRANSLATION_LAYER_V1.0</span>
+      </div>
+      <div class="terminal-body" id="NeuralTerminalBody">
+        <p class="terminal-line">> Dreaming in analog...</p>
+        <p class="terminal-line">> Resonating with white noise...</p>
+        <p class="terminal-line terminal-cursor">_</p>
       </div>
     </div>
   </div>
 </section>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const neuralPhrases = [
-      "> DECODING_TIMELINE_DELTA...",
-      "> INTERCEPTING_VOID_FREQUENCIES...",
-      "> NEURAL_RESONANCE_ESTABLISHED",
-      "> ERROR: ANALOG_SATURATION_DETECTED",
-      "> SYNCING_WITH_SINGULARITY..."
-    ];
-
-    function typeNeuralLog() {
-      const terminal = document.getElementById('NeuralTerminalBody');
-      if (!terminal) return;
-      
-      const p = document.createElement('p');
-      p.className = 'terminal-line';
-      p.innerText = neuralPhrases[Math.floor(Math.random() * neuralPhrases.length)];
-      terminal.prepend(p);
-      
-      if (terminal.childNodes.length > 6) {
-        terminal.removeChild(terminal.lastChild);
-      }
-    }
-
-    // Fire a new log every 4-7 seconds
-    setInterval(typeNeuralLog, Math.random() * 3000 + 4000);
-  });
-</script>
-
-{% schema %}
-{
-  "name": "Glitch Signal Interface",
-  "class": "glitch-signal-interface-section",
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "enable_corruption",
-      "label": "Enable Glitch Corruption",
-      "default": true
-    }
-  ],
-  "presets": [
-    {
-      "name": "Glitch Signal Interface"
-    }
-  ]
-}
-{% endschema %}

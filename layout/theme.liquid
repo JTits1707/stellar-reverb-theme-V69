@@ -75,7 +75,11 @@
     
   </head>
 
-  <body class="template-{{ template.name | handle }} stellar-os-active">
+  <body 
+ <body class="template-{{ template.name | handle }} stellar-os-active">
+  {%- if template == 'index' -%}
+    {% render 'stellar-boot-sequence' %}
+  {%- endif -%}
     
     {% comment %} ═══════════════════════════════════════════════════════════
                   LEGENDARY v13.0 VISUAL EFFECTS OVERLAY

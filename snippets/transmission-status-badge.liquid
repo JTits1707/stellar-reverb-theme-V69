@@ -1,0 +1,32 @@
+{%- comment -%} Inside product-card-cosmic snippet {%- endcomment -%}
+<div class="transmission-badges">
+  {% if product.tags contains 'new' or product.created_at > 'now' | date: '%s' | minus: 604800 %}
+    <span class="badge badge-new" data-badge="new">
+      <span class="badge-signal"></span>
+      NEW SIGNAL
+    </span>
+  {% endif %}
+  
+  {% if product.available == false %}
+    <span class="badge badge-archived" data-badge="archived">
+      ARCHIVED
+    </span>
+  {% elsif product.total_inventory <= low_stock_threshold %}
+    <span class="badge badge-critical" data-badge="critical">
+      <span class="badge-pulse"></span>
+      {{ product.total_inventory }} LEFT
+    </span>
+  {% endif %}
+  
+  {% if product.tags contains 'limited' %}
+    <span class="badge badge-limited" data-badge="limited">
+      LIMITED TRANSMISSION
+    </span>
+  {% endif %}
+  
+  {% if product.tags contains 'trending' %}
+    <span class="badge badge-hot" data-badge="trending">
+      🔥 TRENDING
+    </span>
+  {% endif %}
+</div>
