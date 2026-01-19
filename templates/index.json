@@ -190,6 +190,21 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "almost_gone_aPccP4": {
+      "type": "almost-gone",
+      "name": "Almost Gone",
+      "settings": {
+        "heading": "Almost Gone",
+        "subheading": "Low-stock relics—last chance before the signal fades.",
+        "collection": "",
+        "products_to_show": 8,
+        "columns_desktop": "4",
+        "low_stock_threshold": 5,
+        "show_total_low_stock": true,
+        "show_view_all": true,
+        "view_all_link": ""
+      }
     }
   },
   "order": [
@@ -199,6 +214,7 @@
     "scarcity_marquee",
     "navigation_matrix",
     "stellar_timeline_DRzapa",
-    "featured_transmission_enhanced_yeQfQT"
+    "featured_transmission_enhanced_yeQfQT",
+    "almost_gone_aPccP4"
   ]
 }
