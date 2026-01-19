@@ -150,6 +150,7 @@
             "description": "Explore the complete transmission archive.",
             "link_url": "/pages/lore",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/stellar-reverb-astronaut-capsule-page.jpg",
             "emoji_icon": "📦",
             "glow_color": "purple"
           }
