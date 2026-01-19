@@ -138,6 +138,7 @@
             "description": "Explore the complete transmission archive.",
             "link_url": "/pages/about",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/A15E3569-7EAD-442A-B2F9-4F9D2A38E4AA-topaz-sharpen.jpg",
             "emoji_icon": "📦",
             "glow_color": "magenta"
           }
@@ -149,6 +150,7 @@
             "description": "Explore the complete transmission archive.",
             "link_url": "/pages/lore",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/5C11BB4F-BE20-427B-BA1A-0EA0B2EB294F-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "purple"
           }
@@ -158,8 +160,9 @@
           "settings": {
             "title": "Shop",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/collections",
+            "link_url": "shopify://collections/frontpage",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/3FDFB3C1-F819-456C-BFB4-B6AC65EC4FCD-topaz-sharpen.jpg",
             "emoji_icon": "📦",
             "glow_color": "gold"
           }
