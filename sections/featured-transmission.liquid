@@ -138,25 +138,38 @@
         </span>
       </div>
 
-      <div class="sr-featured-capsule__media">
-        {%- if tag_image != nil -%}
-          {%- assign w = section.settings.tag_image_width | default: 320 -%}
-          <div class="sr-featured-capsule__tag">
-            <img
-              src="{{ tag_image | image_url: width: w }}"
-              alt="{{ capsule_title | escape }}"
-              loading="lazy"
-              width="{{ w }}"
-              height="{{ w }}"
-            >
-          </div>
-        {%- else -%}
-          <div class="sr-featured-capsule__tag sr-featured-capsule__tag--placeholder" aria-hidden="true">
-            <span class="sr-featured-capsule__tag-placeholder-line"></span>
-            <span class="sr-featured-capsule__tag-placeholder-line"></span>
-          </div>
-        {%- endif -%}
-      </div>
+      {%- comment -%} Hardened Capsule Tag Logic {%- endcomment -%}
+{%- liquid
+  assign tag_image = nil
+  
+  if capsule_obj.capsule_tag_image != blank
+    assign tag_image = capsule_obj.capsule_tag_image.value | default: capsule_obj.capsule_tag_image
+  elsif section.settings.manual_tag_image != blank
+    assign tag_image = section.settings.manual_tag_image
+  endif
+-%}
+
+<div class="sr-featured-capsule__media">
+  {%- if tag_image != nil -%}
+    {%- assign w = section.settings.tag_image_width | default: 320 -%}
+    <div class="sr-featured-capsule__tag">
+      <img
+        src="{{ tag_image | image_url: width: w }}"
+        alt="{{ capsule_title | default: 'Stellar Transmission' | escape }}"
+        loading="eager"
+        width="{{ tag_image.width | default: w }}"
+        height="{{ tag_image.height | default: w }}"
+        class="capsule-tag-image"
+      >
+    </div>
+  {%- else -%}
+    {%- comment -%} Fallback visual so the container isn't a black void {%- endcomment -%}
+    <div class="sr-featured-capsule__tag sr-featured-capsule__tag--placeholder">
+       <span class="sr-featured-capsule__tag-placeholder-line"></span>
+       <span class="sr-featured-capsule__tag-placeholder-line"></span>
+    </div>
+  {%- endif -%}
+</div>
 
       <div class="sr-featured-capsule__meta">
         {%- if capsule_number != blank -%}
