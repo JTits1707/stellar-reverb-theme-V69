@@ -174,8 +174,9 @@
           "settings": {
             "title": "Shop",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/collections",
+            "link_url": "shopify://collections/frontpage",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/2F6186E4-F1F0-4E41-A6D5-EEFAB3B7D3A7-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "gold"
           }
