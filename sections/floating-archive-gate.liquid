@@ -1,10 +1,7 @@
 {% comment %}
   =====================================================
-  FLOATING ARCHIVE ACCESS GATE (Beast Mode)
+  FLOATING ARCHIVE ACCESS GATE (Beast Mode V3 - UNIFIED)
   =====================================================
-  - Fixed duplicate script signals
-  - Integrated "Shatter" Breach animation
-  - Unified Access Handshake (Tags + Metafields)
 {% endcomment %}
 
 {%- liquid
@@ -16,70 +13,63 @@
   assign has_access = false
   assign access_override = false
   
-  # Check URL parameter for testing
-  if request.url contains '?access=granted' or request.url contains '&access=granted'
+  if request.url contains 'access=granted'
     assign access_override = true
   endif
   
-  # Check customer authorization status [cite: 91, 144]
   if customer
-    if customer.tags contains 'signal_seeker' or customer.tags contains 'floating_archive_access' or customer.tags contains 'signal-seeker'
+    if customer.tags contains 'signal_seeker' or customer.tags contains 'floating_archive_access'
       assign has_access = true
     endif
-    
     if customer.metafields.access.floating_archive == true or customer.metafields.access.floating_archive == 'true'
       assign has_access = true
     endif
   endif
   
   if has_access or access_override
-    assign show_gate = false
+    assign gate_initially_hidden = true
   else
-    assign show_gate = true
+    assign gate_initially_hidden = false
   endif
 -%}
 
-{% if show_gate %}
-<div class="floating-archive-gate" id="archiveGate-{{ section.id }}" data-section-id="{{ section.id }}">
+<div class="floating-archive-gate" 
+     id="archiveGate-{{ section.id }}" 
+     data-section-id="{{ section.id }}"
+     style="{% if gate_initially_hidden %}display: none;{% endif %}">
+  
   <div class="gate-overlay"></div>
   
   <div class="gate-container">
     <div class="gate-hologram">
-      <div class="hologram-frame"></div>
-      
       <div class="gate-content">
         <div class="gate-icon">
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-            <rect x="10" y="30" width="60" height="40" stroke="currentColor" stroke-width="2" fill="none"/>
-            <circle cx="40" cy="50" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
-            <path d="M40 20 L40 30" stroke="currentColor" stroke-width="2"/>
+          <svg width="60" height="60" viewBox="0 0 80 80" fill="none" stroke="currentColor">
+            <rect x="10" y="30" width="60" height="40" stroke-width="2"/>
+            <path d="M30 30 V20 C30 10 50 10 50 20 V30" stroke-width="2"/>
           </svg>
         </div>
         
-        <h1 class="gate-title glitch-text" data-text="{{ gate_title }}">
-          {{ gate_title }}
-        </h1>
+        <h1 class="gate-title glitch-text" data-text="{{ gate_title }}">{{ gate_title }}</h1>
         
         <div class="gate-system-text">
-          <p class="terminal-line">>> AUTHENTICATION REQUIRED</p>
-          <p class="terminal-line">>> SIGNAL SEEKER STATUS: <span class="status-denied">UNVERIFIED</span></p>
-          <p class="terminal-line">>> ACCESS LEVEL: <span class="status-denied">INSUFFICIENT</span></p>
+          <p class="terminal-line">>> AUTHENTICATION_REQUIRED</p>
+          <p class="terminal-line">>> STATUS: <span class="status-denied">{% if customer %}RESTRICTED{% else %}UNVERIFIED{% endif %}</span></p>
         </div>
         
         <p class="gate-message">{{ gate_message }}</p>
         
         <div class="gate-actions">
           {% if customer %}
-            <p class="gate-info">System ID: <strong>{{ customer.email }}</strong> // Clearance: Restricted</p>
-            <a href="{{ subscribe_url }}" class="gate-btn primary">Elevate Clearance</a>
+            <a href="{{ subscribe_url }}" class="gate-btn primary">ELEVATE_CLEARANCE</a>
           {% else %}
             <a href="/account/login?return_url={{ request.path }}" class="gate-btn primary">{{ gate_cta }}</a>
-            <a href="{{ subscribe_url }}" class="gate-btn secondary">Become a Signal Seeker</a>
+            <a href="{{ subscribe_url }}" class="gate-btn secondary">JOIN_SIGNAL</a>
           {% endif %}
         </div>
         
         <div class="gate-footer">
-          <a href="/pages/transmission-archive" class="gate-link">← Return to Public Terminal</a>
+          <a href="/" class="gate-link">← RETURN_TO_BASE</a>
         </div>
       </div>
     </div>
@@ -90,79 +80,80 @@
   .floating-archive-gate {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 99999;
+    z-index: 200000; /* Higher than everything */
     display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(15px);
   }
   
   .gate-overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: #000000; opacity: 0.98;
+    position: absolute; inset: 0;
+    background: #000; opacity: 0.95;
   }
   
   .gate-container {
-    position: relative; z-index: 2; max-width: 600px; width: 90%;
-    animation: gateReveal 0.8s ease-out;
+    position: relative; z-index: 2; width: 90%; max-width: 500px;
+    animation: gateEntrance 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   }
   
   .gate-hologram {
-    position: relative;
-    background: linear-gradient(135deg, rgba(0, 10, 20, 0.9) 0%, rgba(10, 0, 20, 0.9) 100%);
-    border: 2px solid rgba(40, 168, 214, 0.5);
-    border-radius: 8px;
+    background: rgba(13, 13, 13, 0.9);
+    border: 1px solid var(--sr-cyan-blue, #28ABD6);
     padding: 3rem 2rem;
-    box-shadow: 0 0 50px rgba(40, 168, 214, 0.3);
+    text-align: center;
+    box-shadow: 0 0 50px rgba(40, 168, 214, 0.2);
   }
 
-  /* --- BEAST MODE: SHATTER ANIMATION --- */
+  /* BREACH SHATTER ANIMATION */
   .sr-gate-shatter {
-    animation: gateShatter 0.8s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+    animation: gateShatter 0.8s cubic-bezier(0.7, 0, 0.3, 1) forwards !important;
     pointer-events: none;
   }
 
   @keyframes gateShatter {
-    0% { opacity: 1; filter: brightness(1) contrast(1); }
-    40% { opacity: 0.8; filter: brightness(2) contrast(2) hue-rotate(90deg); transform: scale(1.05); }
-    100% { opacity: 0; filter: brightness(5); transform: scale(1.2) translateY(-20px); }
+    0% { opacity: 1; transform: scale(1); filter: brightness(1); }
+    30% { opacity: 1; transform: scale(1.05); filter: brightness(3) hue-rotate(90deg); }
+    100% { opacity: 0; transform: scale(1.5) translateY(-50px); filter: brightness(10); }
   }
 
-  .terminal-line { color: #00F0AC; font-family: monospace; font-size: 0.9rem; }
+  .terminal-line { color: #00F0AC; font-family: monospace; font-size: 0.8rem; margin: 5px 0; }
   .status-denied { color: #E13CFA; font-weight: bold; }
   
-  @keyframes gateReveal {
-    from { opacity: 0; transform: translateY(30px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+  @keyframes gateEntrance {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
   }
+
+  .gate-btn {
+    display: block; width: 100%; padding: 1rem; margin: 10px 0;
+    text-decoration: none; font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s;
+  }
+  .gate-btn.primary { background: #E13CFA; color: #000; }
+  .gate-btn.secondary { border: 1px solid #28ABD6; color: #28ABD6; }
 </style>
-#archiveGate-{{ section.id }} {
-  display: none; /* Keep hidden for Konami secret */
-  pointer-events: all;
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const gate = document.getElementById('archiveGate-{{ section.id }}');
-  const verifyBtn = gate?.querySelector('.gate-btn.primary');
   
-  // Disable scroll when gate is active 
-  if (gate) { document.body.style.overflow = 'hidden'; }
-
-  if (verifyBtn) {
-    verifyBtn.addEventListener('click', function(e) {
-      // If user has access (Liquid check), trigger the shatter breach
-      {% if has_access or access_override %}
-        e.preventDefault();
-        gate.classList.add('sr-gate-shatter');
-        
-        setTimeout(() => {
-          gate.style.display = 'none';
-          document.body.style.overflow = '';
-          document.body.classList.add('floating-archive-active');
-        }, 800);
-      {% endif %}
-    });
+  // 1. Lock scroll if gate is visible
+  if (gate && gate.style.display !== 'none') {
+    document.body.style.overflow = 'hidden';
   }
+
+  // 2. The Shatter Trigger Logic
+  window.triggerGateShatter = function() {
+    if (!gate) return;
+    gate.style.display = 'flex';
+    gate.classList.add('sr-gate-shatter');
+    setTimeout(() => {
+      gate.style.display = 'none';
+      document.body.style.overflow = '';
+      document.body.classList.add('gate-breached');
+    }, 800);
+  };
 });
 </script>
-{% endif %}
 
 {% schema %}
 {
@@ -171,12 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
     { "type": "text", "id": "gate_title", "label": "Gate Title", "default": "ACCESS RESTRICTED" },
     { "type": "textarea", "id": "gate_message", "label": "Gate Message", "default": "Reserved for verified Signal Seekers." },
     { "type": "text", "id": "gate_cta", "label": "CTA Text", "default": "Verify Access" },
-    { 
-      "type": "url", 
-      "id": "subscribe_url", 
-      "label": "Subscribe URL",
-      "info": "Leave empty to use the default transmission-archive path."
-    }
+    { "type": "url", "id": "subscribe_url", "label": "Subscribe URL" }
   ]
 }
 {% endschema %}

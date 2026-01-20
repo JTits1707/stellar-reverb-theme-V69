@@ -382,3 +382,94 @@ h1, h2, .btn { ... }
   object-fit: contain;
   z-index: 10;
 }
+/* 1. Prevent the 'Scanlines' from blocking the site */
+.scanlines {
+  pointer-events: none !important;
+  z-index: 50 !important;
+}
+
+/* 2. Ensure the link is the primary interactive layer */
+.matrix-card-link {
+  text-decoration: none;
+  display: block;
+  z-index: 10;
+  position: relative;
+}
+
+/* 3. Disable clicks on internal card decorations so they don't 'eat' the click */
+.card-content, 
+.card-glitch-overlay, 
+.card-corner-top, 
+.card-corner-bottom {
+  pointer-events: none !important;
+}
+
+/* 4. Force the Boot Overlay to stay dead once removed */
+.stellar-boot-overlay.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+.scanlines {
+  pointer-events: none !important;
+  z-index: 50; /* High enough to see, low enough not to block system modals */
+}
+/* ─────────────────────────────────────────────────────────
+   BEAST MODE: SYSTEM OVERRIDES & FIXES
+   Ensures interactivity and visual fidelity
+   ───────────────────────────────────────────────────────── */
+
+/* 1. NUCLEAR Z-INDEX & BOOT SEQUENCE */
+#stellar-boot-overlay, 
+.stellar-boot-overlay {
+  z-index: 2147483647 !important; /* Maximum possible integer to stay on top */
+  background: var(--void-black);
+}
+
+/* Force the Boot Overlay to stay dead once removed to unblock CTAs */
+.stellar-boot-overlay.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* 2. INVISIBLE WALL REMOVAL (Pointer Events) */
+.scanlines {
+  pointer-events: none !important; /* Allows clicks to pass through */
+  z-index: 50 !important;
+}
+
+/* Ensure the matrix link is the primary interactive layer */
+.matrix-card-link {
+  text-decoration: none;
+  display: block;
+  z-index: 10;
+  position: relative;
+}
+
+/* Disable clicks on internal card decorations so they don't 'steal' the focus */
+.card-content, 
+.card-glitch-overlay, 
+.card-corner-top, 
+.card-corner-bottom {
+  pointer-events: none !important;
+}
+
+/* 3. FEATURED TRANSMISSION - CORE IMAGE FIX */
+.featured-image-container {
+  min-height: 450px; /* Prevents container collapse */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4); /* Backdrop for transparency */
+}
+
+.capsule-tag-image {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important; /* Disables global grayscale/blur interference */
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  z-index: 10;
+}
