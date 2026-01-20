@@ -154,6 +154,21 @@
         "grid_columns": 4
       }
     },
+    "stellar_timeline_dWAUzD": {
+      "type": "stellar-timeline",
+      "name": "Cosmic Timeline",
+      "settings": {
+        "heading": "TRANSMISSION TIMELINE",
+        "subtitle": "Journey through space-time across capsule drops",
+        "show_particles": true,
+        "show_scanlines": true,
+        "show_nav_arrows": true,
+        "auto_scroll": true,
+        "particle_density": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "featured_transmission_enhanced_nAkYNa": {
       "type": "featured-transmission-enhanced",
       "name": "Featured Transmission",
@@ -202,31 +217,16 @@
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
-    },
-    "stellar_timeline_dWAUzD": {
-      "type": "stellar-timeline",
-      "name": "Cosmic Timeline",
-      "settings": {
-        "heading": "TRANSMISSION TIMELINE",
-        "subtitle": "Journey through space-time across capsule drops",
-        "show_particles": true,
-        "show_scanlines": true,
-        "show_nav_arrows": true,
-        "auto_scroll": true,
-        "particle_density": 50,
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
     }
   },
   "order": [
     "announcement_bar",
     "hero_decoding",
+    "featured_transmission_enhanced_nAkYNa",
+    "stellar_timeline_dWAUzD",
     "featured_transmission",
     "scarcity_marquee",
     "navigation_matrix",
-    "featured_transmission_enhanced_nAkYNa",
-    "newsletter_cosmic_rHNVXJ",
-    "stellar_timeline_dWAUzD"
+    "newsletter_cosmic_rHNVXJ"
   ]
 }
