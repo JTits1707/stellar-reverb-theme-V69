@@ -93,6 +93,11 @@
         "text_color": "#00f0ff"
       }
     },
+    "floating_archive_main_XRWxd7": {
+      "type": "floating-archive-main",
+      "name": "Floating Archive · Gated",
+      "settings": {}
+    },
     "navigation_matrix": {
       "type": "navigation-matrix",
       "blocks": {
@@ -169,11 +174,6 @@
         "padding_bottom": 80
       }
     },
-    "floating_archive_main_XRWxd7": {
-      "type": "floating-archive-main",
-      "name": "Floating Archive · Gated",
-      "settings": {}
-    },
     "newsletter_cosmic_Gn93jV": {
       "type": "newsletter-cosmic",
       "name": "Newsletter - Cosmic",
@@ -206,10 +206,10 @@
     "announcement_bar",
     "hero_decoding",
     "featured_transmission",
-    "scarcity_marquee",
-    "navigation_matrix",
     "stellar_timeline_cosmic_PGCnix",
+    "scarcity_marquee",
     "floating_archive_main_XRWxd7",
+    "navigation_matrix",
     "newsletter_cosmic_Gn93jV"
   ]
 }
