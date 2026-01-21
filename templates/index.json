@@ -64,6 +64,21 @@
         "manual_link": ""
       }
     },
+    "stellar_timeline_cosmic_PGCnix": {
+      "type": "stellar-timeline-cosmic",
+      "name": "Cosmic Timeline",
+      "settings": {
+        "heading": "TRANSMISSION TIMELINE",
+        "subtitle": "Journey through space-time across capsule drops",
+        "show_particles": true,
+        "show_scanlines": true,
+        "show_nav_arrows": true,
+        "auto_scroll": true,
+        "particle_density": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "scarcity_marquee": {
       "type": "stellar-scarcity-marquee",
       "blocks": {
@@ -106,8 +121,9 @@
           "settings": {
             "title": "All Capsules",
             "description": "Explore the complete transmission archive.",
-            "link_url": "/collections/all",
+            "link_url": "shopify://collections/frontpage",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/stellar-reverb-astronaut-capsule-page.jpg",
             "emoji_icon": "📦",
             "glow_color": "cyan"
           }
@@ -119,6 +135,7 @@
             "description": "Explore the complete transmission archive.",
             "link_url": "/pages/about",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/A3467033-1AF0-4C69-939E-10D38F2C4075-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "magenta"
           }
@@ -159,21 +176,6 @@
         "grid_columns": 4
       }
     },
-    "stellar_timeline_cosmic_PGCnix": {
-      "type": "stellar-timeline-cosmic",
-      "name": "Cosmic Timeline",
-      "settings": {
-        "heading": "TRANSMISSION TIMELINE",
-        "subtitle": "Journey through space-time across capsule drops",
-        "show_particles": true,
-        "show_scanlines": true,
-        "show_nav_arrows": true,
-        "auto_scroll": true,
-        "particle_density": 50,
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
     "newsletter_cosmic_Gn93jV": {
       "type": "newsletter-cosmic",
       "name": "Newsletter - Cosmic",
@@ -187,7 +189,7 @@
         "button_text": "Subscribe",
         "button_icon": "📡",
         "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "button_color": "#FFFFFF",
+        "button_color": "#ffffff",
         "subscriber_tags": "newsletter",
         "success_message": "Thanks for joining the signal!",
         "show_privacy_note": true,
