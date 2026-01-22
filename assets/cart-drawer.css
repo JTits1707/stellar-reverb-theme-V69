@@ -1,0 +1,54 @@
+/* CARGO BAY TERMINAL DRAWER */
+.cart-drawer {
+  background: var(--void-black);
+  border-left: 2px solid var(--cyan-blue);
+  box-shadow: -10px 0 30px rgba(40, 168, 214, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-drawer-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(40, 168, 214, 0.2);
+  background: rgba(40, 168, 214, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hud-bit.cargo-status {
+  font-family: var(--font-mono);
+  color: var(--radioactive-green);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+}
+
+.cart-item-relic {
+  padding: 1rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1rem;
+}
+
+.relic-qty-selector {
+  border: 1px solid var(--chrome-silver);
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-mono);
+}
+
+.btn-checkout-protocol {
+  background: linear-gradient(90deg, var(--cyan-blue), var(--neon-magenta));
+  color: #fff;
+  font-family: var(--font-title);
+  padding: 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  clip-path: polygon(5% 0, 100% 0, 100% 80%, 95% 100%, 0 100%, 0 20%);
+  transition: filter 0.3s ease;
+}
+
+.btn-checkout-protocol:hover {
+  filter: brightness(1.2) drop-shadow(0 0 15px var(--neon-magenta));
+}
