@@ -57,6 +57,58 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
+        "blocks": {
+          "info_link_NmcJPt": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
+          "info_link_zjt9zn": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Terms Of Service",
+              "link_url": ""
+            }
+          },
+          "info_link_dbyCKX": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Shipping Info",
+              "link_url": ""
+            }
+          },
+          "info_link_Bjxqzw": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Contact",
+              "link_url": ""
+            }
+          },
+          "info_link_nw8GzR": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "SIzing Guide",
+              "link_url": ""
+            }
+          },
+          "info_link_4aULNp": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "F.A.Q.",
+              "link_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "info_link_NmcJPt",
+          "info_link_zjt9zn",
+          "info_link_dbyCKX",
+          "info_link_Bjxqzw",
+          "info_link_nw8GzR",
+          "info_link_4aULNp"
+        ],
         "custom_css": [],
         "settings": {
           "show_signal_badge": true,
