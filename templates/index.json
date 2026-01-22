@@ -147,6 +147,7 @@
         "nav3",
         "nav4"
       ],
+      "custom_css": [],
       "settings": {
         "show_heading": true,
         "heading": "NAVIGATE THE SIGNAL",
