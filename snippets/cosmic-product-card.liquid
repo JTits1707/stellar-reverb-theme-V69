@@ -3,47 +3,45 @@
   -------------------
   Usage (in sections):
     {% render 'cosmic-product-card', product: product %}
-
   Optional params:
     show_vendor: true/false
-    show_badge:  true/false
+    show_badge: true/false
     show_secondary_image: true/false
 {%- endcomment -%}
-
 {%- assign show_vendor = show_vendor | default: false -%}
 {%- assign show_badge = show_badge | default: true -%}
 {%- assign show_secondary_image = show_secondary_image | default: true -%}
-
 {%- assign featured_media = product.featured_media | default: product.featured_image -%}
 {%- assign secondary_media = nil -%}
-
 {%- if show_secondary_image and product.media.size > 1 -%}
   {%- assign secondary_media = product.media[1] -%}
 {%- endif -%}
-
 <article class="cosmic-product-card" data-product-handle="{{ product.handle }}">
   <a href="{{ product.url }}" class="cosmic-product-card__media" aria-label="{{ product.title | escape }}">
     <div class="cosmic-product-card__image-wrap">
-      {%- if featured_media -%}
-        {{ featured_media
-          | image_url: width: 800
-          | image_tag:
-            loading: 'lazy',
-            class: 'cosmic-product-card__image cosmic-product-card__image--primary',
-            alt: featured_media.alt | default: product.title
-        }}
-      {%- endif -%}
-
-      {%- if secondary_media -%}
-        {{ secondary_media
-          | image_url: width: 800
-          | image_tag:
-            loading: 'lazy',
-            class: 'cosmic-product-card__image cosmic-product-card__image--secondary',
-            alt: secondary_media.alt | default: product.title
-        }}
-      {%- endif -%}
-
+      <!-- Relic Visual Terminal Wrapper - Cosmic Sandwich Layers -->
+      <div class="relic-card__visual-terminal">
+        <!-- Base Product Image Glyph -->
+        {%- if featured_media -%}
+          <img src="{{ featured_media | image_url: width: 800 }}" class="relic-img__base cosmic-product-card__image cosmic-product-card__image--primary" alt="{{ featured_media.alt | default: product.title | escape }}" loading="lazy">
+        {%- endif -%}
+        {%- if secondary_media -%}
+          <img src="{{ secondary_media | image_url: width: 800 }}" class="relic-img__base cosmic-product-card__image cosmic-product-card__image--secondary" alt="{{ secondary_media.alt | default: product.title | escape }}" loading="lazy">
+        {%- endif -%}
+        
+        <!-- Technical Wireframe Overlay -->
+        <div class="relic-wireframe" style="background-image: url('{{ "wireframe-pattern.svg" | asset_url }}');"></div>
+        
+        <!-- Metadata Overlay Bits -->
+        <div class="relic-metadata-overlay">
+          <span class="metadata-bit">OBJECT_REF: {{ product.id | slice: -6, 6 }}</span>
+          <span class="metadata-bit">FREQ: 432Hz</span>
+        </div>
+        
+        <!-- Glitch Scanline Distortion -->
+        <div class="relic-scanline"></div>
+      </div>
+      
       {%- if show_badge -%}
         <div class="cosmic-product-card__badge">
           {% render 'cosmic-stock-badge', product: product, low_stock_threshold: 5 %}
@@ -51,20 +49,17 @@
       {%- endif -%}
     </div>
   </a>
-
   <div class="cosmic-product-card__meta">
     {%- if show_vendor and product.vendor != blank -%}
       <div class="cosmic-product-card__vendor">
         {{ product.vendor }}
       </div>
     {%- endif -%}
-
     <h3 class="cosmic-product-card__title">
       <a href="{{ product.url }}">
         {{ product.title | escape }}
       </a>
     </h3>
-
     {%- if product.metafields.custom.capsule_number or product.metafields.custom.capsule_title -%}
       <div class="cosmic-product-card__capsule">
         {%- if product.metafields.custom.capsule_number != blank -%}
@@ -79,7 +74,6 @@
         {%- endif -%}
       </div>
     {%- endif -%}
-
     <div class="cosmic-product-card__price">
       {%- if product.compare_at_price_max > product.price -%}
         <span class="cosmic-product-card__price-current">
@@ -96,23 +90,3 @@
     </div>
   </div>
 </article>
-<div class="relic-card__visual-terminal">
-  <img src="{{ product.featured_image | image_url: width: 800 }}" class="relic-img__base">
-  
-  <div class="relic-wireframe" style="background-image: url('{{ "wireframe-pattern.svg" | asset_url }}');"></div>
-  
-  <div class="relic-metadata-overlay">
-    <span class="metadata-bit">OBJECT_REF: {{ product.id | slice: -6, 6 }}</span>
-    <span class="metadata-bit">FREQ: 432Hz</span>
-  </div>
-  
-  <div class="relic-scanline"></div>
-</div>
-<div class="card-media relic-visual-terminal">
-  <img src="{{ product.featured_image | image_url: width: 600 }}" class="relic-img-base">
-  <div class="relic-wireframe-overlay"></div>
-  <div class="relic-scanning-beam"></div>
-  <div class="relic-hud-meta">
-    <span class="hud-bit">OBJ_ID: {{ product.variants.first.sku | default: 'UNKNOWN' }}</span>
-  </div>
-</div>
