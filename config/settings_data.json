@@ -59,6 +59,34 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "info_link_fn6qnw": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Terms Of Service",
+              "link_url": ""
+            }
+          },
+          "info_link_xCyazj": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Privacy Choices",
+              "link_url": ""
+            }
+          },
+          "info_link_6rC7kz": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Shipping Info",
+              "link_url": ""
+            }
+          },
+          "info_link_PFM8FQ": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Sizing Guide",
+              "link_url": ""
+            }
+          },
           "info_link_MiTzE4": {
             "type": "info_link",
             "settings": {
@@ -75,6 +103,10 @@
           }
         },
         "block_order": [
+          "info_link_fn6qnw",
+          "info_link_xCyazj",
+          "info_link_6rC7kz",
+          "info_link_PFM8FQ",
           "info_link_MiTzE4",
           "info_link_Uwh9Qq"
         ],
