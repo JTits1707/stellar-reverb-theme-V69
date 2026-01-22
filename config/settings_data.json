@@ -57,6 +57,18 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
+        "blocks": {
+          "info_link_Uwh9Qq": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "F.A.Q.",
+              "link_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "info_link_Uwh9Qq"
+        ],
         "settings": {
           "show_signal_badge": true,
           "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
