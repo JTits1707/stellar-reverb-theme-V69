@@ -183,6 +183,27 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "featured_transmissio_enhanced_bBdjz6": {
+      "type": "featured-transmissio-enhanced",
+      "name": "Featured Capsule",
+      "settings": {
+        "mode": "pick",
+        "capsule_metaobject": "",
+        "kicker": "FEATURED TRANSMISSION",
+        "heading": "FEATUREDTRANSMISSION",
+        "badge_text": "FEATURED TRANSMISSION",
+        "badge_bg": "#F4FF30",
+        "badge_text_color": "#0D0D0D",
+        "card_border": "#28A8D6",
+        "tag_image_width": 320,
+        "show_lore": false,
+        "cta_text": "READ_LORE",
+        "manual_number": "CAPSULE 001",
+        "manual_title": "UNTITLED",
+        "manual_link": "",
+        "manual_tag_image": "shopify://shop_images/capsule004-image-tags_16173cd8-e10a-4a30-8b7e-03d500c7d4a8.jpg"
+      }
     }
   },
   "order": [
@@ -192,6 +213,7 @@
     "scarcity_marquee",
     "navigation_matrix",
     "stellar_timeline_cosmic_f3zAHW",
-    "stellar_timeline_cosmic_qnfGJf"
+    "stellar_timeline_cosmic_qnfGJf",
+    "featured_transmissio_enhanced_bBdjz6"
   ]
 }
