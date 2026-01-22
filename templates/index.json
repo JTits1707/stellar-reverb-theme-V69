@@ -168,6 +168,68 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "navigation_matrix_B6QFR8": {
+      "type": "navigation-matrix",
+      "blocks": {
+        "nav_item_XtiCjW": {
+          "type": "nav_item",
+          "settings": {
+            "title": "All Capsules",
+            "description": "Explore the complete transmission archive.",
+            "link_url": "/collections/all",
+            "cta_text": "EXPLORE",
+            "emoji_icon": "📦",
+            "glow_color": "cyan"
+          }
+        },
+        "nav_item_cY3zQ9": {
+          "type": "nav_item",
+          "settings": {
+            "title": "About",
+            "description": "Explore the complete transmission archive.",
+            "link_url": "/pages/about",
+            "cta_text": "EXPLORE",
+            "emoji_icon": "🌀",
+            "glow_color": "magenta"
+          }
+        },
+        "nav_item_AdYRXa": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Lore",
+            "description": "Explore the complete transmission archive.",
+            "link_url": "/pages/lore",
+            "cta_text": "EXPLORE",
+            "emoji_icon": "📖",
+            "glow_color": "purple"
+          }
+        },
+        "nav_item_chk6rL": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Shop",
+            "description": "Explore the complete transmission archive.",
+            "link_url": "/collections/all",
+            "cta_text": "EXPLORE",
+            "emoji_icon": "🛒",
+            "glow_color": "gold"
+          }
+        }
+      },
+      "block_order": [
+        "nav_item_XtiCjW",
+        "nav_item_cY3zQ9",
+        "nav_item_AdYRXa",
+        "nav_item_chk6rL"
+      ],
+      "name": "Navigation Matrix",
+      "settings": {
+        "show_heading": true,
+        "heading": "NAVIGATE THE SIGNAL",
+        "subheading": "Access points to the cosmic network",
+        "grid_columns": 4
+      }
     }
   },
   "order": [
@@ -176,6 +238,7 @@
     "featured_transmission",
     "scarcity_marquee",
     "navigation_matrix",
-    "stellar_timeline_cosmic_dBkTUg"
+    "stellar_timeline_cosmic_dBkTUg",
+    "navigation_matrix_B6QFR8"
   ]
 }
