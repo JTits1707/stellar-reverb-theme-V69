@@ -94,13 +94,13 @@
       "name": "Featured Capsules",
       "settings": {
         "eyebrow_text": "Newest Drops",
-        "eyebrow_color": "#28A8D6",
-        "eyebrow_border": "#28A8D6",
+        "eyebrow_color": "#28a8d6",
+        "eyebrow_border": "#28a8d6",
         "eyebrow_background": "rgba(40, 168, 214, 0.2)",
         "heading": "Featured Capsules",
         "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
         "subheading": "Explore our latest cosmic transmissions",
-        "subtitle_color": "#FFFFFF",
+        "subtitle_color": "#ffffff",
         "grid_columns": 3,
         "image_ratio": "square",
         "show_badges": true,
@@ -270,6 +270,33 @@
         "show_scanlines": true,
         "text_color": "#00f0ff"
       }
+    },
+    "newsletter_cosmic_NeUMiL": {
+      "type": "newsletter-cosmic",
+      "name": "Newsletter - Cosmic",
+      "settings": {
+        "show_icon": true,
+        "custom_icon": "",
+        "heading": "Join the Signal",
+        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
+        "subheading": "Get early access to new drops, exclusive relics, and cosmic transmissions.",
+        "input_placeholder": "your@email.com",
+        "button_text": "Subscribe",
+        "button_icon": "📡",
+        "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
+        "button_color": "#FFFFFF",
+        "subscriber_tags": "newsletter",
+        "success_message": "Thanks for joining the signal!",
+        "show_privacy_note": true,
+        "privacy_text": "✨ Get early access + exclusive drops. No spam, ever.",
+        "show_benefits": true,
+        "benefit_1_text": "Early access to drops",
+        "benefit_2_text": "Exclusive relics",
+        "benefit_3_text": "Member discounts",
+        "benefit_4_text": "Cosmic transmissions",
+        "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
+        "show_particles": true
+      }
     }
   },
   "order": [
@@ -280,6 +307,7 @@
     "scarcity_marquee",
     "navigation_matrix",
     "stellar_timeline_cosmic_aCVJaj",
-    "stellar_scarcity_marquee_dBdgWx"
+    "stellar_scarcity_marquee_dBdgWx",
+    "newsletter_cosmic_NeUMiL"
   ]
 }
