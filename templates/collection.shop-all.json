@@ -11,7 +11,6 @@
   "sections": {
     "main": {
       "type": "stellar-shop-all",
-      "custom_css": [],
       "settings": {
         "hero_kicker": "SHOP ALL TRANSMISSIONS",
         "hero_title": "COSMIC PRODUCT VAULT",

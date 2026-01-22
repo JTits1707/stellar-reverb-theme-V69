@@ -14,7 +14,6 @@
       "disabled": true,
       "settings": {
         "message": "🚀 COSMIC TRANSMISSIONS INCOMING - FREE SHIPPING ON ALL ORDERS 🌌",
-        "color_scheme": "accent-1",
         "show_announcement": true
       }
     },
@@ -22,47 +21,14 @@
       "type": "hero-decoding",
       "settings": {
         "hero_background": "shopify://shop_images/stellar-reverb-homepage-hero-image.1-topaz-denoise.jpg",
-        "content_alignment": "left",
-        "terminal_label": "STELLAR·REVERB/DECRYPT",
-        "transmission_text": "TRANSMISSION: SYNAPSE_INIT",
         "hero_title": "STELLAR REVERB",
-        "hero_subtitle": "Sound. Style. Transmissions Of Cosmic Identity.",
-        "decode_text": "DECRYPTING: SIGNAL ECHO MATCHED [21%]",
-        "show_progress_bar": true,
-        "decode_progress": 21,
-        "cta_text": "ENTER THE TRANSMISSION",
-        "cta_link": "",
-        "cta_secondary_text": "Or browse all transmissions →",
         "headline_color": "#00f0ff",
-        "subtitle_color": "#ff00ff",
-        "transmission_color": "#f4ff30",
-        "decode_color": "#f4ff30",
-        "cta_bg_color": "#00f0ac",
-        "cta_text_color": "#000000",
-        "show_floating_elements": true,
-        "show_lower_status": true,
-        "status_left": "CHANNEL: COSMIC-001",
-        "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
+        "subtitle_color": "#ff00ff"
       }
     },
     "featured_transmission": {
       "type": "featured-transmission",
-      "settings": {
-        "mode": "pick",
-        "capsule_metaobject": "",
-        "kicker": "FEATURED TRANSMISSION",
-        "heading": "FEATURED\nTRANSMISSION",
-        "badge_text": "FEATURED TRANSMISSION",
-        "badge_bg": "#f4ff30",
-        "badge_text_color": "#0d0d0d",
-        "card_border": "#28a8d6",
-        "tag_image_width": 320,
-        "show_lore": false,
-        "cta_text": "READ_LORE",
-        "manual_number": "CAPSULE 001",
-        "manual_title": "UNTITLED",
-        "manual_link": ""
-      }
+      "settings": {}
     },
     "scarcity_marquee": {
       "type": "stellar-scarcity-marquee",
@@ -85,12 +51,7 @@
         "m2"
       ],
       "settings": {
-        "marquee_speed": 30,
-        "show_separator": true,
-        "separator_icon": "◆",
-        "enable_glitch": true,
-        "show_scanlines": true,
-        "text_color": "#00f0ff"
+        "enable_glitch": true
       }
     },
     "navigation_matrix": {
@@ -100,10 +61,7 @@
           "type": "nav_item",
           "settings": {
             "title": "All Capsules",
-            "description": "Explore the complete transmission archive.",
             "link_url": "/collections/all",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "📦",
             "glow_color": "cyan"
           }
         },
@@ -111,10 +69,7 @@
           "type": "nav_item",
           "settings": {
             "title": "About",
-            "description": "Explore the complete transmission archive.",
             "link_url": "/pages/about",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "📦",
             "glow_color": "magenta"
           }
         },
@@ -122,10 +77,7 @@
           "type": "nav_item",
           "settings": {
             "title": "Lore",
-            "description": "Explore the complete transmission archive.",
             "link_url": "/pages/lore",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "📦",
             "glow_color": "purple"
           }
         },
@@ -133,10 +85,7 @@
           "type": "nav_item",
           "settings": {
             "title": "Shop",
-            "description": "Explore the complete transmission archive.",
             "link_url": "/collections",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "📦",
             "glow_color": "gold"
           }
         }
@@ -150,205 +99,7 @@
       "settings": {
         "show_heading": true,
         "heading": "NAVIGATE THE SIGNAL",
-        "subheading": "Access points to the cosmic network",
         "grid_columns": 4
-      }
-    },
-    "stellar_timeline_cosmic_dBkTUg": {
-      "type": "stellar-timeline-cosmic",
-      "name": "Cosmic Timeline",
-      "settings": {
-        "heading": "COSMIC TRANSMISSION TIMELINE",
-        "subtitle": "Journey through space-time across capsule drops",
-        "show_particles": true,
-        "show_scanlines": true,
-        "show_nav_arrows": true,
-        "auto_scroll": true,
-        "particle_density": 50,
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "navigation_matrix_B6QFR8": {
-      "type": "navigation-matrix",
-      "blocks": {
-        "nav_item_XtiCjW": {
-          "type": "nav_item",
-          "settings": {
-            "title": "All Capsules",
-            "description": "Explore the complete transmission archive.",
-            "link_url": "/collections/all",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "📦",
-            "glow_color": "cyan"
-          }
-        },
-        "nav_item_cY3zQ9": {
-          "type": "nav_item",
-          "settings": {
-            "title": "About",
-            "description": "Explore the complete transmission archive.",
-            "link_url": "/pages/about",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "🌀",
-            "glow_color": "magenta"
-          }
-        },
-        "nav_item_AdYRXa": {
-          "type": "nav_item",
-          "settings": {
-            "title": "Lore",
-            "description": "Explore the complete transmission archive.",
-            "link_url": "/pages/lore",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "📖",
-            "glow_color": "purple"
-          }
-        },
-        "nav_item_chk6rL": {
-          "type": "nav_item",
-          "settings": {
-            "title": "Shop",
-            "description": "Explore the complete transmission archive.",
-            "link_url": "/collections/all",
-            "cta_text": "EXPLORE",
-            "emoji_icon": "🛒",
-            "glow_color": "gold"
-          }
-        }
-      },
-      "block_order": [
-        "nav_item_XtiCjW",
-        "nav_item_cY3zQ9",
-        "nav_item_AdYRXa",
-        "nav_item_chk6rL"
-      ],
-      "name": "Navigation Matrix",
-      "settings": {
-        "show_heading": true,
-        "heading": "NAVIGATE THE SIGNAL",
-        "subheading": "Access points to the cosmic network",
-        "grid_columns": 4
-      }
-    },
-    "newsletter_cosmic_PmENnN": {
-      "type": "newsletter-cosmic",
-      "name": "Newsletter - Cosmic",
-      "settings": {
-        "show_icon": true,
-        "custom_icon": "",
-        "heading": "Join the Signal",
-        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "subheading": "Get early access to new drops, exclusive relics, and cosmic transmissions.",
-        "input_placeholder": "your@email.com",
-        "button_text": "Subscribe",
-        "button_icon": "📡",
-        "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "button_color": "#FFFFFF",
-        "subscriber_tags": "newsletter",
-        "success_message": "Thanks for joining the signal!",
-        "show_privacy_note": true,
-        "privacy_text": "✨ Get early access + exclusive drops. No spam, ever.",
-        "show_benefits": true,
-        "benefit_1_text": "Early access to drops",
-        "benefit_2_text": "Exclusive relics",
-        "benefit_3_text": "Member discounts",
-        "benefit_4_text": "Cosmic transmissions",
-        "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
-        "show_particles": true
-      }
-    },
-    "stellar_footer_LitYtt": {
-      "type": "stellar-footer",
-      "blocks": {
-        "info_link_A6wMDm": {
-          "type": "info_link",
-          "settings": {
-            "link_text": "F.A.Q.",
-            "link_url": "/pages/faq"
-          }
-        },
-        "info_link_C38f9K": {
-          "type": "info_link",
-          "settings": {
-            "link_text": "Contact",
-            "link_url": "/pages/contact"
-          }
-        },
-        "info_link_gXBdfb": {
-          "type": "info_link",
-          "settings": {
-            "link_text": "Shipping Info",
-            "link_url": "/pages/shipping"
-          }
-        },
-        "info_link_weG3DH": {
-          "type": "info_link",
-          "settings": {
-            "link_text": "Sizing Guide",
-            "link_url": "/pages/sizing"
-          }
-        },
-        "info_link_DTGHzx": {
-          "type": "info_link",
-          "settings": {
-            "link_text": "Privacy Policy",
-            "link_url": "/pages/privacy-policy"
-          }
-        },
-        "info_link_6MNGPD": {
-          "type": "info_link",
-          "settings": {
-            "link_text": "Terms of Service",
-            "link_url": "/pages/terms-of-service"
-          }
-        },
-        "social_link_pWRg9L": {
-          "type": "social_link",
-          "settings": {
-            "platform": "instagram",
-            "social_url": "https://instagram.com/stellarreverb"
-          }
-        },
-        "social_link_dJ7tmp": {
-          "type": "social_link",
-          "settings": {
-            "platform": "pinterest",
-            "social_url": "https://pinterest.com/stellarreverb"
-          }
-        },
-        "social_link_EUYUnm": {
-          "type": "social_link",
-          "settings": {
-            "platform": "x",
-            "social_url": "https://x.com/stellarreverb"
-          }
-        },
-        "social_link_aprwqg": {
-          "type": "social_link",
-          "settings": {
-            "platform": "tiktok",
-            "social_url": "https://tiktok.com/@stellarreverb"
-          }
-        }
-      },
-      "block_order": [
-        "info_link_A6wMDm",
-        "info_link_C38f9K",
-        "info_link_gXBdfb",
-        "info_link_weG3DH",
-        "info_link_DTGHzx",
-        "info_link_6MNGPD",
-        "social_link_pWRg9L",
-        "social_link_dJ7tmp",
-        "social_link_EUYUnm",
-        "social_link_aprwqg"
-      ],
-      "name": "Stellar Footer",
-      "settings": {
-        "show_signal_badge": true,
-        "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
-        "show_payment_icons": true
       }
     }
   },
@@ -357,10 +108,6 @@
     "hero_decoding",
     "featured_transmission",
     "scarcity_marquee",
-    "navigation_matrix",
-    "stellar_timeline_cosmic_dBkTUg",
-    "navigation_matrix_B6QFR8",
-    "newsletter_cosmic_PmENnN",
-    "stellar_footer_LitYtt"
+    "navigation_matrix"
   ]
 }
