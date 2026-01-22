@@ -1,229 +1,55 @@
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>
-      {%- if page_title == blank -%}
-        {{ shop.name }}
-      {%- else -%}
-        {{ page_title }}{% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}
-      {%- endif -%}
-    </title>
+  <title>{{ page_title }}</title>
 
-    {%- if page_description -%}
-      <meta name="description" content="{{ page_description | escape }}">
-    {%- endif -%}
+  {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    <meta name="theme-color" content="#0D0D0D">
-    <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
-    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  {%- comment -%} 1. BRAND FONTS & CSS ENGINE {%- endcomment -%}
+  {{ 'brand-fonts.css' | asset_url | stylesheet_tag }}
+  {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
+  {{ 'base.css' | asset_url | stylesheet_tag }}
 
-    {% comment %} ═══════════════════════════════════════════════════════════
-                  CRITICAL PATH CSS - LOADS FIRST
-         ═══════════════════════════════════════════════════════════ {% endcomment %}
-    
-    {% comment %} 1. DESIGN TOKENS & CORE ENGINE {% endcomment %}
-    {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
-    {{ 'brand-fonts.css' | asset_url | stylesheet_tag }}
-    {{ 'base.css' | asset_url | stylesheet_tag }}
-    {{ 'theme-base.css' | asset_url | stylesheet_tag }}
+  {%- comment -%} 2. CORE STYLE OVERRIDES {%- endcomment -%}
+  <style>
+    :root {
+      --font-title: 'Orbitron', sans-serif;
+      --font-body: 'PP Mori', sans-serif;
+      --font-display: 'PP Neue Machina', serif;
+    }
+    body { font-family: var(--font-body); background: #0D0D0D; color: #FFF; }
+    h1, h2, h3, .orbitron { font-family: var(--font-title); text-transform: uppercase; letter-spacing: 0.1em; }
+    .display-text { font-family: var(--font-display); }
+  </style>
 
-    {% comment %} 2. GLOBAL ENHANCEMENTS {% endcomment %}
-    {{ 'stellar-transmission-archive.css' | asset_url | stylesheet_tag }}
-    {{ 'archive-card.css' | asset_url | stylesheet_tag }}
-    
-    {% comment %} ═══════════════════════════════════════════════════════════
-                  PAGE-SPECIFIC DYNAMIC CSS LOADING
-         ═══════════════════════════════════════════════════════════ {% endcomment %}
-    
-    {% if template contains 'shop-all' or template contains 'collection' %}
-      {{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
-    {% endif %}
+  {{ content_for_header }}
+</head>
 
-    {% if template contains 'floating-archive' %}
-      {{ 'floating-archive.css' | asset_url | stylesheet_tag }}
-      {{ 'floating-elements.css' | asset_url | stylesheet_tag }}
-    {% endif %}
+<body class="template-{{ template.name | handle }} stellar-os-active">
 
-    {% if template contains 'lore' %}
-      {{ 'lore-mainframe.css' | asset_url | stylesheet_tag }}
-      {{ 'lore-myth.css' | asset_url | stylesheet_tag }}
-      {{ 'lore-timeline.css' | asset_url | stylesheet_tag }}
-      {{ 'lore-vault.css' | asset_url | stylesheet_tag }}
-      
-      {%- comment -%} Optional modal styling if you use it on lore pages {%- endcomment -%}
-      {{ 'lore-popup-modal.css' | asset_url | stylesheet_tag }}
-      
-      {% comment %} ⚡ LEGENDARY LORE STYLES (match actual asset name) ⚡ {% endcomment %}
-      {{ 'stellar-lore-legendary.css' | asset_url | stylesheet_tag }}
-    {% endif %}
-
-    {{ content_for_header }}
-
-    {%- comment -%} Structured Data for SEO {%- endcomment -%}
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "{{ shop.name | escape }}",
-        "url": "{{ shop.url }}",
-        "logo": "{{ 'stellar-logo.png' | asset_url }}"
-      }
-    </script>
-    
-  </head>
-
-  <body 
- <body class="template-{{ template.name | handle }} stellar-os-active">
+  {%- comment -%} 3. BOOT SEQUENCE HANDSHAKE {%- endcomment -%}
   {%- if template == 'index' -%}
     {% render 'stellar-boot-sequence' %}
   {%- endif -%}
-    
-    {% comment %} ═══════════════════════════════════════════════════════════
-                  LEGENDARY v13.0 VISUAL EFFECTS OVERLAY
-         ═══════════════════════════════════════════════════════════ {% endcomment %}
-    {% if template contains 'lore' %}
-      <div class="scanlines"></div>
-    {% endif %}
-    
-    {% comment %} ═══════════════════════════════════════════════════════════
-                  🚀 OPTIONAL: NEW BOOT SEQUENCE
-                  Uncomment the section below to add the new boot sequence
-         ═══════════════════════════════════════════════════════════
-    
-    <div id="stellar-boot-overlay" class="stellar-boot-overlay">
-      <div class="stellar-boot-backdrop"></div>
-      <div class="stellar-boot-terminal">
-        <div class="stellar-boot-scanlines"></div>
-        
-        <div class="stellar-boot-header">
-          <div class="stellar-boot-dots">
-            <span class="dot dot-red"></span>
-            <span class="dot dot-yellow"></span>
-            <span class="dot dot-green"></span>
-          </div>
-          <div class="stellar-boot-title">STELLAR·REVERB/DECRYPT</div>
-        </div>
-        
-        <div class="stellar-boot-content">
-          
-          <div class="stellar-boot-line" data-delay="0">
-            <span class="stellar-boot-icon">🛸</span>
-            <span class="stellar-boot-text">STELLAR_REVERB_OS // V.69</span>
-          </div>
-          
-          <div class="stellar-boot-line" data-delay="400">
-            <span class="stellar-boot-prompt">&gt;</span>
-            <span class="stellar-boot-text stellar-boot-type">INITIALIZING_CONNECTION...</span>
-          </div>
-          
-          <div class="stellar-boot-line stellar-boot-line-spaced" data-delay="900">
-            <span class="stellar-boot-prompt">&gt;</span>
-            <span class="stellar-boot-text stellar-boot-type">SCANNING_COSMIC_FREQUENCIES...</span>
-          </div>
-          
-          <div class="stellar-boot-line" data-delay="1400">
-            <span class="stellar-boot-prompt">&gt;</span>
-            <span class="stellar-boot-text stellar-boot-type stellar-boot-glitch">SIGNAL_DETECTED:</span>
-            <span class="stellar-boot-progress-text" id="signal-progress">0%</span>
-          </div>
-          
-          <div class="stellar-boot-progress-container" data-delay="1600">
-            <div class="stellar-boot-progress-bar" id="progress-bar"></div>
-          </div>
-          
-          <div class="stellar-boot-line stellar-boot-line-spaced" data-delay="2200">
-            <span class="stellar-boot-prompt">&gt;</span>
-            <span class="stellar-boot-text stellar-boot-type">DECRYPTING_TRANSMISSION...</span>
-          </div>
-          
-          <div class="stellar-boot-line" data-delay="2600">
-            <span class="stellar-boot-prompt">&gt;</span>
-            <span class="stellar-boot-text stellar-boot-type">SIGNAL_ECHO_MATCHED</span>
-            <span class="stellar-boot-success">[100%]</span>
-          </div>
-          
-          <div class="stellar-boot-line stellar-boot-line-spaced" data-delay="2900">
-            <span class="stellar-boot-prompt">&gt;</span>
-            <span class="stellar-boot-text stellar-boot-type stellar-boot-glitch">REVERB_ACTIVE // CONNECTION_ESTABLISHED</span>
-          </div>
-          
-          <div class="stellar-boot-line stellar-boot-line-spaced" data-delay="3200">
-            <span class="stellar-boot-prompt">&gt;</span>
-            <span class="stellar-boot-text stellar-boot-type stellar-boot-brand">STELLAR_REVERB // ONLINE</span>
-          </div>
-          
-          <div class="stellar-boot-line" data-delay="3500">
-            <span class="stellar-boot-prompt">&gt;</span>
-            <span class="stellar-boot-text stellar-boot-type stellar-boot-quote">"Reality fractured. Signal received."</span>
-          </div>
-          
-          <div class="stellar-boot-line stellar-boot-line-spaced" data-delay="3800">
-            <span class="stellar-boot-prompt">&gt;</span>
-            <span class="stellar-boot-text stellar-boot-type stellar-boot-cta">BROADCAST_YOUR_IDENTITY</span>
-          </div>
-          
-          <div class="stellar-boot-skip" data-delay="4000">
-            <button type="button" class="stellar-boot-skip-btn" id="stellar-skip-btn">
-              [PRESS ANY KEY TO CONTINUE]
-            </button>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-    
-    {% comment %} Load boot sequence CSS and JS {% endcomment %}
-    {{ 'stellar-boot-sequence.css' | asset_url | stylesheet_tag }}
-    <script src="{{ 'stellar-boot-sequence.js' | asset_url }}" defer></script>
-    
-    {% endcomment %}
-    {% comment %} ═══════════════════════════════════════════════════════════
-                  END OPTIONAL BOOT SEQUENCE
-         ═══════════════════════════════════════════════════════════ {% endcomment %}
 
-    <a class="skip-to-content sr-only focus:not-sr-only" href="#MainContent">
-      Skip to main content
-    </a>
+  <main id="MainContent" class="main-content">
+    {{ content_for_layout }}
+  </main>
 
-    {% section 'header-enhanced' %}
+  {%- comment -%} 4. GLOBAL MASTER ENGINE - TURBOCHARGED {%- endcomment -%}
+  {%- comment -%} Replace individual archive scripts with this consolidated core {%- endcomment -%}
+  <script src="{{ 'stellar-core.js' | asset_url }}" defer></script>
+  
+  {%- comment -%} 5. PAGE-SPECIFIC LORE ENGINE {%- endcomment -%}
+  {%- if template contains 'lore' -%}
+    <script src="{{ 'stellar-lore-legendary.js' | asset_url }}" defer></script>
+  {%- endif -%}
 
-    <main id="MainContent" role="main" tabindex="-1" class="main-content">
-      {{ content_for_layout }}
-    </main>
-
-    {% section 'stellar-footer' %}
-
-    {% comment %} ═══════════════════════════════════════════════════════════
-                  JAVASCRIPT - LOADED AT END FOR PERFORMANCE
-         ═══════════════════════════════════════════════════════════ {% endcomment %}
-    
-    {% comment %} Global Scripts {% endcomment %}
-    <script src="{{ 'stellar-transmission-archive.js' | asset_url }}" defer></script>
-    <script src="{{ 'archive-card-tilt.js' | asset_url }}" defer></script>
-
-    {% comment %} ═══════════════════════════════════════════════════════════
-                  PAGE-SPECIFIC JAVASCRIPT
-         ═══════════════════════════════════════════════════════════ {% endcomment %}
-    
-    {% comment %} 1. Universal Lore Engine - LEGENDARY v13.0 ⚡ {% endcomment %}
-    {% if template contains 'lore' %}
-      {{ 'stellar-lore-legendary.js' | asset_url | script_tag }}
-      <script src="{{ 'lore-popup-modal.js' | asset_url }}" defer></script>
-    {% endif %}
-
-    {% comment %} 2. Shop All / Collection Logic {% endcomment %}
-    {% if template contains 'shop-all' or template contains 'collection' %}
-      <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
-    {% endif %}
-
-    {% comment %} 3. Floating Archive Reactive Systems {% endcomment %}
-    {% if template contains 'floating-archive' %}
-      <script src="{{ 'floating-archive.js' | asset_url }}" defer></script>
-      <script src="{{ 'floating-elements.js' | asset_url }}" defer></script>
-    {% endif %}
-
-  </body>
+</body>
 </html>
