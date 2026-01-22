@@ -199,6 +199,21 @@
         "view_all_text": "View All Capsules",
         "view_all_url": "shopify://collections/all"
       }
+    },
+    "stellar_timeline_cosmic_MpaiHP": {
+      "type": "stellar-timeline-cosmic",
+      "name": "Cosmic Timeline",
+      "settings": {
+        "heading": "TRANSMISSION TIMELINE",
+        "subtitle": "Journey through space-time across capsule drops",
+        "show_particles": true,
+        "show_scanlines": true,
+        "show_nav_arrows": true,
+        "auto_scroll": true,
+        "particle_density": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
@@ -207,6 +222,7 @@
     "featured_transmission",
     "scarcity_marquee",
     "navigation_matrix",
-    "featured_capsules_tRQy8J"
+    "featured_capsules_tRQy8J",
+    "stellar_timeline_cosmic_MpaiHP"
   ]
 }
