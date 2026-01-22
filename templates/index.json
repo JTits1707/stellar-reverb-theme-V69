@@ -64,6 +64,52 @@
         "manual_link": ""
       }
     },
+    "featured_capsules_VaVdJe": {
+      "type": "featured-capsules",
+      "blocks": {
+        "product_EcAwtN": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_xLNz4Y": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_k7iRGR": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_EcAwtN",
+        "product_xLNz4Y",
+        "product_k7iRGR"
+      ],
+      "name": "Featured Capsules",
+      "settings": {
+        "eyebrow_text": "Newest Drops",
+        "eyebrow_color": "#28A8D6",
+        "eyebrow_border": "#28A8D6",
+        "eyebrow_background": "rgba(40, 168, 214, 0.2)",
+        "heading": "Featured Capsules",
+        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
+        "subheading": "Explore our latest cosmic transmissions",
+        "subtitle_color": "#FFFFFF",
+        "grid_columns": 3,
+        "image_ratio": "square",
+        "show_badges": true,
+        "show_quick_add": true,
+        "show_view_all": true,
+        "view_all_text": "View All Capsules",
+        "view_all_url": "shopify://collections/all"
+      }
+    },
     "scarcity_marquee": {
       "type": "stellar-scarcity-marquee",
       "blocks": {
@@ -174,50 +220,55 @@
         "padding_bottom": 80
       }
     },
-    "featured_capsules_VaVdJe": {
-      "type": "featured-capsules",
+    "stellar_scarcity_marquee_dBdgWx": {
+      "type": "stellar-scarcity-marquee",
       "blocks": {
-        "product_EcAwtN": {
-          "type": "product",
+        "message_f4phUw": {
+          "type": "message",
           "settings": {
-            "product": ""
+            "message": "⚡ ONLY 20 CAPSULES LEFT"
           }
         },
-        "product_xLNz4Y": {
-          "type": "product",
+        "message_BAqxdq": {
+          "type": "message",
           "settings": {
-            "product": ""
+            "message": "📡 NEW TRANSMISSION INCOMING"
           }
         },
-        "product_k7iRGR": {
-          "type": "product",
+        "message_TY8Fk3": {
+          "type": "message",
           "settings": {
-            "product": ""
+            "message": "🔐 EXCLUSIVE DROP"
+          }
+        },
+        "message_hkUA8d": {
+          "type": "message",
+          "settings": {
+            "message": "⏰ 48 HOURS ONLY"
+          }
+        },
+        "message_VNjLDN": {
+          "type": "message",
+          "settings": {
+            "message": "🌌 COSMIC ARCHIVE EXPANDING"
           }
         }
       },
       "block_order": [
-        "product_EcAwtN",
-        "product_xLNz4Y",
-        "product_k7iRGR"
+        "message_f4phUw",
+        "message_BAqxdq",
+        "message_TY8Fk3",
+        "message_hkUA8d",
+        "message_VNjLDN"
       ],
-      "name": "Featured Capsules",
+      "name": "Scarcity Marquee",
       "settings": {
-        "eyebrow_text": "Newest Drops",
-        "eyebrow_color": "#28A8D6",
-        "eyebrow_border": "#28A8D6",
-        "eyebrow_background": "rgba(40, 168, 214, 0.2)",
-        "heading": "Featured Capsules",
-        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "subheading": "Explore our latest cosmic transmissions",
-        "subtitle_color": "#FFFFFF",
-        "grid_columns": 3,
-        "image_ratio": "square",
-        "show_badges": true,
-        "show_quick_add": true,
-        "show_view_all": true,
-        "view_all_text": "View All Capsules",
-        "view_all_url": "shopify://collections/all"
+        "marquee_speed": 30,
+        "show_separator": true,
+        "separator_icon": "◆",
+        "enable_glitch": true,
+        "show_scanlines": true,
+        "text_color": "#00f0ff"
       }
     }
   },
@@ -228,6 +279,7 @@
     "featured_capsules_VaVdJe",
     "scarcity_marquee",
     "navigation_matrix",
-    "stellar_timeline_cosmic_aCVJaj"
+    "stellar_timeline_cosmic_aCVJaj",
+    "stellar_scarcity_marquee_dBdgWx"
   ]
 }
