@@ -57,6 +57,66 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
+        "blocks": {
+          "info_link_MaWFpg": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
+          "info_link_dtPUif": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Terms Of Service",
+              "link_url": ""
+            }
+          },
+          "info_link_q6wEtX": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Sizing Guide",
+              "link_url": ""
+            }
+          },
+          "info_link_xkNfCk": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Shipping Information",
+              "link_url": ""
+            }
+          },
+          "info_link_VYzrr6": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "FAQ",
+              "link_url": ""
+            }
+          },
+          "info_link_G8BwWa": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Contact",
+              "link_url": ""
+            }
+          },
+          "info_link_qwCcpF": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "F.A.Q.",
+              "link_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "info_link_MaWFpg",
+          "info_link_dtPUif",
+          "info_link_q6wEtX",
+          "info_link_xkNfCk",
+          "info_link_VYzrr6",
+          "info_link_G8BwWa",
+          "info_link_qwCcpF"
+        ],
         "settings": {
           "show_signal_badge": true,
           "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
