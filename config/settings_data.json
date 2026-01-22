@@ -58,15 +58,23 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "info_link_MiTzE4": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "FAQ",
+              "link_url": ""
+            }
+          },
           "info_link_Uwh9Qq": {
             "type": "info_link",
             "settings": {
-              "link_text": "F.A.Q.",
+              "link_text": "Contact",
               "link_url": ""
             }
           }
         },
         "block_order": [
+          "info_link_MiTzE4",
           "info_link_Uwh9Qq"
         ],
         "settings": {
