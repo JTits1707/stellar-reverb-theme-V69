@@ -158,6 +158,48 @@
         "subheading": "Access points to the cosmic network",
         "grid_columns": 4
       }
+    },
+    "stellar_timeline_cosmic_aydmNB": {
+      "type": "stellar-timeline-cosmic",
+      "name": "Cosmic Timeline",
+      "settings": {
+        "heading": "COSMIC TRANSMISSION TIMELINE",
+        "subtitle": "Journey through space-time across capsule drops",
+        "show_particles": true,
+        "show_scanlines": true,
+        "show_nav_arrows": true,
+        "auto_scroll": true,
+        "particle_density": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "newsletter_cosmic_JX3hbg": {
+      "type": "newsletter-cosmic",
+      "name": "Newsletter - Cosmic",
+      "settings": {
+        "show_icon": true,
+        "custom_icon": "",
+        "heading": "Join the Signal",
+        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
+        "subheading": "Get early access to new drops, exclusive relics, and cosmic transmissions.",
+        "input_placeholder": "your@email.com",
+        "button_text": "Subscribe",
+        "button_icon": "📡",
+        "button_background": "linear-gradient(135deg, #E13CFA, #28A8D6)",
+        "button_color": "#FFFFFF",
+        "subscriber_tags": "newsletter",
+        "success_message": "Thanks for joining the signal!",
+        "show_privacy_note": true,
+        "privacy_text": "✨ Get early access + exclusive drops. No spam, ever.",
+        "show_benefits": true,
+        "benefit_1_text": "Early access to drops",
+        "benefit_2_text": "Exclusive relics",
+        "benefit_3_text": "Member discounts",
+        "benefit_4_text": "Cosmic transmissions",
+        "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
+        "show_particles": true
+      }
     }
   },
   "order": [
@@ -165,6 +207,8 @@
     "hero_decoding",
     "featured_transmission",
     "scarcity_marquee",
-    "navigation_matrix"
+    "navigation_matrix",
+    "stellar_timeline_cosmic_aydmNB",
+    "newsletter_cosmic_JX3hbg"
   ]
 }
