@@ -23,7 +23,7 @@
     "footer_tagline": "Sound. Style. Transmissions of Cosmic Identity.",
     "base_font_size": 17,
     "heading_scale": 1.4,
-    "main_menu": "home-menu",
+    "main_menu": "main-menu",
     "footer_shop_menu": "footer",
     "footer_about_menu": "footer",
     "enable_sticky_header": true,
@@ -57,91 +57,6 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
-        "blocks": {
-          "social_link_3xbfBy": {
-            "type": "social_link",
-            "settings": {
-              "platform": "pinterest",
-              "social_url": "https://www.pinterest.com/StellarReverb/?actingBusinessId=1135681368442068557"
-            }
-          },
-          "social_link_PQdy3h": {
-            "type": "social_link",
-            "settings": {
-              "platform": "x",
-              "social_url": "https://x.com/stellar_reverb?s=21"
-            }
-          },
-          "social_link_8xYB7N": {
-            "type": "social_link",
-            "settings": {
-              "platform": "instagram",
-              "social_url": "https://www.instagram.com/stellar_reverb?igsh=ajc1YWNkcDlpaWpv&utm_source=qr"
-            }
-          },
-          "info_link_MaWFpg": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Privacy Policy",
-              "link_url": ""
-            }
-          },
-          "info_link_dtPUif": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Terms Of Service",
-              "link_url": ""
-            }
-          },
-          "info_link_q6wEtX": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Sizing Guide",
-              "link_url": ""
-            }
-          },
-          "info_link_xkNfCk": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Shipping Information",
-              "link_url": ""
-            }
-          },
-          "info_link_VYzrr6": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "FAQ",
-              "link_url": ""
-            }
-          },
-          "info_link_G8BwWa": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Contact",
-              "link_url": ""
-            }
-          },
-          "info_link_qwCcpF": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "F.A.Q.",
-              "link_url": ""
-            }
-          }
-        },
-        "block_order": [
-          "social_link_3xbfBy",
-          "social_link_PQdy3h",
-          "social_link_8xYB7N",
-          "info_link_MaWFpg",
-          "info_link_dtPUif",
-          "info_link_q6wEtX",
-          "info_link_xkNfCk",
-          "info_link_VYzrr6",
-          "info_link_G8BwWa",
-          "info_link_qwCcpF"
-        ],
-        "custom_css": [],
         "settings": {
           "show_signal_badge": true,
           "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
@@ -152,7 +67,7 @@
         "type": "header-enhanced",
         "custom_css": [],
         "settings": {
-          "show_announcement": true,
+          "show_announcement": false,
           "announcement_text": "FREE SHIPPING ALL WEEK, & GET 20% DISC.",
           "logo": "shopify://shop_images/stellar-reverb-transparent-brand-logo.png"
         }
