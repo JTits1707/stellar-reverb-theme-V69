@@ -241,6 +241,57 @@
         "background_gradient": "linear-gradient(135deg, rgba(108, 36, 179, 0.3), rgba(40, 168, 214, 0.3))",
         "show_particles": true
       }
+    },
+    "stellar_scarcity_marquee_NAhQMF": {
+      "type": "stellar-scarcity-marquee",
+      "blocks": {
+        "message_kTWJ4J": {
+          "type": "message",
+          "settings": {
+            "message": "⚡ ONLY 20 CAPSULES LEFT"
+          }
+        },
+        "message_cgbQDB": {
+          "type": "message",
+          "settings": {
+            "message": "📡 NEW TRANSMISSION INCOMING"
+          }
+        },
+        "message_JngTBG": {
+          "type": "message",
+          "settings": {
+            "message": "🔐 EXCLUSIVE DROP"
+          }
+        },
+        "message_dPhQy7": {
+          "type": "message",
+          "settings": {
+            "message": "⏰ 48 HOURS ONLY"
+          }
+        },
+        "message_edz6Fm": {
+          "type": "message",
+          "settings": {
+            "message": "🌌 COSMIC ARCHIVE EXPANDING"
+          }
+        }
+      },
+      "block_order": [
+        "message_kTWJ4J",
+        "message_cgbQDB",
+        "message_JngTBG",
+        "message_dPhQy7",
+        "message_edz6Fm"
+      ],
+      "name": "Scarcity Marquee",
+      "settings": {
+        "marquee_speed": 30,
+        "show_separator": true,
+        "separator_icon": "◆",
+        "enable_glitch": true,
+        "show_scanlines": true,
+        "text_color": "#00f0ff"
+      }
     }
   },
   "order": [
@@ -251,6 +302,7 @@
     "navigation_matrix",
     "stellar_timeline_cosmic_wYngLw",
     "featured_capsules_m3eyFC",
-    "newsletter_cosmic_VNQjtK"
+    "newsletter_cosmic_VNQjtK",
+    "stellar_scarcity_marquee_NAhQMF"
   ]
 }
