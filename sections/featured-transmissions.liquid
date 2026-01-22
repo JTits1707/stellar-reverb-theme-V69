@@ -1,0 +1,150 @@
+{% comment %} Featured Product Capsule Section {% endcomment %}
+
+{% assign featured_product = section.settings.featured_product %}
+
+{% if featured_product != blank %}
+  
+    
+      
+        
+          
+          
+            {% if featured_product.featured_media %}
+              
+                
+                
+                {% if section.settings.show_incoming_tag %}
+                  
+                    {{ section.settings.tag_text | default: 'INCOMING' }}
+                  
+                {% endif %}
+
+                {% if section.settings.show_decryption_overlay %}
+                  
+                    
+                      DECRYPTING SIGNAL {{ section.settings.progress_percentage | default: 69 }}%
+                    
+                    
+                      
+                    
+                  
+                {% endif %}
+              
+            {% endif %}
+          
+
+          
+          
+            {% if section.settings.transmission_header != blank %}
+              
+                {{ section.settings.transmission_header }}
+              
+            {% endif %}
+
+            
+              {{ featured_product.title }}
+            
+
+            {% if featured_product.description != blank %}
+              
+                {{ featured_product.description | truncate: 300 }}
+              
+            {% endif %}
+
+            
+              {{ section.settings.button_text | default: 'SHOP THE CAPSULE' }}
+            
+
+            {% if featured_product.tags.size > 0 %}
+              
+                {% for tag in featured_product.tags limit: 4 %}
+                  
+                    #{{ tag | handleize }}
+                  
+                {% endfor %}
+              
+            {% endif %}
+          
+        
+      
+    
+  
+{% endif %}
+
+{% schema %}
+{
+  "name": "Featured Transmission",
+  "settings": [
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Featured Product"
+    },
+    {
+      "type": "text",
+      "id": "transmission_header",
+      "label": "Transmission Header",
+      "default": "INCOMING TRANSMISSION // CAPSULE 001"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "SHOP THE CAPSULE"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "options": [
+        {
+          "value": "magenta",
+          "label": "Neon Magenta"
+        },
+        {
+          "value": "cyan",
+          "label": "Cyan Blue"
+        },
+        {
+          "value": "green",
+          "label": "Radioactive Green"
+        }
+      ],
+      "default": "magenta"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_incoming_tag",
+      "label": "Show Incoming Tag",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Tag Text",
+      "default": "INCOMING"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_decryption_overlay",
+      "label": "Show Decryption Overlay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "progress_percentage",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Decryption Progress",
+      "default": 69
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Transmission"
+    }
+  ]
+}
+{% endschema %}
