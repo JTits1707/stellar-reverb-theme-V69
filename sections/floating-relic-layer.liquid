@@ -1,0 +1,10 @@
+<div class="floating-relics-layer">
+  {%- for i in (1..relic_count) -%}
+    <div class="floating-relic relic-artifact" data-speed="{{ forloop.index | modulo: 3 | plus: 1 }}">
+       {% comment %} Pulling the high-res cassette fragment {% endcomment %}
+       <img src="{{ '59AA4DC4-714B-4536-8E85-279F41A02DF8.jpg' | file_img_url: '600x' }}" 
+            class="relic-img-shard" 
+            style="transform: rotate({{ i | times: 45 }}deg); opacity: 0.5;">
+    </div>
+  {%- endfor -%}
+</div>
