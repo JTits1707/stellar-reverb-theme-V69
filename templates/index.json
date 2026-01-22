@@ -115,6 +115,7 @@
             "description": "Explore the complete transmission archive.",
             "link_url": "/pages/about",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/49D99521-BA5C-4C67-A99F-F5D3F9F999E0-topaz-sharpen.jpg",
             "emoji_icon": "📦",
             "glow_color": "magenta"
           }
@@ -126,6 +127,7 @@
             "description": "Explore the complete transmission archive.",
             "link_url": "/pages/lore",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/AC8B0FF1-5058-45ED-9C4B-15F3962C24FD-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "purple"
           }
@@ -137,6 +139,7 @@
             "description": "Explore the complete transmission archive.",
             "link_url": "/collections",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/0E9D062B-D727-4E04-BF18-141EFB123691-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "gold"
           }
