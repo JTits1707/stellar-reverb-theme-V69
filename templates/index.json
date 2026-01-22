@@ -31,7 +31,7 @@
         "show_progress_bar": true,
         "decode_progress": 21,
         "cta_text": "ENTER THE TRANSMISSION",
-        "cta_link": "",
+        "cta_link": "shopify://collections/frontpage",
         "cta_secondary_text": "Or browse all transmissions →",
         "headline_color": "#00f0ff",
         "subtitle_color": "#ff00ff",
@@ -99,10 +99,11 @@
         "nav1": {
           "type": "nav_item",
           "settings": {
-            "title": "All Capsules",
-            "description": "Explore the complete transmission archive.",
-            "link_url": "/collections/all",
+            "title": "ALL CAPSULES// ACTIVE ECHOES",
+            "description": "Dive into the full transmission archive. Limited Drops await.",
+            "link_url": "shopify://pages/capsules-1",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/0E9D062B-D727-4E04-BF18-141EFB123691-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "cyan"
           }
@@ -110,10 +111,11 @@
         "nav2": {
           "type": "nav_item",
           "settings": {
-            "title": "About",
-            "description": "Explore the complete transmission archive.",
+            "title": "ABOUT// COSMIC ORIGINS",
+            "description": "Decode The Mythos Behind Stellar Reverb.",
             "link_url": "/pages/about",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/A15E3569-7EAD-442A-B2F9-4F9D2A38E4AA-topaz-sharpen.jpg",
             "emoji_icon": "📦",
             "glow_color": "magenta"
           }
@@ -121,10 +123,11 @@
         "nav3": {
           "type": "nav_item",
           "settings": {
-            "title": "Lore",
-            "description": "Explore the complete transmission archive.",
+            "title": "LORE// FRACTAL NARRATIVES",
+            "description": "Unravel The Stories Woven Into Every Waveform & Soundwave.",
             "link_url": "/pages/lore",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/90ED3767-6D52-4EF8-92BA-6343A094A0CB-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "purple"
           }
@@ -132,10 +135,11 @@
         "nav4": {
           "type": "nav_item",
           "settings": {
-            "title": "Shop",
-            "description": "Explore the complete transmission archive.",
-            "link_url": "/collections",
+            "title": "SHOP// SIGNAL SEEKERS",
+            "description": "Acquire Relics From The Edge Of Reality.",
+            "link_url": "shopify://collections/frontpage",
             "cta_text": "EXPLORE",
+            "custom_icon": "shopify://shop_images/708B0F38-B640-4D2D-B88A-F2CEAA638934-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "gold"
           }
@@ -149,12 +153,12 @@
       ],
       "settings": {
         "show_heading": true,
-        "heading": "NAVIGATE THE SIGNAL",
+        "heading": "TUNE THE FREQUENCY MATRIX.",
         "subheading": "Access points to the cosmic network",
         "grid_columns": 4
       }
     },
-    "stellar_timeline_cosmic_MpaiHP": {
+    "stellar_timeline_cosmic_aCVJaj": {
       "type": "stellar-timeline-cosmic",
       "name": "Cosmic Timeline",
       "settings": {
@@ -169,53 +173,58 @@
         "padding_bottom": 80
       }
     },
-    "featured_capsules_tRQy8J": {
-      "type": "featured-capsules",
+    "stellar_scarcity_marquee_dBdgWx": {
+      "type": "stellar-scarcity-marquee",
       "blocks": {
-        "product_WWaTt6": {
-          "type": "product",
+        "message_f4phUw": {
+          "type": "message",
           "settings": {
-            "product": ""
+            "message": "⚡ ONLY 20 CAPSULES LEFT"
           }
         },
-        "product_pnVfj6": {
-          "type": "product",
+        "message_BAqxdq": {
+          "type": "message",
           "settings": {
-            "product": ""
+            "message": "📡 NEW TRANSMISSION INCOMING"
           }
         },
-        "product_kJD9mi": {
-          "type": "product",
+        "message_TY8Fk3": {
+          "type": "message",
           "settings": {
-            "product": ""
+            "message": "🔐 EXCLUSIVE DROP"
+          }
+        },
+        "message_hkUA8d": {
+          "type": "message",
+          "settings": {
+            "message": "⏰ 48 HOURS ONLY"
+          }
+        },
+        "message_VNjLDN": {
+          "type": "message",
+          "settings": {
+            "message": "🌌 COSMIC ARCHIVE EXPANDING"
           }
         }
       },
       "block_order": [
-        "product_WWaTt6",
-        "product_pnVfj6",
-        "product_kJD9mi"
+        "message_f4phUw",
+        "message_BAqxdq",
+        "message_TY8Fk3",
+        "message_hkUA8d",
+        "message_VNjLDN"
       ],
-      "name": "Featured Capsules",
+      "name": "Scarcity Marquee",
       "settings": {
-        "eyebrow_text": "Newest Drops",
-        "eyebrow_color": "#28A8D6",
-        "eyebrow_border": "#28A8D6",
-        "eyebrow_background": "rgba(40, 168, 214, 0.2)",
-        "heading": "Featured Capsules",
-        "title_gradient": "linear-gradient(135deg, #E13CFA, #28A8D6)",
-        "subheading": "Explore our latest cosmic transmissions",
-        "subtitle_color": "#FFFFFF",
-        "grid_columns": 3,
-        "image_ratio": "square",
-        "show_badges": true,
-        "show_quick_add": true,
-        "show_view_all": true,
-        "view_all_text": "View All Capsules",
-        "view_all_url": "shopify://collections/all"
+        "marquee_speed": 30,
+        "show_separator": true,
+        "separator_icon": "◆",
+        "enable_glitch": true,
+        "show_scanlines": true,
+        "text_color": "#00f0ff"
       }
     },
-    "newsletter_cosmic_aHgxHU": {
+    "newsletter_cosmic_NeUMiL": {
       "type": "newsletter-cosmic",
       "name": "Newsletter - Cosmic",
       "settings": {
@@ -247,10 +256,10 @@
     "announcement_bar",
     "hero_decoding",
     "featured_transmission",
-    "stellar_timeline_cosmic_MpaiHP",
     "scarcity_marquee",
     "navigation_matrix",
-    "featured_capsules_tRQy8J",
-    "newsletter_cosmic_aHgxHU"
+    "stellar_timeline_cosmic_aCVJaj",
+    "stellar_scarcity_marquee_dBdgWx",
+    "newsletter_cosmic_NeUMiL"
   ]
 }
