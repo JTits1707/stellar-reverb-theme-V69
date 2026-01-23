@@ -20,6 +20,7 @@
     },
     "hero_decoding": {
       "type": "hero-decoding",
+      "custom_css": [],
       "settings": {
         "hero_background": "shopify://shop_images/stellar-reverb-homepage-hero-image.1-topaz-denoise.jpg",
         "content_alignment": "left",
@@ -97,9 +98,8 @@
           "settings": {
             "title": "All Capsules",
             "description": "Explore the complete transmission archive.",
-            "link_url": "shopify://pages/capsules-1",
+            "link_url": "/collections/all",
             "cta_text": "EXPLORE",
-            "custom_icon": "shopify://shop_images/0E9D062B-D727-4E04-BF18-141EFB123691-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "cyan"
           }
@@ -111,7 +111,6 @@
             "description": "Explore the complete transmission archive.",
             "link_url": "/pages/about",
             "cta_text": "EXPLORE",
-            "custom_icon": "shopify://shop_images/49D99521-BA5C-4C67-A99F-F5D3F9F999E0-topaz-sharpen.jpg",
             "emoji_icon": "📦",
             "glow_color": "magenta"
           }
@@ -123,7 +122,6 @@
             "description": "Explore the complete transmission archive.",
             "link_url": "/pages/lore",
             "cta_text": "EXPLORE",
-            "custom_icon": "shopify://shop_images/B7F662DE-0A7F-4512-A4D8-4519633DDC58-topaz-denoise-enhance-1x-sharpen.jpg",
             "emoji_icon": "📦",
             "glow_color": "purple"
           }
@@ -133,9 +131,8 @@
           "settings": {
             "title": "Shop",
             "description": "Explore the complete transmission archive.",
-            "link_url": "shopify://collections/frontpage",
+            "link_url": "/collections",
             "cta_text": "EXPLORE",
-            "custom_icon": "shopify://shop_images/0E9D062B-D727-4E04-BF18-141EFB123691-topaz-denoise.jpg",
             "emoji_icon": "📦",
             "glow_color": "gold"
           }
