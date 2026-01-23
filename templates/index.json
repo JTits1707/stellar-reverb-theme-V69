@@ -270,6 +270,57 @@
         "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
         "show_payment_icons": true
       }
+    },
+    "stellar_scarcity_marquee_RDxDm7": {
+      "type": "stellar-scarcity-marquee",
+      "blocks": {
+        "message_T3pP3c": {
+          "type": "message",
+          "settings": {
+            "message": "⚡ ONLY 20 CAPSULES LEFT"
+          }
+        },
+        "message_qHAfL4": {
+          "type": "message",
+          "settings": {
+            "message": "📡 NEW TRANSMISSION INCOMING"
+          }
+        },
+        "message_qaQArt": {
+          "type": "message",
+          "settings": {
+            "message": "🔐 EXCLUSIVE DROP"
+          }
+        },
+        "message_XNFWqb": {
+          "type": "message",
+          "settings": {
+            "message": "⏰ 48 HOURS ONLY"
+          }
+        },
+        "message_HUDMMP": {
+          "type": "message",
+          "settings": {
+            "message": "🌌 COSMIC ARCHIVE EXPANDING"
+          }
+        }
+      },
+      "block_order": [
+        "message_T3pP3c",
+        "message_qHAfL4",
+        "message_qaQArt",
+        "message_XNFWqb",
+        "message_HUDMMP"
+      ],
+      "name": "Scarcity Marquee",
+      "settings": {
+        "marquee_speed": 30,
+        "show_separator": true,
+        "separator_icon": "◆",
+        "enable_glitch": true,
+        "show_scanlines": true,
+        "text_color": "#00f0ff"
+      }
     }
   },
   "order": [
@@ -279,6 +330,7 @@
     "scarcity_marquee",
     "navigation_matrix",
     "newsletter_cosmic_LGxTaj",
-    "stellar_footer_DFVnAk"
+    "stellar_footer_DFVnAk",
+    "stellar_scarcity_marquee_RDxDm7"
   ]
 }
