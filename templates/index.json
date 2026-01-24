@@ -158,6 +158,7 @@
     },
     "newsletter_cosmic_LGxTaj": {
       "type": "newsletter-cosmic",
+      "custom_css": [],
       "name": "Newsletter - Cosmic",
       "settings": {
         "show_icon": true,
