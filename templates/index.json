@@ -48,6 +48,7 @@
     },
     "stellar_timeline_cosmic_7FkWM9": {
       "type": "stellar-timeline-cosmic",
+      "custom_css": [],
       "name": "Cosmic Timeline",
       "settings": {
         "heading": "TRANSMISSION TIMELINE",
