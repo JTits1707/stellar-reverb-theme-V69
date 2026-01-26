@@ -58,6 +58,90 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
+        "blocks": {
+          "social_link_NdV64K": {
+            "type": "social_link",
+            "settings": {
+              "platform": "x",
+              "social_url": ""
+            }
+          },
+          "social_link_NWHbHM": {
+            "type": "social_link",
+            "settings": {
+              "platform": "pinterest",
+              "social_url": ""
+            }
+          },
+          "social_link_UJFdKF": {
+            "type": "social_link",
+            "settings": {
+              "platform": "instagram",
+              "social_url": ""
+            }
+          },
+          "info_link_E39m9r": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Terms Of Service",
+              "link_url": ""
+            }
+          },
+          "info_link_adBPyL": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
+          "info_link_FVhwYC": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Terms Of Service",
+              "link_url": ""
+            }
+          },
+          "info_link_E7htTG": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Contact",
+              "link_url": ""
+            }
+          },
+          "info_link_GqtNjU": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Shipping Info",
+              "link_url": ""
+            }
+          },
+          "info_link_TmMXEf": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Sizing Guide",
+              "link_url": ""
+            }
+          },
+          "info_link_Jr6mAW": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "F.A.Q.",
+              "link_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "social_link_NdV64K",
+          "social_link_NWHbHM",
+          "social_link_UJFdKF",
+          "info_link_E39m9r",
+          "info_link_adBPyL",
+          "info_link_FVhwYC",
+          "info_link_E7htTG",
+          "info_link_GqtNjU",
+          "info_link_TmMXEf",
+          "info_link_Jr6mAW"
+        ],
         "custom_css": [],
         "settings": {
           "show_signal_badge": true,
