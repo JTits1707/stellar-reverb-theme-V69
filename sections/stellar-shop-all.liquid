@@ -1,14 +1,16 @@
 {% comment %}
-  Stellar Reverb – COSMIC SHOP ALL SECTION (V.2025)
+  Stellar Reverb – COSMIC SHOP ALL SECTION (V.2025 – 13/10 UPGRADE)
   - Unified Terminal HUD & Product Grid
-  - Integrated Beast-Mode HUD Artifacts
+  - Beast-Mode HUD Artifacts + Sacred Geometry Steroids
+  - No Filters: Infinite Vault of All Capsules + Limited Drops
+  - Extraction Rituals, Lore Cycles, FOMO Echoes
 {% endcomment %}
 
-{{ 'shop-all-beast.css' | asset_url | stylesheet_tag }}
+{{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
 
 <section class="stellar-shop-all shop-all-cosmic" data-section-id="{{ section.id }}" data-collection-handle="{{ collection.handle }}">
   
-  {%- comment -%} 1. GLOBAL BACKGROUND ELEMENTS [cite: 281] {%- endcomment -%}
+  {%- comment -%} 1. GLOBAL BACKGROUND ELEMENTS {%- endcomment -%}
   <div class="cosmic-bg"></div>
   <div class="constellation-dots">
     <div class="constellation-dot" style="top:15%;left:12%;"></div>
@@ -16,7 +18,7 @@
     <div class="constellation-dot" style="top:82%;left:45%;"></div>
   </div>
 
-  {%- comment -%} 2. STICKY HEADER [cite: 282] {%- endcomment -%}
+  {%- comment -%} 2. STICKY HEADER {%- endcomment -%}
   <header class="section-header">
     <div class="section-header-inner">
       <div class="brand-chip">
@@ -38,9 +40,16 @@
   </header>
 
   <div class="inner">
-    {%- comment -%} 3. TERMINAL HUD HERO [cite: 274] {%- endcomment -%}
+    {%- comment -%} 3. TERMINAL HUD HERO (13/10 UPGRADE: LORE CYCLE + VAULT STABILITY) {%- endcomment -%}
     <div class="hero sr-terminal-hud">
       <div class="sr-hud-status-bar">
+        <div class="sr-status-item">
+          <span class="sr-led animate-pulse"></span>
+          <span class="sr-status-label">VAULT_STABILITY:</span>
+          <div class="sr-status-value sr-progress-bar">
+            <div class="sr-progress-fill" style="width: {{ collection.all_products_count | times: 100 | divided_by: 999 }}%;"></div>
+          </div>
+        </div>
         <div class="sr-status-item">
           <span class="sr-led animate-pulse"></span>
           <span class="sr-status-label">CONNECTION:</span>
@@ -64,7 +73,7 @@
         </h1>
 
         <div class="sr-hero-description">
-          <p class="hero-subtitle">
+          <p class="hero-subtitle sr-lore-cycle" data-lore-fragments='["From the event horizon to your skin — this is sound you can wear.", "Reality fractured. Transmission received.", "Music as god, tech as myth. Art as eternity."]'>
             {{ section.settings.hero_subtitle | default: 'Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.' }}
           </p>
         </div>
@@ -77,21 +86,25 @@
       </div>
     </div>
 
-    {%- comment -%} 4. MAIN PRODUCT GRID [cite: 284, 285] {%- endcomment -%}
+    {%- comment -%} 4. MAIN PRODUCT GRID (13/10 UPGRADE: SONIC GLYPH PORTALS) {%- endcomment -%}
     <div class="grid-shell">
       {% paginate collection.products by section.settings.products_per_page %}
         <div class="product-grid" id="stellarProductGrid">
           {% for product in collection.products %}
-            <article class="product-card" data-capsule="{{ product.tags | join: ',' | downcase }}" data-price="{{ product.price | divided_by: 100.0 }}">
+            <article class="product-card sr-sonic-glyph" data-capsule="{{ product.tags | join: ',' | downcase }}" data-price="{{ product.price | divided_by: 100.0 }}">
               
               <div class="card-media relic-visual-terminal">
                 <a href="{{ product.url }}">
-                  <img src="{{ product.featured_image | image_url: width: 600 }}" class="relic-img-base" loading="lazy">
-                  <div class="relic-wireframe-overlay"></div>
+                  <img src="{{ product.featured_image | image_url: width: 600 }}" class="relic-img-base sr-glitch-img" loading="lazy" alt="{{ product.featured_image.alt | escape }}">
+                  <div class="relic-wireframe-overlay sr-sacred-triangle"></div>
                   <div class="relic-scanning-beam"></div>
                   <div class="relic-hud-meta">
                     <span class="hud-bit">OBJ_ID: {{ product.variants.first.sku | default: 'UNKNOWN' }}</span>
                     <span class="hud-bit">FREQ: ACTIVE</span>
+                    {% assign inv_qty = product.variants | map: 'inventory_quantity' | sum %}
+                    {% if inv_qty <= 5 and inv_qty > 0 %}
+                      <span class="hud-bit sr-fomo-countdown">VAULT_FADE: {{ inv_qty }} ECHOES LEFT</span>
+                    {% endif %}
                   </div>
                 </a>
               </div>
@@ -100,10 +113,14 @@
 
               <div class="card-footer">
                 <span class="price-main">{{ product.price | money }}</span>
+                {% if product.compare_at_price > product.price %}
+                  <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                {% endif %}
                 <form action="/cart/add" method="post" class="add-to-cart-form relic-extraction-module">
                   <input type="hidden" name="id" value="{{ product.variants.first.id }}">
                   <button type="submit" class="btn-solid btn-extraction" data-extraction-trigger>
                     <span class="btn-text">Extract Relic</span>
+                    <span class="btn-waveform">🌀</span>
                   </button>
                   <div class="extraction-terminal-output"><p class="terminal-log-text">> STANDBY...</p></div>
                 </form>
@@ -113,6 +130,82 @@
         </div>
       {% endpaginate %}
     </div>
+
+    {%- comment -%} 5. ALMOST GONE STRIP (FOMO REVIVAL FROM V4) {%- endcomment -%}
+    <section class="upsell-shell" aria-label="Almost Gone Relics">
+      <div class="upsell-header">
+        <h2 class="upsell-title">ALMOST GONE // SIGNAL HOTSPOTS</h2>
+        <p class="upsell-subtitle">Handpicked limited transmissions you’ll regret leaving behind.</p>
+      </div>
+
+      <div class="upsell-grid">
+        {% assign upsell_limit = 4 %}
+        {% assign upsell_count = 0 %}
+        {% for upsell in collection.products %}
+          {% if upsell_count >= upsell_limit %}{% break %}{% endif %}
+          {% assign upsell_tags = upsell.tags | join: ',' | downcase %}
+          {% assign match_tag = false %}
+          {% if upsell_tags contains 'limited' or upsell_tags contains 'exclusive' %}
+            {% assign match_tag = true %}
+          {% endif %}
+          {% if match_tag %}
+            {% assign upsell_count = upsell_count | plus: 1 %}
+            <a href="{{ upsell.url }}" class="upsell-card">
+              <div class="upsell-media">
+                {% if upsell.featured_image %}
+                  <img src="{{ upsell.featured_image | image_url: width: 200 }}" alt="{{ upsell.featured_image.alt | escape }}" loading="lazy">
+                {% endif %}
+              </div>
+              <div class="upsell-meta">
+                <div class="upsell-name">{{ upsell.title }}</div>
+                <div class="upsell-price">{{ upsell.price | money }}</div>
+                <div class="upsell-tagline">
+                  {% if upsell.metafields.custom.lore_snippet != blank %}
+                    {{ upsell.metafields.custom.lore_snippet | truncate: 60 }}
+                  {% else %}
+                    Last echoes from this frequency lane.
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+
+    {%- comment -%} 6. SIGNAL SEEKER CTA (EXPANDED) {%- endcomment -%}
+    <section class="signal-shell">
+      <div class="signal-card">
+        <div class="signal-inner">
+          <div class="signal-eye">
+            <div class="signal-eye-shape">
+              <div class="signal-eye-core"></div>
+            </div>
+          </div>
+
+          <h2 class="signal-title">JOIN THE SIGNAL SEEKERS</h2>
+          <p class="signal-subtitle">Early access drops, hidden relics, and encrypted lore from beyond the event horizon.</p>
+
+          <div class="signal-benefits">
+            <div class="signal-benefit">
+              <div class="signal-benefit-title">⚡ Priority transmissions</div>
+              <div>First in line for capsule drops & restocks.</div>
+            </div>
+            <!-- ... other benefits ... -->
+          </div>
+
+          {% form 'customer', id: 'signal-seeker-form' %}
+            <div class="signal-form">
+              <input class="signal-input" type="email" name="contact[email]" required placeholder="Enter your transmission frequency...">
+              <input type="hidden" name="contact[tags]" value="newsletter,signal-seekers">
+              <button class="signal-btn" type="submit">
+                <span>INITIATE SIGNAL</span> <span>📡</span>
+              </button>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </section>
   </div>
   
   {{ 'stellar-shop-all.js' | asset_url | script_tag }}
