@@ -9,17 +9,18 @@
  */
 {
   "sections": {
-    "main": {
+    "stellar_shop_all_CjRxpV": {
       "type": "stellar-shop-all",
+      "name": "Stellar Shop All",
       "settings": {
-        "hero_kicker": "SHOP ALL TRANSMISSIONS",
+        "hero_kicker": "TRANSMISSION: ALL_RELICS",
         "hero_title": "COSMIC PRODUCT VAULT",
-        "hero_subtitle": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.",
+        "hero_subtitle": "Shop every transmission.",
         "products_per_page": 24
       }
     }
   },
   "order": [
-    "main"
+    "stellar_shop_all_CjRxpV"
   ]
 }
