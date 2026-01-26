@@ -238,6 +238,7 @@
     },
     "featured_transmission_beast_PaaXKB": {
       "type": "featured-transmission-BEAST",
+      "custom_css": [],
       "name": "Featured Transmission",
       "settings": {
         "capsule_number": "008",
