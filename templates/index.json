@@ -48,6 +48,7 @@
     },
     "featured_transmission_ultimate_fixed_rCWgfi": {
       "type": "featured-transmission-ULTIMATE-FIXED",
+      "custom_css": [],
       "name": "Featured Transmission",
       "settings": {
         "featured_product": "",
