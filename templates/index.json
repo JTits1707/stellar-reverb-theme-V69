@@ -46,23 +46,22 @@
         "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
       }
     },
-    "featured_transmission_ultimate_fixed_rCWgfi": {
-      "type": "featured-transmission-ULTIMATE-FIXED",
-      "custom_css": [],
+    "incoming_transmission_rhmdFT": {
+      "type": "incoming-transmission",
       "name": "Featured Transmission",
       "settings": {
         "featured_product": "",
         "featured_image": "shopify://shop_images/capsule004-image-tags_16173cd8-e10a-4a30-8b7e-03d500c7d4a8.jpg",
         "capsule_title": "Capsule 004: Hollow Moon Archives",
         "description": "",
-        "transmission_header": "INCOMING TRANSMISSION // CAPSULE 004",
+        "transmission_header": "INCOMING TRANSMISSION // CAPSULE 001",
         "button_text": "SHOP THE CAPSULE",
         "primary_cta_link": "",
         "color_scheme": "magenta",
         "show_incoming_tag": true,
         "tag_text": "INCOMING",
         "show_decryption_overlay": true,
-        "progress_percentage": 53,
+        "progress_percentage": 43,
         "image_position": "left"
       }
     },
@@ -265,7 +264,7 @@
   "order": [
     "announcement_bar",
     "hero_decoding",
-    "featured_transmission_ultimate_fixed_rCWgfi",
+    "incoming_transmission_rhmdFT",
     "stellar_timeline_cosmic_7FkWM9",
     "scarcity_marquee",
     "floating_archive_main_rUzcyJ",
