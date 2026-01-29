@@ -132,54 +132,57 @@
   // COSMIC TIMELINE CLASS
   // ────────────────────────────────────────────────────────────
   
-  class CosmicTimeline {
-    constructor(section) {
-      this.section = section;
-      this.track = section.querySelector('[data-timeline-track]');
-      this.scrollHint = section.querySelector('[data-scroll-hint]');
-      this.navPrev = section.querySelector('[data-timeline-nav="prev"]');
-      this.navNext = section.querySelector('[data-timeline-nav="next"]');
-      this.nodes = section.querySelectorAll('.timeline-node');
-      this.particleCanvas = section.querySelector('#particle-canvas');
-      
-      this.hasScrolled = false;
-      this.particleSystem = null;
-      
-      this.init();
+// ──────────────────────────────────────────────────────────
+    // MODAL TRIGGERS - v3.0 LEGENDARY
+    // ──────────────────────────────────────────────────────────
+    
+    setupModalTriggers() {
+      this.nodes.forEach(node => {
+        const trigger = node.querySelector('[data-capsule-trigger]');
+        const capsuleNumber = node.dataset.capsule;
+        const loreContent = node.dataset.lore; // This pulls the escaped Liquid data
+        
+        // 1. Monitor the CTA Button
+        if (trigger) {
+          trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.openLoreModal(capsuleNumber, loreContent);
+          });
+        }
+        
+        // 2. Monitor the entire Node for immersion
+        node.addEventListener('click', (e) => {
+          if (e.target.closest('[data-capsule-trigger]')) return;
+          this.openLoreModal(capsuleNumber, loreContent);
+        });
+      });
     }
     
-    init() {
-      // Initialize particle system
-      if (this.particleCanvas) {
-        this.particleSystem = new ParticleSystem(this.particleCanvas);
-        this.particleSystem.draw();
+    openLoreModal(capsuleNumber, loreContent) {
+      // Find the Master Modal using the data-attribute we set
+      const modal = document.querySelector('[data-modal="lore-popup"]'); 
+      const modalContent = modal?.querySelector('.modal-lore-content');
+      
+      if (modal && modalContent) {
+        // Inject the Decoded Transmission
+        modalContent.innerHTML = loreContent;
+        
+        // Activate the CSS Handshake
+        modal.classList.add('active');
+        document.body.classList.add('lore-modal-open');
+        document.body.style.overflow = 'hidden'; // Lock terminal scroll
+        
+        // Fire analytics event
+        if (window.stellarAnalytics) {
+          window.stellarAnalytics.trackEvent('capsule_modal_opened', {
+            capsule: capsuleNumber
+          });
+        }
+      } else {
+        console.error('CRITICAL_ERROR: Lore modal [data-modal="lore-popup"] not found in DOM.');
       }
-      
-      // Setup scroll hint behavior
-      this.setupScrollHint();
-      
-      // Setup navigation arrows
-      this.setupNavigation();
-      
-      // Setup modal triggers
-      this.setupModalTriggers();
-      
-      // Setup intersection observer for animations
-      this.setupIntersectionObserver();
-      
-      // Track analytics
-      this.trackAnalytics();
     }
-    
-    // ──────────────────────────────────────────────────────────
-    // SCROLL HINT MANAGEMENT
-    // ──────────────────────────────────────────────────────────
-    
-    setupScrollHint() {
-      if (!this.scrollHint || !this.track) return;
-      
-      // Fade after 2 seconds
-      setTimeout(() => {
         if (!this.hasScrolled) {
           this.scrollHint.style.opacity = '0.5';
         }
