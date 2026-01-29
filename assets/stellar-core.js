@@ -220,3 +220,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 150);
   }
 });
+/**
+ * STELLAR OS - INTERFACE UNLOCK PROTOCOL
+ * Ensures the 'Signal Lock' is released after boot.
+ */
+const InterfaceUnlock = {
+  init() {
+    // 1. Monitor the specific Boot Sequence completion
+    const bootOverlay = document.getElementById('sr-terminal-boot') || document.querySelector('.sr-terminal-overlay');
+    
+    if (bootOverlay) {
+      this.watchBoot(bootOverlay);
+    } else {
+      // If no boot sequence is present, ensure site is unlocked immediately
+      this.forceUnlock();
+    }
+  },
+
+  watchBoot(overlay) {
+    // Use MutationObserver to detect when the 'active' class is removed
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class' && !overlay.classList.contains('active')) {
+          this.forceUnlock();
+          observer.disconnect();
+        }
+      });
+    });
+
+    observer.observe(overlay, { attributes: true });
+
+    // 2. Fail-safe: If the boot hangs for more than 8 seconds, force a breach
+    setTimeout(() => this.forceUnlock(), 8000);
+  },
+
+  forceUnlock() {
+    console.log('🔓 INTERFACE_UNLOCKED: Restoring user control.');
+    
+    // Release scroll lock
+    document.body.style.overflow = 'visible';
+    document.documentElement.style.overflow = 'visible';
+    
+    // Remove the interactive barrier
+    const barrier = document.querySelector('.sr-terminal-overlay, #sr-terminal-boot');
+    if (barrier) {
+      barrier.style.pointerEvents = 'none'; // Allows clicks to pass through
+      barrier.style.display = 'none';       // Completely removes from view
+    }
+  }
+};
+
+// Initiate Handshake
+document.addEventListener('DOMContentLoaded', () => InterfaceUnlock.init());
