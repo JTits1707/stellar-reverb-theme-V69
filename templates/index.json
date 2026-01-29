@@ -62,7 +62,7 @@
         "show_incoming_tag": true,
         "tag_text": "INCOMING",
         "show_decryption_overlay": true,
-        "progress_percentage": 69,
+        "progress_percentage": 53,
         "image_position": "left"
       }
     },
