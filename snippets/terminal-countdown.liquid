@@ -1,0 +1,86 @@
+{% comment %}
+  STELLAR REVERB - TERMINAL COUNTDOWN (vGODMODE)
+  Builds hype for the next signal decryption.
+{% endcomment %}
+
+<div class="terminal-countdown" id="Countdown-{{ section.id }}" data-target-date="{{ section.settings.target_date }}">
+  <div class="countdown-header orbitron">
+    <span class="pulse-red">●</span> SYSTEM_SHUTDOWN_IN_PROGRESS...
+  </div>
+  
+  <div class="countdown-grid">
+    <div class="countdown-item">
+      <span class="countdown-value orbitron" id="days">00</span>
+      <span class="countdown-label">DAYS</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-value orbitron" id="hours">00</span>
+      <span class="countdown-label">HOURS</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-value orbitron" id="minutes">00</span>
+      <span class="countdown-label">MINS</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-value orbitron" id="seconds">00</span>
+      <span class="countdown-label">SECS</span>
+    </div>
+  </div>
+
+  <div class="countdown-footer courier">
+    >> TARGET_DECRYPTION_LOG: {{ section.settings.target_date | default: "2024-12-31" }}
+  </div>
+</div>
+
+<style>
+  .terminal-countdown {
+    background: rgba(13, 13, 13, 0.9);
+    border: 2px solid var(--neon-magenta);
+    padding: 3rem 2rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(225, 60, 250, 0.2);
+  }
+  .countdown-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+  .countdown-value {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--cyan-blue);
+    text-shadow: 0 0 20px var(--cyan-blue);
+    display: block;
+  }
+  .countdown-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--chrome-silver);
+  }
+  .pulse-red { color: #FF0000; animation: blink 1s infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const targetDate = new Date("{{ section.settings.target_date | default: '2024-12-31T23:59:59' }}").getTime();
+  
+  const updateTimer = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance < 0) {
+      clearInterval(updateTimer);
+      document.querySelector('.countdown-header').innerHTML = "BREACH_SUCCESSFUL // SIGNAL_UNLOCKED";
+      return;
+    }
+
+    document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+    document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+    document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+    document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+  }, 1000);
+});
+</script>
