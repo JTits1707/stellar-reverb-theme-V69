@@ -111,6 +111,11 @@
         "text_color": "#00f0ff"
       }
     },
+    "floating_archive_main_rUzcyJ": {
+      "type": "floating-archive-main",
+      "name": "Floating Archive · Gated",
+      "settings": {}
+    },
     "navigation_matrix": {
       "type": "navigation-matrix",
       "blocks": {
@@ -255,11 +260,6 @@
         "show_scanlines": true,
         "text_color": "#00f0ff"
       }
-    },
-    "floating_archive_main_rUzcyJ": {
-      "type": "floating-archive-main",
-      "name": "Floating Archive · Gated",
-      "settings": {}
     }
   },
   "order": [
@@ -268,9 +268,9 @@
     "featured_transmission_ultimate_fixed_rCWgfi",
     "stellar_timeline_cosmic_7FkWM9",
     "scarcity_marquee",
+    "floating_archive_main_rUzcyJ",
     "navigation_matrix",
     "newsletter_cosmic_LGxTaj",
-    "stellar_scarcity_marquee_RDxDm7",
-    "floating_archive_main_rUzcyJ"
+    "stellar_scarcity_marquee_RDxDm7"
   ]
 }
