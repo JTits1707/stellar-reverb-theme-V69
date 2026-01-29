@@ -1,0 +1,477 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - SIGNAL SEEKER CTA SNIPPET
+  ═══════════════════════════════════════════════════════════
+  
+  Reusable CTA for promoting Signal Seeker membership
+  
+  Usage:
+  {% render 'signal-seeker-cta' %}
+  {% render 'signal-seeker-cta', style: 'compact' %}
+  {% render 'signal-seeker-cta', style: 'banner' %}
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% assign cta_style = style | default: 'default' %}
+{% assign cta_headline = headline | default: 'Join the Signal Seekers' %}
+{% assign cta_subheadline = subheadline | default: 'Get early access to new drops, exclusive relics, and cosmic transmissions.' %}
+{% assign cta_button_text = button_text | default: 'Join Now' %}
+{% assign cta_button_url = button_url | default: '/pages/signal-seekers' %}
+
+<div class="signal-seeker-cta signal-seeker-cta--{{ cta_style }}">
+  
+  {% if cta_style == 'banner' %}
+    
+    {%- comment -%} BANNER STYLE - Full width with background {%- endcomment -%}
+    <div class="cta-backdrop">
+      <div class="cta-gradient"></div>
+      <div class="cta-particles">
+        {% for i in (1..10) %}
+          <div class="particle"></div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="cta-content">
+      <div class="cta-icon">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <div class="cta-text">
+        <h3 class="cta-headline">{{ cta_headline }}</h3>
+        <p class="cta-subheadline">{{ cta_subheadline }}</p>
+      </div>
+
+      <div class="cta-action">
+        <a href="{{ cta_button_url }}" class="btn btn-primary">
+          {{ cta_button_text }}
+        </a>
+      </div>
+    </div>
+
+  {% elsif cta_style == 'compact' %}
+    
+    {%- comment -%} COMPACT STYLE - Inline with icon {%- endcomment -%}
+    <div class="cta-compact-inner">
+      <div class="cta-icon-small">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/>
+        </svg>
+      </div>
+
+      <div class="cta-text-compact">
+        <strong>{{ cta_headline }}</strong>
+        <span>{{ cta_subheadline }}</span>
+      </div>
+
+      <a href="{{ cta_button_url }}" class="cta-arrow">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+          <path d="M5 10h10M10 5l5 5-5 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+  {% elsif cta_style == 'card' %}
+    
+    {%- comment -%} CARD STYLE - Boxed design {%- endcomment -%}
+    <div class="cta-card-inner">
+      
+      <div class="cta-badge">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 2l2.5 5 5.5.7-4 3.9 1 5.4-5-2.6-5 2.6 1-5.4-4-3.9 5.5-.7z"/>
+        </svg>
+        <span>Signal Seeker</span>
+      </div>
+
+      <h3 class="cta-headline">{{ cta_headline }}</h3>
+      <p class="cta-subheadline">{{ cta_subheadline }}</p>
+
+      <ul class="cta-benefits">
+        <li>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor">
+            <path d="M3 9l4 4 8-8" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>Early access to drops</span>
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor">
+            <path d="M3 9l4 4 8-8" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>Exclusive relics & designs</span>
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor">
+            <path d="M3 9l4 4 8-8" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>Member discounts</span>
+        </li>
+      </ul>
+
+      <a href="{{ cta_button_url }}" class="btn btn-primary btn-block">
+        {{ cta_button_text }}
+      </a>
+    </div>
+
+  {% else %}
+    
+    {%- comment -%} DEFAULT STYLE - Standard CTA box {%- endcomment -%}
+    <div class="cta-default-inner">
+      
+      <div class="cta-header">
+        <div class="cta-icon-default">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="cta-text-header">
+          <h3 class="cta-headline">{{ cta_headline }}</h3>
+          <p class="cta-subheadline">{{ cta_subheadline }}</p>
+        </div>
+      </div>
+
+      <div class="cta-footer">
+        <a href="{{ cta_button_url }}" class="btn btn-primary">
+          {{ cta_button_text }}
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+            <path d="M5 10h10M10 5l5 5-5 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+  {% endif %}
+
+</div>
+
+<style>
+  .signal-seeker-cta {
+    width: 100%;
+  }
+
+  /* ===== BANNER STYLE ===== */
+  .signal-seeker-cta--banner {
+    position: relative;
+    padding: var(--spacing-xl, 4rem) 0;
+    overflow: hidden;
+  }
+
+  .cta-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .cta-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(108, 36, 179, 0.4), rgba(40, 168, 214, 0.4));
+    animation: gradient-pulse 8s ease-in-out infinite;
+  }
+
+  .cta-particles {
+    position: absolute;
+    inset: 0;
+  }
+
+  .cta-particles .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--cyan-blue, #28A8D6);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: particle-float 6s ease-in-out infinite;
+  }
+
+  {% for i in (1..10) %}
+  .cta-particles .particle:nth-child({{ i }}) {
+    left: {{ i | times: 10 }}%;
+    top: {{ i | modulo: 5 | times: 20 }}%;
+    animation-delay: {{ i | times: 0.4 }}s;
+  }
+  {% endfor %}
+
+  .signal-seeker-cta--banner .cta-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg, 2.5rem);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md, 1.5rem);
+  }
+
+  .cta-icon {
+    color: var(--radioactive-green, #00F0AC);
+    flex-shrink: 0;
+    animation: icon-float 3s ease-in-out infinite;
+  }
+
+  .cta-icon svg {
+    filter: drop-shadow(0 0 20px var(--radioactive-green));
+  }
+
+  .cta-text {
+    flex: 1;
+  }
+
+  .cta-headline {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--neon-magenta, #E13CFA), var(--cyan-blue, #28A8D6));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .cta-subheadline {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .cta-action {
+    flex-shrink: 0;
+  }
+
+  /* ===== COMPACT STYLE ===== */
+  .signal-seeker-cta--compact {
+    background: rgba(13, 13, 13, 0.8);
+    border: 2px solid rgba(40, 168, 214, 0.4);
+    border-radius: var(--border-radius-md, 12px);
+    padding: var(--spacing-md, 1.5rem);
+    backdrop-filter: blur(10px);
+  }
+
+  .cta-compact-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm, 1rem);
+  }
+
+  .cta-icon-small {
+    color: var(--radioactive-green, #00F0AC);
+    flex-shrink: 0;
+  }
+
+  .cta-text-compact {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .cta-text-compact strong {
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cyan-blue, #28A8D6);
+  }
+
+  .cta-text-compact span {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .cta-arrow {
+    color: var(--cyan-blue, #28A8D6);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .cta-compact-inner:hover .cta-arrow {
+    transform: translateX(4px);
+  }
+
+  /* ===== CARD STYLE ===== */
+  .signal-seeker-cta--card {
+    background: rgba(13, 13, 13, 0.9);
+    border: 2px solid rgba(225, 60, 250, 0.4);
+    border-radius: var(--border-radius-lg, 18px);
+    padding: var(--spacing-lg, 2.5rem);
+    backdrop-filter: blur(20px);
+    text-align: center;
+  }
+
+  .cta-card-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md, 1.5rem);
+  }
+
+  .cta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-pill, 999px);
+    background: linear-gradient(135deg, var(--radioactive-green, #00F0AC), var(--cyan-blue, #28A8D6));
+    color: var(--void-black, #0D0D0D);
+    font-family: var(--font-title, "Orbitron", sans-serif);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    box-shadow: 0 0 20px rgba(0, 240, 172, 0.5);
+  }
+
+  .signal-seeker-cta--card .cta-headline {
+    font-size: 1.75rem;
+    margin: 0;
+  }
+
+  .signal-seeker-cta--card .cta-subheadline {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .cta-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .cta-benefits li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .cta-benefits svg {
+    color: var(--radioactive-green, #00F0AC);
+    flex-shrink: 0;
+  }
+
+  .btn-block {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ===== DEFAULT STYLE ===== */
+  .signal-seeker-cta--default {
+    background: rgba(13, 13, 13, 0.8);
+    border: 2px solid rgba(40, 168, 214, 0.4);
+    border-radius: var(--border-radius-lg, 18px);
+    padding: var(--spacing-lg, 2.5rem);
+    backdrop-filter: blur(10px);
+  }
+
+  .cta-default-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md, 1.5rem);
+  }
+
+  .cta-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md, 1.5rem);
+  }
+
+  .cta-icon-default {
+    color: var(--cyan-blue, #28A8D6);
+    flex-shrink: 0;
+  }
+
+  .cta-text-header {
+    flex: 1;
+  }
+
+  .signal-seeker-cta--default .cta-headline {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .signal-seeker-cta--default .cta-subheadline {
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .cta-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .cta-footer .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Animations */
+  @keyframes gradient-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.9; }
+  }
+
+  @keyframes particle-float {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(-30px); opacity: 1; }
+  }
+
+  @keyframes icon-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .signal-seeker-cta--banner .cta-content {
+      flex-direction: column;
+      text-align: center;
+      gap: var(--spacing-md, 1.5rem);
+    }
+
+    .cta-icon {
+      display: none;
+    }
+
+    .cta-compact-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .cta-arrow {
+      display: none;
+    }
+
+    .cta-header {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .cta-footer {
+      justify-content: center;
+    }
+
+    .cta-footer .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .signal-seeker-cta * {
+      animation: none !important;
+    }
+  }
+</style>

@@ -1,0 +1,20 @@
+<div class="navigation-matrix-beast">
+  <div class="matrix-grid">
+    {% for block in section.blocks %}
+      <a href="{{ block.settings.link_url }}" class="matrix-card-link">
+        <div class="matrix-card" {{ block.shopify_attributes }}>
+          <div class="card-glitch-overlay"></div>
+          <div class="card-content">
+            <span class="card-id">0{{ forloop.index }}</span>
+            <h3 class="card-title" data-text="{{ block.settings.title | upcase }}">
+              {{ block.settings.title | upcase }}
+            </h3>
+            <p class="card-status">>> ACCESS_GATE_OPEN</p>
+          </div>
+          <div class="card-corner-top"></div>
+          <div class="card-corner-bottom"></div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>
