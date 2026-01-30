@@ -1,0 +1,574 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - SIGNAL SEEKER DASHBOARD (CLEAN VERSION)
+  Enhanced navigation grid based on original design
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<section class="signal-seeker-dashboard" id="dashboard-{{ section.id }}">
+  <div class="dashboard-container">
+    
+    {% if section.settings.show_heading %}
+      <header class="dashboard-header">
+        <h2 class="dashboard-title">{{ section.settings.heading | default: 'SIGNAL SEEKER DASHBOARD' }}</h2>
+        {% if section.settings.subheading != blank %}
+          <p class="dashboard-subtitle">{{ section.settings.subheading }}</p>
+        {% endif %}
+      </header>
+    {% endif %}
+
+    <div class="signal-grid" style="--grid-cols: {{ section.settings.grid_columns }};">
+      {% for block in section.blocks %}
+        <div class="signal-card" data-glow="{{ block.settings.glow_color }}" {{ block.shopify_attributes }}>
+          
+          {%- comment -%} Icon/Image {%- endcomment -%}
+          <div class="card-icon-wrapper">
+            {% if block.settings.custom_icon != blank %}
+              <img 
+                src="{{ block.settings.custom_icon | image_url: width: 200 }}" 
+                alt="{{ block.settings.title | escape }}"
+                class="card-icon-image"
+              />
+            {% elsif block.settings.emoji_icon != blank %}
+              <div class="card-icon-emoji">{{ block.settings.emoji_icon }}</div>
+            {% else %}
+              <div class="card-icon-fallback">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="50" cy="50" r="30"/>
+                  <path d="M 50 20 L 50 80 M 20 50 L 80 50"/>
+                </svg>
+              </div>
+            {% endif %}
+          </div>
+
+          {%- comment -%} Content {%- endcomment -%}
+          <div class="card-content">
+            <h3 class="card-title">{{ block.settings.title | upcase }}</h3>
+            
+            {% if block.settings.description != blank %}
+              <p class="card-description">{{ block.settings.description }}</p>
+            {% endif %}
+          </div>
+
+          {%- comment -%} CTA Button {%- endcomment -%}
+          <a href="{{ block.settings.link_url | default: '#' }}" class="card-cta">
+            {{ block.settings.cta_text | default: 'EXPLORE' }}
+          </a>
+
+          {%- comment -%} Glow Effect Overlay {%- endcomment -%}
+          <div class="card-glow-overlay"></div>
+
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .signal-seeker-dashboard {
+    background: #000;
+    padding: 8rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Matrix Rain Background Effect */
+  .signal-seeker-dashboard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 240, 255, 0.03) 2px,
+        rgba(0, 240, 255, 0.03) 4px
+      );
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  .dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dashboard-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .dashboard-title {
+    font-family: var(--font-title, 'Orbitron', monospace);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+  }
+
+  .dashboard-subtitle {
+    font-family: var(--font-body, sans-serif);
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* Grid Layout */
+  .signal-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-cols, 3), 1fr);
+    gap: 2rem;
+  }
+
+  /* Card Styles */
+  .signal-card {
+    background: linear-gradient(135deg, rgba(10, 10, 15, 0.9), rgba(15, 15, 25, 0.9));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    backdrop-filter: blur(10px);
+  }
+
+  .signal-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.05));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .signal-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Icon Wrapper */
+  .card-icon-wrapper {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+  }
+
+  .card-icon-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.5));
+    transition: all 0.4s ease;
+  }
+
+  .signal-card:hover .card-icon-image {
+    transform: scale(1.1) translateY(-5px);
+    filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.8));
+  }
+
+  .card-icon-emoji {
+    font-size: 4rem;
+    line-height: 1;
+    filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.5));
+    transition: all 0.4s ease;
+  }
+
+  .signal-card:hover .card-icon-emoji {
+    transform: scale(1.15) translateY(-5px) rotate(5deg);
+    filter: drop-shadow(0 0 30px currentColor);
+  }
+
+  .card-icon-fallback {
+    width: 60px;
+    height: 60px;
+    color: var(--cyan, #00f0ff);
+    opacity: 0.6;
+    transition: all 0.4s ease;
+  }
+
+  .signal-card:hover .card-icon-fallback {
+    opacity: 1;
+    transform: scale(1.1) rotate(90deg);
+  }
+
+  /* Card Content */
+  .card-content {
+    margin-bottom: 2rem;
+  }
+
+  .card-title {
+    font-family: var(--font-title, 'Orbitron', monospace);
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .card-description {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  /* CTA Button */
+  .card-cta {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    background: transparent;
+    color: #fff;
+    border: 2px solid;
+    border-radius: 6px;
+    font-family: var(--font-title, 'Orbitron', monospace);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  .card-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Glow Overlay */
+  .card-glow-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 100%, currentColor, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  .signal-card:hover .card-glow-overlay {
+    opacity: 0.2;
+  }
+
+  /* Color Variations */
+  .signal-card[data-glow="cyan"] {
+    color: #00f0ff;
+  }
+
+  .signal-card[data-glow="cyan"]:hover {
+    border-color: #00f0ff;
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
+  }
+
+  .signal-card[data-glow="cyan"] .card-cta {
+    border-color: #00f0ff;
+    color: #00f0ff;
+  }
+
+  .signal-card[data-glow="cyan"] .card-cta:hover {
+    background: #00f0ff;
+    color: #000;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+  }
+
+  .signal-card[data-glow="magenta"] {
+    color: #ff00ff;
+  }
+
+  .signal-card[data-glow="magenta"]:hover {
+    border-color: #ff00ff;
+    box-shadow: 0 0 40px rgba(255, 0, 255, 0.3);
+  }
+
+  .signal-card[data-glow="magenta"] .card-cta {
+    border-color: #ff00ff;
+    color: #ff00ff;
+  }
+
+  .signal-card[data-glow="magenta"] .card-cta:hover {
+    background: #ff00ff;
+    color: #000;
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+  }
+
+  .signal-card[data-glow="purple"] {
+    color: #9d00ff;
+  }
+
+  .signal-card[data-glow="purple"]:hover {
+    border-color: #9d00ff;
+    box-shadow: 0 0 40px rgba(157, 0, 255, 0.3);
+  }
+
+  .signal-card[data-glow="purple"] .card-cta {
+    border-color: #9d00ff;
+    color: #9d00ff;
+  }
+
+  .signal-card[data-glow="purple"] .card-cta:hover {
+    background: #9d00ff;
+    color: #000;
+    box-shadow: 0 0 30px rgba(157, 0, 255, 0.5);
+  }
+
+  .signal-card[data-glow="gold"] {
+    color: #ffd700;
+  }
+
+  .signal-card[data-glow="gold"]:hover {
+    border-color: #ffd700;
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+  }
+
+  .signal-card[data-glow="gold"] .card-cta {
+    border-color: #ffd700;
+    color: #ffd700;
+  }
+
+  .signal-card[data-glow="gold"] .card-cta:hover {
+    background: #ffd700;
+    color: #000;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .signal-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .signal-seeker-dashboard {
+      padding: 4rem 1.5rem;
+    }
+
+    .signal-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .dashboard-title {
+      font-size: 2rem;
+    }
+
+    .signal-card {
+      padding: 2.5rem 1.5rem 1.5rem;
+    }
+
+    .card-icon-wrapper {
+      height: 60px;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-icon-image,
+    .card-icon-emoji {
+      width: 60px;
+      height: 60px;
+      font-size: 3rem;
+    }
+  }
+
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .signal-card,
+    .card-icon-image,
+    .card-icon-emoji,
+    .card-icon-fallback,
+    .card-cta {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Signal Seeker Dashboard",
+  "tag": "section",
+  "class": "section-signal-dashboard",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show section heading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "SIGNAL SEEKER DASHBOARD"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Access points to the cosmic network"
+    },
+    {
+      "type": "range",
+      "id": "grid_columns",
+      "label": "Columns (desktop)",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "signal_card",
+      "name": "Signal Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "View All Capsules"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Explore the complete transmission archive. Each capsule contains unique stories from across the multiverse."
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Button text",
+          "default": "EXPLORE ARCHIVE"
+        },
+        {
+          "type": "header",
+          "content": "Icon Settings"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon image",
+          "info": "Upload a custom icon (80x80px recommended). Takes priority over emoji."
+        },
+        {
+          "type": "text",
+          "id": "emoji_icon",
+          "label": "Emoji icon",
+          "default": "📦",
+          "info": "Used if no custom image is uploaded. Use any emoji."
+        },
+        {
+          "type": "select",
+          "id": "glow_color",
+          "label": "Hover glow color",
+          "options": [
+            { "value": "cyan", "label": "Cyan" },
+            { "value": "magenta", "label": "Magenta" },
+            { "value": "purple", "label": "Purple" },
+            { "value": "gold", "label": "Gold" }
+          ],
+          "default": "cyan"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Signal Seeker Dashboard",
+      "blocks": [
+        {
+          "type": "signal_card",
+          "settings": {
+            "title": "Join Signal Seekers",
+            "description": "Become part of the cosmic network. Receive exclusive transmissions and early access to hidden relics.",
+            "link_url": "/pages/newsletter",
+            "cta_text": "JOIN NOW",
+            "emoji_icon": "🔗",
+            "glow_color": "cyan"
+          }
+        },
+        {
+          "type": "signal_card",
+          "settings": {
+            "title": "View All Capsules",
+            "description": "Explore the complete transmission archive. Each capsule contains unique stories from across the multiverse.",
+            "link_url": "/collections/all",
+            "cta_text": "EXPLORE ARCHIVE",
+            "emoji_icon": "📦",
+            "glow_color": "magenta"
+          }
+        },
+        {
+          "type": "signal_card",
+          "settings": {
+            "title": "Universal Lore",
+            "description": "Dive deep into the mythology and cosmic stories that power the Stellar Reverb universe.",
+            "link_url": "/pages/lore",
+            "cta_text": "READ LORE",
+            "emoji_icon": "📖",
+            "glow_color": "purple"
+          }
+        },
+        {
+          "type": "signal_card",
+          "settings": {
+            "title": "Floating Archive",
+            "description": "Access the ethereal collection of transmissions floating between dimensions.",
+            "link_url": "/collections/archive",
+            "cta_text": "ENTER ARCHIVE",
+            "emoji_icon": "☁️",
+            "glow_color": "cyan"
+          }
+        },
+        {
+          "type": "signal_card",
+          "settings": {
+            "title": "Shop All Relics",
+            "description": "Discover physical manifestations of cosmic transmissions. Wear the universe.",
+            "link_url": "/collections/all",
+            "cta_text": "SHOP NOW",
+            "emoji_icon": "🛒",
+            "glow_color": "magenta"
+          }
+        },
+        {
+          "type": "signal_card",
+          "settings": {
+            "title": "About Stellar Reverb",
+            "description": "Learn the origin story of how sound, style, and cosmic identity merged across time.",
+            "link_url": "/pages/about",
+            "cta_text": "DISCOVER",
+            "emoji_icon": "🌀",
+            "glow_color": "gold"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
