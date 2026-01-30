@@ -48,6 +48,7 @@
     },
     "incoming_transmission_rhmdFT": {
       "type": "incoming-transmission",
+      "custom_css": [],
       "name": "Featured Transmission",
       "settings": {
         "featured_product": "",
