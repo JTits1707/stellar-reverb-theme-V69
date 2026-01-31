@@ -1,60 +1,305 @@
-{%- comment -%}
-  Stellar Reverb — Timeline Node (safe Liquid)
-  Inputs (fallback supported):
-  - capsule (metaobject) OR
-  - index, title, date, theme, teaser, lore, status, progress
-{%- endcomment -%}
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - COSMIC TIMELINE NODE COMPONENT
+  ═══════════════════════════════════════════════════════════
+  
+  Individual capsule node for the horizontal timeline
+  
+  Parameters:
+    - capsule_number: String (e.g., "001")
+    - title: String (capsule title)
+    - date: String (release date, e.g., "2023.1")
+    - icon: String (icon type: city, brain, robot, moon, infinity, diamond, skull, signal, warning)
+    - theme: String (theme color: orange-cyan, cosmic-purple, cyan-magenta, vintage-amber, gold-cyan)
+    - status: String (released, incoming, unstable)
+    - progress: Number (for incoming/unstable status, 0-100)
+    - short_lore: String (hover popup text)
+    - tags: String (comma or space separated tags)
+    - full_lore: String (HTML for modal content)
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
 
-{%- liquid
-  assign _index = index | default: forloop.index
-  assign _title = title | default: capsule.capsule_title | default: capsule.title | default: 'UNKNOWN CAPSULE'
-  assign _date  = date  | default: capsule.release_date | default: capsule.capsule_release_date | default: ''
-  assign _theme = theme | default: capsule.capsule_theme_color | default: capsule.theme | default: 'cyan'
-  assign _teaser = teaser | default: capsule.capsule_short_lore | default: capsule.teaser | default: ''
+{% liquid
+  assign capsule_number = capsule_number | default: '000'
+  assign title = title | default: 'Unknown Transmission'
+  assign date = date | default: '20XX.X'
+  assign icon = icon | default: 'signal'
+  assign theme = theme | default: 'cyan-magenta'
+  assign status = status | default: 'released'
+  assign progress = progress | default: 0
+  assign short_lore = short_lore | default: 'Transmission data unavailable'
+  assign tags = tags | default: ''
+  assign full_lore = full_lore | default: '<p>Lore data not yet decoded...</p>'
+  
+  # Generate unique ID
+  assign node_id = 'timeline-node-' | append: capsule_number
+  
+  # Status classes
+  assign status_class = 'timeline-node--' | append: status
+  assign theme_class = 'timeline-theme--' | append: theme
+%}
 
-  assign _lore = lore | default: capsule.capsule_lore | default: capsule.lore | default: ''
-  assign _progress = progress | default: capsule.progress | default: 0
-
-  assign _status = status | default: capsule.status | default: capsule.capsule_status
-  if _status == blank
-    if _index > 8
-      assign _status = 'incoming'
-    else
-      assign _status = 'released'
-    endif
-  endif
--%}
-
-<div
-  class="timeline-node theme-{{ _theme }} status-{{ _status }}"
-  data-capsule="{{ _index }}"
-  {% if _lore != blank %}data-lore="{{ _lore | escape }}"{% endif %}
+<div 
+  class="timeline-node {{ status_class }} {{ theme_class }}"
+  id="{{ node_id }}"
+  data-capsule="{{ capsule_number }}"
+  data-status="{{ status }}"
+  data-theme="{{ theme }}"
+  data-lore="{{ full_lore | escape }}"
 >
-  <div class="timeline-node__top">
-    <div class="timeline-node__cap orbitron">CAPSULE {{ _index }}</div>
-    {% if _date != blank %}<div class="timeline-node__date">{{ _date }}</div>{% endif %}
-  </div>
-
-  <h3 class="timeline-node__title orbitron">{{ _title }}</h3>
-
-  {% if _teaser != blank %}
-    <p class="timeline-node__teaser">{{ _teaser }}</p>
-  {% endif %}
-
-  <div class="timeline-node__meta">
-    {% if _status == 'incoming' %}
-      <div class="timeline-node__status">INCOMING</div>
-      <div class="timeline-node__bar" aria-label="Progress">
-        <span style="width: {{ _progress | at_most: 100 | at_least: 0 }}%"></span>
+  
+  {%- comment -%} Connection Line to Previous Node {%- endcomment -%}
+  {% unless capsule_number == '001' %}
+    <div class="node-connection" aria-hidden="true"></div>
+  {% endunless %}
+  
+  {%- comment -%} Pulse Ring Animation {%- endcomment -%}
+  <div class="node-pulse-ring" aria-hidden="true"></div>
+  
+  {%- comment -%} Main Node Circle {%- endcomment -%}
+  <div class="node-circle">
+    
+    {%- comment -%} Icon Container {%- endcomment -%}
+    <div class="node-icon">
+      
+      {%- comment -%} SVG Icons for Each Capsule Type {%- endcomment -%}
+      {% case icon %}
+        
+        {%- comment -%} CITY ICON {%- endcomment -%}
+        {% when 'city' %}
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="12" y="32" width="10" height="20" />
+            <rect x="26" y="24" width="12" height="28" />
+            <rect x="42" y="16" width="10" height="36" />
+            <rect x="16" y="36" width="2" height="2" />
+            <rect x="20" y="36" width="2" height="2" />
+            <rect x="16" y="40" width="2" height="2" />
+            <rect x="20" y="40" width="2" height="2" />
+            <rect x="30" y="28" width="2" height="2" />
+            <rect x="34" y="28" width="2" height="2" />
+            <rect x="30" y="32" width="2" height="2" />
+            <rect x="34" y="32" width="2" height="2" />
+            <rect x="30" y="36" width="2" height="2" />
+            <rect x="34" y="36" width="2" height="2" />
+            <rect x="46" y="20" width="2" height="2" />
+            <rect x="50" y="20" width="2" height="2" />
+            <rect x="46" y="24" width="2" height="2" />
+            <rect x="50" y="24" width="2" height="2" />
+          </svg>
+        
+        {%- comment -%} BRAIN ICON {%- endcomment -%}
+        {% when 'brain' %}
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20,16 Q16,16 14,20 Q12,24 14,28 Q12,32 14,36 Q12,40 16,44 Q20,46 24,44 Q28,48 32,48 Q36,48 40,44 Q44,46 48,44 Q52,40 50,36 Q52,32 50,28 Q52,24 50,20 Q48,16 44,16 Q40,14 36,16 Q32,14 28,16 Q24,14 20,16 Z" />
+            <path d="M28,20 Q28,24 26,28" />
+            <path d="M32,18 Q32,22 32,28" />
+            <path d="M36,20 Q36,24 38,28" />
+            <path d="M26,32 Q28,36 28,40" />
+            <path d="M32,32 Q32,36 32,42" />
+            <path d="M38,32 Q36,36 36,40" />
+          </svg>
+        
+        {%- comment -%} ROBOT ICON {%- endcomment -%}
+        {% when 'robot' %}
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="20" y="24" width="24" height="28" rx="2" />
+            <rect x="26" y="30" width="4" height="4" rx="1" />
+            <rect x="34" y="30" width="4" height="4" rx="1" />
+            <rect x="28" y="38" width="8" height="2" rx="1" />
+            <line x1="32" y1="18" x2="32" y2="24" />
+            <circle cx="32" cy="16" r="2" />
+            <line x1="16" y1="32" x2="20" y2="32" />
+            <line x1="44" y1="32" x2="48" y2="32" />
+            <line x1="24" y1="52" x2="24" y2="56" />
+            <line x1="40" y1="52" x2="40" y2="56" />
+          </svg>
+        
+        {%- comment -%} MOON ICON {%- endcomment -%}
+        {% when 'moon' %}
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="32" cy="32" r="20" />
+            <circle cx="26" cy="24" r="3" fill="currentColor" />
+            <circle cx="38" cy="28" r="2" fill="currentColor" />
+            <circle cx="28" cy="36" r="2.5" fill="currentColor" />
+            <circle cx="40" cy="38" r="1.5" fill="currentColor" />
+            <circle cx="34" cy="44" r="2" fill="currentColor" />
+          </svg>
+        
+        {%- comment -%} INFINITY ICON {%- endcomment -%}
+        {% when 'infinity' %}
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M16,32 Q16,22 22,22 Q28,22 32,28 Q36,22 42,22 Q48,22 48,32 Q48,42 42,42 Q36,42 32,36 Q28,42 22,42 Q16,42 16,32 Z" />
+          </svg>
+        
+        {%- comment -%} DIAMOND/CRYSTAL ICON {%- endcomment -%}
+        {% when 'diamond' %}
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M32,12 L48,28 L32,52 L16,28 Z" />
+            <line x1="16" y1="28" x2="48" y2="28" />
+            <line x1="22" y1="12" x2="18" y2="28" />
+            <line x1="32" y1="12" x2="32" y2="52" />
+            <line x1="42" y1="12" x2="46" y2="28" />
+            <line x1="22" y1="12" x2="42" y2="12" />
+          </svg>
+        
+        {%- comment -%} SKULL/ORACLE ICON {%- endcomment -%}
+        {% when 'skull' %}
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+            <ellipse cx="32" cy="28" rx="14" ry="16" />
+            <circle cx="26" cy="26" r="3" />
+            <circle cx="38" cy="26" r="3" />
+            <path d="M28,36 L28,40 L24,44 L24,48" />
+            <path d="M32,36 L32,48" />
+            <path d="M36,36 L36,40 L40,44 L40,48" />
+            <line x1="26" y1="32" x2="28" y2="34" stroke-width="1.5" />
+            <line x1="32" y1="32" x2="32" y2="35" stroke-width="1.5" />
+            <line x1="38" y1="32" x2="36" y2="34" stroke-width="1.5" />
+          </svg>
+        
+        {%- comment -%} SIGNAL/RADIO ICON {%- endcomment -%}
+        {% when 'signal' %}
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="32" cy="32" r="4" fill="currentColor" />
+            <path d="M24,24 Q20,28 20,32 Q20,36 24,40" />
+            <path d="M40,24 Q44,28 44,32 Q44,36 40,40" />
+            <path d="M18,18 Q12,24 12,32 Q12,40 18,46" />
+            <path d="M46,18 Q52,24 52,32 Q52,40 46,46" />
+          </svg>
+        
+        {%- comment -%} WARNING/ALERT ICON {%- endcomment -%}
+        {% when 'warning' %}
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M32,16 L52,48 L12,48 Z" />
+            <line x1="32" y1="28" x2="32" y2="38" stroke-width="3" />
+            <circle cx="32" cy="42" r="1.5" fill="currentColor" />
+          </svg>
+        
+        {%- comment -%} DEFAULT/FALLBACK ICON {%- endcomment -%}
+        {% else %}
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="32" cy="32" r="16" />
+            <circle cx="32" cy="32" r="4" fill="currentColor" />
+          </svg>
+        
+      {% endcase %}
+      
+    </div>
+    
+    {%- comment -%} Status Icon Overlay (for released capsules) {%- endcomment -%}
+    {% if status == 'released' %}
+      <div class="node-status-icon" aria-label="Released">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
-    {% else %}
-      <div class="timeline-node__status">RELEASED</div>
     {% endif %}
+    
+    {% if status == 'incoming' %}
+      <div class="node-status-icon node-status-icon--incoming" aria-label="Incoming">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="12" cy="12" r="10" />
+        </svg>
+      </div>
+    {% endif %}
+    
+    {% if status == 'unstable' %}
+      <div class="node-status-icon node-status-icon--warning" aria-label="Unstable">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L2 22h20L12 2zm0 6l6 12H6l6-12z"/>
+        </svg>
+      </div>
+    {% endif %}
+    
   </div>
-
-  {% if _lore != blank %}
-    <button class="timeline-node__btn orbitron" type="button">
-      OPEN LORE
+  
+  {%- comment -%} Pedestal Glow Effect {%- endcomment -%}
+  <div class="node-pedestal" aria-hidden="true"></div>
+  
+  {%- comment -%} Content Below Node {%- endcomment -%}
+  <div class="node-content">
+    
+    {%- comment -%} Capsule Badge {%- endcomment -%}
+    <div class="node-badge">
+      CAPSULE {{ capsule_number }}
+    </div>
+    
+    {%- comment -%} Release Date {%- endcomment -%}
+    <div class="node-date">{{ date }}</div>
+    
+    {%- comment -%} Capsule Title {%- endcomment -%}
+    <h3 class="node-title">{{ title }}</h3>
+    
+    {%- comment -%} Status Container (for progress bars on unreleased capsules) {%- endcomment -%}
+    {% if status == 'incoming' or status == 'unstable' %}
+      <div class="node-status-container">
+        
+        {% if status == 'incoming' %}
+          <div class="node-status-badge node-status-badge--incoming">
+            DECRYPTING {{ progress }}%
+          </div>
+          <div class="node-progress-bar">
+            <div class="node-progress-fill" style="width: {{ progress }}%"></div>
+          </div>
+        {% endif %}
+        
+        {% if status == 'unstable' %}
+          <div class="node-status-badge node-status-badge--unstable">
+            SYNCING {{ progress }}%
+          </div>
+          <div class="node-progress-bar node-progress-bar--unstable">
+            <div class="node-progress-fill" style="width: {{ progress }}%"></div>
+          </div>
+        {% endif %}
+        
+      </div>
+    {% endif %}
+    
+    {%- comment -%} Tags {%- endcomment -%}
+    {% if tags != blank %}
+      <div class="node-tags">
+        {% assign tag_array = tags | split: ',' %}
+        {% for tag in tag_array limit: 3 %}
+          <span class="node-tag">{{ tag | strip }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+    
+    {%- comment -%} CTA Button {%- endcomment -%}
+    <button 
+      class="node-cta"
+      data-capsule-trigger="{{ capsule_number }}"
+      aria-label="Open lore modal for Capsule {{ capsule_number }}"
+    >
+      {% if status == 'released' %}
+        DECODE SIGNAL
+      {% elsif status == 'incoming' %}
+        MONITOR SIGNAL
+      {% elsif status == 'unstable' %}
+        STABILIZE
+      {% else %}
+        EXPLORE
+      {% endif %}
+      <svg class="node-cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor">
+        <path d="M6 4l4 4-4 4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </button>
-  {% endif %}
+    
+  </div>
+  
+  {%- comment -%} Hover Popup (shows on hover, contains short lore) {%- endcomment -%}
+  <div class="node-hover-popup" role="tooltip">
+    <div class="hover-popup-content">
+      <div class="hover-popup-header">
+        <span class="hover-popup-label">TRANSMISSION {{ capsule_number }}</span>
+        <svg class="hover-popup-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0l2 5 5 1-4 3 1 5-4-3-4 3 1-5-4-3 5-1z"/>
+        </svg>
+      </div>
+      <p class="hover-popup-text">{{ short_lore }}</p>
+      <div class="hover-popup-hint">Click to decode full transmission</div>
+    </div>
+    <div class="hover-popup-arrow" aria-hidden="true"></div>
+  </div>
+  
 </div>
