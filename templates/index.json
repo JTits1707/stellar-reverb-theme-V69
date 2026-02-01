@@ -46,6 +46,22 @@
         "status_right": "SIGNAL: STABLE · REVERB ACTIVE"
       }
     },
+    "stellar_timeline_cosmic_7FkWM9": {
+      "type": "stellar-timeline-cosmic",
+      "custom_css": [],
+      "name": "Cosmic Timeline",
+      "settings": {
+        "heading": "TRANSMISSION TIMELINE",
+        "subtitle": "Journey through space-time across capsule drops\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
+        "show_particles": true,
+        "show_scanlines": true,
+        "show_nav_arrows": true,
+        "auto_scroll": true,
+        "particle_density": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "incoming_transmission_rhmdFT": {
       "type": "incoming-transmission",
       "custom_css": [],
@@ -64,22 +80,6 @@
         "show_decryption_overlay": true,
         "progress_percentage": 43,
         "image_position": "left"
-      }
-    },
-    "stellar_timeline_cosmic_7FkWM9": {
-      "type": "stellar-timeline-cosmic",
-      "custom_css": [],
-      "name": "Cosmic Timeline",
-      "settings": {
-        "heading": "TRANSMISSION TIMELINE",
-        "subtitle": "Journey through space-time across capsule drops\n<div class=\"timeline-glitch-overlay\">DECRYPTING 21%</div>",
-        "show_particles": true,
-        "show_scanlines": true,
-        "show_nav_arrows": true,
-        "auto_scroll": true,
-        "particle_density": 50,
-        "padding_top": 80,
-        "padding_bottom": 80
       }
     },
     "scarcity_marquee": {
@@ -221,8 +221,8 @@
   "order": [
     "announcement_bar",
     "hero_decoding",
-    "incoming_transmission_rhmdFT",
     "stellar_timeline_cosmic_7FkWM9",
+    "incoming_transmission_rhmdFT",
     "scarcity_marquee",
     "floating_archive_main_rUzcyJ",
     "navigation_matrix",
