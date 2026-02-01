@@ -96,11 +96,18 @@
           "settings": {
             "message": "📡 NEW TRANSMISSION INCOMING"
           }
+        },
+        "message_ctnBDi": {
+          "type": "message",
+          "settings": {
+            "message": "LIMITED TRANSMISSION"
+          }
         }
       },
       "block_order": [
         "m1",
-        "m2"
+        "m2",
+        "message_ctnBDi"
       ],
       "settings": {
         "marquee_speed": 30,
