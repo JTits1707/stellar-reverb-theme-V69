@@ -57,6 +57,18 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
+        "blocks": {
+          "info_link_qeQbpb": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "FAQ",
+              "link_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "info_link_qeQbpb"
+        ],
         "custom_css": [],
         "settings": {
           "show_signal_badge": true,

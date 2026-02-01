@@ -267,6 +267,99 @@
         "show_scanlines": true,
         "text_color": "#00f0ff"
       }
+    },
+    "stellar_footer_84TgRq": {
+      "type": "stellar-footer",
+      "blocks": {
+        "info_link_Ek9R9V": {
+          "type": "info_link",
+          "settings": {
+            "link_text": "F.A.Q.",
+            "link_url": "/pages/faq"
+          }
+        },
+        "info_link_n44Vnf": {
+          "type": "info_link",
+          "settings": {
+            "link_text": "Contact",
+            "link_url": "/pages/contact"
+          }
+        },
+        "info_link_wAfNLY": {
+          "type": "info_link",
+          "settings": {
+            "link_text": "Shipping Info",
+            "link_url": "/pages/shipping"
+          }
+        },
+        "info_link_WX3iNd": {
+          "type": "info_link",
+          "settings": {
+            "link_text": "Sizing Guide",
+            "link_url": "/pages/sizing"
+          }
+        },
+        "info_link_yeF9Ef": {
+          "type": "info_link",
+          "settings": {
+            "link_text": "Privacy Policy",
+            "link_url": "/pages/privacy-policy"
+          }
+        },
+        "info_link_rqHGBL": {
+          "type": "info_link",
+          "settings": {
+            "link_text": "Terms of Service",
+            "link_url": "/pages/terms-of-service"
+          }
+        },
+        "social_link_xFAX6p": {
+          "type": "social_link",
+          "settings": {
+            "platform": "instagram",
+            "social_url": "https://instagram.com/stellarreverb"
+          }
+        },
+        "social_link_BbyQaP": {
+          "type": "social_link",
+          "settings": {
+            "platform": "pinterest",
+            "social_url": "https://pinterest.com/stellarreverb"
+          }
+        },
+        "social_link_mtUqxz": {
+          "type": "social_link",
+          "settings": {
+            "platform": "x",
+            "social_url": "https://x.com/stellarreverb"
+          }
+        },
+        "social_link_EtPDqH": {
+          "type": "social_link",
+          "settings": {
+            "platform": "tiktok",
+            "social_url": "https://tiktok.com/@stellarreverb"
+          }
+        }
+      },
+      "block_order": [
+        "info_link_Ek9R9V",
+        "info_link_n44Vnf",
+        "info_link_wAfNLY",
+        "info_link_WX3iNd",
+        "info_link_yeF9Ef",
+        "info_link_rqHGBL",
+        "social_link_xFAX6p",
+        "social_link_BbyQaP",
+        "social_link_mtUqxz",
+        "social_link_EtPDqH"
+      ],
+      "name": "Stellar Footer",
+      "settings": {
+        "show_signal_badge": true,
+        "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
+        "show_payment_icons": true
+      }
     }
   },
   "order": [
@@ -278,6 +371,7 @@
     "floating_archive_main_rUzcyJ",
     "navigation_matrix",
     "newsletter_cosmic_LGxTaj",
-    "stellar_scarcity_marquee_RDxDm7"
+    "stellar_scarcity_marquee_RDxDm7",
+    "stellar_footer_84TgRq"
   ]
 }
