@@ -22,7 +22,7 @@ const StellarCore = {
       document.documentElement.style.overflow = 'visible';
       document.body.classList.remove('lock-scroll');
       
-      // Clean up all possible loader layers
+      // Clean up all possible loader layers (Boot, Handshake, and Lore)
       const barriers = document.querySelectorAll('.sr-terminal-overlay, #sr-terminal-boot, .lore-loader');
       barriers.forEach(b => {
         b.style.pointerEvents = 'none';
@@ -30,7 +30,7 @@ const StellarCore = {
       });
     };
 
-    // Watch for ANY terminal overlay to lose the 'active' class
+    // Use MutationObserver to watch for ANY terminal overlay to lose the 'active' class
     const bootOverlay = document.querySelector('.sr-terminal-overlay.active, #sr-terminal-boot.active, .lore-loader.active');
     if (bootOverlay) {
       const observer = new MutationObserver((mutations) => {
@@ -44,17 +44,17 @@ const StellarCore = {
       observer.observe(bootOverlay, { attributes: true });
     }
 
-    // Fail-safe: Always force unlock after 7 seconds
+    // Fail-safe breach: If the system hangs, force-unlock after 7 seconds
     setTimeout(unlockProtocol, 7000);
   },
 
-  // 2. ENHANCED HANDSHAKE - Supports Custom Slugs
+  // 2. ENHANCED HANDSHAKE - Supports Metaobject Redirects
   setupEnhancedHandshake() {
     const terminal = document.getElementById('sr-handshake-terminal');
     const bar = document.getElementById('sr-handshake-bar');
     if (!terminal || !bar) return;
 
-    // Detects any link going to your lore pages
+    // Detects any link with the specific capsule data attribute
     document.querySelectorAll('a[data-capsule-link], .nav-link-capsule').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -74,23 +74,26 @@ const StellarCore = {
     });
   },
 
+  // 3. GLOBAL INPUTS - Modal Exit & Shortcuts
   setupGlobalShortcuts() {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         const modal = document.querySelector('.lore-popup-modal.active, .is-active');
-        if (modal) modal.classList.remove('active', 'is-active');
-        document.body.style.overflow = '';
+        if (modal) {
+          modal.classList.remove('active', 'is-active');
+          document.body.style.overflow = 'visible';
+        }
       }
     });
   },
 
+  // 4. GPU ACCELERATION - Keeps animations at 60FPS
   setupPerformance() {
-    // 60FPS Optimization: Force GPU for heavy elements
-    document.querySelectorAll('.glitch-text, .terminal-window').forEach(el => {
+    document.querySelectorAll('.glitch-text, .terminal-window, .myth-card').forEach(el => {
       el.style.willChange = 'transform, opacity';
     });
   }
 };
 
-// INITIALIZE COMMAND
+// AUTO-INITIALIZE ENGINE
 document.addEventListener('DOMContentLoaded', () => StellarCore.init());
