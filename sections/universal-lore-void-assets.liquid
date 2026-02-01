@@ -1,0 +1,64 @@
+{% comment %}
+  =====================================================
+  UNIVERSAL LORE: FLOATING VOID ASSETS (Beast Mode)
+  - Parallax drifting for high-res cassettes
+  - Neon triangle overlay logic
+  =====================================================
+{% endcomment %}
+
+<div class="universal-void-background" id="VoidParallax-{{ section.id }}">
+  <div class="void-grain"></div>
+  
+  {% comment %} --- THE PRIMARY RELIC (Your Cassette Visual) --- {% endcomment %}
+  <div class="drifting-relic relic-cassette-main" data-speed="2">
+    <img src="{{ 'stellar-universal-lore-hero-image.jpg' | asset_url }}" alt="Drifting Relic 001" loading="lazy">
+  </div>
+
+  {% comment %} --- SECONDARY NEON ELEMENTS --- {% endcomment %}
+  <div class="drifting-triangle neon-cyan" data-speed="4" style="top: 20%; left: 80%;"></div>
+  <div class="drifting-triangle neon-magenta" data-speed="3" style="top: 60%; left: 15%;"></div>
+</div>
+
+<style>
+  .universal-void-background {
+    position: fixed;
+    inset: 0;
+    z-index: -1; [span_6](start_span)/* Sits behind everything[span_6](end_span) */
+    background: #000;
+    overflow: hidden;
+    [span_7](start_span)pointer-events: none;[span_7](end_span)
+  }
+
+  .drifting-relic {
+    position: absolute;
+    width: 60vw;
+    max-width: 1000px;
+    opacity: 0.3;
+    [span_8](start_span)filter: blur(2px);[span_8](end_span)
+    transition: transform 0.1s ease-out;
+  }
+
+  .relic-cassette-main {
+    top: 10%;
+    left: -10%;
+    transform: rotate(-15deg);
+    animation: slowOrbit 60s infinite linear;
+  }
+
+  @keyframes slowOrbit {
+    from { transform: rotate(0deg) translate(0, 0); }
+    to { transform: rotate(360deg) translate(20px, -20px); }
+  }
+
+  .drifting-triangle {
+    position: absolute;
+    width: 0; height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    opacity: 0.2;
+    filter: blur(8px);
+  }
+
+  .neon-cyan { border-bottom: 80px solid var(--cyan-blue); }
+  .neon-magenta { border-bottom: 80px solid var(--neon-magenta); }
+</style>

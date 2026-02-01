@@ -1,0 +1,54 @@
+{% comment %}
+STELLAR REVERB — UNIVERSAL LORE KONAMI MODAL
+Easter egg modal triggered by Konami code (↑ ↑ ↓ ↓ ← → ← → B A)
+Via JS engine trackEvent('konami_activated')
+{% endcomment %}
+
+<div id="lore-konami-modal" class="konami-modal" style="display:none" role="dialog" aria-hidden="true">
+  <style>
+    #lore-konami-modal{position:fixed;inset:0;background:rgba(10,10,10,0.95);display:flex;align-items:center;justify-content:center;z-index:9998;opacity:0;transition:opacity 0.3s ease;backdrop-filter:blur(5px)}
+    #lore-konami-modal.active{opacity:1}
+    .modal-content{background:linear-gradient(135deg, rgba(225,60,250,0.1), rgba(40,168,214,0.1));border:3px solid var(--neon-magenta,#E13CFA);border-radius:12px;padding:2.5rem;max-width:600px;text-align:center;box-shadow:0 0 50px rgba(225,60,250,.5);position:relative}
+    .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--neon-magenta,#E13CFA);font-size:1.5rem;cursor:pointer}
+    .modal-title{font-family:'Orbitron',monospace;color:var(--radioactive-green,#00F0AC);text-transform:uppercase;letter-spacing:0.15em;font-size:2rem;margin-bottom:1rem}
+    .modal-text{font-family:'Montserrat',sans-serif;color:#fff;line-height:1.6;margin-bottom:1.5rem}
+    .modal-cta{font-family:'Orbitron',monospace;background:var(--neon-magenta,#E13CFA);color:#fff;border:none;padding:1rem 1.75rem;border-radius:4px;cursor:pointer;text-transform:uppercase;font-weight:800;letter-spacing:0.08em;transition:all 0.2s ease}
+    .modal-cta:hover{filter:brightness(1.1);box-shadow:0 0 20px rgba(225,60,250,.5)}
+    .modal-glitch{position:absolute;inset:0;background:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(225,60,250,0.1) 2px, rgba(225,60,250,0.1) 4px);pointer-events:none;border-radius:12px;animation:glitch-scan 0.15s infinite}
+    @keyframes glitch-scan{0%{transform:translateY(0)}100%{transform:translateY(4px)}}
+  </style>
+
+  <div class="modal-content">
+    <div class="modal-glitch" aria-hidden="true"></div>
+    <button class="modal-close" aria-label="Close" onclick="document.getElementById('lore-konami-modal').classList.remove('active');document.getElementById('lore-konami-modal').style.display='none'">✕</button>
+    <h2 class="modal-title">🔓 SECRET CAPSULE ACCESSED</h2>
+    <p class="modal-text">You've discovered the hidden frequency. The void recognizes your signal. A rare capsule awaits in the vault below—only for those who know how to listen.</p>
+    <button class="modal-cta" onclick="document.getElementById('lore-konami-modal').classList.remove('active');document.getElementById('lore-konami-modal').style.display='none';window.location.href='/collections/capsule-000'">Enter the Void</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let buf = [];
+  document.addEventListener('keydown', function(e){
+    buf.push(e.key.toLowerCase());
+    buf = buf.slice(-10);
+    if (buf.join(',') === seq.join(',')) {
+      const modal = document.getElementById('lore-konami-modal');
+      if (modal) {
+        modal.style.display = 'flex';
+        setTimeout(function(){ modal.classList.add('active'); }, 10);
+      }
+      // Track to analytics
+      if (window.stellarReverbLore) {
+        window.stellarReverbLore.trackEvent('konami_activated');
+      }
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{"name":"Lore Konami Modal","settings":[]}
+{% endschema %}
