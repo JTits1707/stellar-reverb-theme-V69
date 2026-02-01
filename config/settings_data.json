@@ -59,6 +59,13 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "info_link_k84MAc": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "FAQ",
+              "link_url": ""
+            }
+          },
           "info_link_tU7zEm": {
             "type": "info_link",
             "settings": {
@@ -76,12 +83,13 @@
           "info_link_cAVQVF": {
             "type": "info_link",
             "settings": {
-              "link_text": "FAQ",
+              "link_text": "Shipping Info",
               "link_url": ""
             }
           }
         },
         "block_order": [
+          "info_link_k84MAc",
           "info_link_tU7zEm",
           "info_link_YqLPTp",
           "info_link_cAVQVF"
