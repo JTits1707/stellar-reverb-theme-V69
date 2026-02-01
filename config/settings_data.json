@@ -59,6 +59,13 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "social_link_t3y3fg": {
+            "type": "social_link",
+            "settings": {
+              "platform": "pinterest",
+              "social_url": ""
+            }
+          },
           "social_link_nFttD4": {
             "type": "social_link",
             "settings": {
@@ -117,6 +124,7 @@
           }
         },
         "block_order": [
+          "social_link_t3y3fg",
           "social_link_nFttD4",
           "social_link_fYhTiJ",
           "info_link_69xRiA",
