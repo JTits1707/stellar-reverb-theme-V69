@@ -32,7 +32,7 @@
         "show_progress_bar": true,
         "decode_progress": 21,
         "cta_text": "ENTER THE TRANSMISSION",
-        "cta_link": "shopify://collections/frontpage",
+        "cta_link": "shopify://collections/shop-all",
         "cta_secondary_text": "Or browse all transmissions →",
         "headline_color": "#00f0ff",
         "subtitle_color": "#ff00ff",
