@@ -59,10 +59,17 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
-          "info_link_k84MAc": {
+          "info_link_F3dREj": {
             "type": "info_link",
             "settings": {
               "link_text": "FAQ",
+              "link_url": ""
+            }
+          },
+          "info_link_k84MAc": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Sizing Guide",
               "link_url": ""
             }
           },
@@ -89,6 +96,7 @@
           }
         },
         "block_order": [
+          "info_link_F3dREj",
           "info_link_k84MAc",
           "info_link_tU7zEm",
           "info_link_YqLPTp",
