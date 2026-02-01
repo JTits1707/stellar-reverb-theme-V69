@@ -59,6 +59,20 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "social_link_fYhTiJ": {
+            "type": "social_link",
+            "settings": {
+              "platform": "instagram",
+              "social_url": ""
+            }
+          },
+          "info_link_69xRiA": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Terms Of Service",
+              "link_url": ""
+            }
+          },
           "info_link_F3dREj": {
             "type": "info_link",
             "settings": {
@@ -96,6 +110,8 @@
           }
         },
         "block_order": [
+          "social_link_fYhTiJ",
+          "info_link_69xRiA",
           "info_link_F3dREj",
           "info_link_k84MAc",
           "info_link_tU7zEm",
