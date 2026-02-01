@@ -57,19 +57,6 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
-        "blocks": {
-          "info_link_qeQbpb": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "FAQ",
-              "link_url": ""
-            }
-          }
-        },
-        "block_order": [
-          "info_link_qeQbpb"
-        ],
-        "custom_css": [],
         "settings": {
           "show_signal_badge": true,
           "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
@@ -80,7 +67,7 @@
         "type": "header-enhanced",
         "custom_css": [],
         "settings": {
-          "show_announcement": true,
+          "show_announcement": false,
           "announcement_text": "FREE SHIPPING ALL WEEK, & GET 20% DISC.",
           "logo": "shopify://shop_images/stellar-reverb-transparent-brand-logo.png"
         }
