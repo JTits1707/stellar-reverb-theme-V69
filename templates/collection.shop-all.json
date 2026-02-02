@@ -12,8 +12,6 @@
     "main": {
       "type": "stellar-shop-all",
       "settings": {
-        "collection": "",
-        "brand_icon": "shopify://shop_images/Stellar-reverb-main-brand-logo_png.png",
         "hero_show_brand_icon": true,
         "hero_kicker": "SHOP ALL TRANSMISSIONS",
         "hero_title": "COSMIC PRODUCT VAULT",
@@ -36,7 +34,5 @@
       }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
