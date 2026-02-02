@@ -31,7 +31,7 @@
         "decode_text": "DECRYPTING: SIGNAL ECHO MATCHED [21%]",
         "show_progress_bar": true,
         "decode_progress": 21,
-        "cta_text": "ENTER THE TRANSMISSION",
+        "cta_text": "SHOP NOW",
         "cta_link": "shopify://collections/frontpage",
         "cta_secondary_text": "Or browse all transmissions →",
         "headline_color": "#00f0ff",
