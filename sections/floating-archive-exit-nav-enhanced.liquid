@@ -1,0 +1,259 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FLOATING ARCHIVE EXIT NAVIGATION
+  Section 9/9: Portal-style exit with dimensional return
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<section class="floating-archive-exit-nav" data-section-id="{{ section.id }}">
+  <div class="exit-nav-container">
+    
+    {%- comment -%} Portal Frame {%- endcomment -%}
+    <div class="exit-portal" {% if section.settings.enable_portal_effect %}data-portal-enabled="true"{% endif %}>
+      
+      {%- comment -%} Portal Rings {%- endcomment -%}
+      {% if section.settings.enable_portal_effect %}
+      <div class="portal-rings">
+        <div class="portal-ring portal-ring-1"></div>
+        <div class="portal-ring portal-ring-2"></div>
+        <div class="portal-ring portal-ring-3"></div>
+      </div>
+      {% endif %}
+      
+      {%- comment -%} Exit Link {%- endcomment -%}
+      <a 
+        href="{{ section.settings.exit_url | default: '/' }}" 
+        class="exit-link"
+      >
+        <svg class="exit-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 14l-5-5 5-5"/>
+          <path d="M4 9h10.5a5.5 5.5 0 010 11H12"/>
+        </svg>
+        <span class="exit-text">{{ section.settings.exit_text }}</span>
+      </a>
+      
+    </div>
+    
+    {%- comment -%} Dimensional Warning {%- endcomment -%}
+    {% if section.settings.show_warning %}
+    <div class="exit-warning">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span>{{ section.settings.warning_text }}</span>
+    </div>
+    {% endif %}
+    
+  </div>
+</section>
+
+<style>
+  .floating-archive-exit-nav {
+    padding: 5rem 2rem 8rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .exit-nav-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .exit-portal {
+    position: relative;
+    display: inline-block;
+    padding: 2rem;
+  }
+  
+  .portal-rings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+  }
+  
+  .portal-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid var(--neon-cyan);
+    border-radius: 50%;
+    opacity: 0.3;
+  }
+  
+  .portal-ring-1 {
+    width: 180px;
+    height: 180px;
+    animation: portalPulse 3s ease-in-out infinite;
+  }
+  
+  .portal-ring-2 {
+    width: 140px;
+    height: 140px;
+    animation: portalPulse 3s ease-in-out infinite 1s;
+  }
+  
+  .portal-ring-3 {
+    width: 100px;
+    height: 100px;
+    animation: portalPulse 3s ease-in-out infinite 2s;
+  }
+  
+  @keyframes portalPulse {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.1);
+      opacity: 0.6;
+    }
+  }
+  
+  .exit-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2.5rem;
+    background: rgba(0, 240, 255, 0.1);
+    border: 2px solid var(--neon-cyan);
+    border-radius: 50px;
+    color: var(--neon-cyan);
+    text-decoration: none;
+    font-family: var(--font-title);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .exit-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--neon-cyan);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
+  
+  .exit-link:hover::before {
+    transform: scaleX(1);
+  }
+  
+  .exit-link:hover {
+    color: var(--void-black);
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.5);
+    transform: translateY(-3px);
+  }
+  
+  .exit-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  .exit-link:hover .exit-icon {
+    transform: translateX(-5px);
+  }
+  
+  .exit-warning {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+  }
+  
+  @media (max-width: 768px) {
+    .floating-archive-exit-nav {
+      padding: 4rem 1.5rem 6rem;
+    }
+    
+    .exit-link {
+      padding: 0.9rem 2rem;
+      font-size: 0.9rem;
+    }
+    
+    .portal-rings {
+      width: 150px;
+      height: 150px;
+    }
+    
+    .portal-ring-1 { width: 130px; height: 130px; }
+    .portal-ring-2 { width: 100px; height: 100px; }
+    .portal-ring-3 { width: 70px; height: 70px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Exit Navigation",
+  "class": "section-floating-archive-exit",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Exit Link"
+    },
+    {
+      "type": "text",
+      "id": "exit_text",
+      "label": "Exit text",
+      "default": "RETURN TO MAIN DIMENSION"
+    },
+    {
+      "type": "url",
+      "id": "exit_url",
+      "label": "Exit URL",
+      "default": "/",
+      "info": "Where users go when they click exit (usually homepage)"
+    },
+    {
+      "type": "header",
+      "content": "Portal Effect"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_portal_effect",
+      "label": "Enable portal rings",
+      "default": true,
+      "info": "Animated concentric rings around exit button"
+    },
+    {
+      "type": "header",
+      "content": "Warning Message"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_warning",
+      "label": "Show warning message",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "warning_text",
+      "label": "Warning text",
+      "default": "Exiting will close the archive. Progress is not saved."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Exit Navigation"
+    }
+  ]
+}
+{% endschema %}
