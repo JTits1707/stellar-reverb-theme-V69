@@ -1,0 +1,180 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FLOATING ARCHIVE MANIFEST
+  Section 5/9: Lore/context text with terminal aesthetic
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<section class="floating-archive-manifest" data-section-id="{{ section.id }}">
+  <div class="manifest-container">
+    
+    {%- comment -%} Manifest Header {%- endcomment -%}
+    <div class="manifest-header">
+      <div class="manifest-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+      </div>
+      <h2 class="manifest-title">{{ section.settings.title }}</h2>
+    </div>
+    
+    {%- comment -%} Manifest Content {%- endcomment -%}
+    <div class="manifest-content rte">
+      {{ section.settings.description }}
+    </div>
+    
+    {%- comment -%} Timestamp {%- endcomment -%}
+    {% if section.settings.show_timestamp %}
+    <div class="manifest-timestamp">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span>LOGGED: {{ 'now' | date: '%Y.%m.%d %H:%M:%S UTC' }}</span>
+    </div>
+    {% endif %}
+    
+  </div>
+</section>
+
+<style>
+  .floating-archive-manifest {
+    padding: 3rem 2rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .manifest-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--neon-cyan);
+    border-radius: 8px;
+    padding: 2rem;
+    backdrop-filter: blur(16px);
+    position: relative;
+    {% if section.settings.enable_border_glow %}
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+    {% endif %}
+  }
+  
+  .manifest-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+  }
+  
+  .manifest-icon {
+    color: var(--neon-cyan);
+  }
+  
+  .manifest-title {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--neon-cyan);
+    margin: 0;
+  }
+  
+  .manifest-content {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+  }
+  
+  .manifest-content p {
+    margin-bottom: 1rem;
+  }
+  
+  .manifest-content p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .manifest-timestamp {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 240, 255, 0.2);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+  
+  @media (max-width: 768px) {
+    .floating-archive-manifest {
+      padding: 2rem 1.5rem;
+    }
+    
+    .manifest-container {
+      padding: 1.5rem;
+    }
+    
+    .manifest-title {
+      font-size: 1.2rem;
+    }
+    
+    .manifest-content {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Archive Manifest",
+  "class": "section-floating-archive-manifest",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Manifest Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "ARCHIVE MANIFEST"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>These relics were recovered from the void between dimensions. Each piece carries residual energy from forgotten timelines. Handle with extreme caution.</p><p>⚠️ ANOMALY DETECTED: Some items may exhibit temporal distortion or reality bending properties.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Visual Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_border_glow",
+      "label": "Enable border glow",
+      "default": true,
+      "info": "Adds cyan glow to container border"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_timestamp",
+      "label": "Show timestamp",
+      "default": true,
+      "info": "Display current date/time at bottom"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Archive Manifest"
+    }
+  ]
+}
+{% endschema %}

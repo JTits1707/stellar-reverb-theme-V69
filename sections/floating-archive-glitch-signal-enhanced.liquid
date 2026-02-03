@@ -1,0 +1,183 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FLOATING ARCHIVE GLITCH SIGNAL
+  Section 7/9: Decorative break with signal interference
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<section class="floating-archive-glitch-signal" data-section-id="{{ section.id }}">
+  <div class="glitch-signal-container">
+    
+    {%- comment -%} Signal Text with Marquee Effect {%- endcomment -%}
+    <div class="signal-text-wrapper">
+      <div class="signal-text">
+        {{ section.settings.signal_text }}
+      </div>
+    </div>
+    
+    {%- comment -%} Signal Bars Visualization {%- endcomment -%}
+    <div class="signal-bars">
+      {% assign bar_count = section.settings.signal_bars_count | default: 8 %}
+      {% for i in (1..bar_count) %}
+        <div class="signal-bar" style="--bar-index: {{ i }}"></div>
+      {% endfor %}
+    </div>
+    
+    {%- comment -%} Scanlines Effect {%- endcomment -%}
+    {% if section.settings.enable_scanlines %}
+    <div class="signal-scanlines"></div>
+    {% endif %}
+    
+  </div>
+</section>
+
+<style>
+  .floating-archive-glitch-signal {
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+  }
+  
+  .glitch-signal-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--neon-purple);
+    border-left: none;
+    border-right: none;
+    padding: 3rem 2rem;
+    position: relative;
+  }
+  
+  .signal-text-wrapper {
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  
+  .signal-text {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--neon-purple);
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+    text-align: center;
+  }
+  
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  
+  .signal-bars {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0.5rem;
+    height: 80px;
+  }
+  
+  .signal-bar {
+    width: 12px;
+    background: var(--neon-purple);
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 0 10px var(--neon-purple);
+    animation: signalPulse 2s ease-in-out infinite;
+    animation-delay: calc(var(--bar-index) * 0.1s);
+  }
+  
+  @keyframes signalPulse {
+    0%, 100% { height: 30%; opacity: 0.6; }
+    50% { height: 100%; opacity: 1; }
+  }
+  
+  .signal-scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      transparent 50%,
+      rgba(157, 0, 255, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    animation: scanlineScroll 10s linear infinite;
+  }
+  
+  @keyframes scanlineScroll {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100px; }
+  }
+  
+  @media (max-width: 768px) {
+    .floating-archive-glitch-signal {
+      padding: 3rem 1.5rem;
+    }
+    
+    .glitch-signal-container {
+      padding: 2rem 1rem;
+    }
+    
+    .signal-text {
+      font-size: 0.9rem;
+    }
+    
+    .signal-bars {
+      height: 60px;
+    }
+    
+    .signal-bar {
+      width: 8px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Glitch Signal",
+  "class": "section-floating-archive-glitch-signal",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Signal Content"
+    },
+    {
+      "type": "text",
+      "id": "signal_text",
+      "label": "Signal text",
+      "default": "◆ SIGNAL CORRUPTED ◆ ATTEMPTING RECONSTRUCTION ◆"
+    },
+    {
+      "type": "header",
+      "content": "Visual Settings"
+    },
+    {
+      "type": "range",
+      "id": "signal_bars_count",
+      "label": "Signal bars count",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_scanlines",
+      "label": "Enable scanlines",
+      "default": true,
+      "info": "Animated horizontal scan effect"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Glitch Signal"
+    }
+  ]
+}
+{% endschema %}

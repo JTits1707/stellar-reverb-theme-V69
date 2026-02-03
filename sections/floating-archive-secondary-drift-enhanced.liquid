@@ -1,0 +1,265 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FLOATING ARCHIVE SECONDARY DRIFT
+  Section 8/9: Additional products in compact grid
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% assign total_products = collection.products.size %}
+{% assign min_required = section.settings.min_products_to_show | default: 6 %}
+{% assign show_section = false %}
+
+{% if section.settings.enable_auto_hide %}
+  {% if total_products >= min_required %}
+    {% assign show_section = true %}
+  {% endif %}
+{% else %}
+  {% assign show_section = true %}
+{% endif %}
+
+{% if show_section %}
+<section class="floating-archive-secondary-drift" data-section-id="{{ section.id }}">
+  <div class="secondary-drift-container">
+    
+    {%- comment -%} Section Title {%- endcomment -%}
+    {% if section.settings.title != blank %}
+    <h2 class="secondary-drift-title">{{ section.settings.title }}</h2>
+    {% endif %}
+    
+    {%- comment -%} Secondary Product Grid {%- endcomment -%}
+    <div class="secondary-drift-grid">
+      
+      {% assign products_to_show = section.settings.products_to_show | default: 6 %}
+      {% assign skip_count = 12 %}
+      {% assign product_count = 0 %}
+      
+      {% for product in collection.products offset: skip_count limit: products_to_show %}
+        {% assign product_count = product_count | plus: 1 %}
+        
+        <article class="drift-card" data-product-id="{{ product.id }}">
+          
+          {%- comment -%} Product Image {%- endcomment -%}
+          <a href="{{ product.url }}" class="drift-image-link">
+            {% if product.featured_image %}
+              <img
+                src="{{ product.featured_image | image_url: width: 400 }}"
+                alt="{{ product.featured_image.alt | escape }}"
+                loading="lazy"
+                width="400"
+                height="{{ 400 | divided_by: product.featured_image.aspect_ratio | round }}"
+                class="drift-image"
+              >
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'drift-image placeholder' }}
+            {% endif %}
+            
+            {%- comment -%} Hover Overlay {%- endcomment -%}
+            <div class="drift-overlay">
+              <span class="drift-overlay-text">VIEW</span>
+            </div>
+          </a>
+          
+          {%- comment -%} Compact Info {%- endcomment -%}
+          <div class="drift-info">
+            <h3 class="drift-title">
+              <a href="{{ product.url }}">{{ product.title }}</a>
+            </h3>
+            <div class="drift-price">
+              {{ product.price | money }}
+            </div>
+          </div>
+          
+        </article>
+        
+      {% endfor %}
+      
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<style>
+  .floating-archive-secondary-drift {
+    padding: 3rem 2rem 5rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .secondary-drift-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .secondary-drift-title {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--neon-magenta);
+    text-align: center;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+  }
+  
+  .secondary-drift-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .drift-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 0, 255, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .drift-card:hover {
+    border-color: var(--neon-magenta);
+    box-shadow: 0 8px 24px rgba(255, 0, 255, 0.2);
+    transform: translateY(-5px);
+  }
+  
+  .drift-image-link {
+    position: relative;
+    display: block;
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+  
+  .drift-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .drift-card:hover .drift-image {
+    transform: scale(1.1);
+  }
+  
+  .drift-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 0, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .drift-card:hover .drift-overlay {
+    opacity: 1;
+  }
+  
+  .drift-overlay-text {
+    font-family: var(--font-title);
+    font-weight: 900;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    color: var(--void-black);
+  }
+  
+  .drift-info {
+    padding: 1rem;
+  }
+  
+  .drift-title {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .drift-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .drift-title a:hover {
+    color: var(--neon-magenta);
+  }
+  
+  .drift-price {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--neon-cyan);
+  }
+  
+  @media (max-width: 768px) {
+    .floating-archive-secondary-drift {
+      padding: 2rem 1.5rem 4rem;
+    }
+    
+    .secondary-drift-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .secondary-drift-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Secondary Drift",
+  "class": "section-floating-archive-secondary-drift",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "ADDITIONAL SIGNALS"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "default": 6,
+      "info": "Shows products after the first 12"
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_auto_hide",
+      "label": "Auto-hide if insufficient products",
+      "default": true,
+      "info": "Hides section when total products < minimum threshold"
+    },
+    {
+      "type": "range",
+      "id": "min_products_to_show",
+      "label": "Minimum products required",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "default": 6,
+      "info": "Minimum total products needed to show this section"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Secondary Drift"
+    }
+  ]
+}
+{% endschema %}

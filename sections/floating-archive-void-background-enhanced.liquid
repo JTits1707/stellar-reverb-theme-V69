@@ -1,0 +1,90 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FLOATING ARCHIVE VOID BACKGROUND
+  Section 2/9: Cosmic atmosphere with animated layers
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<div class="floating-void-background" data-section-id="{{ section.id }}">
+  
+  {%- comment -%} Gradient Base Layer {%- endcomment -%}
+  <div class="void-gradient-layer" style="opacity: {{ section.settings.gradient_intensity | times: 0.01 }}">
+  </div>
+  
+  {%- comment -%} Animated Noise Layer {%- endcomment -%}
+  {% if section.settings.enable_noise %}
+  <div class="void-noise"></div>
+  {% endif %}
+  
+  {%- comment -%} Film Grain Texture {%- endcomment -%}
+  {% if section.settings.enable_grain %}
+  <div class="void-grain"></div>
+  {% endif %}
+  
+  {%- comment -%} Vignette Edge Fade {%- endcomment -%}
+  {% if section.settings.enable_vignette %}
+  <div class="void-vignette"></div>
+  {% endif %}
+  
+</div>
+
+<style>
+  .floating-void-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Void Background",
+  "class": "section-floating-archive-void",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background Effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_noise",
+      "label": "Enable animated noise",
+      "default": true,
+      "info": "Subtle moving texture"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_grain",
+      "label": "Enable film grain",
+      "default": true,
+      "info": "Analog film texture overlay"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_vignette",
+      "label": "Enable vignette",
+      "default": true,
+      "info": "Darkened edges for depth"
+    },
+    {
+      "type": "range",
+      "id": "gradient_intensity",
+      "label": "Gradient intensity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "default": 70,
+      "unit": "%"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Void Background"
+    }
+  ]
+}
+{% endschema %}

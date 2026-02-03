@@ -1,0 +1,197 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FLOATING ARCHIVE HERO
+  Section 4/9: Main title with glitch effect
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<section class="floating-archive-hero" data-section-id="{{ section.id }}">
+  <div class="hero-container">
+    
+    {%- comment -%} Main Title with Glitch {%- endcomment -%}
+    <h1 class="hero-title">
+      {% if section.settings.enable_glitch_effect %}
+      <span class="title-glitch" data-text="{{ section.settings.title_glitch_text }}">
+        {{ section.settings.main_title }}
+      </span>
+      {% else %}
+      {{ section.settings.main_title }}
+      {% endif %}
+    </h1>
+    
+    {%- comment -%} Subtitle {%- endcomment -%}
+    {% if section.settings.subtitle != blank %}
+    <p class="hero-subtitle">
+      {{ section.settings.subtitle }}
+    </p>
+    {% endif %}
+    
+    {%- comment -%} System Text with Terminal Cursor {%- endcomment -%}
+    {% if section.settings.system_text != blank %}
+    <div class="hero-system-text">
+      <span class="system-prefix">$</span>
+      <span class="system-message">{{ section.settings.system_text }}</span>
+      <span class="terminal-cursor">_</span>
+    </div>
+    {% endif %}
+    
+    {%- comment -%} Divider Line {%- endcomment -%}
+    {% if section.settings.show_divider %}
+    <div class="hero-divider">
+      <svg viewBox="0 0 1200 2" preserveAspectRatio="none">
+        <line x1="0" y1="1" x2="1200" y2="1" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </div>
+    {% endif %}
+    
+  </div>
+</section>
+
+<style>
+  .floating-archive-hero {
+    padding: 8rem 2rem 6rem;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 20px var(--neon-cyan);
+    line-height: 1;
+  }
+  
+  .title-glitch {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .hero-subtitle {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--neon-magenta);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  .hero-system-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    background: rgba(0, 240, 255, 0.05);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .system-prefix {
+    color: var(--neon-cyan);
+    font-weight: 700;
+  }
+  
+  .terminal-cursor {
+    animation: cursorBlink 1s step-end infinite;
+  }
+  
+  @keyframes cursorBlink {
+    50% { opacity: 0; }
+  }
+  
+  .hero-divider {
+    margin-top: 3rem;
+    width: 100%;
+    height: 2px;
+    color: var(--neon-purple);
+    opacity: 0.3;
+  }
+  
+  @media (max-width: 768px) {
+    .floating-archive-hero {
+      padding: 6rem 1.5rem 4rem;
+    }
+    
+    .hero-system-text {
+      font-size: 0.75rem;
+      padding: 0.6rem 1rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Archive Hero",
+  "class": "section-floating-archive-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Title Settings"
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Main title",
+      "default": "FLOATING ARCHIVE"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_glitch_effect",
+      "label": "Enable glitch effect",
+      "default": true,
+      "info": "Adds cyberpunk glitch animation to title"
+    },
+    {
+      "type": "text",
+      "id": "title_glitch_text",
+      "label": "Glitch duplicate text",
+      "default": "FLOATING ARCHIVE",
+      "info": "Text shown in glitch layers (usually same as main title)"
+    },
+    {
+      "type": "header",
+      "content": "Subtitle & System Text"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "// TRANSMISSION LOG: SECTOR 7-G //"
+    },
+    {
+      "type": "text",
+      "id": "system_text",
+      "label": "System terminal text",
+      "default": "DECRYPTING ANCIENT SIGNALS..."
+    },
+    {
+      "type": "header",
+      "content": "Visual Elements"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider line",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Archive Hero"
+    }
+  ]
+}
+{% endschema %}

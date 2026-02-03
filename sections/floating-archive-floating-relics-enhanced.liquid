@@ -1,0 +1,97 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FLOATING ARCHIVE FLOATING RELICS
+  Section 3/9: Animated particle system with cosmic glyphs
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+<div class="floating-relics-container" data-section-id="{{ section.id }}">
+  <div 
+    class="floating-relics-layer"
+    data-particle-count="{{ section.settings.particle_count }}"
+    data-animation-speed="{{ section.settings.animation_speed }}"
+    data-enable-parallax="{{ section.settings.enable_parallax }}"
+    data-enable-device-orientation="{{ section.settings.enable_device_orientation }}"
+  >
+    {%- comment -%}
+      Particles are generated dynamically by JavaScript
+      See floating-archive.js → FloatingRelics module
+    {%- endcomment -%}
+  </div>
+</div>
+
+<style>
+  .floating-relics-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  
+  .floating-relics-layer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Floating Relics",
+  "class": "section-floating-archive-relics",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Particle System"
+    },
+    {
+      "type": "range",
+      "id": "particle_count",
+      "label": "Particle count",
+      "min": 6,
+      "max": 20,
+      "step": 1,
+      "default": 12,
+      "info": "More particles = more visual impact, but lower performance"
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "label": "Animation speed",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "default": 20,
+      "unit": "s",
+      "info": "Seconds per animation cycle (lower = faster)"
+    },
+    {
+      "type": "header",
+      "content": "Interaction"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_parallax",
+      "label": "Enable mouse parallax",
+      "default": true,
+      "info": "Particles move with mouse movement"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_device_orientation",
+      "label": "Enable device orientation",
+      "default": true,
+      "info": "Particles move with device tilt (mobile)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Floating Relics"
+    }
+  ]
+}
+{% endschema %}
