@@ -11,7 +11,9 @@
   "sections": {
     "main": {
       "type": "stellar-shop-all",
+      "custom_css": [],
       "settings": {
+        "collection": "",
         "hero_show_brand_icon": true,
         "hero_kicker": "SHOP ALL TRANSMISSIONS",
         "hero_title": "COSMIC PRODUCT VAULT",
@@ -34,5 +36,7 @@
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
