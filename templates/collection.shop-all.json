@@ -11,27 +11,27 @@
   "sections": {
     "main": {
       "type": "stellar-shop-all",
-      "custom_css": [],
       "settings": {
         "collection": "",
+        "brand_icon": "shopify://shop_images/6CA84F4F-409C-4AA2-95AA-C7271AA9A30D-topaz-denoise.jpg",
         "hero_show_brand_icon": true,
-        "hero_kicker": "SHOP ALL TRANSMISSIONS",
-        "hero_title": "COSMIC PRODUCT VAULT",
-        "hero_subtitle": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.",
+        "hero_kicker": "TRANSMIT IDENTITY → ACCESS ALL ECHOES.",
+        "hero_title": "VOID ARCHIVE: ACTIVE TRANSMISSIONS",
+        "hero_subtitle": "All capsules. All echoes. All fractured frequencies — converged into one transmission grid.   Choose your signal. Distort reality.",
         "transmission_strip_enabled": true,
-        "transmission_text": "INCOMING TRANSMISSION: New relics materializing from the void… stand by.",
-        "lore_fragments": "Signal received. Grid stabilizing.||Artifacts detected across multiple timelines.||Extraction protocols armed. Choose your relic.",
+        "transmission_text": "INCOMING SIGNAL DETECTED → Relics phasing through the veil... frequency lock in progress. Await materialization.",
+        "lore_fragments": "Signal intercepted. Grid realigning.||Fragments detected across fractured timelines.||Extraction sequence initiated.   Select your echo before the collapse.",
         "show_special_pills": true,
         "enable_quick_add": true,
         "products_per_page": 24,
         "fomo_inventory_threshold": 5,
         "upsell_collection": "",
-        "upsell_heading": "You May Also Be Receiving These Signals",
-        "upsell_subheading": "Curated relics that vibrate on a similar frequency.",
+        "upsell_heading": "COMPATIBLE FREQUENCIES DETECTED",
+        "upsell_subheading": "Curated echoes tuned to your current signal.   Resonate deeper.",
         "upsell_limit": 4,
-        "signal_cta_heading": "Join The Signal Network",
-        "signal_cta_subheading": "Tap into early access transmissions, hidden relics, and encrypted drop intel before it hits the main frequency.",
-        "signal_cta_button_text": "TUNE INTO FUTURE DROPS",
+        "signal_cta_heading": "SYNC WITH THE NETWORK",
+        "signal_cta_subheading": "Unlock encrypted coordinates.   Early transmission access. Hidden relics. Drop intel direct to your frequency — before public collapse.",
+        "signal_cta_button_text": "TUNE IN → SECURE ACCESS",
         "signal_cta_link": "/pages/signal-seekers"
       }
     }
