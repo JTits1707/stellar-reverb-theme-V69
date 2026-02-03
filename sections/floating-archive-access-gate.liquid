@@ -1,0 +1,122 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FLOATING ARCHIVE ACCESS GATE
+  Section 1/9: Dramatic entrance with unlock ritual
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{{ 'floating-archive.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.enable_gate %}
+<div class="archive-access-gate" data-gate-enabled="true">
+  <div class="gate-content">
+    
+    {%- comment -%} Warning Symbol {%- endcomment -%}
+    <div class="gate-symbol">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </div>
+    
+    {%- comment -%} Gate Title {%- endcomment -%}
+    <h2 class="gate-title">
+      {{ section.settings.gate_title }}
+    </h2>
+    
+    {%- comment -%} Gate Message {%- endcomment -%}
+    <p class="gate-message">
+      {{ section.settings.gate_message }}
+    </p>
+    
+    {%- comment -%} Unlock Button {%- endcomment -%}
+    <button 
+      class="gate-unlock-btn"
+      type="button"
+      aria-label="Unlock archive"
+    >
+      <span class="btn-icon">🔓</span>
+      <span class="btn-text">{{ section.settings.unlock_button_text }}</span>
+    </button>
+    
+    {%- comment -%} Security Notice {%- endcomment -%}
+    {% if section.settings.show_security_notice %}
+    <div class="gate-notice">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      {{ section.settings.security_notice_text }}
+    </div>
+    {% endif %}
+    
+  </div>
+  
+  {%- comment -%} Scanline Effect {%- endcomment -%}
+  <div class="gate-scanline"></div>
+  
+  {%- comment -%} Glitch Overlay {%- endcomment -%}
+  <div class="gate-glitch-overlay"></div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Access Gate",
+  "class": "section-floating-archive-gate",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Gate Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gate",
+      "label": "Enable access gate",
+      "default": true,
+      "info": "Show unlock screen before revealing collection"
+    },
+    {
+      "type": "text",
+      "id": "gate_title",
+      "label": "Gate title",
+      "default": "RESTRICTED ACCESS"
+    },
+    {
+      "type": "textarea",
+      "id": "gate_message",
+      "label": "Gate message",
+      "default": "This archive contains forbidden transmissions. Proceed at your own risk."
+    },
+    {
+      "type": "text",
+      "id": "unlock_button_text",
+      "label": "Unlock button text",
+      "default": "DECRYPT & ENTER"
+    },
+    {
+      "type": "header",
+      "content": "Security Notice"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_security_notice",
+      "label": "Show security notice",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "security_notice_text",
+      "label": "Security notice text",
+      "default": "Once unlocked, access persists for current session"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Access Gate"
+    }
+  ]
+}
+{% endschema %}

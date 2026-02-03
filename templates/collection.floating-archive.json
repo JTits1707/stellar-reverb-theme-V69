@@ -1,0 +1,106 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "access_gate": {
+      "type": "floating-archive-access-gate",
+      "settings": {
+        "enable_gate": true,
+        "gate_title": "RESTRICTED ACCESS",
+        "gate_message": "This archive contains forbidden transmissions. Proceed at your own risk.",
+        "unlock_button_text": "DECRYPT & ENTER"
+      }
+    },
+    "void_background": {
+      "type": "floating-archive-void-background",
+      "settings": {
+        "enable_noise": true,
+        "enable_grain": true,
+        "enable_vignette": true,
+        "gradient_intensity": 70
+      }
+    },
+    "floating_relics": {
+      "type": "floating-archive-floating-relics",
+      "settings": {
+        "particle_count": 12,
+        "animation_speed": 20,
+        "enable_parallax": true,
+        "enable_device_orientation": true
+      }
+    },
+    "hero": {
+      "type": "floating-archive-hero",
+      "settings": {
+        "main_title": "FLOATING ARCHIVE",
+        "enable_glitch_effect": true,
+        "title_glitch_text": "FLOATING ARCHIVE",
+        "subtitle": "// TRANSMISSION LOG: SECTOR 7-G //",
+        "system_text": "DECRYPTING ANCIENT SIGNALS..."
+      }
+    },
+    "manifest": {
+      "type": "floating-archive-manifest",
+      "settings": {
+        "title": "ARCHIVE MANIFEST",
+        "description": "<p>These relics were recovered from the void between dimensions. Each piece carries residual energy from forgotten timelines. Handle with extreme caution.</p><p>⚠️ ANOMALY DETECTED: Some items may exhibit temporal distortion or reality bending properties.</p>",
+        "enable_border_glow": true
+      }
+    },
+    "relic_grid": {
+      "type": "floating-archive-relic-grid",
+      "settings": {
+        "title": "PRIMARY RELICS",
+        "products_to_show": 12,
+        "grid_columns_desktop": 3,
+        "grid_columns_tablet": 2,
+        "grid_columns_mobile": 1,
+        "enable_3d_tilt": true,
+        "enable_scroll_reveal": true
+      }
+    },
+    "glitch_signal": {
+      "type": "floating-archive-glitch-signal",
+      "settings": {
+        "signal_text": "◆ SIGNAL CORRUPTED ◆ ATTEMPTING RECONSTRUCTION ◆",
+        "signal_bars_count": 8,
+        "enable_scanlines": true
+      }
+    },
+    "secondary_drift": {
+      "type": "floating-archive-secondary-drift",
+      "settings": {
+        "title": "SECONDARY DRIFT ANOMALIES",
+        "products_to_show": 6,
+        "enable_auto_hide": true,
+        "min_products_to_show": 6
+      }
+    },
+    "exit_nav": {
+      "type": "floating-archive-exit-nav",
+      "settings": {
+        "exit_text": "RETURN TO SURFACE",
+        "exit_url": "/",
+        "enable_portal_effect": true
+      }
+    }
+  },
+  "order": [
+    "access_gate",
+    "void_background",
+    "floating_relics",
+    "hero",
+    "manifest",
+    "relic_grid",
+    "glitch_signal",
+    "secondary_drift",
+    "exit_nav"
+  ]
+}
