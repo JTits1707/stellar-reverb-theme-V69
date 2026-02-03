@@ -1,0 +1,269 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FLOATING ARCHIVE RELIC GRID
+  Section 6/9: Primary product grid with interactive cards
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{{ 'floating-archive.js' | asset_url | script_tag }}
+
+<section class="floating-archive-relic-grid" data-section-id="{{ section.id }}">
+  <div class="relic-grid-container">
+    
+    {%- comment -%} Section Title {%- endcomment -%}
+    {% if section.settings.title != blank %}
+    <h2 class="relic-grid-title">{{ section.settings.title }}</h2>
+    {% endif %}
+    
+    {%- comment -%} Product Grid {%- endcomment -%}
+    <div 
+      class="relic-grid"
+      style="--grid-columns-desktop: {{ section.settings.grid_columns_desktop }};
+             --grid-columns-tablet: {{ section.settings.grid_columns_tablet }};
+             --grid-columns-mobile: {{ section.settings.grid_columns_mobile }};"
+      data-enable-3d-tilt="{{ section.settings.enable_3d_tilt }}"
+      data-enable-scroll-reveal="{{ section.settings.enable_scroll_reveal }}"
+    >
+      {% assign products_to_show = section.settings.products_to_show | default: 12 %}
+      {% assign product_count = 0 %}
+      
+      {% for product in collection.products limit: products_to_show %}
+        {% assign product_count = product_count | plus: 1 %}
+        
+        <article class="relic-card" data-product-id="{{ product.id }}">
+          
+          {%- comment -%} Glitch Overlay {%- endcomment -%}
+          <div class="relic-glitch-overlay"></div>
+          
+          {%- comment -%} Product Image {%- endcomment -%}
+          <a href="{{ product.url }}" class="relic-image-link">
+            {% if product.featured_image %}
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.featured_image.alt | escape }}"
+                loading="lazy"
+                width="600"
+                height="{{ 600 | divided_by: product.featured_image.aspect_ratio | round }}"
+                class="relic-image"
+              >
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'relic-image placeholder' }}
+            {% endif %}
+          </a>
+          
+          {%- comment -%} Product Info {%- endcomment -%}
+          <div class="relic-info">
+            
+            {%- comment -%} Vendor/Type Badge {%- endcomment -%}
+            {% if product.vendor != blank %}
+            <span class="relic-vendor">{{ product.vendor }}</span>
+            {% endif %}
+            
+            {%- comment -%} Product Title {%- endcomment -%}
+            <h3 class="relic-title">
+              <a href="{{ product.url }}">
+                {{ product.title }}
+              </a>
+            </h3>
+            
+            {%- comment -%} Price {%- endcomment -%}
+            <div class="relic-price">
+              {% if product.compare_at_price > product.price %}
+                <span class="price-compare">
+                  {{ product.compare_at_price | money }}
+                </span>
+                <span class="price-sale">
+                  {{ product.price | money }}
+                </span>
+              {% else %}
+                <span class="price-regular">
+                  {{ product.price | money }}
+                </span>
+              {% endif %}
+            </div>
+            
+            {%- comment -%} Quick Add Button {%- endcomment -%}
+            {% if section.settings.show_quick_add %}
+            <a href="{{ product.url }}" class="relic-quick-add">
+              <span>ACQUIRE RELIC</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </a>
+            {% endif %}
+            
+          </div>
+          
+          {%- comment -%} Hover Effect Layer {%- endcomment -%}
+          <div class="relic-hover-layer"></div>
+          
+        </article>
+        
+      {% endfor %}
+      
+      {%- comment -%} Empty State {%- endcomment -%}
+      {% if product_count == 0 %}
+      <div class="relic-grid-empty">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="15" y1="9" x2="9" y2="15"/>
+          <line x1="9" y1="9" x2="15" y2="15"/>
+        </svg>
+        <p>No relics found in this archive.</p>
+      </div>
+      {% endif %}
+      
+    </div>
+  </div>
+</section>
+
+<style>
+  .floating-archive-relic-grid {
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .relic-grid-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .relic-grid-title {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--neon-cyan);
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .relic-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns-desktop, 3), 1fr);
+    gap: 2rem;
+  }
+  
+  @media (max-width: 1024px) {
+    .relic-grid {
+      grid-template-columns: repeat(var(--grid-columns-tablet, 2), 1fr);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .relic-grid {
+      grid-template-columns: repeat(var(--grid-columns-mobile, 1), 1fr);
+      gap: 1.5rem;
+    }
+    
+    .floating-archive-relic-grid {
+      padding: 3rem 1.5rem;
+    }
+  }
+  
+  /* Relic Card Styles are in floating-archive.css */
+  
+  .relic-grid-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+  }
+  
+  .relic-grid-empty svg {
+    margin: 0 auto 1rem;
+    opacity: 0.5;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Relic Grid (Primary)",
+  "class": "section-floating-archive-relic-grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "PRIMARY RELICS"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 3,
+      "max": 24,
+      "step": 3,
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Grid Layout"
+    },
+    {
+      "type": "range",
+      "id": "grid_columns_desktop",
+      "label": "Columns (desktop)",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "grid_columns_tablet",
+      "label": "Columns (tablet)",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+   "type": "range",
+   "id": "grid_columns_mobile",
+   "label": "Columns (mobile)",
+   "min": 1,
+   "max": 3,
+   "step": 1,
+   "default": 1
+   }
+,
+    {
+      "type": "header",
+      "content": "Interactive Effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_3d_tilt",
+      "label": "Enable 3D card tilt",
+      "default": true,
+      "info": "Cards tilt on mousemove (desktop only)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_scroll_reveal",
+      "label": "Enable scroll reveal",
+      "default": true,
+      "info": "Cards fade in on scroll"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_add",
+      "label": "Show quick add button",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Relic Grid (Primary)"
+    }
+  ]
+}
+{% endschema %}
