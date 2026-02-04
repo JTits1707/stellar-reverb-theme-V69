@@ -9,9 +9,10 @@ const StellarCore = {
   init() {
     console.log('⚡ STELLAR_OS_BOOT: MASTER_ENGINE_ACTIVE');
     this.setupInterfaceUnlock();
-    this.setupEnhancedHandshake(); // Upgraded for Metaobjects
+    this.setupEnhancedHandshake(); 
     this.setupGlobalShortcuts();
     this.setupPerformance();
+    this.setupCountdown(); // ⚡ CRITICAL: Added to the boot sequence
   },
 
   // 1. INTERFACE UNLOCK - The "No Scroll" Terminator
@@ -22,7 +23,6 @@ const StellarCore = {
       document.documentElement.style.overflow = 'visible';
       document.body.classList.remove('lock-scroll');
       
-      // Clean up all possible loader layers (Boot, Handshake, and Lore)
       const barriers = document.querySelectorAll('.sr-terminal-overlay, #sr-terminal-boot, .lore-loader');
       barriers.forEach(b => {
         b.style.pointerEvents = 'none';
@@ -30,7 +30,6 @@ const StellarCore = {
       });
     };
 
-    // Use MutationObserver to watch for ANY terminal overlay to lose the 'active' class
     const bootOverlay = document.querySelector('.sr-terminal-overlay.active, #sr-terminal-boot.active, .lore-loader.active');
     if (bootOverlay) {
       const observer = new MutationObserver((mutations) => {
@@ -44,7 +43,6 @@ const StellarCore = {
       observer.observe(bootOverlay, { attributes: true });
     }
 
-    // Fail-safe breach: If the system hangs, force-unlock after 7 seconds
     setTimeout(unlockProtocol, 7000);
   },
 
@@ -54,7 +52,6 @@ const StellarCore = {
     const bar = document.getElementById('sr-handshake-bar');
     if (!terminal || !bar) return;
 
-    // Detects any link with the specific capsule data attribute
     document.querySelectorAll('a[data-capsule-link], .nav-link-capsule').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -74,7 +71,7 @@ const StellarCore = {
     });
   },
 
-  // 3. GLOBAL INPUTS - Modal Exit & Shortcuts
+  // 3. GLOBAL INPUTS
   setupGlobalShortcuts() {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
@@ -87,13 +84,55 @@ const StellarCore = {
     });
   },
 
-  // 4. GPU ACCELERATION - Keeps animations at 60FPS
+  // 4. GPU ACCELERATION
   setupPerformance() {
     document.querySelectorAll('.glitch-text, .terminal-window, .myth-card').forEach(el => {
       el.style.willChange = 'transform, opacity';
     });
+  },
+
+  // 5. TERMINAL COUNTDOWN LOGIC (vGODMODE Integration)
+  setupCountdown() {
+    const el = document.getElementById('relic-countdown');
+    if (!el) return;
+
+    const targetDate = new Date(el.dataset.targetDate).getTime();
+
+    const update = () => {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        const statusText = el.querySelector('.status-text');
+        if (statusText) statusText.textContent = "SIGNAL_STABILIZED // RELIC_READY";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      const days = el.querySelector('[data-days]');
+      const hours = el.querySelector('[data-hours]');
+      const mins = el.querySelector('[data-minutes]');
+      const secs = el.querySelector('[data-seconds]');
+
+      if (days) days.textContent = d.toString().padStart(2, '0');
+      if (hours) hours.textContent = h.toString().padStart(2, '0');
+      if (mins) mins.textContent = m.toString().padStart(2, '0');
+      if (secs) secs.textContent = s.toString().padStart(2, '0');
+
+      // Sync with Signal Seeker Neural Audio
+      if (typeof SignalSeekerTerminal !== 'undefined' && SignalSeekerTerminal.sound) {
+         SignalSeekerTerminal.sound.playBeep(400, 20);
+      }
+    };
+
+    setInterval(update, 1000);
+    update();
   }
 };
 
-// AUTO-INITIALIZE ENGINE
+// INITIALIZE COMMAND
 document.addEventListener('DOMContentLoaded', () => StellarCore.init());

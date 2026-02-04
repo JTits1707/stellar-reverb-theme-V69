@@ -675,3 +675,7 @@ input:checked + .synth-led {
   background: var(--led-color, var(--neon-magenta));
   box-shadow: 0 0 15px var(--led-color, var(--neon-magenta));
 }
+body.stellar-os-active {
+  background-color: var(--void-black);
+  cursor: crosshair; /* Optional: Adds that tactical vibe */
+}
