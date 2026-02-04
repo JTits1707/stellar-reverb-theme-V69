@@ -118,11 +118,6 @@
         "text_color": "#00f0ff"
       }
     },
-    "floating_archive_main_rUzcyJ": {
-      "type": "floating-archive-main",
-      "name": "Floating Archive · Gated",
-      "settings": {}
-    },
     "navigation_matrix": {
       "type": "navigation-matrix",
       "blocks": {
@@ -131,7 +126,7 @@
           "settings": {
             "title": "All Capsules",
             "description": "Explore the complete transmission archive.",
-            "link_url": "shopify://pages/capsules-1",
+            "link_url": "shopify://pages/capsules",
             "cta_text": "EXPLORE",
             "custom_icon": "shopify://shop_images/0E9D062B-D727-4E04-BF18-141EFB123691-topaz-denoise.jpg",
             "emoji_icon": "📦",
@@ -202,7 +197,6 @@
     "stellar_timeline_cosmic_7FkWM9",
     "incoming_transmission_rhmdFT",
     "scarcity_marquee",
-    "floating_archive_main_rUzcyJ",
     "navigation_matrix",
     "newsletter_cosmic_LGxTaj"
   ]
