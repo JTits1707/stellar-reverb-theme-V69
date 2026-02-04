@@ -68,12 +68,18 @@
       "type": "universal-lore-loader",
       "settings": {}
     },
-    "lore_mainframe_hero_MAEeYA": {
-      "type": "lore-mainframe-hero",
-      "name": "Lore Mainframe Hero",
+    "universal_lore_hero_Vwe3YN": {
+      "type": "universal-lore-hero",
+      "name": "Universal Lore Hero",
       "settings": {
-        "title": "UNIVERSAL LORE",
-        "subtitle": "Deciphering the fragments of a fractured reality."
+        "kicker_text": "UNIVERSAL LORE ARCHIVE",
+        "heading_override": "Universal Lore Index",
+        "subheading_override": "From the first distortion to the last echo in the archives",
+        "fallback_hero_image": "shopify://shop_images/stellar-universal-lore-hero-image_219d5e8d-4dc4-44b4-967a-8144fb637b55.png",
+        "primary_cta_label": "Enter the Timeline",
+        "secondary_cta_label": "Explore This Transmission",
+        "fallback_secondary_url": "",
+        "show_hero_meta": true
       }
     },
     "myth": {
@@ -150,7 +156,7 @@
   "order": [
     "navigation",
     "loader",
-    "lore_mainframe_hero_MAEeYA",
+    "universal_lore_hero_Vwe3YN",
     "myth",
     "timeline",
     "vault",
