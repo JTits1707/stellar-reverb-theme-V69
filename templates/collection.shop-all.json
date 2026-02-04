@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "stellar-shop-all",
+      "custom_css": [],
       "settings": {
         "collection": "",
         "brand_icon": "shopify://shop_images/6CA84F4F-409C-4AA2-95AA-C7271AA9A30D-topaz-denoise.jpg",
