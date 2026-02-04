@@ -1,7 +1,7 @@
 /**
  * ═══════════════════════════════════════════════════════════
  * STELLAR OS — MASTER CORE ENGINE (vGODMODE)
- * Combined Handshake, Interface Unlock, and Meta-Routing
+ * Final Verified Version: Handshake + Unlock + Countdown
  * ═══════════════════════════════════════════════════════════
  */
 
@@ -21,7 +21,6 @@ const StellarCore = {
       console.log('🔓 INTERFACE_UNLOCKED: Protocol "Breach" successful.');
       document.body.style.overflow = 'visible';
       document.documentElement.style.overflow = 'visible';
-      document.body.classList.remove('lock-scroll');
       
       const barriers = document.querySelectorAll('.sr-terminal-overlay, #sr-terminal-boot, .lore-loader');
       barriers.forEach(b => {
@@ -43,16 +42,16 @@ const StellarCore = {
       observer.observe(bootOverlay, { attributes: true });
     }
 
-    setTimeout(unlockProtocol, 7000);
+    setTimeout(unlockProtocol, 7000); // Fail-safe breach
   },
 
-  // 2. ENHANCED HANDSHAKE - Supports Metaobject Redirects
+  // 2. ENHANCED HANDSHAKE - Inter-page OS Transitions
   setupEnhancedHandshake() {
     const terminal = document.getElementById('sr-handshake-terminal');
     const bar = document.getElementById('sr-handshake-bar');
     if (!terminal || !bar) return;
 
-    document.querySelectorAll('a[data-capsule-link], .nav-link-capsule').forEach(link => {
+    document.querySelectorAll('a[data-capsule-link], a[href*="/pages/capsule-"]').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const dest = link.href;
@@ -86,12 +85,12 @@ const StellarCore = {
 
   // 4. GPU ACCELERATION
   setupPerformance() {
-    document.querySelectorAll('.glitch-text, .terminal-window, .myth-card').forEach(el => {
+    document.querySelectorAll('.glitch-text, .terminal-window, .sr-card').forEach(el => {
       el.style.willChange = 'transform, opacity';
     });
   },
 
-  // 5. TERMINAL COUNTDOWN LOGIC (vGODMODE Integration)
+  // 5. TERMINAL COUNTDOWN LOGIC
   setupCountdown() {
     const el = document.getElementById('relic-countdown');
     if (!el) return;
@@ -103,8 +102,8 @@ const StellarCore = {
       const diff = targetDate - now;
 
       if (diff <= 0) {
-        const statusText = el.querySelector('.status-text');
-        if (statusText) statusText.textContent = "SIGNAL_STABILIZED // RELIC_READY";
+        const status = el.querySelector('.status-text');
+        if (status) status.textContent = "SIGNAL_STABILIZED // RELIC_READY";
         return;
       }
 
@@ -113,19 +112,14 @@ const StellarCore = {
       const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-      const days = el.querySelector('[data-days]');
-      const hours = el.querySelector('[data-hours]');
-      const mins = el.querySelector('[data-minutes]');
-      const secs = el.querySelector('[data-seconds]');
+      if (el.querySelector('[data-days]')) el.querySelector('[data-days]').textContent = d.toString().padStart(2, '0');
+      if (el.querySelector('[data-hours]')) el.querySelector('[data-hours]').textContent = h.toString().padStart(2, '0');
+      if (el.querySelector('[data-minutes]')) el.querySelector('[data-minutes]').textContent = m.toString().padStart(2, '0');
+      if (el.querySelector('[data-seconds]')) el.querySelector('[data-seconds]').textContent = s.toString().padStart(2, '0');
 
-      if (days) days.textContent = d.toString().padStart(2, '0');
-      if (hours) hours.textContent = h.toString().padStart(2, '0');
-      if (mins) mins.textContent = m.toString().padStart(2, '0');
-      if (secs) secs.textContent = s.toString().padStart(2, '0');
-
-      // Sync with Signal Seeker Neural Audio
-      if (typeof SignalSeekerTerminal !== 'undefined' && SignalSeekerTerminal.sound) {
-         SignalSeekerTerminal.sound.playBeep(400, 20);
+      // Neural audio integration 
+      if (window.SignalSeekerTerminal && window.SignalSeekerTerminal.sound) {
+         window.SignalSeekerTerminal.sound.playBeep(400, 20); [cite: 6]
       }
     };
 
@@ -134,5 +128,5 @@ const StellarCore = {
   }
 };
 
-// INITIALIZE COMMAND
+// BOOT ENGINE
 document.addEventListener('DOMContentLoaded', () => StellarCore.init());

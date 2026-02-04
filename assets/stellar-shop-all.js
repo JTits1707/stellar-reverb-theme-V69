@@ -1,106 +1,132 @@
-/* ======================================================
-   STELLAR REVERB — SHOP ALL COSMIC (vGODMODE)
-   Consolidated for performance and narrative immersion
-   ====================================================== */
+/**
+ * ═══════════════════════════════════════════════════════════
+ * STELLAR OS — MASTER CORE ENGINE (vGODMODE)
+ * Final Verified Version: Handshake + Unlock + Countdown
+ * ═══════════════════════════════════════════════════════════
+ */
 
-(() => {
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+const StellarCore = {
+  init() {
+    console.log('⚡ STELLAR_OS_BOOT: MASTER_ENGINE_ACTIVE');
+    this.setupInterfaceUnlock();
+    this.setupEnhancedHandshake(); 
+    this.setupGlobalShortcuts();
+    this.setupPerformance();
+    this.setupCountdown(); // ⚡ CRITICAL: Added to the boot sequence
+  },
 
-  function normalize(str) {
-    return (str || "").toString().trim().toLowerCase();
-  }
-
-  function initShopAll(section) {
-    const pills = $$("[data-sr-pill]", section);
-    const cards = $$("[data-sr-card]", section);
-    const search = $("[data-sr-search]", section);
-    const countEl = $("[data-sr-count]", section);
-    const noResults = $("[data-sr-noresults]", section);
-    const loreEl = $("[data-sr-lore]", section);
-
-    const state = { capsule: "all", motif: "all", special: null, q: "" };
-
-    // 🧬 MATERIALIZATION OBSERVER
-    const materializer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting && entry.target.style.display !== "none") {
-          setTimeout(() => {
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0)";
-          }, index * 50);
-        }
+  // 1. INTERFACE UNLOCK - The "No Scroll" Terminator
+  setupInterfaceUnlock() {
+    const unlockProtocol = () => {
+      console.log('🔓 INTERFACE_UNLOCKED: Protocol "Breach" successful.');
+      document.body.style.overflow = 'visible';
+      document.documentElement.style.overflow = 'visible';
+      
+      const barriers = document.querySelectorAll('.sr-terminal-overlay, #sr-terminal-boot, .lore-loader');
+      barriers.forEach(b => {
+        b.style.pointerEvents = 'none';
+        b.classList.add('hidden'); 
       });
-    }, { threshold: 0.1 });
+    };
 
-    function apply() {
-      const q = normalize(state.q);
-      let visible = 0;
-
-      cards.forEach((card) => {
-        const capsule = normalize(card.getAttribute("data-capsule"));
-        const motif = normalize(card.getAttribute("data-motif"));
-        const title = normalize(card.getAttribute("data-title"));
-
-        const matchCapsule = state.capsule === "all" || capsule === state.capsule;
-        const matchMotif = state.motif === "all" || motif === state.motif;
-        const matchQ = !q || title.includes(q);
-
-        const show = matchCapsule && matchMotif && matchQ;
-        card.style.display = show ? "" : "none";
-        
-        if (show) {
-          visible++;
-          materializer.observe(card); // Re-trigger entry animation
-        }
+    const bootOverlay = document.querySelector('.sr-terminal-overlay.active, #sr-terminal-boot.active, .lore-loader.active');
+    if (bootOverlay) {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((m) => {
+          if (m.attributeName === 'class' && !bootOverlay.classList.contains('active')) {
+            unlockProtocol();
+            observer.disconnect();
+          }
+        });
       });
-
-      if (countEl) countEl.textContent = String(visible);
-      if (noResults) noResults.hidden = visible !== 0;
+      observer.observe(bootOverlay, { attributes: true });
     }
 
-    // 🧪 AJAX EXTRACTION RITUAL (Cart Integration)
-    $$("[data-sr-atc]", section).forEach((form) => {
-      form.addEventListener("submit", async (e) => {
+    setTimeout(unlockProtocol, 7000); // Fail-safe breach
+  },
+
+  // 2. ENHANCED HANDSHAKE - Inter-page OS Transitions
+  setupEnhancedHandshake() {
+    const terminal = document.getElementById('sr-handshake-terminal');
+    const bar = document.getElementById('sr-handshake-bar');
+    if (!terminal || !bar) return;
+
+    document.querySelectorAll('a[data-capsule-link], a[href*="/pages/capsule-"]').forEach(link => {
+      link.addEventListener('click', (e) => {
         e.preventDefault();
-        const btn = $("[data-sr-atc-btn]", form);
-        const log = $("[data-sr-atc-log]", form);
-        if (!btn || !log) return;
-
-        btn.disabled = true;
-        log.textContent = "DECODING RELIC...";
-
-        try {
-          const res = await fetch("/cart/add.js", { method: "POST", body: new FormData(form) });
-          if (!res.ok) throw new Error();
-          log.textContent = "RELIC SECURED ✓";
-          
-          // Dispatch global event for stellar-core UI feedback
-          document.dispatchEvent(new CustomEvent('relic:secured'));
-          
-          setTimeout(() => { btn.disabled = false; log.textContent = "STANDBY..."; }, 1600);
-        } catch (err) {
-          log.textContent = "EXTRACTION GLITCH — RETRY";
-          setTimeout(() => { btn.disabled = false; log.textContent = "STANDBY..."; }, 1700);
-        }
+        const dest = link.href;
+        terminal.classList.add('active');
+        
+        let p = 0;
+        const interval = setInterval(() => {
+          p += Math.random() * 25;
+          bar.style.width = `${Math.min(p, 100)}%`;
+          if (p >= 100) {
+            clearInterval(interval);
+            window.location.href = dest;
+          }
+        }, 100);
       });
     });
+  },
 
-    // Initialize UI
-    pills.forEach(btn => btn.addEventListener("click", () => {
-      const group = btn.getAttribute("data-group");
-      const val = normalize(btn.getAttribute("data-value"));
-      state[group] = val;
-      pills.forEach(p => p.classList.toggle("is-active", normalize(p.getAttribute("data-value")) === state[p.getAttribute("data-group")]));
-      apply();
-    }));
+  // 3. GLOBAL INPUTS
+  setupGlobalShortcuts() {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.querySelector('.lore-popup-modal.active, .is-active');
+        if (modal) {
+          modal.classList.remove('active', 'is-active');
+          document.body.style.overflow = 'visible';
+        }
+      }
+    });
+  },
 
-    if (search) search.addEventListener("input", () => { state.q = search.value; apply(); });
-    
-    apply();
+  // 4. GPU ACCELERATION
+  setupPerformance() {
+    document.querySelectorAll('.glitch-text, .terminal-window, .sr-card').forEach(el => {
+      el.style.willChange = 'transform, opacity';
+    });
+  },
+
+  // 5. TERMINAL COUNTDOWN LOGIC
+  setupCountdown() {
+    const el = document.getElementById('relic-countdown');
+    if (!el) return;
+
+    const targetDate = new Date(el.dataset.targetDate).getTime();
+
+    const update = () => {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        const status = el.querySelector('.status-text');
+        if (status) status.textContent = "SIGNAL_STABILIZED // RELIC_READY";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      if (el.querySelector('[data-days]')) el.querySelector('[data-days]').textContent = d.toString().padStart(2, '0');
+      if (el.querySelector('[data-hours]')) el.querySelector('[data-hours]').textContent = h.toString().padStart(2, '0');
+      if (el.querySelector('[data-minutes]')) el.querySelector('[data-minutes]').textContent = m.toString().padStart(2, '0');
+      if (el.querySelector('[data-seconds]')) el.querySelector('[data-seconds]').textContent = s.toString().padStart(2, '0');
+
+      // Neural audio integration 
+      if (window.SignalSeekerTerminal && window.SignalSeekerTerminal.sound) {
+         window.SignalSeekerTerminal.sound.playBeep(400, 20); [cite: 6]
+      }
+    };
+
+    setInterval(update, 1000);
+    update();
   }
+};
 
-  // BOOT PROTOCOL
-  const boot = () => document.querySelectorAll("[data-sr-shopall]").forEach(initShopAll);
-  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", boot) : boot();
-})();
+// BOOT ENGINE
+document.addEventListener('DOMContentLoaded', () => StellarCore.init());
