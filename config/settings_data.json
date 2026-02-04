@@ -57,6 +57,66 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
+        "blocks": {
+          "social_link_P4ArVF": {
+            "type": "social_link",
+            "settings": {
+              "platform": "x",
+              "social_url": ""
+            }
+          },
+          "social_link_LMmiKC": {
+            "type": "social_link",
+            "settings": {
+              "platform": "instagram",
+              "social_url": ""
+            }
+          },
+          "info_link_dyhH8Y": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Shipping Info",
+              "link_url": ""
+            }
+          },
+          "info_link_ARUXwH": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Terms Of Service",
+              "link_url": ""
+            }
+          },
+          "info_link_rwWYxX": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
+          "info_link_yzkGtP": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Sizing Guide",
+              "link_url": ""
+            }
+          },
+          "info_link_rRLJpf": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "FAQ",
+              "link_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "social_link_P4ArVF",
+          "social_link_LMmiKC",
+          "info_link_dyhH8Y",
+          "info_link_ARUXwH",
+          "info_link_rwWYxX",
+          "info_link_yzkGtP",
+          "info_link_rRLJpf"
+        ],
         "custom_css": [],
         "settings": {
           "show_signal_badge": true,
