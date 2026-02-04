@@ -24,10 +24,13 @@
     {{ 'base.css' | asset_url | stylesheet_tag }}
 
     {% comment %} 🎭 PAGE-SPECIFIC DYNAMIC CSS {% endcomment %}
-    {% if template contains 'lore' %}
-      {{ 'stellar-lore.css' | asset_url | stylesheet_tag }}
-      {{ 'stellar-timeline-cosmic.css' | asset_url | stylesheet_tag }}
-    {% endif %}
+    {% if template.name == 'page' and template.suffix == 'universal-lore' %}
+  {{ 'stellar-lore.css' | asset_url | stylesheet_tag }}
+  {{ 'lore-myth.css' | asset_url | stylesheet_tag }}
+  {{ 'lore-timeline.css' | asset_url | stylesheet_tag }}
+  {{ 'lore-vault.css' | asset_url | stylesheet_tag }}
+  {{ 'universal-lore.css' | asset_url | stylesheet_tag }}
+{% endif %}
 
     {% if template contains 'collection' %}
       {{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
@@ -53,24 +56,28 @@
 
     {% section 'stellar-footer' %}
 
-    {% comment %} ═══════════════════════════════════════════════════════════
-                   JAVASCRIPT - THE MASTER HANDSHAKE
-    ═══════════════════════════════════════════════════════════ {% endcomment %}
-    
-    {% comment %} 1. Global Master Engine {% endcomment %}
-    <script src="{{ 'stellar-core.js' | asset_url }}" defer></script>
+   {% comment %} ═══════════════════════════════════════════════════════════
+               JAVASCRIPT - THE MASTER HANDSHAKE
+═══════════════════════════════════════════════════════════ {% endcomment %}
 
-    {% comment %} 2. Feature Specific Scripts {% endcomment %}
-    {% if template contains 'lore' %}
-      <script src="{{ 'stellar-lore.js' | asset_url }}" defer></script>
-      <script src="{{ 'stellar-timeline-cosmic.js' | asset_url }}" defer></script>
-    {% endif %}
+{%- comment -%} 1) Global Master Engine (site-wide) {%- endcomment -%}
+<script src="{{ 'stellar-core.js' | asset_url }}" defer></script>
 
-    {% if template contains 'collection' %}
-      <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
-    {% endif %}
-    
-    <script src="{{ 'signal-seeker-terminal.js' | asset_url }}" defer></script>
+{%- comment -%} 2) Universal Lore (ONLY on page.universal-lore) {%- endcomment -%}
+{% if template.name == 'page' and template.suffix == 'universal-lore' %}
+  <script src="{{ 'universal-lore.js' | asset_url }}" defer></script>
+{% endif %}
 
-  </body>
-</html>
+{%- comment -%} 3) Other Lore (ONLY if you truly have other lore templates) {%- endcomment -%}
+{% if template contains 'lore' and not (template.name == 'page' and template.suffix == 'universal-lore') %}
+  <script src="{{ 'stellar-lore.js' | asset_url }}" defer></script>
+  <script src="{{ 'stellar-timeline-cosmic.js' | asset_url }}" defer></script>
+{% endif %}
+
+{%- comment -%} 4) Collection templates {%- endcomment -%}
+{% if template contains 'collection' %}
+  <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
+{% endif %}
+
+{%- comment -%} 5) Global Signal Seeker terminal (site-wide) {%- endcomment -%}
+<script src="{{ 'signal-seeker-terminal.js' | asset_url }}" defer></script>
