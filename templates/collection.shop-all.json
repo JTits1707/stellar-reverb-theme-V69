@@ -12,8 +12,6 @@
     "main": {
       "type": "stellar-shop-all",
       "settings": {
-        "collection": "",
-        "products_per_page": 24,
         "hero_show_brand_icon": true,
         "hero_kicker": "SHOP ALL TRANSMISSIONS",
         "hero_title": "COSMIC PRODUCT VAULT",
@@ -23,6 +21,7 @@
         "lore_fragments": "Signal received. Grid stabilizing.||Artifacts detected across multiple timelines.||Extraction protocols armed. Choose your relic.",
         "show_special_pills": true,
         "enable_quick_add": true,
+        "products_per_page": 24,
         "fomo_inventory_threshold": 5,
         "upsell_collection": "",
         "upsell_heading": "You May Also Be Receiving These Signals",
@@ -33,36 +32,7 @@
         "signal_cta_button_text": "TUNE INTO FUTURE DROPS",
         "signal_cta_link": "/pages/signal-seekers"
       }
-    },
-    "stellar_shop_all_zLU7gh": {
-      "type": "stellar-shop-all",
-      "name": "Shop All",
-      "settings": {
-        "collection": "",
-        "products_per_page": 24,
-        "hero_show_brand_icon": true,
-        "hero_kicker": "SHOP ALL TRANSMISSIONS",
-        "hero_title": "COSMIC PRODUCT VAULT",
-        "hero_subtitle": "Artifacts from every capsule — pulled from the void into one gravitational grid.",
-        "transmission_strip_enabled": true,
-        "transmission_text": "INCOMING TRANSMISSION: New relics materializing from the void… stand by.",
-        "lore_fragments": "Signal received. Grid stabilizing.||Artifacts detected across multiple timelines.||Extraction protocols armed. Choose your relic.||Reality frequency: 432 Hz. Dimensional drift: minimal.||Archive integrity: 98.7%. Proceed with caution.",
-        "show_special_pills": true,
-        "enable_quick_add": true,
-        "fomo_inventory_threshold": 5,
-        "upsell_collection": "",
-        "upsell_heading": "You May Also Be Receiving These Signals",
-        "upsell_subheading": "Curated relics that vibrate on a similar frequency.",
-        "upsell_limit": 4,
-        "signal_cta_heading": "Join The Signal Network",
-        "signal_cta_subheading": "Tap into early access transmissions, hidden relics, and encrypted drop intel before it hits the main frequency.",
-        "signal_cta_button_text": "TUNE INTO FUTURE DROPS",
-        "signal_cta_link": ""
-      }
     }
   },
-  "order": [
-    "main",
-    "stellar_shop_all_zLU7gh"
-  ]
+  "order": ["main"]
 }
