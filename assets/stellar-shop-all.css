@@ -213,3 +213,170 @@
   opacity: 0.7;
   letter-spacing: 1px;
 }
+/* ═══════════════════════════════════════════════════════════
+   SUPREME TIER ENHANCEMENTS
+   ═══════════════════════════════════════════════════════════ */
+
+/* 🌟 MATERIALIZATION GLITCH EFFECT */
+@keyframes srGlitchMaterialize {
+  0% { 
+    transform: translateY(30px) translateX(-2px); 
+    opacity: 0; 
+    filter: hue-rotate(0deg);
+  }
+  20% { 
+    transform: translateY(15px) translateX(2px); 
+    opacity: 0.3;
+    filter: hue-rotate(15deg);
+  }
+  40% { 
+    transform: translateY(5px) translateX(-1px); 
+    opacity: 0.6;
+    filter: hue-rotate(-10deg);
+  }
+  100% { 
+    transform: translateY(0) translateX(0); 
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+}
+
+.sr-card.sr-materializing {
+  animation: srGlitchMaterialize 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 🎯 LORE UPDATE ANIMATION */
+@keyframes srLoreGlitch {
+  0%, 100% { 
+    transform: translateX(0); 
+    text-shadow: 0 0 8px var(--cyan);
+  }
+  25% { 
+    transform: translateX(-2px); 
+    text-shadow: -2px 0 var(--magenta), 2px 0 var(--cyan);
+  }
+  50% { 
+    transform: translateX(2px); 
+    text-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan);
+  }
+  75% { 
+    transform: translateX(-1px); 
+    text-shadow: 0 0 12px var(--green);
+  }
+}
+
+[data-sr-lore].sr-lore-update {
+  animation: srLoreGlitch 0.8s ease-out;
+}
+
+/* 🔥 ENHANCED ATC BUTTON STATES */
+.sr-atc__btn.is-success {
+  background: rgba(0,240,172,0.2);
+  border-color: var(--green);
+  box-shadow: 0 0 30px rgba(0,240,172,0.3), inset 0 0 15px rgba(0,240,172,0.1);
+  animation: srSuccessPulse 0.6s ease-out;
+}
+
+.sr-atc__btn.is-error {
+  background: rgba(225,60,250,0.25);
+  border-color: var(--magenta);
+  box-shadow: 0 0 25px rgba(225,60,250,0.4);
+  animation: srErrorShake 0.4s ease-out;
+}
+
+@keyframes srSuccessPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes srErrorShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* 💫 FILTER PILL ACTIVE STATE ENHANCEMENT */
+[data-sr-pill].is-active {
+  position: relative;
+  background: linear-gradient(135deg, rgba(225,60,250,0.2), rgba(40,168,214,0.2));
+  border-color: var(--cyan);
+  box-shadow: 0 0 20px rgba(40,168,214,0.3), inset 0 0 10px rgba(225,60,250,0.1);
+}
+
+[data-sr-pill].is-active::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, var(--magenta), var(--cyan), var(--magenta));
+  background-size: 200% 100%;
+  opacity: 0.3;
+  border-radius: inherit;
+  z-index: -1;
+  animation: srPillShimmer 2s linear infinite;
+}
+
+@keyframes srPillShimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* 🎨 COUNT ELEMENT COSMIC FLICKER */
+[data-sr-count] {
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 10px var(--cyan);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 📊 PROGRESS BAR PULSE ENHANCEMENT */
+.sr-progress__bar i {
+  position: relative;
+  overflow: hidden;
+}
+
+.sr-progress__bar i::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: srProgressSweep 2s ease-in-out infinite;
+}
+
+@keyframes srProgressSweep {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* 🌌 HOVER DEPTH ENHANCEMENT */
+.sr-card:hover {
+  z-index: 10;
+}
+
+.sr-card:hover .sr-card__img {
+  transform: scale(1.05) translateZ(0);
+  filter: brightness(1.1) saturate(1.2);
+}
+
+/* ⚡ SEARCH INPUT COSMIC FOCUS */
+[data-sr-search]:focus {
+  outline: none;
+  border-color: var(--cyan);
+  box-shadow: 0 0 20px rgba(40,168,214,0.3), inset 0 0 10px rgba(225,60,250,0.1);
+  background: rgba(0,0,0,0.6);
+}
+
+/* 🎭 NO RESULTS STATE */
+[data-sr-noresults] {
+  text-align: center;
+  padding: 4rem 2rem;
+  opacity: 0;
+  animation: srFadeIn 0.6s ease-out forwards;
+}
+
+@keyframes srFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
