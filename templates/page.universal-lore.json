@@ -150,21 +150,19 @@
       "type": "universal-lore-konami-modal",
       "settings": {}
     },
-    "stellar_archive_hero_corrected_h498FN": {
-      "type": "stellar-archive-hero-corrected",
-      "name": "Archive Hero (Corrected)",
+    "lore_mainframe_hero_ChXPAK": {
+      "type": "lore-mainframe-hero",
+      "name": "Lore Mainframe Hero",
       "settings": {
-        "title": "STELLAR REVERB",
-        "subtitle": "Sound Style Transmissions Of Cosmic Identity",
-        "featured_capsule_number": "",
-        "enable_particles": true,
-        "enable_cassettes": true
+        "title": "UNIVERSAL LORE",
+        "subtitle": "Deciphering the fragments of a fractured reality."
       }
     }
   },
   "order": [
     "navigation",
     "loader",
+    "lore_mainframe_hero_ChXPAK",
     "hero",
     "myth",
     "timeline",
@@ -172,7 +170,6 @@
     "signals",
     "signup",
     "signal_feed",
-    "konami_modal",
-    "stellar_archive_hero_corrected_h498FN"
+    "konami_modal"
   ]
 }
