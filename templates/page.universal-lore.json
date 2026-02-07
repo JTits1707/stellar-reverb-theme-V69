@@ -68,18 +68,6 @@
       "type": "universal-lore-loader",
       "settings": {}
     },
-    "hero": {
-      "type": "universal-lore-hero",
-      "settings": {
-        "kicker_text": "UNIVERSAL LORE ARCHIVE",
-        "heading_override": "Universal Lore Index",
-        "subheading_override": "From the first distortion to the last echo in the archives",
-        "primary_cta_label": "Enter the Timeline",
-        "secondary_cta_label": "Explore This Transmission",
-        "fallback_secondary_url": "",
-        "show_hero_meta": true
-      }
-    },
     "myth": {
       "type": "universal-lore-myth",
       "settings": {
@@ -162,14 +150,13 @@
   "order": [
     "navigation",
     "loader",
-    "hero",
+    "lore_mainframe_hero_LeGfnp",
     "myth",
     "timeline",
     "vault",
     "signals",
     "signup",
     "signal_feed",
-    "konami_modal",
-    "lore_mainframe_hero_LeGfnp"
+    "konami_modal"
   ]
 }
