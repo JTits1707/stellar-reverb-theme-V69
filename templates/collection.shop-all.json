@@ -13,9 +13,9 @@
       "type": "stellar-shop-all",
       "settings": {
         "hero_show_brand_icon": true,
-        "hero_kicker": "SHOP ALL TRANSMISSIONS",
-        "hero_title": "COSMIC PRODUCT VAULT",
-        "hero_subtitle": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.",
+        "hero_kicker": "Echoes From every capsule. Limited drops. Wear the waveform.",
+        "hero_title": "All Capsules// Active Echoes",
+        "hero_subtitle": "Echoes from fractured timelines. Exclusive capsule drops.",
         "transmission_strip_enabled": true,
         "transmission_text": "INCOMING TRANSMISSION: New relics materializing from the void… stand by.",
         "lore_fragments": "Signal received. Grid stabilizing.||Artifacts detected across multiple timelines.||Extraction protocols armed. Choose your relic.",
