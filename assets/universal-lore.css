@@ -1038,3 +1038,25 @@ body::after {
   margin-top: 0 !important;
   padding-top: 4rem !important; /* Adjust based on your nav height */
 }
+/* 📡 SIGNAL REGISTRY (SIGNUP) STYLING */
+.universal-lore-signup {
+  padding: 8rem 2rem;
+  background: var(--void-black);
+  border-top: 1px solid rgba(40, 168, 214, 0.2);
+  text-align: center;
+}
+
+.universal-lore-signup .heading {
+  font-family: var(--font-heading) !important;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.universal-lore-signup .subheading {
+  font-family: var(--font-human);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  color: var(--chrome-silver);
+}
