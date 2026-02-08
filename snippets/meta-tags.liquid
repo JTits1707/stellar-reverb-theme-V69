@@ -1,0 +1,29 @@
+{%- comment -%}
+  STELLAR REVERB - META TAG ENGINE (vGODMODE)
+  Standardizes social previews to match the OS aesthetic.
+{% endcomment %}
+
+{%- liquid
+  assign og_title = page_title | default: shop.name
+  assign og_description = page_description | default: shop.description | default: 'SIGNAL_SEEKER_PROTOCOL_ACTIVE'
+  assign og_image = settings.social_share_image | default: page_image
+-%}
+
+<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:title" content="[SYSTEM_ACCESS] {{ og_title | upcase }}">
+<meta property="og:type" content="website">
+<meta property="og:description" content=">> {{ og_description | strip_html | truncate: 160 }}">
+
+{%- if og_image -%}
+  <meta property="og:image" content="http:{{ og_image | image_url: width: 1200 }}">
+  <meta property="og:image:secure_url" content="https:{{ og_image | image_url: width: 1200 }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+{%- endif -%}
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="[DECRYPTED] {{ og_title | upcase }}">
+<meta name="twitter:description" content=">> SIGNAL_STRENGTH: 100% // {{ og_description | strip_html | truncate: 140 }}">
+
+<meta name="theme-color" content="#0D0D0D">
