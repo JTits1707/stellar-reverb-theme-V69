@@ -12,37 +12,36 @@ const StellarCore = {
     this.setupEnhancedHandshake(); 
     this.setupGlobalShortcuts();
     this.setupPerformance();
-    this.setupCountdown(); // ⚡ CRITICAL: Added to the boot sequence
+    this.setupCountdown();
   },
 
-  // 1. INTERFACE UNLOCK - The "No Scroll" Terminator
+  // 1. UPDATED INTERFACE UNLOCK (vGODMODE) - The Loader Killer
   setupInterfaceUnlock() {
     const unlockProtocol = () => {
-      console.log('🔓 INTERFACE_UNLOCKED: Protocol "Breach" successful.');
+      console.log('🔓 SIGNAL_STABILIZED: Removing all terminal barriers.');
       document.body.style.overflow = 'visible';
       document.documentElement.style.overflow = 'visible';
+      document.body.classList.remove('lock-scroll', 'is-loading');
       
-      const barriers = document.querySelectorAll('.sr-terminal-overlay, #sr-terminal-boot, .lore-loader');
+      // Target EVERY possible loader class used across all versions
+      const barriers = document.querySelectorAll(
+        '.sr-terminal-overlay, #sr-terminal-boot, .lore-loader, #loreLoader, .sr-handshake-overlay'
+      );
       barriers.forEach(b => {
+        b.classList.remove('active');
+        b.classList.add('hidden', 'is-hidden');
+        b.style.display = 'none'; // Force kill the element
         b.style.pointerEvents = 'none';
-        b.classList.add('hidden'); 
       });
     };
 
-    const bootOverlay = document.querySelector('.sr-terminal-overlay.active, #sr-terminal-boot.active, .lore-loader.active');
-    if (bootOverlay) {
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((m) => {
-          if (m.attributeName === 'class' && !bootOverlay.classList.contains('active')) {
-            unlockProtocol();
-            observer.disconnect();
-          }
-        });
-      });
-      observer.observe(bootOverlay, { attributes: true });
-    }
+    // Trigger unlock when the window is fully loaded
+    window.addEventListener('load', () => {
+      setTimeout(unlockProtocol, 500); // 500ms delay for visual polish
+    });
 
-    setTimeout(unlockProtocol, 7000); // Fail-safe breach
+    // FAIL-SAFE: Hard breach after 5 seconds if nothing triggers
+    setTimeout(unlockProtocol, 5000);
   },
 
   // 2. ENHANCED HANDSHAKE - Inter-page OS Transitions
@@ -96,7 +95,6 @@ const StellarCore = {
     if (!el) return;
 
     const targetDate = new Date(el.dataset.targetDate).getTime();
-
     const update = () => {
       const now = new Date().getTime();
       const diff = targetDate - now;
@@ -116,11 +114,6 @@ const StellarCore = {
       if (el.querySelector('[data-hours]')) el.querySelector('[data-hours]').textContent = h.toString().padStart(2, '0');
       if (el.querySelector('[data-minutes]')) el.querySelector('[data-minutes]').textContent = m.toString().padStart(2, '0');
       if (el.querySelector('[data-seconds]')) el.querySelector('[data-seconds]').textContent = s.toString().padStart(2, '0');
-
-      // Neural audio integration 
-      if (window.SignalSeekerTerminal && window.SignalSeekerTerminal.sound) {
-         window.SignalSeekerTerminal.sound.playBeep(400, 20); [cite: 6]
-      }
     };
 
     setInterval(update, 1000);
@@ -130,31 +123,3 @@ const StellarCore = {
 
 // BOOT ENGINE
 document.addEventListener('DOMContentLoaded', () => StellarCore.init());
-// 1. UPDATED INTERFACE UNLOCK (vGODMODE)
-  setupInterfaceUnlock() {
-    const unlockProtocol = () => {
-      console.log('🔓 SIGNAL_STABILIZED: Removing all terminal barriers.');
-      document.body.style.overflow = 'visible';
-      document.documentElement.style.overflow = 'visible';
-      document.body.classList.remove('lock-scroll', 'is-loading');
-      
-      // Target EVERY possible loader class you've used across versions
-      const barriers = document.querySelectorAll(
-        '.sr-terminal-overlay, #sr-terminal-boot, .lore-loader, #loreLoader, .sr-handshake-overlay'
-      );
-      barriers.forEach(b => {
-        b.classList.remove('active');
-        b.classList.add('hidden', 'is-hidden');
-        b.style.display = 'none'; // Force kill
-        b.style.pointerEvents = 'none';
-      });
-    };
-
-    // Listen for the "DOMContentLoaded" as the primary trigger
-    window.addEventListener('load', () => {
-      setTimeout(unlockProtocol, 500); // Small delay for visual polish
-    });
-
-    // FAIL-SAFE: 5-second hard breach
-    setTimeout(unlockProtocol, 5000);
-  },
