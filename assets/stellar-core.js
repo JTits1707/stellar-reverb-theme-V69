@@ -130,3 +130,31 @@ const StellarCore = {
 
 // BOOT ENGINE
 document.addEventListener('DOMContentLoaded', () => StellarCore.init());
+// 1. UPDATED INTERFACE UNLOCK (vGODMODE)
+  setupInterfaceUnlock() {
+    const unlockProtocol = () => {
+      console.log('🔓 SIGNAL_STABILIZED: Removing all terminal barriers.');
+      document.body.style.overflow = 'visible';
+      document.documentElement.style.overflow = 'visible';
+      document.body.classList.remove('lock-scroll', 'is-loading');
+      
+      // Target EVERY possible loader class you've used across versions
+      const barriers = document.querySelectorAll(
+        '.sr-terminal-overlay, #sr-terminal-boot, .lore-loader, #loreLoader, .sr-handshake-overlay'
+      );
+      barriers.forEach(b => {
+        b.classList.remove('active');
+        b.classList.add('hidden', 'is-hidden');
+        b.style.display = 'none'; // Force kill
+        b.style.pointerEvents = 'none';
+      });
+    };
+
+    // Listen for the "DOMContentLoaded" as the primary trigger
+    window.addEventListener('load', () => {
+      setTimeout(unlockProtocol, 500); // Small delay for visual polish
+    });
+
+    // FAIL-SAFE: 5-second hard breach
+    setTimeout(unlockProtocol, 5000);
+  },
