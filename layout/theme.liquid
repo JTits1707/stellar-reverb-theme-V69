@@ -1,86 +1,60 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
- <head>
-  <style>
+  <head>
+    {%- comment -%} 1. PERFORMANCE: Critical Lore CSS (Inlined for <1s FCP) {%- endcomment -%}
     {% render 'critical-lore-css' %}
-  </style>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>
-    {%- if page_title == blank -%}{{ shop.name }}{%- else -%}{{ page_title }}{% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}{%- endif -%}
-  </title>
-  {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
-  <meta name="theme-color" content="#0D0D0D">
-  <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      {%- if page_title == blank -%}{{ shop.name }}{%- else -%}{{ page_title }}{% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}{%- endif -%}
+    </title>
+    {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
+    <meta name="theme-color" content="#0D0D0D">
+    <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
 
-  {% comment %} CORE CSS - Highest priority order {% endcomment %}
-  {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
-  {{ 'brand-fonts.css' | asset_url | stylesheet_tag }}   <!-- Local fonts first -->
-  {{ 'base.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} 2. CORE CSS ENGINE: Global Brand Identity {%- endcomment -%}
+    {{ 'theme-variables.css' | asset_url | stylesheet_tag }}
+    {{ 'brand-fonts.css' | asset_url | stylesheet_tag }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
 
-  {% comment %} PAGE-SPECIFIC LORE - Hard-coded for maximum priority {% endcomment %}
-  {% if template.name == 'page' and template.suffix == 'universal-lore' %}
-    {{ 'stellar-lore.css' | asset_url | stylesheet_tag }}
-    {{ 'lore-timeline.css' | asset_url | stylesheet_tag }}
-    {{ 'lore-vault.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} 3. PAGE-SPECIFIC LORE: The Multiversal Stack {%- endcomment -%}
+    {% if template contains 'lore' %}
+      {{ 'universal-lore.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-mainframe.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-myth.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-timeline.css' | asset_url | stylesheet_tag }}
+      {{ 'lore-vault.css' | asset_url | stylesheet_tag }}
+      {{ 'stellar-timeline-cosmic.css' | asset_url | stylesheet_tag }}
+    {% endif %}
 
+    {% if template contains 'collection' %}
+      {{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+    {%- comment -%} 4. FINAL BOSS OVERRIDE: Terminating Ghost Space & Forcing Fonts {%- endcomment -%}
     <style>
-      /* ==================== HARD-CODED lore-myth.css ==================== */
-      /* ← Paste the entire content of lore-myth.css here */
-
-      /* ==================== HARD-CODED universal-lore.css ==================== */
-      /* ← Paste the entire content of universal-lore.css here */
+      :root {
+        --font-heading: 'Orbitron', sans-serif !important;
+        --font-human: 'PPMORI', 'Inter', sans-serif !important;
+        --font-ai: 'PP Neue Machina', monospace !important;
+      }
+      .main-content { padding-top: 0 !important; margin-top: 0 !important; }
+      #MainContent section:first-of-type { margin-top: 0 !important; }
+      
+      /* Ensure Myth buttons sit horizontally */
+      .toggle-switch-wrapper { display: flex !important; gap: 2rem !important; justify-content: center !important; }
     </style>
-  {% elsif template contains 'lore' %}
-    {{ 'stellar-lore.css' | asset_url | stylesheet_tag }}
-    {{ 'lore-myth.css' | asset_url | stylesheet_tag }}
-  {% endif %}
 
-  {% if template contains 'collection' %}
-    {{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
-  {% endif %}
-
-  {% comment %} FINAL BOSS OVERRIDE - This wins every cascade war {% endcomment %}
-  <style>
-    :root {
-      --font-heading: 'Orbitron', sans-serif !important;
-      --font-human: 'PPMORI', sans-serif !important;
-      --font-ai: 'PP Neue Machina', monospace !important;
-    }
-
-    h1, h2, h3, h4, h5, h6, .heading, .title {
-      font-family: var(--font-heading) !important;
-    }
-
-    body, p, a, button, input, textarea, .text, .body-text {
-      font-family: var(--font-human) !important;
-    }
-
-    code, pre, .ai-text, .terminal {
-      font-family: var(--font-ai) !important;
-    }
-
-    /* Fix ghost spacing */
-    .main-content {
-      padding-top: 0 !important;
-      margin-top: 0 !important;
-    }
-    #MainContent section:first-of-type {
-      margin-top: 0 !important;
-    }
-  </style>
-
-  {{ content_for_header }}
-</head>
+    {{ content_for_header }}
+  </head>
 
   <body class="template-{{ template.name | handle }} stellar-os-active">
-    {%- comment -%} 🛸 UNIVERSAL BOOT SEQUENCE (Only on Homepage) {%- endcomment -%}
+    {%- comment -%} 🛸 UNIVERSAL BOOT SEQUENCE {%- endcomment -%}
     {%- if template == 'index' -%}
       {% render 'stellar-boot-sequence' %}
     {%- endif -%}
@@ -96,28 +70,21 @@
 
     {% section 'stellar-footer' %}
 
-   {% comment %} ═══════════════════════════════════════════════════════════
-               JAVASCRIPT - THE MASTER HANDSHAKE
-═══════════════════════════════════════════════════════════ {% endcomment %}
-
-{%- comment -%} 1) Global Master Engine (site-wide) {%- endcomment -%}
-<script src="{{ 'stellar-core.js' | asset_url }}" defer></script>
-
-{%- comment -%} 2) Universal Lore (ONLY on page.universal-lore) {%- endcomment -%}
-{% if template.name == 'page' and template.suffix == 'universal-lore' %}
-  <script src="{{ 'universal-lore.js' | asset_url }}" defer></script>
-{% endif %}
-
-{%- comment -%} 3) Other Lore (ONLY if you truly have other lore templates) {%- endcomment -%}
-{% if template contains 'lore' and not (template.name == 'page' and template.suffix == 'universal-lore') %}
-  <script src="{{ 'stellar-lore.js' | asset_url }}" defer></script>
-  <script src="{{ 'stellar-timeline-cosmic.js' | asset_url }}" defer></script>
-{% endif %}
-
-{%- comment -%} 4) Collection templates {%- endcomment -%}
-{% if template contains 'collection' %}
-  <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
-{% endif %}
-
-{%- comment -%} 5) Global Signal Seeker terminal (site-wide) {%- endcomment -%}
-<script src="{{ 'signal-seeker-terminal.js' | asset_url }}" defer></script>
+    {%- comment -%} ═══════════════════════════════════════════════════════════
+                   JAVASCRIPT - THE MASTER HANDSHAKE
+    ═══════════════════════════════════════════════════════════ {%- endcomment -%}
+    
+    <script src="{{ 'stellar-core.js' | asset_url }}" defer></script>
+    
+    {% if template contains 'lore' %}
+      <script src="{{ 'universal-lore.js' | asset_url }}" defer></script>
+      <script src="{{ 'stellar-timeline-cosmic.js' | asset_url }}" defer></script>
+    {% endif %}
+    
+    {% if template contains 'collection' %}
+      <script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
+    {% endif %}
+    
+    <script src="{{ 'signal-seeker-terminal.js' | asset_url }}" defer></script>
+  </body>
+</html>
