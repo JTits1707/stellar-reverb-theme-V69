@@ -741,3 +741,20 @@
   };
 
 })();
+function initVaultPortal() {
+  const glyphs = document.querySelectorAll('.glyph-item');
+  
+  glyphs.forEach(glyph => {
+    glyph.addEventListener('mouseenter', () => {
+      glyph.classList.add('distort-active');
+      // If you have the sound engine active
+      if (window.StellarCore && window.StellarCore.playBeep) {
+        window.StellarCore.playBeep(600, 10);
+      }
+    });
+    
+    glyph.addEventListener('mouseleave', () => {
+      glyph.classList.remove('distort-active');
+    });
+  });
+}
