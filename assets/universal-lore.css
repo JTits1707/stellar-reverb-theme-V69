@@ -1060,3 +1060,42 @@ body::after {
   margin: 0 auto 3rem;
   color: var(--chrome-silver);
 }
+/* 📡 SIGNALS & REGISTRY - SUPREME OVERRIDE */
+.universal-lore-signup, 
+.section-universal-lore-signup,
+[data-section-type="lore-signup"] {
+  padding: 10rem 2rem !important;
+  background: var(--void-black) !important;
+  text-align: center !important;
+  border-top: 1px solid rgba(225, 60, 250, 0.2);
+}
+
+.universal-lore-signup .heading,
+.universal-lore-signup h2 {
+  font-family: var(--font-heading) !important;
+  font-size: clamp(2rem, 8vw, 4rem) !important;
+  color: #fff !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  text-shadow: 0 0 20px rgba(225, 60, 250, 0.4);
+  margin-bottom: 2rem !important;
+}
+
+.universal-lore-signup .subheading,
+.universal-lore-signup p {
+  font-family: var(--font-human) !important;
+  color: var(--chrome-silver) !important;
+  max-width: 700px;
+  margin: 0 auto 3rem !important;
+  line-height: 1.8;
+}
+
+/* Fix the Email Input */
+.universal-lore-signup input[type="email"] {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--neon-magenta) !important;
+  color: #fff !important;
+  padding: 1rem 2rem;
+  font-family: var(--font-ai) !important;
+  text-transform: uppercase;
+}
