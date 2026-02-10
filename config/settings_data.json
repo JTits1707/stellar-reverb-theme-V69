@@ -57,6 +57,82 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
+        "blocks": {
+          "social_link_qekcpm": {
+            "type": "social_link",
+            "settings": {
+              "platform": "instagram",
+              "social_url": ""
+            }
+          },
+          "social_link_WMmFcn": {
+            "type": "social_link",
+            "settings": {
+              "platform": "x",
+              "social_url": ""
+            }
+          },
+          "social_link_K4PC4h": {
+            "type": "social_link",
+            "settings": {
+              "platform": "pinterest",
+              "social_url": ""
+            }
+          },
+          "info_link_Rgf6QC": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Sizing Guide",
+              "link_url": ""
+            }
+          },
+          "info_link_geD93T": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "FAQ",
+              "link_url": ""
+            }
+          },
+          "info_link_AFiwJz": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Shipping Info",
+              "link_url": ""
+            }
+          },
+          "info_link_jBE8yA": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Terms Of Service",
+              "link_url": ""
+            }
+          },
+          "info_link_HrPLxh": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
+          "info_link_bHwX9X": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "FAQ",
+              "link_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "social_link_qekcpm",
+          "social_link_WMmFcn",
+          "social_link_K4PC4h",
+          "info_link_Rgf6QC",
+          "info_link_geD93T",
+          "info_link_AFiwJz",
+          "info_link_jBE8yA",
+          "info_link_HrPLxh",
+          "info_link_bHwX9X"
+        ],
         "settings": {
           "show_signal_badge": true,
           "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
