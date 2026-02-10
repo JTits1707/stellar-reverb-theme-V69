@@ -500,3 +500,19 @@
   }
   .sr-card, .sr-pill, .sr-atc__btn { transition: none !important; }
 }
+/* 🚀 SHOP ALL - SUPREME REFINEMENT */
+.shop-all-title {
+  font-family: var(--font-heading) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.2em !important;
+  color: #FFFFFF !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Subtle white glow */
+}
+
+.shop-all-description {
+  font-family: var(--font-human);
+  color: var(--chrome-silver);
+  max-width: 500px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
