@@ -123,3 +123,10 @@ const StellarCore = {
 
 // BOOT ENGINE
 document.addEventListener('DOMContentLoaded', () => StellarCore.init());
+// Add dashboard URLs to the transition engine
+document.querySelectorAll('a[href*="/pages/signal-seeker-dash"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    // Triggers the "DECRYPTING_RELIC" terminal animation [cite: 118, 124]
+    StellarCore.setupEnhancedHandshake(e, link.href); 
+  });
+});

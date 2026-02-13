@@ -1,0 +1,15 @@
+<div class="relic-grid">
+  {% for product in collections['floating-archive'].products limit: 4 %}
+    <div class="relic-card">
+      <div class="relic-image">
+        <img src="{{ product.featured_image | img_url: '400x400' }}" alt="{{ product.title }}">
+        <div class="relic-tag">DECRYPTED</div>
+      </div>
+      <div class="relic-content">
+        <h3 class="relic-title">{{ product.title }}</h3>
+        <p class="relic-desc">{{ product.description | truncate: 80 }}</p>
+        <a href="{{ product.url }}" class="capsule-access">EXTRACT_RELIC</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
