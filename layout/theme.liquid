@@ -89,3 +89,12 @@
     <script src="{{ 'signal-seeker-terminal.js' | asset_url }}" defer></script>
   </body>
 </html>
+{% comment %} Load Archive CSS when in sector {% endcomment %}
+{% if template contains 'floating-archive' %}
+  {{ 'floating-archive-enhanced.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
+{% comment %} Load Archive JS at bottom {% endcomment %}
+{% if template contains 'floating-archive' %}
+  <script src="{{ 'floating-archive.js' | asset_url }}" defer></script>
+{% endif %}
