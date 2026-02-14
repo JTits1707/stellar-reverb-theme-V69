@@ -1,0 +1,34 @@
+{% comment %} 
+  STELLAR OS — DASHBOARD GATEKEEPER 
+  Checks for 'signal-seeker' tag before decrypting UI.
+{% endcomment %}
+
+{% assign is_signal_seeker = false %}
+{% if customer and customer.tags contains 'signal-seeker' %}
+  {% assign is_signal_seeker = true %}
+{% endif %}
+
+<div class="signal-dashboard-wrapper" data-access-granted="{{ is_signal_seeker }}">
+  {% if is_signal_seeker %}
+    {%- comment -%} ✅ ACCESS GRANTED: Load the OS Dashboard {%- endcomment -%}
+    {% section 'signal-dashboard-header' %}
+    
+    <div class="dashboard-main-grid container">
+      {% section 'signal-dashboard-stats' %}
+      {% section 'signal-dashboard-relics' %}
+      {% section 'signal-dashboard-downloads' %}
+    </div>
+
+  {% elsif customer %}
+    {%- comment -%} 🚫 LOGGED IN BUT NO CLEARANCE {%- endcomment -%}
+    {% section 'signal-upgrade-gate' %}
+
+  {% else %}
+    {%- comment -%} 🔒 LOCKDOWN: Redirect to Login {%- endcomment -%}
+    {% section 'signal-login-gate' %}
+  {% endif %}
+</div>
+
+{%- comment -%} Load Dashboard-Specific Assets {%- endcomment -%}
+{{ 'signal-seeker-dash.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'signal-seeker-dash.js' | asset_url }}" defer></script>
