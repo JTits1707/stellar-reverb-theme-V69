@@ -58,6 +58,20 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "info_link_KWVyFx": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Terms Of Service",
+              "link_url": ""
+            }
+          },
+          "info_link_Vxj37y": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
           "info_link_JAAqit": {
             "type": "info_link",
             "settings": {
@@ -67,6 +81,8 @@
           }
         },
         "block_order": [
+          "info_link_KWVyFx",
+          "info_link_Vxj37y",
           "info_link_JAAqit"
         ],
         "settings": {
