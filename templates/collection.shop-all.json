@@ -34,9 +34,54 @@
         "signal_cta_button_text": "TUNE INTO FUTURE DROPS",
         "signal_cta_link": ""
       }
+    },
+    "stellar_fomo_conditional_Maza8f": {
+      "type": "stellar-fomo-conditional",
+      "name": "FOMO (Conditional)",
+      "settings": {
+        "trigger_mode": "any_product_low_stock",
+        "required_tag": "limited",
+        "low_stock_threshold": 10,
+        "collection_count_threshold": 20,
+        "kicker": "⚡ SIGNAL DESTABILIZING",
+        "headline": "ALMOST GONE",
+        "subtext": "Low inventory detected. Once the signal fades, it does not return."
+      }
+    },
+    "capsule_low_stock_sidebar_RRjaz6": {
+      "type": "capsule-low-stock-sidebar",
+      "name": "Capsule Low-stock Sidebar",
+      "settings": {
+        "heading": "Fading Signals",
+        "subheading": "Relics slipping beyond the event horizon.",
+        "collection": "",
+        "products_to_show": 4,
+        "low_stock_threshold": 5,
+        "show_total_low_stock": true,
+        "show_view_all": true,
+        "view_all_link": ""
+      }
+    },
+    "almost_gone_6MKUp7": {
+      "type": "almost-gone",
+      "name": "Almost Gone",
+      "settings": {
+        "heading": "Almost Gone",
+        "subheading": "Low-stock relics—last chance before the signal fades.",
+        "collection": "",
+        "products_to_show": 8,
+        "columns_desktop": "4",
+        "low_stock_threshold": 5,
+        "show_total_low_stock": true,
+        "show_view_all": true,
+        "view_all_link": ""
+      }
     }
   },
   "order": [
-    "stellar_shop_all_enhanced_GGXb7V"
+    "stellar_shop_all_enhanced_GGXb7V",
+    "stellar_fomo_conditional_Maza8f",
+    "capsule_low_stock_sidebar_RRjaz6",
+    "almost_gone_6MKUp7"
   ]
 }
