@@ -58,6 +58,13 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "info_link_RPzgL3": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Shipping Info",
+              "link_url": ""
+            }
+          },
           "info_link_dz8frz": {
             "type": "info_link",
             "settings": {
@@ -88,6 +95,7 @@
           }
         },
         "block_order": [
+          "info_link_RPzgL3",
           "info_link_dz8frz",
           "info_link_KWVyFx",
           "info_link_Vxj37y",
