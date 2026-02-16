@@ -301,3 +301,23 @@
   const boot = () => document.querySelectorAll("[data-sr-shopall]").forEach(initShopAll);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", boot) : boot();
 })();
+(function () {
+  // Tag filter buttons → navigate to URL in data-filter-url
+  document.querySelectorAll('.shop-all-cosmic .filter-chip').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var url = btn.getAttribute('data-filter-url');
+      if (url) window.location.href = url;
+    });
+  });
+
+  // Sort select auto-submit
+  var sortForm = document.querySelector('.shop-all-sort');
+  if (sortForm) {
+    var select = sortForm.querySelector('.sort-select');
+    if (select) {
+      select.addEventListener('change', function () {
+        sortForm.submit();
+      });
+    }
+  }
+})();
