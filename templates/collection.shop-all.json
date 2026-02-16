@@ -15,6 +15,7 @@
       "settings": {
         "collection": "",
         "products_per_page": 24,
+        "brand_icon": "shopify://shop_images/stellar-universal-lore-hero-image_219d5e8d-4dc4-44b4-967a-8144fb637b55.png",
         "hero_show_brand_icon": true,
         "hero_kicker": "SHOP ALL TRANSMISSIONS",
         "hero_title": "COSMIC PRODUCT VAULT",
