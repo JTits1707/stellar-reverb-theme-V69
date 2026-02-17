@@ -1,0 +1,125 @@
+{% comment %}
+  STELLAR REVERB — SHOP ALL COLLECTIONS (COSMIC PRODUCT VAULT) — FINAL ENHANCED vGODMODE
+  The main shop hub: catches all transmissions, relics, drops — fast for shoppers, mythic for Seekers.
+  Features: Hero HUD, sticky filters, FOMO badges, upsell grid, signal CTA.
+  Metafields: product.capsule_number, product.short_teaser, product.frequency_theme.
+{% endcomment %}
+
+{{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign collection = collections[section.settings.collection] | default: collection
+  assign products_per_page = section.settings.products_per_page | default: 24
+  assign fomo_threshold = section.settings.fomo_inventory_threshold | default: 5
+  assign lore_fragments = section.settings.lore_fragments | split: '||' | default: 'Signal stabilizing...||Relics materializing...||Distort the void.' | split: '||'
+-%}
+
+<section class="stellar-vault cosmic-bg" data-section-id="{{ section.id }}">
+  <div class="container">
+
+    {%- comment -%} HERO HUD {%- endcomment -%}
+    <header class="hero-hud text-center mb-12">
+      {% if section.settings.hero_show_brand_icon %}
+        <img src="{{ 'stellar-logo.png' | asset_url }}" alt="Stellar Reverb" class="brand-icon mb-4 h-16 w-auto">
+      {% endif %}
+      <h1 class="hero-title orbitron text-6xl uppercase tracking-widest mb-4">
+        {{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}
+      </h1>
+      <p class="hero-subtitle text-xl max-w-2xl mx-auto mb-6">
+        {{ section.settings.hero_subtitle | default: 'All transmissions. All capsules. All relics — pulled from the void into one gravitational grid.' }}
+      </p>
+      <div class="hero-chips flex justify-center gap-4 mb-8">
+        <span class="chip">🛰 {{ collection.all_products_count }} relics in orbit</span>
+        <span class="chip">📼 Multi-capsule transmissions</span>
+        <span class="chip">⚡ Limited runs · Signal Seeker anomalies</span>
+      </div>
+      <div class="lore-cycler text-sm text-silver mb-8" data-lore-fragments="{{ lore_fragments | json | escape }}">
+        Signal received... grid stabilizing.
+      </div>
+    </header>
+
+    {%- comment -%} TRANSMISSION STRIP {%- endcomment -%}
+    {% if section.settings.transmission_strip_enabled %}
+      <div class="transmission-strip py-4 px-6 bg-void/80 border border-cyan/30 rounded-lg mb-8 text-center">
+        <p class="text-sm text-cyan">
+          {{ section.settings.transmission_text | default: 'INCOMING TRANSMISSION: New relics materializing from the void… stand by.' }}
+        </p>
+      </div>
+    {% endif %}
+
+    {%- comment -%} FILTERS + SEARCH {%- endcomment -%}
+    <div class="filters-bar sticky top-0 z-20 bg-void/90 backdrop-blur-md border-b border-magenta/20 py-4 mb-8">
+      <div class="flex flex-wrap gap-6 justify-between items-center">
+        <div class="filter-group">
+          <div class="filter-label text-sm uppercase tracking-wide mb-2">CAPSULE FREQUENCY</div>
+          <div class="pills flex gap-2">
+            <button class="pill active" data-value="all">ALL TRANSMISSIONS</button>
+            <button class="pill" data-value="active">ACTIVE CAPSULES</button>
+            <button class="pill" data-value="incoming">INCOMING SIGNALS</button>
+            <button class="pill" data-value="archived">ARCHIVED RELICS</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-label text-sm uppercase tracking-wide mb-2">VISUAL FREQUENCY</div>
+          <div class="pills flex gap-2">
+            <button class="pill active" data-value="all">ALL MOTIFS</button>
+            <button class="pill" data-value="cassette">CASSETTE RELICS</button>
+            <button class="pill" data-value="astronaut">ASTRONAUT ECHOES</button>
+            <button class="pill" data-value="waveform">WAVEFORM HEARTS</button>
+            <button class="pill" data-value="glitch">GLITCH VARIANTS</button>
+            <button class="pill" data-value="memory">MEMORY VAULTS</button>
+          </div>
+        </div>
+
+        <input type="search" class="search-input flex-1 max-w-md px-4 py-2 bg-void/50 border border-cyan/50 rounded-lg text-silver placeholder-silver/50" placeholder="TUNE INTO A RELIC… (capsule, motif, keyword)">
+      </div>
+    </div>
+
+    {%- comment -%} PRODUCT GRID {%- endcomment -%}
+    <div class="product-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {% paginate collection.products by products_per_page %}
+        {% for product in collection.products %}
+          {% render 'product-card', product: product, fomo_threshold: fomo_threshold %}
+        {% endfor %}
+      {% endpaginate %}
+    </div>
+
+    {%- comment -%} UPSELL {%- endcomment -%}
+    {% if section.settings.upsell_collection != blank %}
+      <div class="upsell-block mt-16">
+        <h2 class="upsell-heading orbitron text-3xl uppercase tracking-widest mb-4 text-center">
+          {{ section.settings.upsell_heading | default: 'YOU MAY ALSO BE RECEIVING THESE SIGNALS' }}
+        </h2>
+        <p class="upsell-subheading text-lg text-silver max-w-xl mx-auto mb-8 text-center">
+          {{ section.settings.upsell_subheading | default: 'Curated relics that vibrate on a similar frequency.' }}
+        </p>
+        <div class="upsell-grid grid grid-cols-2 md:grid-cols-4 gap-6">
+          {% assign upsell_products = collections[section.settings.upsell_collection].products | shuffle | limit: section.settings.upsell_limit %}
+          {% for product in upsell_products %}
+            {% render 'product-card', product: product, fomo_threshold: fomo_threshold %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {%- comment -%} SIGNAL CTA {%- endcomment -%}
+    <div class="signal-cta mt-16 text-center py-12 border-t border-magenta/30">
+      <h2 class="signal-heading orbitron text-4xl uppercase tracking-widest mb-4">
+        {{ section.settings.signal_cta_heading | default: 'JOIN THE SIGNAL NETWORK' }}
+      </h2>
+      <p class="signal-subheading text-lg text-silver max-w-xl mx-auto mb-6">
+        {{ section.settings.signal_cta_subheading | default: 'Tap into early access transmissions, hidden relics, and encrypted drop intel before it hits the main frequency.' }}
+      </p>
+      <a href="{{ section.settings.signal_cta_link | default: '/pages/signal-seekers' }}" class="signal-button inline-block px-8 py-3 bg-cyan text-black font-bold uppercase tracking-wide rounded-full hover:bg-yellow hover:text-black transition-all">
+        {{ section.settings.signal_cta_button_text | default: 'TUNE INTO FUTURE DROPS' }}
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+  { "name": "Stellar Shop All", "settings": [ /* Keep your schema */ ] }
+{% endschema %}
