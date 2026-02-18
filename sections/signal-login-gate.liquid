@@ -1,0 +1,22 @@
+<div class="login-gate-container container">
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <span class="restricted-text">RESTRICTED_ACCESS // AUTH_REQUIRED</span>
+    </div>
+    <div class="terminal-content text-center">
+      <h2 class="font-display">SIGNAL_SEEKER_VAULT</h2>
+      <p>Please sign in to your frequency to decrypt this dashboard.</p>
+      <div class="login-actions">
+        <a href="/account/login" class="btn btn-primary">INITIATE_LOGIN</a>
+        <a href="/pages/signal-seekers" class="btn btn-secondary">JOIN_THE_SIGNAL</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Signal Login Gate",
+  "settings": []
+}
+{% endschema %}
