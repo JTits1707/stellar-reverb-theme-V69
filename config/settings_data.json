@@ -58,6 +58,13 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "info_link_6rPtRG": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Sizing Guide",
+              "link_url": ""
+            }
+          },
           "info_link_HkywiF": {
             "type": "info_link",
             "settings": {
@@ -102,6 +109,7 @@
           }
         },
         "block_order": [
+          "info_link_6rPtRG",
           "info_link_HkywiF",
           "info_link_BzDAdq",
           "info_link_YXPVEe",
