@@ -93,13 +93,6 @@
               "link_url": ""
             }
           },
-          "info_link_7DE9jK": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Privacy Policy",
-              "link_url": ""
-            }
-          },
           "info_link_AkTFeQ": {
             "type": "info_link",
             "settings": {
@@ -114,7 +107,6 @@
           "info_link_BzDAdq",
           "info_link_YXPVEe",
           "info_link_UCbLkY",
-          "info_link_7DE9jK",
           "info_link_AkTFeQ"
         ],
         "settings": {
