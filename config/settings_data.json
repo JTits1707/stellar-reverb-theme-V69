@@ -58,6 +58,20 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "info_link_UCbLkY": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Shipping Info",
+              "link_url": ""
+            }
+          },
+          "info_link_7DE9jK": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
           "info_link_AkTFeQ": {
             "type": "info_link",
             "settings": {
@@ -67,6 +81,8 @@
           }
         },
         "block_order": [
+          "info_link_UCbLkY",
+          "info_link_7DE9jK",
           "info_link_AkTFeQ"
         ],
         "settings": {
