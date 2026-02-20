@@ -58,6 +58,13 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "info_link_HkywiF": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Terms Of Service",
+              "link_url": ""
+            }
+          },
           "info_link_BzDAdq": {
             "type": "info_link",
             "settings": {
@@ -95,6 +102,7 @@
           }
         },
         "block_order": [
+          "info_link_HkywiF",
           "info_link_BzDAdq",
           "info_link_YXPVEe",
           "info_link_UCbLkY",
