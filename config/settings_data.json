@@ -57,6 +57,7 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
+        "custom_css": [],
         "settings": {
           "show_signal_badge": true,
           "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
