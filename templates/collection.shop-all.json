@@ -34,9 +34,36 @@
         "signal_cta_button_text": "TUNE INTO FUTURE DROPS",
         "signal_cta_link": ""
       }
+    },
+    "stellar_shop_all_LBiC8q": {
+      "type": "stellar-shop-all",
+      "name": "Stellar Shop All",
+      "settings": {
+        "hero_kicker": "SHOP ALL TRANSMISSIONS",
+        "hero_title": "COSMIC PRODUCT VAULT",
+        "hero_subtitle": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.",
+        "products_per_page": 24,
+        "upsell_limit": 4,
+        "upsell_tag": "limited"
+      }
+    },
+    "stellar_fomo_conditional_j387Ne": {
+      "type": "stellar-fomo-conditional",
+      "name": "FOMO (Conditional)",
+      "settings": {
+        "trigger_mode": "any_product_low_stock",
+        "required_tag": "limited",
+        "low_stock_threshold": 10,
+        "collection_count_threshold": 20,
+        "kicker": "⚡ SIGNAL DESTABILIZING",
+        "headline": "ALMOST GONE",
+        "subtext": "Low inventory detected. Once the signal fades, it does not return."
+      }
     }
   },
   "order": [
-    "stellar_shop_all_enhanced_9fx9fA"
+    "stellar_shop_all_enhanced_9fx9fA",
+    "stellar_shop_all_LBiC8q",
+    "stellar_fomo_conditional_j387Ne"
   ]
 }
