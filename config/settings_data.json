@@ -57,6 +57,34 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
+        "blocks": {
+          "social_link_wEcRLq": {
+            "type": "social_link",
+            "settings": {
+              "platform": "instagram",
+              "social_url": ""
+            }
+          },
+          "info_link_3zaJMH": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "FAQ",
+              "link_url": ""
+            }
+          },
+          "info_link_krbXAT": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "FAQ",
+              "link_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "social_link_wEcRLq",
+          "info_link_3zaJMH",
+          "info_link_krbXAT"
+        ],
         "settings": {
           "show_signal_badge": true,
           "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
