@@ -58,6 +58,13 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "social_link_Lqh8nD": {
+            "type": "social_link",
+            "settings": {
+              "platform": "pinterest",
+              "social_url": "https://www.pinterest.com/StellarReverb/?actingBusinessId=1135681368442068557"
+            }
+          },
           "social_link_ADaRVA": {
             "type": "social_link",
             "settings": {
@@ -88,6 +95,7 @@
           }
         },
         "block_order": [
+          "social_link_Lqh8nD",
           "social_link_ADaRVA",
           "social_link_wEcRLq",
           "info_link_3zaJMH",
