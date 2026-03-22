@@ -58,6 +58,13 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "info_link_w4ke3M": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Contact",
+              "link_url": ""
+            }
+          },
           "info_link_TzFyaF": {
             "type": "info_link",
             "settings": {
@@ -102,6 +109,7 @@
           }
         },
         "block_order": [
+          "info_link_w4ke3M",
           "info_link_TzFyaF",
           "social_link_Lqh8nD",
           "social_link_ADaRVA",
