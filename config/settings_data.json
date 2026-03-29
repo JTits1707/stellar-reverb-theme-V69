@@ -58,6 +58,26 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
+        "blocks": {
+          "info_link_Qpbjfj": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
+          "info_link_i43FnW": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "FAQ",
+              "link_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "info_link_Qpbjfj",
+          "info_link_i43FnW"
+        ],
         "custom_css": [],
         "settings": {
           "show_signal_badge": true,
