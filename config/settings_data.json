@@ -59,6 +59,20 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "info_link_ftPF9t": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Terms Of Service",
+              "link_url": ""
+            }
+          },
+          "info_link_7T8CB3": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Contact",
+              "link_url": ""
+            }
+          },
           "info_link_Ced6zB": {
             "type": "info_link",
             "settings": {
@@ -82,6 +96,8 @@
           }
         },
         "block_order": [
+          "info_link_ftPF9t",
+          "info_link_7T8CB3",
           "info_link_Ced6zB",
           "info_link_Qpbjfj",
           "info_link_i43FnW"
