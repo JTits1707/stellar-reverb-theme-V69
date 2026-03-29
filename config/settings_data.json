@@ -59,6 +59,13 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "social_link_yTUBKR": {
+            "type": "social_link",
+            "settings": {
+              "platform": "x",
+              "social_url": "https://x.com/stellar_reverb?s=21"
+            }
+          },
           "social_link_mPHAKW": {
             "type": "social_link",
             "settings": {
@@ -110,6 +117,7 @@
           }
         },
         "block_order": [
+          "social_link_yTUBKR",
           "social_link_mPHAKW",
           "info_link_fTFjMh",
           "info_link_ftPF9t",
