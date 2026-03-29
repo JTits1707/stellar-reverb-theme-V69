@@ -59,6 +59,13 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "social_link_mPHAKW": {
+            "type": "social_link",
+            "settings": {
+              "platform": "instagram",
+              "social_url": ""
+            }
+          },
           "info_link_fTFjMh": {
             "type": "info_link",
             "settings": {
@@ -103,6 +110,7 @@
           }
         },
         "block_order": [
+          "social_link_mPHAKW",
           "info_link_fTFjMh",
           "info_link_ftPF9t",
           "info_link_7T8CB3",
