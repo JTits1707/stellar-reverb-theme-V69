@@ -1,0 +1,15 @@
+<div class="dashboard-stats">
+  <div class="stat-card">
+    <div class="stat-label">CAPSULES_COLLECTED</div>
+    <div class="stat-value">{{ customer.orders_count | default: 0 }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">MEMBER_SINCE</div>
+    <div class="stat-value">{{ customer.created_at | date: "%b %Y" }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">SIGNAL_STRENGTH</div>
+    <div class="stat-value">89%</div>
+  </div>
+</div>
+{% schema %}{ "name": "Signal Dashboard Stats" }{% endschema %}

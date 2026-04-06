@@ -1,0 +1,32 @@
+{% comment %}
+  STELLAR REVERB - SIGNAL SEEKER DASHBOARD (GATED)
+  Hardware check for 'signal-seeker' tag.
+{% endcomment %}
+
+{% assign is_signal_seeker = false %}
+{% if customer and customer.tags contains 'signal-seeker' %}
+  {% assign is_signal_seeker = true %}
+{% endif %}
+
+<div class="signal-dashboard-page stellar-os-active">
+  {% if is_signal_seeker %}
+    {%- comment -%} ✅ ACCESS GRANTED {%- endcomment -%}
+    {% section 'signal-dashboard-header' %}
+    
+    <div class="container dashboard-grid">
+      {% section 'signal-dashboard-stats' %}
+      {% section 'signal-dashboard-relics' %}
+      {% section 'signal-dashboard-downloads' %}
+    </div>
+
+  {% elsif customer %}
+    {%- comment -%} 🚫 UPGRADE REQUIRED {%- endcomment -%}
+    {% section 'signal-upgrade-gate' %}
+  {% else %}
+    {%- comment -%} 🔒 LOGIN REQUIRED (Fixes the error you saw) {%- endcomment -%}
+    {% section 'signal-login-gate' %}
+  {% endif %}
+</div>
+
+{{ 'signal-seeker-dash.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'signal-seeker-dash.js' | asset_url }}" defer></script>
