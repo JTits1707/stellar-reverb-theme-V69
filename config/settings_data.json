@@ -36,7 +36,6 @@
     "social_instagram_url": "https://www.instagram.com/stellar_reverb?igsh=ajc1YWNkcDlpaWpv&utm_source=qr",
     "newsletter_text": "",
     "newsletter_success_message": "Transmission received. Check your inbox!",
-    "signal_seekers_page": "signal-seeker-dashboard",
     "signal_seekers_cta_text": "Signal Seekers",
     "show_signal_cta_header": true,
     "show_signal_cta_footer": true,
@@ -58,83 +57,6 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
-        "blocks": {
-          "social_link_EB3yxc": {
-            "type": "social_link",
-            "settings": {
-              "platform": "pinterest",
-              "social_url": "https://pin.it/1PGF3HvRR"
-            }
-          },
-          "social_link_yTUBKR": {
-            "type": "social_link",
-            "settings": {
-              "platform": "x",
-              "social_url": "https://x.com/stellar_reverb?s=21"
-            }
-          },
-          "social_link_mPHAKW": {
-            "type": "social_link",
-            "settings": {
-              "platform": "instagram",
-              "social_url": ""
-            }
-          },
-          "info_link_fTFjMh": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Shipping Info",
-              "link_url": ""
-            }
-          },
-          "info_link_ftPF9t": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Terms Of Service",
-              "link_url": ""
-            }
-          },
-          "info_link_7T8CB3": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Contact",
-              "link_url": ""
-            }
-          },
-          "info_link_Ced6zB": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Sizing Guide",
-              "link_url": ""
-            }
-          },
-          "info_link_Qpbjfj": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Privacy Policy",
-              "link_url": ""
-            }
-          },
-          "info_link_i43FnW": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "FAQ",
-              "link_url": ""
-            }
-          }
-        },
-        "block_order": [
-          "social_link_EB3yxc",
-          "social_link_yTUBKR",
-          "social_link_mPHAKW",
-          "info_link_fTFjMh",
-          "info_link_ftPF9t",
-          "info_link_7T8CB3",
-          "info_link_Ced6zB",
-          "info_link_Qpbjfj",
-          "info_link_i43FnW"
-        ],
-        "custom_css": [],
         "settings": {
           "show_signal_badge": true,
           "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
@@ -145,7 +67,7 @@
         "type": "header-enhanced",
         "custom_css": [],
         "settings": {
-          "show_announcement": true,
+          "show_announcement": false,
           "announcement_text": "FREE SHIPPING ALL WEEK, & GET 20% DISC.",
           "logo": "shopify://shop_images/stellar-reverb-transparent-brand-logo.png"
         }
