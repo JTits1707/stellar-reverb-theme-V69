@@ -58,6 +58,13 @@
       "stellar-footer": {
         "type": "stellar-footer",
         "blocks": {
+          "info_link_bEindH": {
+            "type": "info_link",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
           "info_link_8r6BUT": {
             "type": "info_link",
             "settings": {
@@ -81,6 +88,7 @@
           }
         },
         "block_order": [
+          "info_link_bEindH",
           "info_link_8r6BUT",
           "info_link_pjwfHQ",
           "info_link_jR9U4x"
