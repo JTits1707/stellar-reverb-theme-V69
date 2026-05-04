@@ -57,58 +57,6 @@
     "sections": {
       "stellar-footer": {
         "type": "stellar-footer",
-        "blocks": {
-          "social_link_q9irEf": {
-            "type": "social_link",
-            "settings": {
-              "platform": "x",
-              "social_url": "https://x.com/stellar_reverb?s=21"
-            }
-          },
-          "social_link_GpBwrN": {
-            "type": "social_link",
-            "settings": {
-              "platform": "instagram",
-              "social_url": "https://www.instagram.com/stellar_reverb?igsh=ajc1YWNkcDlpaWpv&utm_source=qr"
-            }
-          },
-          "info_link_bEindH": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Privacy Policy",
-              "link_url": ""
-            }
-          },
-          "info_link_8r6BUT": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Shipping Info",
-              "link_url": ""
-            }
-          },
-          "info_link_pjwfHQ": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "Sizing Guide",
-              "link_url": ""
-            }
-          },
-          "info_link_jR9U4x": {
-            "type": "info_link",
-            "settings": {
-              "link_text": "F.A.Q.",
-              "link_url": ""
-            }
-          }
-        },
-        "block_order": [
-          "social_link_q9irEf",
-          "social_link_GpBwrN",
-          "info_link_bEindH",
-          "info_link_8r6BUT",
-          "info_link_pjwfHQ",
-          "info_link_jR9U4x"
-        ],
         "settings": {
           "show_signal_badge": true,
           "copyright_text": "© 2025 Stellar Reverb. All transmissions encrypted.",
@@ -119,7 +67,7 @@
         "type": "header-enhanced",
         "custom_css": [],
         "settings": {
-          "show_announcement": false,
+          "show_announcement": true,
           "announcement_text": "FREE SHIPPING ALL WEEK, & GET 20% DISC.",
           "logo": "shopify://shop_images/stellar-reverb-transparent-brand-logo.png"
         }
