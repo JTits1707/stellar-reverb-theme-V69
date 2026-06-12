@@ -1,12 +1,54 @@
 {
-  "name": "Floating Archive",
+  "name": "Floatin' Archive",
   "sections": {
-    "main": {
-      "type": "floating-archive-main",
+    "void_background": {
+      "type": "floating-archive-void-background",
+      "settings": {}
+    },
+    "access_gate": {
+      "type": "floating-archive-access-gate",
+      "settings": {}
+    },
+    "floating_relics": {
+      "type": "floating-archive-floating-relics",
+      "settings": {}
+    },
+    "hero": {
+      "type": "floating-archive-hero",
+      "settings": {}
+    },
+    "manifest": {
+      "type": "floating-archive-manifest",
+      "settings": {}
+    },
+    "relic_grid": {
+      "type": "floating-archive-relic-grid",
+      "settings": {
+        "collection_handle": "floatin-archive"
+      }
+    },
+    "signal_interstitial": {
+      "type": "floating-archive-glitch-signal",
+      "settings": {}
+    },
+    "next_drop": {
+      "type": "floating-archive-secondary-drift",
+      "settings": {}
+    },
+    "exit_nav": {
+      "type": "floating-archive-exit-nav",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "void_background",
+    "access_gate",
+    "floating_relics",
+    "hero",
+    "manifest",
+    "relic_grid",
+    "signal_interstitial",
+    "next_drop",
+    "exit_nav"
   ]
 }
