@@ -1,0 +1,37 @@
+.konami-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content-frame {
+  position: relative;
+  background: #000;
+  border: 2px solid var(--neon-magenta);
+  padding: 3rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 0 50px var(--neon-magenta);
+  animation: modalBreach 0.4s cubic-bezier(0.17, 0.89, 0.32, 1.28);
+}
+
+@keyframes modalBreach {
+  0% { transform: scale(0.8); filter: brightness(5); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+.modal-cta {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background: var(--neon-magenta);
+  color: #000;
+  font-family: var(--font-title);
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow: 0 0 20px var(--neon-magenta);
+}

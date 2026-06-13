@@ -1,0 +1,722 @@
+{% comment %}
+  STELLAR REVERB — SHOP ALL (COSMIC PRODUCT VAULT) — SUPREME v14/10
+  Enhanced with dynamic lore cycling, improved data attributes, and cosmic metadata
+{% endcomment %}
+
+{{ 'stellar-shop-all.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'stellar-shop-all.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign current_collection = collection
+  if current_collection == blank and section.settings.collection != blank
+    assign current_collection = collections[section.settings.collection]
+  endif
+
+  assign products_per_page = section.settings.products_per_page
+  if products_per_page == blank
+    assign products_per_page = 24
+  endif
+
+  assign fomo_threshold = section.settings.fomo_inventory_threshold
+  if fomo_threshold == blank
+    assign fomo_threshold = 5
+  endif
+
+  assign lore_raw = section.settings.lore_fragments | strip
+  assign lore_fragments = lore_raw | split: '||'
+-%}
+
+<section
+  class="sr-shopall"
+  data-sr-shopall
+  data-section-id="{{ section.id }}"
+  data-fomo-threshold="{{ fomo_threshold }}"
+  {% if lore_fragments != blank and lore_raw != blank %}
+    data-lore-fragments="{{ lore_fragments | json | escape }}"
+  {% endif %}
+  data-total-products="{{ current_collection.all_products_count | default: 0 }}"
+>
+  <div class="sr-shopall__bg" aria-hidden="true">
+    <div class="sr-stars"></div>
+    <div class="sr-scanline"></div>
+    <div class="sr-radar"></div>
+  </div>
+
+  <div class="sr-container">
+    {%- comment -%} HERO / TERMINAL HUD {%- endcomment -%}
+    <header class="sr-hero" aria-label="Shop all transmissions">
+      <div class="sr-hero__hud">
+        <div class="sr-hud__top">
+          {% if section.settings.hero_show_brand_icon %}
+            <div class="sr-brandmark" aria-hidden="true">
+              {% if section.settings.brand_icon != blank %}
+                <img
+                  src="{{ section.settings.brand_icon | image_url: width: 120 }}"
+                  width="60"
+                  height="60"
+                  alt=""
+                  loading="eager"
+                >
+              {% else %}
+                <span class="sr-brandmark__fallback">S·R</span>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          <div class="sr-hud__meta">
+            <div class="sr-kicker">{{ section.settings.hero_kicker | default: 'SHOP ALL TRANSMISSIONS' }}</div>
+            <div class="sr-progress">
+              <span class="sr-progress__label">SIGNAL</span>
+              <span class="sr-progress__bar" data-sr-progress>
+                <i style="width: 100%;"></i>
+              </span>
+              <span class="sr-progress__status">LIVE</span>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="sr-title">
+          {{ section.settings.hero_title | default: 'COSMIC PRODUCT VAULT' }}
+        </h1>
+
+        <p class="sr-subtitle">
+          {{ section.settings.hero_subtitle | default: 'Artifacts from every capsule — pulled from the void into one gravitational grid.' }}
+        </p>
+
+        <div class="sr-hero__chips" role="list">
+          <span class="sr-chip" role="listitem">🛰 <span data-sr-total-count>{{ current_collection.all_products_count | default: 0 }}</span> relics in orbit</span>
+          <span class="sr-chip" role="listitem">📼 Multi-capsule transmissions</span>
+          <span class="sr-chip" role="listitem">⚡ Limited runs · Signal Seeker anomalies</span>
+        </div>
+
+        {% if section.settings.transmission_strip_enabled %}
+          <div class="sr-transmission" aria-label="Transmission strip">
+            <span class="sr-transmission__dot" aria-hidden="true"></span>
+            <span class="sr-transmission__text">
+              {{ section.settings.transmission_text | default: 'INCOMING TRANSMISSION: New relics materializing from the void… stand by.' }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if lore_raw != blank %}
+          <div class="sr-lore" aria-label="Lore fragment">
+            <span class="sr-lore__label">LORE</span>
+            <span class="sr-lore__text" data-sr-lore>
+              {{ lore_fragments[0] | default: 'Signal received. Grid stabilizing.' }}
+            </span>
+          </div>
+        {% endif %}
+      </div>
+    </header>
+
+    {%- if current_collection == blank -%}
+      <div class="sr-empty">
+        <h2 class="sr-empty__title">Collection not found</h2>
+        <p class="sr-empty__text">
+          This section is designed for a collection template. Assign it to your Shop All collection, or select a collection in the section settings.
+        </p>
+      </div>
+    {%- else -%}
+
+      {% paginate current_collection.products by products_per_page %}
+
+        {%- liquid
+          assign capsule_list = 'all'
+          assign capsule_labels = 'All Transmissions'
+          assign motif_list = 'all,cassette,astronaut,waveform,glitch,archive'
+          assign motif_labels = 'All Motifs,Cassette Relics,Astronaut Echoes,Waveform Hearts,Glitch Variants,Memory Vault'
+          
+          comment
+            Build dynamic capsule list from products
+          endcomment
+          assign detected_capsules = ''
+        -%}
+
+        {%- for p in paginate.items -%}
+          {%- liquid
+            assign c = ''
+            if p.metafields.custom.capsule_code != blank
+              assign c = p.metafields.custom.capsule_code | strip | downcase
+            else
+              for t in p.tags
+                assign lt = t | downcase
+                if lt contains 'cap-'
+                  assign c = lt | replace: ' ', '' | replace: '_', '-' | replace: '--', '-'
+                  break
+                endif
+              endfor
+            endif
+
+            if c != ''
+              assign c_norm = c | replace: 'capsule', 'cap' | replace: 'cap_', 'cap-' | replace: 'cap ', 'cap-'
+              unless capsule_list contains c_norm
+                assign capsule_list = capsule_list | append: ',' | append: c_norm
+                
+                comment
+                  Generate human-readable labels
+                endcomment
+                assign cap_num = c_norm | replace: 'cap-', '' | replace: 'capsule-', ''
+                assign cap_label = 'CAPSULE ' | append: cap_num | upcase
+                assign capsule_labels = capsule_labels | append: ',' | append: cap_label
+              endunless
+            endif
+          -%}
+        {%- endfor -%}
+
+        {%- comment -%} FILTER BAR {%- endcomment -%}
+        <div class="sr-filters" data-sr-filters>
+          <div class="sr-filters__row">
+            <div class="sr-filtergroup" aria-label="Capsule filters">
+              <div class="sr-filtergroup__label">CAPSULE</div>
+              <div class="sr-pills" data-sr-pill-group="capsule" role="group">
+                {%- assign cap_vals = capsule_list | split: ',' -%}
+                {%- assign cap_labs = capsule_labels | split: ',' -%}
+                {%- for cap in cap_vals -%}
+                  <button
+                    class="sr-pill{% if forloop.first %} is-active{% endif %}"
+                    type="button"
+                    data-sr-pill
+                    data-group="capsule"
+                    data-value="{{ cap }}"
+                    aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                  >
+                    {{ cap_labs[forloop.index0] | default: cap }}
+                  </button>
+                {%- endfor -%}
+
+                {%- if section.settings.show_special_pills -%}
+                  <button 
+                    class="sr-pill sr-pill--special" 
+                    type="button" 
+                    data-sr-pill 
+                    data-group="special" 
+                    data-value="floating-archive"
+                    aria-pressed="false"
+                  >
+                    FLOATING ARCHIVE
+                  </button>
+                  <button 
+                    class="sr-pill sr-pill--special" 
+                    type="button" 
+                    data-sr-pill 
+                    data-group="special" 
+                    data-value="signal-seeker"
+                    aria-pressed="false"
+                  >
+                    SIGNAL SEEKER ONLY
+                  </button>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <div class="sr-filtergroup" aria-label="Motif filters">
+              <div class="sr-filtergroup__label">MOTIF</div>
+              <div class="sr-pills" data-sr-pill-group="motif" role="group">
+                {%- assign m_vals = motif_list | split: ',' -%}
+                {%- assign m_labs = motif_labels | split: ',' -%}
+                {%- for mv in m_vals -%}
+                  <button
+                    class="sr-pill{% if forloop.first %} is-active{% endif %}"
+                    type="button"
+                    data-sr-pill
+                    data-group="motif"
+                    data-value="{{ mv }}"
+                    aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                  >
+                    {{ m_labs[forloop.index0] | default: mv }}
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+
+          <div class="sr-filters__row sr-filters__row--tools" aria-label="Search and tools">
+            <div class="sr-search">
+              <label class="sr-sr-only" for="srShopAllSearch-{{ section.id }}">Search products</label>
+              <input
+                id="srShopAllSearch-{{ section.id }}"
+                class="sr-search__input"
+                type="search"
+                placeholder="Search relics…"
+                data-sr-search
+                autocomplete="off"
+                spellcheck="false"
+              >
+              <span class="sr-search__hint" aria-hidden="true">⌘K</span>
+            </div>
+
+            <div class="sr-results" aria-live="polite" aria-atomic="true">
+              <span data-sr-count>{{ paginate.items.size }}</span> visible / <span data-sr-total-count>{{ current_collection.all_products_count }}</span> total
+            </div>
+          </div>
+        </div>
+
+        {%- comment -%} GRID {%- endcomment -%}
+        <div class="sr-grid" data-sr-grid role="list">
+          {%- for product in paginate.items -%}
+            {%- liquid
+              assign capsule_code = ''
+              if product.metafields.custom.capsule_code != blank
+                assign capsule_code = product.metafields.custom.capsule_code | strip | downcase
+              else
+                for tag in product.tags
+                  assign lt = tag | downcase
+                  if lt contains 'cap-'
+                    assign capsule_code = lt | replace: ' ', '' | replace: '_', '-' | replace: '--', '-'
+                    break
+                  endif
+                endfor
+              endif
+
+              assign capsule_attr = capsule_code
+              if capsule_attr == blank
+                assign capsule_attr = 'uncategorized'
+              endif
+
+              comment
+                Enhanced motif detection with priority system
+              endcomment
+              assign motif = 'none'
+              assign motif_priority = 0
+              for tag in product.tags
+                assign lt = tag | downcase
+                if lt contains 'cassette' and motif_priority < 5
+                  assign motif = 'cassette'
+                  assign motif_priority = 5
+                elsif lt contains 'astronaut' and motif_priority < 4
+                  assign motif = 'astronaut'
+                  assign motif_priority = 4
+                elsif lt contains 'waveform' or lt contains 'heart' and motif_priority < 3
+                  assign motif = 'waveform'
+                  assign motif_priority = 3
+                elsif lt contains 'glitch' and motif_priority < 2
+                  assign motif = 'glitch'
+                  assign motif_priority = 2
+                elsif lt contains 'archive' and motif_priority < 1
+                  assign motif = 'archive'
+                  assign motif_priority = 1
+                endif
+              endfor
+
+              comment
+                Status badges
+              endcomment
+              assign is_limited = false
+              assign is_exclusive = false
+              assign is_signal = false
+              assign is_new = false
+
+              for tag in product.tags
+                assign lt = tag | downcase
+                if lt == 'limited'
+                  assign is_limited = true
+                elsif lt == 'exclusive'
+                  assign is_exclusive = true
+                elsif lt == 'signal-seeker' or lt == 'signal seeker'
+                  assign is_signal = true
+                elsif lt == 'new'
+                  assign is_new = true
+                endif
+              endfor
+
+              comment
+                Inventory & FOMO logic
+              endcomment
+              assign v = product.selected_or_first_available_variant
+              assign inv_tracked = false
+              if v.inventory_management != blank
+                assign inv_tracked = true
+              endif
+              assign inv_qty = v.inventory_quantity | default: 0
+              assign show_fomo = false
+              if inv_tracked and inv_qty > 0 and inv_qty <= fomo_threshold
+                assign show_fomo = true
+              endif
+
+              comment
+                Determine special category
+              endcomment
+              assign special_cat = 'none'
+              if is_signal
+                assign special_cat = 'signal-seeker'
+              elsif capsule_attr contains 'floating'
+                assign special_cat = 'floating-archive'
+              endif
+            -%}
+
+            <article
+              class="sr-card"
+              data-sr-card
+              data-title="{{ product.title | strip | downcase | escape }}"
+              data-capsule="{{ capsule_attr | escape }}"
+              data-motif="{{ motif | escape }}"
+              data-special="{{ special_cat }}"
+              data-product-id="{{ product.id }}"
+              role="listitem"
+              style="opacity: 0; transform: translateY(30px);"
+            >
+              <div class="sr-card__frame" aria-hidden="true"></div>
+
+              {%- if is_new or is_limited or is_exclusive or is_signal -%}
+                <div class="sr-badges" aria-label="Product badges">
+                  {% if is_new %}<span class="sr-badge sr-badge--new">NEW SIGNAL</span>{% endif %}
+                  {% if is_limited %}<span class="sr-badge sr-badge--limited">LIMITED</span>{% endif %}
+                  {% if is_exclusive %}<span class="sr-badge sr-badge--exclusive">EXCLUSIVE</span>{% endif %}
+                  {% if is_signal %}<span class="sr-badge sr-badge--signal">SIGNAL ONLY</span>{% endif %}
+                </div>
+              {%- endif -%}
+
+              <a class="sr-media" href="{{ product.url }}" aria-label="View {{ product.title }}">
+                {%- if product.featured_image -%}
+                  <img
+                    class="sr-card__img"
+                    src="{{ product.featured_image | image_url: width: 900 }}"
+                    alt="{{ product.title | escape }}"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                  >
+                {%- else -%}
+                  <div class="sr-media__placeholder">IMAGE INCOMING</div>
+                {%- endif -%}
+                <div class="sr-media__overlay" aria-hidden="true"></div>
+                <div class="sr-triangle" aria-hidden="true"></div>
+              </a>
+
+              <div class="sr-meta">
+                <div class="sr-capsule">
+                  {% if capsule_code != blank %}
+                    {{ capsule_code | upcase | replace: '-', ' ' | replace: 'CAP ', 'CAPSULE ' }}
+                  {% else %}
+                    FLOATING ARCHIVE
+                  {% endif %}
+                  {% if motif != 'none' %}
+                    <span class="sr-dot" aria-hidden="true">·</span>
+                    <span class="sr-motif">#{{ motif | upcase }}</span>
+                  {% endif %}
+                </div>
+
+                <h3 class="sr-name">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                </h3>
+
+                <p class="sr-desc">
+                  {% if product.metafields.custom.lore_snippet != blank %}
+                    {{ product.metafields.custom.lore_snippet | strip_html | truncate: 120 }}
+                  {% elsif product.description != blank %}
+                    {{ product.description | strip_html | truncate: 120 }}
+                  {% else %}
+                    Transmission data corrupted. Decoding in progress...
+                  {% endif %}
+                </p>
+
+                <div class="sr-bottom">
+                  <div class="sr-price">
+                    {% if product.compare_at_price_max > product.price %}
+                      <span class="sr-compare">{{ product.compare_at_price_max | money }}</span>
+                    {% endif %}
+                    <span class="sr-money">{{ product.price | money }}</span>
+                  </div>
+
+                  <div class="sr-status">
+                    {% if show_fomo %}
+                      <span class="sr-fomo" role="status">⚠️ DECAY CRITICAL · {{ inv_qty }} LEFT</span>
+                    {% elsif product.available %}
+                      <span class="sr-okay" role="status">✓ IN TRANSMISSION</span>
+                    {% else %}
+                      <span class="sr-off" role="status">✕ ARCHIVED · SOLD OUT</span>
+                    {% endif %}
+                  </div>
+                </div>
+
+                {% if section.settings.enable_quick_add and product.available %}
+                  <form class="sr-atc" action="/cart/add" method="post" data-sr-atc>
+                    <input type="hidden" name="id" value="{{ v.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="sr-atc__btn" data-sr-atc-btn aria-label="Add {{ product.title }} to cart">
+                      <span class="sr-atc__text">EXTRACT RELIC</span>
+                      <span class="sr-atc__spark" aria-hidden="true"></span>
+                    </button>
+                    <div class="sr-terminal" aria-live="polite" aria-atomic="true">
+                      <span class="sr-terminal__prompt" aria-hidden="true">&gt;</span>
+                      <span class="sr-terminal__msg" data-sr-atc-log>STANDBY…</span>
+                    </div>
+                  </form>
+                {% endif %}
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} EMPTY STATE {%- endcomment -%}
+        <div class="sr-noresults" data-sr-noresults hidden>
+          <div class="sr-noresults__box">
+            <div class="sr-noresults__icon" aria-hidden="true">📡</div>
+            <div class="sr-noresults__title">No relics match that frequency.</div>
+            <div class="sr-noresults__text">Try clearing filters or searching a different term.</div>
+            <button class="sr-pill is-active" type="button" data-sr-reset>RESET FILTERS</button>
+          </div>
+        </div>
+
+        {%- comment -%} PAGINATION {%- endcomment -%}
+        {% if paginate.pages > 1 %}
+          <nav class="sr-pagination" aria-label="Pagination navigation">
+            {% if paginate.previous %}
+              <a class="sr-page" href="{{ paginate.previous.url }}" rel="prev">&larr; Prev</a>
+            {% else %}
+              <span class="sr-page sr-page--disabled">&larr; Prev</span>
+            {% endif %}
+            
+            <span class="sr-page sr-page--status" aria-current="page">
+              Page {{ paginate.current_page }} / {{ paginate.pages }}
+            </span>
+            
+            {% if paginate.next %}
+              <a class="sr-page" href="{{ paginate.next.url }}" rel="next">Next &rarr;</a>
+            {% else %}
+              <span class="sr-page sr-page--disabled">Next &rarr;</span>
+            {% endif %}
+          </nav>
+        {% endif %}
+
+      {% endpaginate %}
+
+      {%- comment -%} UPSELL BLOCK {%- endcomment -%}
+      {% if section.settings.upsell_collection != blank %}
+        {%- assign upsell_col = collections[section.settings.upsell_collection] -%}
+        {% if upsell_col != blank and upsell_col.products_count > 0 %}
+          <section class="sr-upsell" aria-labelledby="sr-upsell-heading">
+            <div class="sr-upsell__head">
+              <h2 id="sr-upsell-heading" class="sr-upsell__title">
+                {{ section.settings.upsell_heading | default: 'You May Also Be Receiving These Signals' }}
+              </h2>
+              <p class="sr-upsell__sub">
+                {{ section.settings.upsell_subheading | default: 'Curated relics that vibrate on a similar frequency.' }}
+              </p>
+            </div>
+
+            <div class="sr-upsell__grid" role="list">
+              {% for p in upsell_col.products limit: section.settings.upsell_limit %}
+                <a class="sr-upsell__card" href="{{ p.url }}" role="listitem">
+                  {% if p.featured_image %}
+                    <img
+                      src="{{ p.featured_image | image_url: width: 600 }}"
+                      alt="{{ p.title | escape }}"
+                      loading="lazy"
+                      width="360"
+                      height="360"
+                    >
+                  {% else %}
+                    <div class="sr-upsell__placeholder">NO IMAGE</div>
+                  {% endif %}
+                  <div class="sr-upsell__meta">
+                    <div class="sr-upsell__name">{{ p.title }}</div>
+                    <div class="sr-upsell__price">{{ p.price | money }}</div>
+                  </div>
+                </a>
+              {% endfor %}
+            </div>
+          </section>
+        {% endif %}
+      {% endif %}
+
+      {%- comment -%} SIGNAL CTA {%- endcomment -%}
+      <section class="sr-cta" aria-labelledby="sr-cta-heading">
+        <div class="sr-cta__box">
+          <h2 id="sr-cta-heading" class="sr-cta__title">
+            {{ section.settings.signal_cta_heading | default: 'Join The Signal Network' }}
+          </h2>
+          <p class="sr-cta__text">
+            {{ section.settings.signal_cta_subheading | default: 'Tap into early access transmissions, hidden relics, and encrypted drop intel before it hits the main frequency.' }}
+          </p>
+
+          {% if section.settings.signal_cta_link != blank %}
+            <a class="sr-cta__btn" href="{{ section.settings.signal_cta_link }}">
+              {{ section.settings.signal_cta_button_text | default: 'TUNE INTO FUTURE DROPS' }}
+            </a>
+          {% endif %}
+        </div>
+      </section>
+
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop All",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Collection Settings"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection (fallback if not on a collection template)",
+      "info": "Choose a collection to display if this section is not on a collection template"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_icon",
+      "label": "Brand Icon (optional)",
+      "info": "Recommended size: 120x120px"
+    },
+    {
+      "type": "checkbox",
+      "id": "hero_show_brand_icon",
+      "label": "Show brand icon",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "hero_kicker",
+      "label": "Hero kicker",
+      "default": "SHOP ALL TRANSMISSIONS"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero title",
+      "default": "COSMIC PRODUCT VAULT"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Hero subtitle",
+      "default": "Artifacts from every capsule — pulled from the void into one gravitational grid."
+    },
+    {
+      "type": "header",
+      "content": "Transmission & Lore"
+    },
+    {
+      "type": "checkbox",
+      "id": "transmission_strip_enabled",
+      "label": "Enable transmission strip",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "transmission_text",
+      "label": "Transmission text",
+      "default": "INCOMING TRANSMISSION: New relics materializing from the void… stand by."
+    },
+    {
+      "type": "textarea",
+      "id": "lore_fragments",
+      "label": "Lore fragments (separate with ||)",
+      "default": "Signal received. Grid stabilizing.||Artifacts detected across multiple timelines.||Extraction protocols armed. Choose your relic.||Reality frequency: 432 Hz. Dimensional drift: minimal.||Archive integrity: 98.7%. Proceed with caution.",
+      "info": "Multiple lore snippets will cycle through dynamically"
+    },
+    {
+      "type": "header",
+      "content": "Filter & Search"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_special_pills",
+      "label": "Show special pills (Floating Archive / Signal Seeker)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Product Cards"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_add",
+      "label": "Enable quick add ritual",
+      "default": true,
+      "info": "Allows customers to add products to cart without leaving the page"
+    },
+    {
+      "type": "range",
+      "id": "fomo_inventory_threshold",
+      "label": "FOMO threshold (only if inventory tracked)",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 5,
+      "info": "Show 'DECAY CRITICAL' message when inventory is at or below this number"
+    },
+    {
+      "type": "header",
+      "content": "Upsell Section"
+    },
+    {
+      "type": "collection",
+      "id": "upsell_collection",
+      "label": "Upsell collection (optional)",
+      "info": "Show curated products at the bottom of the page"
+    },
+    {
+      "type": "text",
+      "id": "upsell_heading",
+      "label": "Upsell heading",
+      "default": "You May Also Be Receiving These Signals"
+    },
+    {
+      "type": "textarea",
+      "id": "upsell_subheading",
+      "label": "Upsell subheading",
+      "default": "Curated relics that vibrate on a similar frequency."
+    },
+    {
+      "type": "range",
+      "id": "upsell_limit",
+      "label": "Upsell product limit",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Signal CTA"
+    },
+    {
+      "type": "text",
+      "id": "signal_cta_heading",
+      "label": "Signal CTA heading",
+      "default": "Join The Signal Network"
+    },
+    {
+      "type": "textarea",
+      "id": "signal_cta_subheading",
+      "label": "Signal CTA subheading",
+      "default": "Tap into early access transmissions, hidden relics, and encrypted drop intel before it hits the main frequency."
+    },
+    {
+      "type": "text",
+      "id": "signal_cta_button_text",
+      "label": "Signal CTA button text",
+      "default": "TUNE INTO FUTURE DROPS"
+    },
+    {
+      "type": "url",
+      "id": "signal_cta_link",
+      "label": "Signal CTA link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop All",
+      "category": "Stellar Reverb"
+    }
+  ]
+}
+{% endschema %}

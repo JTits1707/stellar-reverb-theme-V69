@@ -1,43 +1,17 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "stellar_shop_all_nQDbQp": {
+    "main": {
       "type": "stellar-shop-all",
-      "name": "Stellar Shop All",
       "settings": {
-        "hero_show_brand_icon": true,
         "hero_kicker": "SHOP ALL TRANSMISSIONS",
         "hero_title": "COSMIC PRODUCT VAULT",
-        "hero_subtitle": "Every capsule, every relic, every glitchwave echo — tuned into a single transmission grid.",
-        "transmission_strip_enabled": true,
-        "transmission_text": "INCOMING TRANSMISSION: New relics materializing from the void… stand by.",
-        "lore_fragments": "Signal received. Grid stabilizing.||Artifacts detected across multiple timelines.||Extraction protocols armed. Choose your relic.",
-        "show_special_pills": true,
-        "show_capsule_filters": true,
-        "show_motif_filters": true,
-        "enable_quick_add": true,
+        "hero_subtitle": "Every capsule, every relic, every glitchwave echo \u2014 tuned into a single transmission grid.",
         "products_per_page": 24,
-        "fomo_inventory_threshold": 5,
-        "upsell_heading": "You May Also Be Receiving These Signals",
-        "upsell_subheading": "Curated relics that vibrate on a similar frequency.",
-        "upsell_collection": "",
-        "upsell_limit": 4,
-        "signal_cta_heading": "Join The Signal Network",
-        "signal_cta_subheading": "Get early access to hidden relics, incoming capsules, and encrypted lore.",
-        "signal_cta_button_text": "TUNE INTO FUTURE DROPS",
-        "signal_cta_link": ""
+        "upsell_tag": "limited"
       }
     }
   },
   "order": [
-    "stellar_shop_all_nQDbQp"
+    "main"
   ]
 }

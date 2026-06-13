@@ -18,16 +18,9 @@
           <div class="fa-product-info">
             <h3 class="fa-product-title">{{ product.title }}</h3>
             <div class="fa-stamp">FA·{{ fa_num }}</div>
-            <div class="fa-price">{{ product.price | money }}</div>
-            {% if product.available and product.selected_or_first_available_variant %}
-              {% form 'product', product, class: 'fa-quick-add' %}
-                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                <button class="fa-button" type="submit">Add to rotation</button>
-              {% endform %}
-            {% else %}
-              <a class="fa-button fa-product-link" href="{{ product.url }}">View relic</a>
-            {% endif %}
+
           </div>
+          <span class="fa-hover-wisp" aria-hidden="true"></span>
         </article>
       {% endfor %}
     </div>

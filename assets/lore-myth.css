@@ -1,0 +1,103 @@
+/* ═══════════════════════════════════════════════════════════
+   STELLAR REVERB — MYTH FONT SYNCHRONIZATION (vGODMODE)
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Hardwire New Brand Fonts */
+  --font-heading: 'Orbitron', sans-serif;
+  --font-human: 'PPMORI', 'Inter', sans-serif;
+  --font-ai: 'PP Neue Machina', 'Courier New', monospace;
+  --font-signal: 'PP Neue Machina', monospace;
+}
+
+.lore-myth {
+  background: var(--void-black);
+  padding: 10rem 2rem;
+  border-bottom: 1px solid rgba(225, 60, 250, 0.2);
+}
+
+.myth-container { 
+  max-width: 800px; 
+  margin: 0 auto; 
+}
+
+/* ────────────────────────────────────────────────────────────
+   THE TOGGLE HUD (Orbitron)
+   ──────────────────────────────────────────────────────────── */
+
+.toggle-switch-wrapper {
+  display: flex; 
+  gap: 2rem; 
+  margin-bottom: 4rem; 
+  justify-content: center;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-heading); /* OS Standard Heading */
+  font-weight: 700;
+  color: var(--chrome-silver);
+  cursor: pointer;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.toggle-btn.active {
+  color: var(--neon-magenta); 
+  text-shadow: 0 0 10px var(--neon-magenta);
+}
+
+/* ────────────────────────────────────────────────────────────
+   PERSPECTIVE TYPOGRAPHY (Human vs. AI)
+   ──────────────────────────────────────────────────────────── */
+
+/* Human Myth: Uses PPMORI for organic, legible storytelling */
+.myth-version.myth-human .myth-body {
+  font-family: var(--font-human) !important;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  letter-spacing: -0.01em;
+  color: var(--chrome-silver);
+}
+
+/* Machine Log: Uses PP Neue Machina for industrial precision */
+.myth-version.myth-machine .myth-body {
+  font-family: var(--font-ai) !important;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  color: var(--cyan-blue);
+}
+
+/* Raw Signal: Uses PP Neue Machina + Uppercase for terminal glitch */
+.myth-version.myth-signal .myth-body {
+  font-family: var(--font-signal) !important;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--radioactive-green);
+  text-shadow: 0 0 12px var(--radioactive-green);
+}
+
+/* ────────────────────────────────────────────────────────────
+   GLITCH ANIMATIONS
+   ──────────────────────────────────────────────────────────── */
+
+.glitch-transition {
+  animation: mythShatter 0.3s steps(2) infinite;
+}
+
+@keyframes mythShatter {
+  0% { transform: translate(0); filter: hue-rotate(0); opacity: 1; }
+  50% { transform: translate(4px, -2px); filter: hue-rotate(90deg); opacity: 0.8; }
+  100% { transform: translate(-4px, 2px); filter: hue-rotate(180deg); opacity: 1; }
+}
+
+.machine-glitch { 
+  font-family: var(--font-ai);
+  color: var(--radioactive-green); 
+  text-shadow: 0 0 15px var(--radioactive-green); 
+}

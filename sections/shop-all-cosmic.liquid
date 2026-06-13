@@ -1,0 +1,15 @@
+{% comment %}
+  Compatibility fallback section added to prevent invalid section type errors.
+{% endcomment %}
+<section class="shop-all-cosmic page-width"><h1>Shop All</h1><p>Browse every active Stellar Reverb transmission.</p>{% paginate collections.all.products by 24 %}<div class="grid product-grid">{% for product in collections.all.products %}<div class="grid__item"><a href="{{ product.url }}">{{ product.title }}</a></div>{% endfor %}</div>{{ paginate | default_pagination }}{% endpaginate %}</section>
+{% schema %}
+{
+  "name": "Shop all cosmic",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Shop all cosmic"
+    }
+  ]
+}
+{% endschema %}

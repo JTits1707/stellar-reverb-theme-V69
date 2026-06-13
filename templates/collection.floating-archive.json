@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "stellar-shop-all",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

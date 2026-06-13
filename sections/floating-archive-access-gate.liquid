@@ -4,7 +4,7 @@
       {% if section.settings.logo != blank %}
         {{ section.settings.logo | image_url: width: 420 | image_tag: class: 'fa-gate-logo', loading: 'eager', alt: 'Stellar Reverb Floatin Archive logo' }}
       {% else %}
-        <img class="fa-gate-logo" src="{{ 'floatin-archive-logo.jpeg' | asset_url }}" alt="Stellar Reverb Floatin Archive logo" loading="eager">
+        <img class="fa-gate-logo" src="{{ 'floatin-archive-logo.png' | asset_url }}" alt="Stellar Reverb Floatin Archive logo" loading="eager">
       {% endif %}
       <h1 class="fa-display fa-gate-title">{{ section.settings.title }}</h1>
       <p class="fa-gate-message">{{ section.settings.message }}</p>

@@ -1,0 +1,141 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - ULTIMATE MODULAR CAPSULE TEMPLATE V3.0
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{%- comment -%} CSS Integration {%- endcomment -%}
+{{ 'brand-fonts.css' | asset_url | stylesheet_tag }}
+{{ 'stellar-modular-capsule-styles-v6.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign capsule_id = section.settings.capsule_id | default: '001'
+  assign capsule_title = section.settings.capsule_title | default: 'UNTITLED TRANSMISSION'
+  assign capsule_theme = section.settings.capsule_theme | default: 'neon-magenta'
+  assign hero_image = section.settings.hero_image
+-%}
+
+<section 
+  class="capsule-transmission" 
+  data-theme="{{ capsule_theme }}"
+  data-capsule-id="{{ capsule_id }}"
+  data-section-id="{{ section.id }}"
+>
+  
+  {%- comment -%} 🌌 Cosmic Backdrop {%- endcomment -%}
+  <div class="cosmic-backdrop" aria-hidden="true">
+    <div class="cosmic-gradient"></div>
+    <div class="constellation-grid" id="constellationGrid"></div>
+  </div>
+  
+  <div class="container">
+    {%- comment -%} 🖥️ Terminal Hero {%- endcomment -%}
+    <div class="terminal-hero">
+      <div class="terminal-window-bar">
+        <div class="window-controls">
+          <span class="window-dot window-dot--close"></span>
+          <span class="window-dot window-dot--minimize"></span>
+          <span class="window-dot window-dot--maximize"></span>
+        </div>
+        <div class="terminal-title">TRANSMISSION_{{ capsule_id }}.sig</div>
+        <div class="terminal-signal"><span class="signal-indicator"></span></div>
+      </div>
+      
+      <div class="terminal-metadata">
+        <div class="metadata-row"><span>SYSTEM:</span><span>{{ section.settings.system_version }}</span></div>
+        <div class="metadata-row"><span>STATUS:</span><span class="metadata-value--status">{{ section.settings.protocol }}</span></div>
+        <div class="metadata-row"><span>TIMESTAMP:</span><span>{{ 'now' | date: '%Y.%m.%d_%H:%M:%S' }}</span></div>
+      </div>
+      
+      <div class="terminal-content">
+        <div class="capsule-header">
+          <div class="capsule-meta">
+            <div class="capsule-id">CAPSULE {{ capsule_id }}</div>
+            <div class="capsule-status active"><span class="status-pulse"></span> TRANSMISSION ACTIVE</div>
+          </div>
+          
+          <h1 class="capsule-title">
+            <span class="glitch-text" data-text="{{ capsule_title | upcase }}" data-typing="{{ capsule_title | upcase }}">
+              {{ capsule_title | upcase }}
+            </span>
+          </h1>
+          
+          <div class="decode-status">DECODING TRANSMISSION <span class="decode-dots">•••</span></div>
+        </div>
+        <div class="crt-overlay"></div>
+      </div>
+    </div>
+
+    {%- comment -%} 🖼️ Hardened Hero Image {%- endcomment -%}
+    {% if hero_image != blank %}
+      <div class="capsule-hero-image-wrapper">
+        <div class="image-container" data-tilt>
+          <img 
+            src="{{ hero_image | image_url: width: 1400 }}"
+            alt="{{ capsule_title | escape }}"
+            class="capsule-hero-image"
+            loading="eager"
+            width="{{ hero_image.width | default: 1400 }}"
+            height="{{ hero_image.height | default: 800 }}"
+          >
+          <div class="image-overlay"></div>
+          <div class="scanline-effect"></div>
+        </div>
+
+        {%- comment -%} 🎵 Audio Player {%- endcomment -%}
+        {% if section.settings.ambient_audio != blank %}
+          <div class="ambient-player">
+            <button class="audio-toggle" data-audio-toggle aria-label="Play audio">
+              <span class="audio-icon" data-play-icon>▶</span>
+              <span class="audio-text">AMBIENT SOUNDSCAPE</span>
+              <div class="audio-visualizer"><span class="audio-bar"></span><span class="audio-bar"></span><span class="audio-bar"></span></div>
+            </button>
+            <audio id="ambientAudio"><source src="{{ section.settings.ambient_audio }}" type="audio/mpeg"></audio>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {%- comment -%} 🛍️ Product Grid {%- endcomment -%}
+    {% if section.blocks.size > 0 %}
+      <div class="products-grid" data-scroll-reveal>
+        {% for block in section.blocks %}
+          {% if block.type == 'product' %}
+            <div class="product-wrapper" data-tilt {{ block.shopify_attributes }}>
+              {% render 'cosmic-product-card', product: block.settings.product, theme: capsule_theme %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Modular Capsule V3",
+  "tag": "section",
+  "class": "section-stellar-capsule",
+  "settings": [
+    { "type": "header", "content": "📡 Identity" },
+    { "type": "text", "id": "capsule_id", "label": "ID", "default": "001" },
+    { "type": "text", "id": "capsule_title", "label": "Title", "default": "PAST THE SINGULARITY" },
+    { "type": "select", "id": "capsule_theme", "label": "Theme Color",
+      "options": [
+        { "value": "neon-magenta", "label": "Neon Magenta" },
+        { "value": "cyber-cyan", "label": "Cyber Cyan" },
+        { "value": "toxic-green", "label": "Toxic Green" }
+      ], "default": "neon-magenta"
+    },
+    { "type": "header", "content": "🖥️ Metadata" },
+    { "type": "text", "id": "system_version", "label": "System Version", "default": "STELLAR OS v2.47" },
+    { "type": "text", "id": "protocol", "label": "Protocol", "default": "QUANTUM LINK ESTABLISHED" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero Image" },
+    { "type": "text", "id": "ambient_audio", "label": "Audio URL (MP3)" }
+  ],
+  "blocks": [
+    { "type": "product", "name": "🛍️ Product", "settings": [{ "type": "product", "id": "product", "label": "Select Product" }] }
+  ],
+  "presets": [{ "name": "Modular Capsule V3" }]
+}
+{% endschema %}

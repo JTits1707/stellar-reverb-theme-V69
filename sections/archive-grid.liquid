@@ -1,0 +1,299 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - ARCHIVE GRID SECTION
+  ═══════════════════════════════════════════════════════════
+  
+  Purpose: Display grid of all capsule archives with filtering/sorting
+  
+  Features:
+    - Dynamic loading from metaobjects
+    - Theme filtering
+    - Sort by date/number
+    - Responsive grid
+    - Load more pagination
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% liquid
+  # Fetch all capsules from metaobjects
+  assign all_capsules = shop.metaobjects.capsule_archive.values
+  
+  # Get section settings
+  assign grid_columns = section.settings.grid_columns | default: 3
+  assign show_filter = section.settings.show_filter | default: true
+  assign items_per_page = section.settings.items_per_page | default: 12
+  assign default_sort = section.settings.default_sort | default: 'number_asc'
+  
+  # Apply sorting
+  case default_sort
+    when 'number_asc'
+      assign sorted_capsules = all_capsules | sort: 'capsule_number'
+    when 'number_desc'
+      assign sorted_capsules = all_capsules | sort: 'capsule_number' | reverse
+    when 'date_desc'
+      assign sorted_capsules = all_capsules | sort: 'release_date' | reverse
+    when 'date_asc'
+      assign sorted_capsules = all_capsules | sort: 'release_date'
+    else
+      assign sorted_capsules = all_capsules
+  endcase
+  
+  # Get unique themes for filtering
+  assign available_themes = ''
+  for capsule in all_capsules
+    assign theme_color = capsule.theme_color.value | default: 'cyan-magenta'
+    unless available_themes contains theme_color
+      assign available_themes = available_themes | append: theme_color | append: ','
+    endunless
+  endfor
+  assign theme_array = available_themes | split: ','
+%}
+
+<section 
+  class="archive-grid-section" 
+  data-section-id="{{ section.id }}"
+  data-section-type="archive-grid"
+>
+  
+  {%- comment -%} Section Header {%- endcomment -%}
+  <div class="archive-grid-header">
+    <div class="container">
+      
+      {% if section.settings.show_heading %}
+        <h2 class="archive-grid-title">{{ section.settings.heading | default: 'ARCHIVE TRANSMISSIONS' }}</h2>
+      {% endif %}
+      
+      {% if section.settings.subtitle != blank %}
+        <p class="archive-grid-subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+      
+      {%- comment -%} Filter & Sort Controls {%- endcomment -%}
+      {% if show_filter and all_capsules.size > 0 %}
+        <div class="archive-controls">
+          
+          {%- comment -%} Theme Filter {%- endcomment -%}
+          <div class="archive-filter">
+            <label for="theme-filter">Filter by Theme:</label>
+            <select id="theme-filter" class="archive-filter-select">
+              <option value="all">All Themes</option>
+              {% for theme in theme_array %}
+                {% if theme != blank %}
+                  <option value="{{ theme }}">{{ theme | replace: '-', ' ' | capitalize }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+          
+          {%- comment -%} Sort Control {%- endcomment -%}
+          <div class="archive-sort">
+            <label for="sort-select">Sort by:</label>
+            <select id="sort-select" class="archive-sort-select">
+              <option value="number_asc" {% if default_sort == 'number_asc' %}selected{% endif %}>Number (Low to High)</option>
+              <option value="number_desc" {% if default_sort == 'number_desc' %}selected{% endif %}>Number (High to Low)</option>
+              <option value="date_desc" {% if default_sort == 'date_desc' %}selected{% endif %}>Newest First</option>
+              <option value="date_asc" {% if default_sort == 'date_asc' %}selected{% endif %}>Oldest First</option>
+            </select>
+          </div>
+          
+          {%- comment -%} Results Count {%- endcomment -%}
+          <div class="archive-count">
+            <span class="archive-count-number">{{ sorted_capsules.size }}</span> Capsules
+          </div>
+          
+        </div>
+      {% endif %}
+      
+    </div>
+  </div>
+  
+  {%- comment -%} Archive Grid {%- endcomment -%}
+  <div class="container">
+    <div 
+      class="archive-grid" 
+      data-grid-columns="{{ grid_columns }}"
+      data-items-per-page="{{ items_per_page }}"
+    >
+      
+      {% if sorted_capsules.size > 0 %}
+        
+        {% for capsule in sorted_capsules %}
+          {% render 'archive-card', capsule: capsule %}
+        {% endfor %}
+        
+      {% else %}
+        
+        {%- comment -%} Empty State {%- endcomment -%}
+        <div class="archive-empty-state">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="8" y="8" width="48" height="48" rx="4"/>
+            <path d="M8 24h48M24 8v48M40 8v48"/>
+          </svg>
+          <h3>No Capsules Found</h3>
+          <p>Check back soon for new transmissions from the Stellar Reverb archive.</p>
+        </div>
+        
+      {% endif %}
+      
+    </div>
+    
+    {%- comment -%} Load More Button (if pagination enabled) {%- endcomment -%}
+    {% if section.settings.enable_pagination and sorted_capsules.size > items_per_page %}
+      <div class="archive-pagination">
+        <button 
+          class="archive-load-more"
+          data-load-more
+          data-items-loaded="{{ items_per_page }}"
+          data-total-items="{{ sorted_capsules.size }}"
+        >
+          <span class="load-more-text">LOAD MORE TRANSMISSIONS</span>
+          <svg class="load-more-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 5v14M5 12l7 7 7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    {% endif %}
+    
+  </div>
+  
+</section>
+
+{%- comment -%} Section Schema for Shopify Theme Editor {%- endcomment -%}
+{% schema %}
+{
+  "name": "Archive Grid",
+  "tag": "section",
+  "class": "section-archive-grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "ARCHIVE TRANSMISSIONS"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Explore our collection of sonic time capsules"
+    },
+    {
+      "type": "header",
+      "content": "Grid Settings"
+    },
+    {
+      "type": "range",
+      "id": "grid_columns",
+      "label": "Columns (desktop)",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "items_per_page",
+      "label": "Items per page",
+      "min": 6,
+      "max": 24,
+      "step": 3,
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_pagination",
+      "label": "Enable load more pagination",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Filtering & Sorting"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filter",
+      "label": "Show filter controls",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "default_sort",
+      "label": "Default sort order",
+      "options": [
+        {
+          "value": "number_asc",
+          "label": "Number (Low to High)"
+        },
+        {
+          "value": "number_desc",
+          "label": "Number (High to Low)"
+        },
+        {
+          "value": "date_desc",
+          "label": "Newest First"
+        },
+        {
+          "value": "date_asc",
+          "label": "Oldest First"
+        }
+      ],
+      "default": "number_asc"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Archive Grid"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .archive-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns, 3), 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  
+  @media (max-width: 1024px) {
+    .archive-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .archive-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .archive-controls {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+  }
+  
+  .archive-empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    opacity: 0.6;
+  }
+</style>

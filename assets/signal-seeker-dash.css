@@ -1,0 +1,26 @@
+.signal-dashboard-page {
+  background: var(--terminal-bg, #070A0D);
+  color: var(--terminal-text, #00F0AC);
+  font-family: 'Source Code Pro', monospace;
+  padding: 5rem 0;
+}
+
+/* The Matrix/Terminal Grid */
+.stellar-os-active::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(rgba(0, 240, 172, 0.05) 1px, transparent 1px), 
+                    linear-gradient(90deg, rgba(0, 240, 172, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stat-card {
+  background: rgba(13, 13, 13, 0.9);
+  border: 1px solid var(--neon-magenta);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(225, 60, 250, 0.2);
+}

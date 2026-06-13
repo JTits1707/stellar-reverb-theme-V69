@@ -57,15 +57,15 @@
         "nav_link_5"
       ]
     },
-    "loader": { "type": "universal-lore-loader.liquid", "settings": {} },
-    "lore-hero": { "type": "universal-lore-hero.liquid", "settings": {} },
-    "lore-myth": { "type": "universal-lore-myth.liquid", "settings": {} },
-    "lore-timeline": { "type": "universal-lore-timeline.liquid", "settings": {} },
-    "lore-vault": { "type": "universal-lore-vault.liquid", "settings": {} },
-    "lore-signals": { "type": "universal-lore-signals.liquid", "settings": {} },
-    "signup": { "type": "universal-lore-signup.liquid", "settings": {} },
-    "signal_feed": { "type": "universal-lore-signal-feed.liquid", "settings": {} },
-    "konami_modal": { "type": "universal-lore-konami-modal.liquid", "settings": {} }
+    "loader": { "type": "universal-lore-loader", "settings": {} },
+    "lore-hero": { "type": "universal-lore-hero", "settings": {} },
+    "lore-myth": { "type": "universal-lore-myth", "settings": {} },
+    "lore-timeline": { "type": "universal-lore-timeline", "settings": {} },
+    "lore-vault": { "type": "universal-lore-vault", "settings": {} },
+    "lore-signals": { "type": "universal-lore-signals", "settings": {} },
+    "signup": { "type": "universal-lore-signup", "settings": {} },
+    "signal_feed": { "type": "universal-lore-signal-feed", "settings": {} },
+    "konami_modal": { "type": "universal-lore-konami-modal", "settings": {} }
   },
   "order": [
     "navigation",

@@ -1,0 +1,33 @@
+{% comment %}
+  STELLAR REVERB - Relic Card (Wireframe Glitch Version)
+  Designed for the Shop-All Grid
+{% endcomment %}
+
+<div class="relic-card" data-product-id="{{ product.id }}">
+  <a href="{{ product.url }}" class="relic-link">
+    <div class="relic-visual-terminal">
+      <img src="{{ product.featured_image | image_url: width: 800 }}" 
+           alt="{{ product.title }}" 
+           class="relic-img-base"
+           loading="lazy">
+      
+      <div class="relic-wireframe-overlay"></div>
+      
+      <div class="relic-scanning-beam"></div>
+
+      <div class="relic-hud-meta">
+        <span class="hud-bit">OBJ_TYPE: RELIC</span>
+        <span class="hud-bit">ID: {{ product.variants.first.sku | default: 'ENCRYPTED' }}</span>
+        <span class="hud-bit">LOC: EVENT_HORIZON</span>
+      </div>
+    </div>
+
+    <div class="relic-info">
+      <h3 class="relic-title glitch-text" data-text="{{ product.title }}">{{ product.title }}</h3>
+      <div class="relic-price-row">
+        <span class="relic-price">{{ product.price | money }}</span>
+        <span class="relic-availability">[{{ product.available | ternary: 'STABLE', 'LOST' }}]</span>
+      </div>
+    </div>
+  </a>
+</div>

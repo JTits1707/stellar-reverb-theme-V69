@@ -1,0 +1,692 @@
+/* ═══════════════════════════════════════════════════════════
+   STELLAR REVERB — FLOATING ARCHIVE SUPREME v13/10
+   Consolidated cosmic collection experience
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --void-black: #000000;
+  --neon-magenta: #E13CFA;
+  --cyan-blue: #28A8D6;
+  --cosmic-purple: #6C24B3;
+  --radioactive-green: #00F0AC;
+  --chrome-silver: #B0B0B0;
+}
+
+/* ────────────────────────────────────────────────────────────
+   BODY & CONTAINER (SYSTEM INITIALIZATION)
+   ──────────────────────────────────────────────────────────── */
+
+body.floating-archive-active {
+  background-color: var(--void-black);
+  cursor: crosshair;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.floating-archive-container {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+/* ────────────────────────────────────────────────────────────
+   VOID BACKGROUND LAYER (COSMIC FOUNDATION)
+   ──────────────────────────────────────────────────────────── */
+
+.void-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at center, rgba(108,36,179,0.15) 0%, var(--void-black) 60%);
+  overflow: hidden;
+}
+
+/* Animated noise texture */
+.void-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  animation: noiseShift 8s steps(10) infinite;
+  pointer-events: none;
+}
+
+@keyframes noiseShift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -5%); }
+  20% { transform: translate(-10%, 5%); }
+  30% { transform: translate(5%, -10%); }
+  40% { transform: translate(-5%, 10%); }
+  50% { transform: translate(10%, 0); }
+  60% { transform: translate(0, 10%); }
+  70% { transform: translate(-10%, -5%); }
+  80% { transform: translate(5%, 5%); }
+  90% { transform: translate(0, -5%); }
+}
+
+/* Film grain effect */
+.void-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255,255,255,0.03) 2px,
+    rgba(255,255,255,0.03) 4px
+  );
+  pointer-events: none;
+  animation: grainScroll 0.3s steps(6) infinite;
+}
+
+@keyframes grainScroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(10px); }
+}
+
+/* Vignette overlay */
+.void-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    rgba(0,0,0,0.4) 50%,
+    rgba(0,0,0,0.8) 100%
+  );
+  pointer-events: none;
+}
+
+/* ────────────────────────────────────────────────────────────
+   FLOATING RELICS LAYER (PARALLAX PARTICLES)
+   ──────────────────────────────────────────────────────────── */
+
+.floating-relics-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  filter: contrast(1.2) brightness(0.8);
+}
+
+.floating-relic {
+  position: absolute;
+  width: 150px;
+  height: auto;
+  opacity: 0.6;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+.floating-relic img,
+.relic-img-shard {
+  width: 100%;
+  height: auto;
+  filter: blur(2px) brightness(0.7);
+  transition: filter 0.3s ease;
+}
+
+/* Enhanced glow on high signal integrity */
+.stellar-os-active[data-integrity="high"] .relic-img-shard {
+  filter: blur(1px) brightness(1) drop-shadow(0 0 15px var(--cyan-blue));
+}
+
+/* ────────────────────────────────────────────────────────────
+   ACCESS GATE (ENTRY PORTAL)
+   ──────────────────────────────────────────────────────────── */
+
+.access-gate-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.access-gate-container.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.access-gate-content {
+  text-align: center;
+  max-width: 600px;
+  padding: 3rem;
+  border: 2px solid var(--neon-magenta);
+  background: rgba(13, 13, 13, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 0 40px rgba(225, 60, 250, 0.3);
+  animation: gateEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes gateEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.access-gate-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  color: var(--neon-magenta);
+  margin-bottom: 1rem;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 20px rgba(225, 60, 250, 0.5);
+}
+
+.access-gate-message {
+  color: var(--cyan-blue);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.access-gate-button {
+  padding: 1rem 2.5rem;
+  border: 2px solid var(--cyan-blue);
+  background: rgba(40, 168, 214, 0.1);
+  color: var(--cyan-blue);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+.access-gate-button:hover {
+  background: rgba(40, 168, 214, 0.2);
+  box-shadow: 0 0 30px rgba(40, 168, 214, 0.4);
+  transform: scale(1.05);
+}
+
+/* ────────────────────────────────────────────────────────────
+   ARCHIVE HERO (MAIN TITLE SECTION)
+   ──────────────────────────────────────────────────────────── */
+
+.archive-hero {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.hero-relic-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4) contrast(1.2) blur(3px);
+  animation: subtleDrift 30s infinite alternate ease-in-out;
+}
+
+@keyframes subtleDrift {
+  0% { transform: scale(1.1) translate(0, 0); }
+  100% { transform: scale(1.15) translate(-2%, 2%); }
+}
+
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 20%, var(--void-black) 90%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  max-width: 900px;
+}
+
+.hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  color: var(--neon-magenta);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.1em;
+  text-shadow: 
+    0 0 20px rgba(225, 60, 250, 0.6),
+    0 0 40px rgba(225, 60, 250, 0.4),
+    0 0 60px rgba(225, 60, 250, 0.2);
+  animation: titlePulse 3s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% { 
+    text-shadow: 
+      0 0 20px rgba(225, 60, 250, 0.6),
+      0 0 40px rgba(225, 60, 250, 0.4),
+      0 0 60px rgba(225, 60, 250, 0.2);
+  }
+  50% { 
+    text-shadow: 
+      0 0 30px rgba(225, 60, 250, 0.8),
+      0 0 60px rgba(225, 60, 250, 0.6),
+      0 0 90px rgba(225, 60, 250, 0.4);
+  }
+}
+
+/* Glitch effect on title */
+.hero-title.glitch {
+  position: relative;
+}
+
+.hero-title.glitch::before,
+.hero-title.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.hero-title.glitch::before {
+  color: var(--cyan-blue);
+  animation: glitch1 2.5s infinite;
+}
+
+.hero-title.glitch::after {
+  color: var(--radioactive-green);
+  animation: glitch2 2.5s infinite;
+}
+
+@keyframes glitch1 {
+  0%, 96%, 100% { opacity: 0; }
+  97% { 
+    opacity: 0.8; 
+    transform: translate(-2px, -2px);
+  }
+}
+
+@keyframes glitch2 {
+  0%, 94%, 100% { opacity: 0; }
+  95% { 
+    opacity: 0.6; 
+    transform: translate(2px, 2px);
+  }
+}
+
+.hero-subtitle {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  color: var(--cyan-blue);
+  margin-bottom: 1rem;
+  letter-spacing: 0.15em;
+  opacity: 0.8;
+}
+
+.hero-system-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: var(--chrome-silver);
+  opacity: 0.6;
+  animation: blink 1.5s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 0.6; }
+  51%, 100% { opacity: 0.3; }
+}
+
+/* ────────────────────────────────────────────────────────────
+   ARCHIVE MANIFEST (LORE SECTION)
+   ──────────────────────────────────────────────────────────── */
+
+.archive-manifest {
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 2.5rem;
+  border: 1px solid var(--cosmic-purple);
+  background: rgba(13, 13, 13, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(108, 36, 179, 0.3);
+}
+
+.manifest-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  color: var(--cyan-blue);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.15em;
+  text-align: center;
+}
+
+.manifest-content {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.manifest-content p {
+  margin-bottom: 1rem;
+}
+
+.manifest-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* ────────────────────────────────────────────────────────────
+   RELIC GRID (PRODUCT GRID)
+   ──────────────────────────────────────────────────────────── */
+
+.relic-grid-section {
+  position: relative;
+  z-index: 10;
+  padding: 4rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.relic-grid-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  color: var(--neon-magenta);
+  text-align: center;
+  margin-bottom: 3rem;
+  letter-spacing: 0.2em;
+}
+
+.relic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+.relic-item {
+  position: relative;
+  background: rgba(13, 13, 13, 0.6);
+  border: 1px solid rgba(108, 36, 179, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* Scroll reveal animation (triggered by JS) */
+.relic-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.relic-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--neon-magenta);
+  box-shadow: 0 0 40px rgba(225, 60, 250, 0.4);
+}
+
+.relic-image-wrapper {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(108, 36, 179, 0.3);
+}
+
+.relic-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.relic-item:hover .relic-image-wrapper img {
+  transform: scale(1.1);
+}
+
+.relic-meta {
+  padding: 1.5rem;
+}
+
+.relic-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  color: var(--cyan-blue);
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.relic-item:hover .relic-name {
+  color: var(--neon-magenta);
+  letter-spacing: 2px;
+}
+
+.relic-description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.relic-price {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  color: var(--radioactive-green);
+  margin-bottom: 1rem;
+}
+
+.relic-extract-btn {
+  width: 100%;
+  padding: 0.9rem;
+  border: 1px solid var(--neon-magenta);
+  background: rgba(225, 60, 250, 0.1);
+  color: var(--neon-magenta);
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+}
+
+.relic-extract-btn:hover {
+  background: rgba(225, 60, 250, 0.2);
+  box-shadow: 0 0 25px rgba(225, 60, 250, 0.4);
+}
+
+/* ────────────────────────────────────────────────────────────
+   GLITCH SIGNAL INTERFACE
+   ──────────────────────────────────────────────────────────── */
+
+.glitch-signal-section {
+  position: relative;
+  z-index: 10;
+  padding: 3rem 2rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.glitch-signal-text {
+  font-family: 'Courier New', monospace;
+  font-size: 1.5rem;
+  color: var(--radioactive-green);
+  letter-spacing: 0.3em;
+  animation: signalGlitch 3s infinite;
+}
+
+@keyframes signalGlitch {
+  0%, 90%, 100% { 
+    opacity: 0.8;
+    transform: translateX(0);
+  }
+  91%, 93% { 
+    opacity: 0.3;
+    transform: translateX(-5px);
+  }
+  92%, 94% { 
+    opacity: 1;
+    transform: translateX(5px);
+  }
+}
+
+.signal-bars {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 2rem;
+}
+
+.signal-bar {
+  width: 4px;
+  height: 40px;
+  background: var(--cyan-blue);
+  opacity: 0.5;
+  animation: signalPulse 1.5s ease-in-out infinite;
+}
+
+.signal-bar:nth-child(1) { animation-delay: 0s; height: 30px; }
+.signal-bar:nth-child(2) { animation-delay: 0.1s; height: 45px; }
+.signal-bar:nth-child(3) { animation-delay: 0.2s; height: 35px; }
+.signal-bar:nth-child(4) { animation-delay: 0.3s; height: 50px; }
+.signal-bar:nth-child(5) { animation-delay: 0.4s; height: 40px; }
+.signal-bar:nth-child(6) { animation-delay: 0.5s; height: 38px; }
+.signal-bar:nth-child(7) { animation-delay: 0.6s; height: 42px; }
+.signal-bar:nth-child(8) { animation-delay: 0.7s; height: 36px; }
+
+@keyframes signalPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Scanlines effect */
+.signal-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 240, 172, 0.05) 2px,
+    rgba(0, 240, 172, 0.05) 4px
+  );
+  pointer-events: none;
+  animation: scanlineMove 8s linear infinite;
+}
+
+@keyframes scanlineMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   EXIT NAVIGATION (PORTAL OUT)
+   ──────────────────────────────────────────────────────────── */
+
+.exit-nav-section {
+  position: relative;
+  z-index: 10;
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.exit-portal-btn {
+  display: inline-block;
+  padding: 1.2rem 3rem;
+  border: 2px solid var(--cyan-blue);
+  background: rgba(40, 168, 214, 0.1);
+  color: var(--cyan-blue);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 8px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.exit-portal-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, var(--cyan-blue) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.exit-portal-btn:hover::before {
+  opacity: 0.2;
+}
+
+.exit-portal-btn:hover {
+  box-shadow: 0 0 40px rgba(40, 168, 214, 0.5);
+  transform: scale(1.05);
+  border-color: var(--radioactive-green);
+  color: var(--radioactive-green);
+}
+
+/* ────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN
+   ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .relic-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .archive-manifest {
+    padding: 1.5rem;
+    margin: 2rem 1rem;
+  }
+  
+  .floating-relic {
+    width: 100px;
+  }
+  
+  .access-gate-content {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   UTILITY CLASSES
+   ──────────────────────────────────────────────────────────── */
+
+.sr-hidden {
+  display: none !important;
+}
+
+.sr-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

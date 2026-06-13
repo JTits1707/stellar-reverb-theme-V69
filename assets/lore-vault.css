@@ -1,0 +1,82 @@
+.lore-vault {
+  padding: 8rem 2rem;
+  background: radial-gradient(circle at center, rgba(40, 168, 214, 0.05) 0%, transparent 70%);
+}
+
+.glyph-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.glyph-item {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(225, 60, 250, 0.2);
+  padding: 3rem 1rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  position: relative;
+}
+
+.glyph-item:hover {
+  border-color: var(--neon-magenta);
+  box-shadow: 0 0 30px rgba(225, 60, 250, 0.3);
+  transform: translateY(-5px);
+}
+
+.glyph-visual {
+  font-family: var(--font-title);
+  font-size: 3rem;
+  color: var(--chrome-silver);
+  margin-bottom: 1rem;
+  transition: 0.3s;
+}
+
+.glyph-item:hover .glyph-visual {
+  color: var(--neon-magenta);
+  text-shadow: 0 0 15px var(--neon-magenta);
+}
+
+.signal-feed-terminal {
+  border: 1px solid var(--cyan-blue);
+  background: #000;
+  max-width: 600px;
+  margin: 4rem auto 0;
+}
+
+.distort-active {
+  animation: glyphDistort 0.2s infinite;
+}
+
+@keyframes glyphDistort {
+  0% { transform: translate(0); }
+  50% { transform: translate(-2px, 2px); filter: hue-rotate(90deg); }
+  100% { transform: translate(2px, -2px); }
+}
+/* 🌀 AR PORTAL SCAN EFFECT */
+.glyph-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent, rgba(0, 240, 172, 0.1), transparent);
+  transform: translateY(-100%);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.glyph-item:hover::after {
+  transform: translateY(100%);
+  animation: scanlineLoop 1.5s infinite;
+}
+
+@keyframes scanlineLoop {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.glyph-item:hover .glyph-visual {
+  filter: blur(1px) contrast(1.2);
+  animation: glyphDistort 0.15s infinite;
+}

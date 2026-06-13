@@ -1,0 +1,945 @@
+/* ═══════════════════════════════════════════════════════════
+   STELLAR REVERB - SIGNAL SEEKER TERMINAL CSS (LEGENDARY v13.0)
+   ═══════════════════════════════════════════════════════════
+   
+   Features:
+   - Neon gradients (cyan → magenta → green)
+   - Glass morphism terminal
+   - Scanlines overlay
+   - Matrix rain background
+   - Holographic rotating border
+   - Particle effects
+   - Glitch animations
+   - Responsive design
+   - 60fps performance
+   
+   ═══════════════════════════════════════════════════════════ */
+
+/* ───────────────────────────────────────────────────────────
+   CSS CUSTOM PROPERTIES
+   ─────────────────────────────────────────────────────────── */
+
+:root {
+  /* Brand Colors */
+  --color-cyan: #00F0FF;
+  --color-magenta: #FF00FF;
+  --color-green: #00FF41;
+  --color-void: #0A0A0A;
+  --color-dark: #1A1A1A;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--color-cyan) 0%, var(--color-magenta) 50%, var(--color-green) 100%);
+  --gradient-secondary: linear-gradient(90deg, var(--color-magenta) 0%, var(--color-cyan) 100%);
+  --gradient-glow: radial-gradient(circle, var(--color-cyan) 0%, transparent 70%);
+  
+  /* Glass Morphism */
+  --glass-bg: rgba(26, 26, 26, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 20px;
+  
+  /* Timing */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ───────────────────────────────────────────────────────────
+   SECTION CONTAINER
+   ─────────────────────────────────────────────────────────── */
+
+.signal-seeker-terminal {
+  position: relative;
+  padding: 8rem 2rem;
+  background: var(--color-void);
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ───────────────────────────────────────────────────────────
+   BACKGROUND EFFECTS
+   ─────────────────────────────────────────────────────────── */
+
+.terminal-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Particles Canvas */
+.terminal-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+}
+
+/* Matrix Rain */
+.terminal-matrix-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    0deg,
+    transparent 0%,
+    rgba(0, 255, 65, 0.03) 50%,
+    transparent 100%
+  );
+  opacity: 0.2;
+  animation: matrixScroll 20s linear infinite;
+}
+
+@keyframes matrixScroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+/* Scanlines */
+.terminal-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 240, 255, 0.03) 0px,
+    transparent 1px,
+    transparent 2px,
+    rgba(0, 240, 255, 0.03) 3px
+  );
+  pointer-events: none;
+  animation: scanlineMove 8s linear infinite;
+}
+
+@keyframes scanlineMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+/* ───────────────────────────────────────────────────────────
+   MAIN CONTAINER
+   ─────────────────────────────────────────────────────────── */
+
+.terminal-container {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ───────────────────────────────────────────────────────────
+   TRIANGLE LOGO
+   ─────────────────────────────────────────────────────────── */
+
+.terminal-logo {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: logoFloat 3s ease-in-out infinite;
+}
+
+.triangle-logo {
+  width: 150px;
+  height: 150px;
+  filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.6))
+          drop-shadow(0 0 40px rgba(255, 0, 255, 0.4));
+  animation: logoPulse 2s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes logoPulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* Animate triangle paths */
+.triangle-outer { animation: triangleRotate 20s linear infinite; }
+.triangle-middle { animation: triangleRotate 15s linear infinite reverse; }
+.triangle-inner { animation: triangleRotate 10s linear infinite; }
+
+@keyframes triangleRotate {
+  0% { stroke-dasharray: 0 1000; }
+  100% { stroke-dasharray: 1000 0; }
+}
+
+.cassette-icon { animation: cassetteGlow 2s ease-in-out infinite; }
+
+@keyframes cassetteGlow {
+  0%, 100% { opacity: 0.7; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.4)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.8)); }
+}
+
+.waveform { animation: waveformPulse 1.5s ease-in-out infinite; }
+
+@keyframes waveformPulse {
+  0%, 100% { stroke-dashoffset: 0; }
+  50% { stroke-dashoffset: 50; }
+}
+
+/* ───────────────────────────────────────────────────────────
+   HEADER SECTION
+   ─────────────────────────────────────────────────────────── */
+
+.terminal-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.terminal-title {
+  font-family: 'PP Neue Machina', 'Courier New', monospace;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+}
+
+/* Glitch Effect */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: glitchText 3s infinite;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--color-cyan);
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitchBefore 3s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 var(--color-magenta);
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitchAfter 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitchText {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitchBefore {
+  0% { clip: rect(61px, 9999px, 89px, 0); }
+  25% { clip: rect(24px, 9999px, 43px, 0); }
+  50% { clip: rect(95px, 9999px, 11px, 0); }
+  75% { clip: rect(33px, 9999px, 76px, 0); }
+  100% { clip: rect(2px, 9999px, 98px, 0); }
+}
+
+@keyframes glitchAfter {
+  0% { clip: rect(44px, 9999px, 56px, 0); }
+  25% { clip: rect(88px, 9999px, 15px, 0); }
+  50% { clip: rect(12px, 9999px, 71px, 0); }
+  75% { clip: rect(69px, 9999px, 30px, 0); }
+  100% { clip: rect(25px, 9999px, 84px, 0); }
+}
+
+.terminal-subtitle {
+  font-family: 'PP Neue Machina', monospace;
+  font-size: clamp(0.875rem, 2vw, 1.125rem);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.restricted-text {
+  color: var(--color-cyan);
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+  animation: textPulse 2s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.subtitle-light {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ───────────────────────────────────────────────────────────
+   TERMINAL WINDOW
+   ─────────────────────────────────────────────────────────── */
+
+.terminal-window {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border-radius: 16px;
+  border: 2px solid var(--glass-border);
+  overflow: hidden;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 0 60px rgba(0, 240, 255, 0.05);
+  animation: terminalGlow 3s ease-in-out infinite;
+}
+
+/* Holographic Rotating Border */
+.terminal-window::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--gradient-primary);
+  border-radius: 16px;
+  z-index: -1;
+  opacity: 0.3;
+  animation: borderRotate 10s linear infinite;
+  filter: blur(8px);
+}
+
+@keyframes terminalGlow {
+  0%, 100% { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 240, 255, 0.2); }
+  50% { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 60px rgba(255, 0, 255, 0.3); }
+}
+
+@keyframes borderRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Terminal Window Header */
+.terminal-window-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.dot-red { background: #FF5F56; color: #FF5F56; }
+.dot-yellow { background: #FFBD2E; color: #FFBD2E; }
+.dot-green { background: #27C93F; color: #27C93F; }
+
+.terminal-window-title {
+  font-family: 'PP Neue Machina', monospace;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ───────────────────────────────────────────────────────────
+   TERMINAL CONTENT
+   ─────────────────────────────────────────────────────────── */
+
+.terminal-content {
+  padding: 2rem;
+}
+
+.terminal-prompt {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--color-green);
+}
+
+.prompt-symbol {
+  color: var(--color-cyan);
+  margin-right: 0.5rem;
+  animation: cursorBlink 1s steps(2) infinite;
+}
+
+.prompt-text {
+  color: var(--color-green);
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+/* Typing Animation */
+.typing-text {
+  display: inline-block;
+  overflow: hidden;
+  border-right: 2px solid var(--color-green);
+  white-space: nowrap;
+  animation: typing 3s steps(30) 1s forwards, cursorBlink 0.75s step-end infinite;
+  max-width: 0;
+}
+
+@keyframes typing {
+  from { max-width: 0; }
+  to { max-width: 100%; }
+}
+
+@keyframes cursorBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.terminal-divider {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: var(--color-cyan);
+  opacity: 0.3;
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+
+/* ───────────────────────────────────────────────────────────
+   BENEFITS GRID
+   ─────────────────────────────────────────────────────────── */
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0 3rem;
+}
+
+.benefit-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  transition: all var(--transition-medium);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: benefitFadeIn var(--transition-slow) forwards;
+}
+
+.benefit-card[data-benefit="1"] { animation-delay: 0.2s; }
+.benefit-card[data-benefit="2"] { animation-delay: 0.4s; }
+.benefit-card[data-benefit="3"] { animation-delay: 0.6s; }
+.benefit-card[data-benefit="4"] { animation-delay: 0.8s; }
+
+@keyframes benefitFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.benefit-card:hover {
+  background: rgba(0, 240, 255, 0.05);
+  border-color: rgba(0, 240, 255, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 20px rgba(0, 240, 255, 0.2);
+}
+
+/* Benefit Icon */
+.benefit-icon {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+}
+
+.benefit-icon svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.4));
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.benefit-card:hover .benefit-icon svg {
+  animation: iconSpin 0.6s ease-in-out;
+}
+
+@keyframes iconSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Benefit Content */
+.benefit-content {
+  flex: 1;
+}
+
+.benefit-title {
+  font-family: 'PP Neue Machina', monospace;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--color-cyan);
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+}
+
+.benefit-desc {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 0.25rem;
+  line-height: 1.4;
+}
+
+.benefit-subdesc {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ───────────────────────────────────────────────────────────
+   SIGNUP SECTION
+   ─────────────────────────────────────────────────────────── */
+
+.terminal-signup {
+  position: relative;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+/* Small Triangle Icon */
+.signup-triangle {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.signup-triangle svg {
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.6));
+  animation: trianglePulse 2s ease-in-out infinite;
+}
+
+@keyframes trianglePulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Form */
+.signal-seeker-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-prompt {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9375rem;
+  color: var(--color-green);
+  margin-bottom: 1rem;
+}
+
+.form-prompt .prompt-symbol {
+  color: var(--color-cyan);
+  margin-right: 0.5rem;
+}
+
+.form-prompt .prompt-label {
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+/* Input Wrapper */
+.form-input-wrapper {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.terminal-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  color: var(--color-cyan);
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(0, 240, 255, 0.3);
+  border-radius: 8px;
+  outline: none;
+  transition: all var(--transition-medium);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.terminal-input::placeholder {
+  color: rgba(0, 240, 255, 0.3);
+}
+
+.terminal-input:focus {
+  border-color: var(--color-cyan);
+  box-shadow: 
+    0 0 20px rgba(0, 240, 255, 0.3),
+    inset 0 0 20px rgba(0, 240, 255, 0.1);
+}
+
+.terminal-input.error {
+  border-color: #FF5F56;
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+/* Input Cursor */
+.input-cursor {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 1.2rem;
+  background: var(--color-cyan);
+  animation: cursorBlink 1s steps(2) infinite;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.terminal-input:focus + .input-cursor {
+  opacity: 1;
+}
+
+/* Submit Button */
+.terminal-button {
+  width: 100%;
+  padding: 1.25rem 2rem;
+  font-family: 'PP Neue Machina', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-void);
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-medium);
+  box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
+}
+
+.terminal-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.terminal-button:hover::before {
+  left: 100%;
+}
+
+.terminal-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(0, 240, 255, 0.5);
+}
+
+.terminal-button:active {
+  transform: translateY(0);
+}
+
+.button-icon {
+  font-size: 1.2rem;
+  vertical-align: middle;
+  animation: iconGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes iconGlow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
+}
+
+.button-text {
+  margin: 0 0.5rem;
+}
+
+/* Form Footer */
+.form-footer {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.powered-by strong {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ───────────────────────────────────────────────────────────
+   SUCCESS MESSAGE
+   ─────────────────────────────────────────────────────────── */
+
+.success-message {
+  display: none;
+  text-align: center;
+  padding: 2rem;
+  animation: successSlideIn var(--transition-slow);
+}
+
+.success-message.show {
+  display: block;
+}
+
+@keyframes successSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  font-size: 3rem;
+  color: var(--color-green);
+  background: rgba(0, 255, 65, 0.1);
+  border: 3px solid var(--color-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
+  animation: successPulse 2s ease-in-out infinite;
+}
+
+@keyframes successPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(0, 255, 65, 0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(0, 255, 65, 0.6); }
+}
+
+.success-title {
+  font-family: 'PP Neue Machina', monospace;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: var(--color-green);
+  margin: 0 0 1rem;
+  text-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
+}
+
+.success-text {
+  font-size: 1.0625rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 1rem;
+  line-height: 1.6;
+}
+
+.success-subtext {
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ───────────────────────────────────────────────────────────
+   ERROR MESSAGE
+   ─────────────────────────────────────────────────────────── */
+
+.error-message {
+  display: none;
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255, 95, 86, 0.1);
+  border: 2px solid rgba(255, 95, 86, 0.3);
+  border-radius: 8px;
+  margin-top: 1rem;
+  animation: errorShake 0.4s;
+}
+
+.error-message.show {
+  display: block;
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.error-icon {
+  font-size: 2rem;
+  color: #FF5F56;
+  margin-bottom: 0.5rem;
+}
+
+.error-text {
+  font-family: 'PP Neue Machina', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #FF5F56;
+  margin: 0 0 0.5rem;
+}
+
+.error-subtext {
+  font-size: 0.875rem;
+  color: rgba(255, 95, 86, 0.8);
+  margin: 0;
+}
+
+/* ───────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN
+   ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .signal-seeker-terminal {
+    padding: 4rem 1rem;
+  }
+  
+  .terminal-logo {
+    margin-bottom: 2rem;
+  }
+  
+  .triangle-logo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .terminal-header {
+    margin-bottom: 2rem;
+  }
+  
+  .terminal-content {
+    padding: 1.5rem;
+  }
+  
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .benefit-card {
+    padding: 1rem;
+  }
+  
+  .benefit-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .terminal-signup {
+    padding: 1.5rem;
+  }
+  
+  .terminal-button {
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .terminal-title {
+    font-size: 1.25rem;
+  }
+  
+  .terminal-subtitle {
+    font-size: 0.8125rem;
+  }
+  
+  .benefit-title {
+    font-size: 0.75rem;
+  }
+  
+  .benefit-desc {
+    font-size: 0.875rem;
+  }
+  
+  .benefit-subdesc {
+    font-size: 0.75rem;
+  }
+}
+
+/* ───────────────────────────────────────────────────────────
+   ACCESSIBILITY
+   ─────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus States */
+.terminal-input:focus-visible,
+.terminal-button:focus-visible {
+  outline: 3px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
+/* ───────────────────────────────────────────────────────────
+   PRINT STYLES
+   ─────────────────────────────────────────────────────────── */
+
+@media print {
+  .terminal-background,
+  .terminal-scanlines,
+  .terminal-matrix-rain,
+  .terminal-particles {
+    display: none;
+  }
+  
+  .signal-seeker-terminal {
+    background: white;
+    color: black;
+  }
+  
+  .terminal-window {
+    border: 1px solid #000;
+    box-shadow: none;
+  }
+}

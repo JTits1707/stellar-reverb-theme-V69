@@ -1,0 +1,41 @@
+{% liquid
+  assign capsule_number = capsule.capsule_number.value | default: '000'
+  assign theme = capsule.theme_color.value | default: 'cyan-magenta'
+  assign image = capsule.featured_image.value
+  assign title = capsule.title.value | upcase
+  assign url = capsule.page_url.value | default: '#'
+%}
+
+<article class="sr-archive-card" data-theme="{{ theme }}" data-capsule="{{ capsule_number }}">
+  <a href="{{ url }}" class="sr-card-link">
+    <div class="sr-card-image-container">
+      {% if image %}
+        <img src="{{ image | image_url: width: 800 }}" alt="{{ title }}" class="sr-main-img" loading="lazy">
+        <div class="sr-glitch-overlay"></div>
+      {% endif %}
+      
+      {% comment %} HUD Overlay Elements {% endcomment %}
+      <div class="sr-hud-frame">
+        <div class="sr-hud-top">
+          <span class="sr-hud-status">SIGNAL DETECTED [{{ capsule_number }}]</span>
+          <span class="sr-hud-corner"></span>
+        </div>
+        <div class="sr-hud-bottom">
+          <span class="sr-hud-decrypt">DECRYPTING... 21%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sr-card-content">
+      <div class="sr-card-header">
+        <span class="sr-capsule-label">TRANSMISSION</span>
+        <span class="sr-capsule-id">#{{ capsule_number }}</span>
+      </div>
+      <h3 class="sr-capsule-title">{{ title }}</h3>
+      <div class="sr-card-footer">
+        <span class="sr-cta-text">EXPLORE FREQUENCY</span>
+        <svg class="sr-cta-arrow" width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h18M13 0l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </div>
+    </div>
+  </a>
+</article>

@@ -1,0 +1,43 @@
+<section class="sr-hero-terminal" data-section-id="{{ section.id }}">
+  <div class="sr-hero-radar"></div> <div class="sr-terminal-container">
+    <div class="sr-terminal-hud-top">
+      <div class="sr-hud-bits">
+        <span>AUTO_SCAN: ACTIVE</span>
+        <span>COORD: 34.02 / -118.24</span>
+      </div>
+      <div class="sr-hud-signal">
+        <span class="sr-signal-led animate-pulse"></span>
+        SIGNAL_STRENGTH: 98%
+      </div>
+    </div>
+
+    <div class="sr-hero-main">
+      <div class="sr-hero-glitch-box">
+        <p class="sr-hero-kicker">TRANSMISSION_INITIATED</p>
+        <h1 class="sr-hero-title glitch-text" data-text="{{ section.settings.title }}">
+          {{ section.settings.title }}
+        </h1>
+      </div>
+
+      {% if featured_capsule %}
+        <div class="sr-hero-artifact-preview">
+          <div class="sr-artifact-frame">
+            <img src="{{ featured_capsule.featured_image.value | image_url: width: 1200 }}" alt="Artifact Preview">
+            <div class="sr-artifact-overlay"></div>
+          </div>
+          
+          <div class="sr-artifact-data">
+            <h2 class="sr-artifact-name">{{ featured_capsule.title.value }}</h2>
+            <p class="sr-artifact-meta">CAPSULE_{{ featured_capsule.capsule_number.value }} // {{ featured_capsule.release_date.value | date: "%Y" }}</p>
+            
+            <div class="sr-hero-actions">
+              <a href="{{ featured_capsule.page_url.value }}" class="sr-btn-handshake" data-handshake-trigger>
+                <span class="sr-btn-text">EXPLORE_TRANSMISSION</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

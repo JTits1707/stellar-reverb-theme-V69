@@ -1,0 +1,22 @@
+<div class="sr-audio-module" data-signal-source="{{ capsule.audio_url.value }}">
+  <div class="sr-audio-visualizer">
+    <div class="sr-oscilloscope">
+      <svg class="sr-wave-svg" viewBox="0 0 100 20" preserveAspectRatio="none">
+        <path class="sr-wave-path" d="M0 10 Q 25 10, 50 10 T 100 10" fill="none" stroke="currentColor" stroke-width="0.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="sr-audio-controls">
+    <button class="sr-audio-btn" data-audio-toggle aria-label="Tune Frequency">
+      <span class="sr-btn-icon">// PLAY</span>
+      <span class="sr-btn-frequency">88.3 MHz</span>
+    </button>
+    <div class="sr-audio-metadata">
+      <span class="sr-signal-type">TYPE: FRACTURED_ECHO</span>
+      <span class="sr-signal-status" data-audio-status>IDLE</span>
+    </div>
+  </div>
+  
+  <audio id="capsule-audio-{{ capsule.id }}" src="{{ capsule.audio_url.value }}"></audio>
+</div>

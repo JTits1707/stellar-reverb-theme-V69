@@ -1,0 +1,828 @@
+{% comment %}
+  =====================================================
+  TRANSMISSION VAULT SECTION
+  =====================================================
+  
+  Features:
+  - Grid display of all transmission capsules
+  - Dynamic loading from collections['transmissions']
+  - Advanced filters (category, price, availability)
+  - FOMO elements (low stock, countdown timers)
+  - Hover effects and AR portal previews
+  - Locked/unlocked states
+{% endcomment %}
+
+{%- liquid
+  assign vault_title = section.settings.vault_title | default: 'THE VAULT'
+  assign vault_subtitle = section.settings.vault_subtitle | default: 'Archive of All Intercepted Transmissions'
+  assign grid_columns = section.settings.grid_columns | default: 3
+  assign enable_fomo = section.settings.enable_fomo | default: true
+  assign low_stock_threshold = section.settings.low_stock_threshold | default: 5
+  
+  assign transmissions = collections.transmissions.products
+-%}
+
+<section class="vault-section" id="vault" data-section-id="{{ section.id }}" data-section-type="transmission-vault">
+  <div class="vault-container">
+    <div class="vault-header">
+      <h2 class="vault-title">{{ vault_title }}</h2>
+      <p class="vault-subtitle">{{ vault_subtitle }}</p>
+      <div class="vault-stats">
+        <span class="stat-item">
+          <span class="stat-icon">📡</span>
+          <span class="stat-value">{{ transmissions.size }}</span> CAPSULES
+        </span>
+        <span class="stat-item">
+          <span class="stat-icon">🔓</span>
+          <span class="stat-value" id="availableCount">0</span> UNLOCKED
+        </span>
+      </div>
+    </div>
+
+    <div class="vault-controls">
+      <div class="filter-group">
+        <label class="filter-label">CATEGORY:</label>
+        <select class="filter-select" id="categoryFilter">
+          <option value="all">ALL SIGNALS</option>
+          <option value="cosmic">COSMIC</option>
+          <option value="digital">DIGITAL</option>
+          <option value="analog">ANALOG</option>
+          <option value="neural">NEURAL</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">SORT BY:</label>
+        <select class="filter-select" id="sortFilter">
+          <option value="date-desc">NEWEST FIRST</option>
+          <option value="date-asc">OLDEST FIRST</option>
+          <option value="price-asc">PRICE: LOW TO HIGH</option>
+          <option value="price-desc">PRICE: HIGH TO LOW</option>
+          <option value="title-asc">A-Z</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">AVAILABILITY:</label>
+        <select class="filter-select" id="availabilityFilter">
+          <option value="all">ALL</option>
+          <option value="available">IN STOCK</option>
+          <option value="low-stock">LOW STOCK</option>
+          <option value="sold-out">SOLD OUT</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="capsules-grid" data-columns="{{ grid_columns }}">
+      {%- if transmissions.size > 0 -%}
+        {%- for product in transmissions -%}
+          {%- liquid
+            assign capsule_number = product.metafields.transmissions.capsule_number | default: forloop.index
+            assign lore_text = product.metafields.transmissions.lore_text | default: product.description
+            assign teaser_text = product.metafields.transmissions.teaser_text | default: ''
+            assign category = product.metafields.transmissions.category | default: 'cosmic'
+            assign lore_tags = product.metafields.transmissions.lore_tags
+            assign ar_model_url = product.metafields.transmissions.ar_model_url
+            
+            assign is_low_stock = false
+            if product.variants.first.inventory_quantity <= low_stock_threshold and product.variants.first.inventory_quantity > 0
+              assign is_low_stock = true
+            endif
+          -%}
+
+          <div class="capsule-card" 
+               data-category="{{ category }}" 
+               data-price="{{ product.price }}"
+               data-available="{{ product.available }}"
+               data-low-stock="{{ is_low_stock }}"
+               data-title="{{ product.title }}"
+               data-date="{{ product.created_at | date: '%s' }}">
+            
+            <div class="capsule-header">CAPSULE {{ capsule_number | prepend: '00' | slice: -3, 3 }}</div>
+            
+            <h3 class="capsule-title">{{ product.title }}</h3>
+            
+            <div class="capsule-visual">
+              {%- if product.featured_image -%}
+                <a href="{{ product.url }}">
+                  <img 
+                    src="{{ product.featured_image | image_url: width: 400 }}"
+                    srcset="{{ product.featured_image | image_url: width: 200 }} 200w,
+                            {{ product.featured_image | image_url: width: 400 }} 400w,
+                            {{ product.featured_image | image_url: width: 600 }} 600w"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    loading="lazy"
+                    width="400"
+                    height="400"
+                  >
+                </a>
+              {%- endif -%}
+              
+              {%- if ar_model_url != blank -%}
+                <button class="ar-portal-btn" data-ar-url="{{ ar_model_url }}" aria-label="View in AR">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  AR
+                </button>
+              {%- endif -%}
+            </div>
+            
+            <div class="status-tags">
+              <span class="status-tag price">FROM {{ product.price | money }}</span>
+              
+              {%- if product.available -%}
+                {%- if is_low_stock and enable_fomo -%}
+                  <span class="status-tag stock low-stock">⚠️ LOW STOCK</span>
+                {%- elsif product.variants.first.inventory_quantity > 10 -%}
+                  <span class="status-tag edition">IN STOCK</span>
+                {%- endif -%}
+              {%- else -%}
+                <span class="status-tag sold-out">SIGNAL LOST</span>
+              {%- endif -%}
+            </div>
+            
+            {%- if lore_tags.size > 0 -%}
+              <div class="lore-tags">
+                {%- for tag in lore_tags limit: 3 -%}
+                  <span class="lore-tag">#{{ tag }}</span>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+            
+            {%- if teaser_text != blank -%}
+              <div class="lore-blurb">{{ teaser_text | truncate: 100 }}</div>
+            {%- elsif lore_text != blank -%}
+              <div class="lore-blurb">{{ lore_text | strip_html | truncate: 100 }}</div>
+            {%- endif -%}
+            
+            <a href="{{ product.url }}" class="decode-btn">DECODE SIGNAL</a>
+            
+            {%- if enable_fomo and is_low_stock -%}
+              <div class="fomo-alert">
+                <span class="fomo-icon">⚡</span>
+                Only {{ product.variants.first.inventory_quantity }} left!
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="vault-empty">
+          <p>The vault is empty. No signals detected...</p>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="no-results" style="display: none;">
+      <p>No transmissions match your filters. Try adjusting your search parameters.</p>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} AR Portal Modal {%- endcomment -%}
+<div class="ar-modal" id="arModal" style="display: none;">
+  <div class="ar-modal-overlay" id="arModalClose"></div>
+  <div class="ar-modal-content">
+    <button class="ar-modal-close" id="arModalCloseBtn">&times;</button>
+    <model-viewer 
+      id="arModelViewer"
+      camera-controls 
+      auto-rotate 
+      ar 
+      ar-modes="webxr scene-viewer quick-look"
+      style="width: 100%; height: 500px;"
+      loading="eager"
+    ></model-viewer>
+    <div class="ar-modal-footer">
+      <p>Tap the AR button to view in your space</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .vault-section {
+    padding: 4rem 2rem;
+    position: relative;
+  }
+
+  .vault-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .vault-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .vault-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--neon-magenta), var(--cyan-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  .vault-subtitle {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    color: var(--chrome-silver);
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+  }
+
+  .vault-stats {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: var(--chrome-silver);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .stat-icon {
+    font-size: 1.2rem;
+  }
+
+  .stat-value {
+    color: var(--neon-magenta);
+    font-weight: 700;
+  }
+
+  .vault-controls {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    background: rgba(10, 10, 10, 0.6);
+    border: 1px solid rgba(225, 60, 250, 0.3);
+    border-radius: 0.5rem;
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .filter-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8rem;
+    color: var(--chrome-silver);
+    letter-spacing: 1px;
+  }
+
+  .filter-select {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+    background: rgba(10, 10, 10, 0.8);
+    color: var(--neon-magenta);
+    border: 1px solid rgba(225, 60, 250, 0.5);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .filter-select:hover,
+  .filter-select:focus {
+    border-color: var(--neon-magenta);
+    box-shadow: 0 0 15px rgba(225, 60, 250, 0.4);
+    outline: none;
+  }
+
+  .capsules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .capsules-grid[data-columns="2"] {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  }
+
+  .capsules-grid[data-columns="4"] {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .capsule-card {
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid rgba(225, 60, 250, 0.3);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .capsule-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-magenta), var(--cyan-blue));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .capsule-card:hover {
+    border-color: var(--neon-magenta);
+    box-shadow: 0 10px 40px rgba(225, 60, 250, 0.3);
+    transform: translateY(-5px);
+  }
+
+  .capsule-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .capsule-card.hidden {
+    display: none;
+  }
+
+  .capsule-header {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    color: var(--radioactive-green);
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+
+  .capsule-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--neon-magenta);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  .capsule-visual {
+    position: relative;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .capsule-visual img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .capsule-card:hover .capsule-visual img {
+    transform: scale(1.05);
+  }
+
+  .ar-portal-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(225, 60, 250, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    gap: 0.2rem;
+  }
+
+  .ar-portal-btn:hover {
+    background: var(--neon-magenta);
+    box-shadow: 0 0 20px var(--neon-magenta);
+    transform: scale(1.1);
+  }
+
+  .status-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .status-tag {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .status-tag.price {
+    background: rgba(40, 168, 214, 0.2);
+    color: var(--cyan-blue);
+    border: 1px solid var(--cyan-blue);
+  }
+
+  .status-tag.edition {
+    background: rgba(0, 240, 172, 0.2);
+    color: var(--radioactive-green);
+    border: 1px solid var(--radioactive-green);
+  }
+
+  .status-tag.stock {
+    background: rgba(244, 255, 48, 0.2);
+    color: var(--electric-yellow);
+    border: 1px solid var(--electric-yellow);
+  }
+
+  .status-tag.low-stock {
+    animation: pulseWarning 2s ease-in-out infinite;
+  }
+
+  @keyframes pulseWarning {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  .status-tag.sold-out {
+    background: rgba(192, 192, 192, 0.2);
+    color: var(--chrome-silver);
+    border: 1px solid var(--chrome-silver);
+  }
+
+  .lore-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .lore-tag {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+    background: transparent;
+    color: var(--radioactive-green);
+    border: 1px solid var(--radioactive-green);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .lore-tag:hover {
+    background: var(--radioactive-green);
+    color: var(--void-black);
+  }
+
+  .lore-blurb {
+    font-size: 0.85rem;
+    color: var(--chrome-silver);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  .decode-btn {
+    display: block;
+    width: 100%;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(45deg, var(--neon-magenta), var(--cyan-blue));
+    color: white;
+    border: none;
+    border-radius: 25px;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .decode-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .decode-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(225, 60, 250, 0.4);
+  }
+
+  .decode-btn:hover::before {
+    left: 100%;
+  }
+
+  .fomo-alert {
+    margin-top: 0.8rem;
+    padding: 0.6rem;
+    background: rgba(244, 255, 48, 0.1);
+    border: 1px solid var(--electric-yellow);
+    border-radius: 0.3rem;
+    color: var(--electric-yellow);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .fomo-icon {
+    font-size: 1rem;
+    animation: flash 1.5s infinite;
+  }
+
+  @keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .vault-empty,
+  .no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--chrome-silver);
+    font-style: italic;
+    grid-column: 1 / -1;
+  }
+
+  /* AR Modal */
+  .ar-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ar-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  .ar-modal-content {
+    position: relative;
+    background: rgba(10, 10, 10, 0.9);
+    border: 2px solid var(--neon-magenta);
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 0 50px rgba(225, 60, 250, 0.6);
+  }
+
+  .ar-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--neon-magenta);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .ar-modal-close:hover {
+    background: var(--cyan-blue);
+    transform: rotate(90deg);
+  }
+
+  .ar-modal-footer {
+    margin-top: 1rem;
+    text-align: center;
+    color: var(--chrome-silver);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .vault-section {
+      padding: 2rem 1rem;
+    }
+
+    .vault-controls {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .filter-group {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .filter-select {
+      flex: 1;
+    }
+
+    .capsules-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .ar-modal-content {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortFilter = document.getElementById('sortFilter');
+    const availabilityFilter = document.getElementById('availabilityFilter');
+    const capsuleCards = Array.from(document.querySelectorAll('.capsule-card'));
+    const noResults = document.querySelector('.no-results');
+    const availableCount = document.getElementById('availableCount');
+
+    // Count available capsules
+    const available = capsuleCards.filter(card => card.dataset.available === 'true').length;
+    if (availableCount) availableCount.textContent = available;
+
+    // Filter and sort function
+    function filterAndSort() {
+      const category = categoryFilter.value;
+      const sort = sortFilter.value;
+      const availability = availabilityFilter.value;
+
+      let visibleCards = capsuleCards.filter(card => {
+        // Category filter
+        if (category !== 'all' && card.dataset.category !== category) return false;
+        
+        // Availability filter
+        if (availability === 'available' && card.dataset.available !== 'true') return false;
+        if (availability === 'low-stock' && card.dataset.lowStock !== 'true') return false;
+        if (availability === 'sold-out' && card.dataset.available === 'true') return false;
+        
+        return true;
+      });
+
+      // Sort
+      visibleCards.sort((a, b) => {
+        switch(sort) {
+          case 'date-desc':
+            return parseInt(b.dataset.date) - parseInt(a.dataset.date);
+          case 'date-asc':
+            return parseInt(a.dataset.date) - parseInt(b.dataset.date);
+          case 'price-asc':
+            return parseInt(a.dataset.price) - parseInt(b.dataset.price);
+          case 'price-desc':
+            return parseInt(b.dataset.price) - parseInt(a.dataset.price);
+          case 'title-asc':
+            return a.dataset.title.localeCompare(b.dataset.title);
+          default:
+            return 0;
+        }
+      });
+
+      // Hide all cards
+      capsuleCards.forEach(card => card.classList.add('hidden'));
+
+      // Show and reorder visible cards
+      const grid = document.querySelector('.capsules-grid');
+      visibleCards.forEach(card => {
+        card.classList.remove('hidden');
+        grid.appendChild(card);
+      });
+
+      // Show/hide no results message
+      if (visibleCards.length === 0) {
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+      }
+    }
+
+    // Event listeners
+    if (categoryFilter) categoryFilter.addEventListener('change', filterAndSort);
+    if (sortFilter) sortFilter.addEventListener('change', filterAndSort);
+    if (availabilityFilter) availabilityFilter.addEventListener('change', filterAndSort);
+
+    // AR Portal functionality
+    const arButtons = document.querySelectorAll('.ar-portal-btn');
+    const arModal = document.getElementById('arModal');
+    const arModalClose = document.getElementById('arModalClose');
+    const arModalCloseBtn = document.getElementById('arModalCloseBtn');
+    const arModelViewer = document.getElementById('arModelViewer');
+
+    arButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const arUrl = this.dataset.arUrl;
+        if (arUrl && arModelViewer) {
+          arModelViewer.setAttribute('src', arUrl);
+          arModal.style.display = 'flex';
+        }
+      });
+    });
+
+    if (arModalClose) {
+      arModalClose.addEventListener('click', () => {
+        arModal.style.display = 'none';
+      });
+    }
+
+    if (arModalCloseBtn) {
+      arModalCloseBtn.addEventListener('click', () => {
+        arModal.style.display = 'none';
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Transmission Vault",
+  "settings": [
+    {
+      "type": "text",
+      "id": "vault_title",
+      "label": "Vault Title",
+      "default": "THE VAULT"
+    },
+    {
+      "type": "text",
+      "id": "vault_subtitle",
+      "label": "Vault Subtitle",
+      "default": "Archive of All Intercepted Transmissions"
+    },
+    {
+      "type": "range",
+      "id": "grid_columns",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Grid Columns (Desktop)",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_fomo",
+      "label": "Enable FOMO Elements",
+      "default": true,
+      "info": "Show low stock alerts and urgency indicators"
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "label": "Low Stock Threshold",
+      "default": 5,
+      "info": "Show low stock warning when inventory is at or below this number"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Transmission Vault"
+    }
+  ]
+}
+{% endschema %}

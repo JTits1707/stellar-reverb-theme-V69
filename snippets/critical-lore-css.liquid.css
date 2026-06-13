@@ -1,0 +1,123 @@
+{% comment %}
+═══════════════════════════════════════════════════════════════════════════════
+  SNIPPET: Critical CSS for Universal Lore
+  Inline CSS for optimal First Contentful Paint (<1s target)
+  This CSS must be loaded inline in <head> for maximum performance
+═══════════════════════════════════════════════════════════════════════════════
+{% endcomment %}
+
+/* === CRITICAL PERFORMANCE STYLES === */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* ── Typography ── */
+  --font-display: 'Orbitron', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-human: 'PP Mori', 'Montserrat', system-ui, sans-serif;
+  --font-ai: 'PP Neue Machina', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* ── Palette ── */
+  --void-black: #0A0A0A;
+  --neon-magenta: #E13CFA;
+  --cyan-blue: #28A8D6;
+  --radioactive-green: #00F0AC;
+  --cosmic-purple: #6C24B3;
+  --chrome-silver: #C0C0C0;
+  --electric-yellow: #F4FF30;
+  --dark-gray: #1A1A1A;
+  --medium-gray: #2A2A2A;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: var(--font-human);
+  background: var(--void-black);
+  color: #fff;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.orbitron {
+  font-family: var(--font-display);
+}
+
+.montserrat {
+  font-family: var(--font-human);
+}
+
+/* Waveform divider */
+.waveform-divider {
+  width: 100%;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(40, 168, 214, 0.3) 20%, 
+    rgba(225, 60, 250, 0.3) 50%, 
+    rgba(0, 240, 172, 0.3) 80%, 
+    transparent
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.waveform-divider::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1400 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,50 Q70,20 140,50 T280,50 T420,50 T560,50 T700,50 T840,50 T980,50 T1120,50 T1260,50 T1400,50' stroke='%2328A8D6' stroke-width='2' fill='none' opacity='0.6'/%3E%3Cpath d='M0,50 Q70,80 140,50 T280,50 T420,50 T560,50 T700,50 T840,50 T980,50 T1120,50 T1260,50 T1400,50' stroke='%23E13CFA' stroke-width='1.5' fill='none' opacity='0.4'/%3E%3Cpath d='M0,50 Q35,35 70,50 T140,50 T210,50 T280,50 T350,50 T420,50 T490,50 T560,50 T630,50 T700,50' stroke='%2300F0AC' stroke-width='1' fill='none' opacity='0.8'/%3E%3C/svg%3E") center/cover;
+  animation: wave-pulse 3s ease-in-out infinite;
+}
+
+@keyframes wave-pulse {
+  0%, 100% { 
+    opacity: 0.7;
+    transform: scaleX(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scaleX(1.05);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (prefers-high-contrast: more) {
+  :root {
+    --void-black: #000000;
+    --neon-magenta: #FF00FF;
+    --cyan-blue: #00FFFF;
+    --radioactive-green: #00FF00;
+  }
+}
+
+/* Loading optimization */
+.no-js .lore-loader {
+  display: none;
+}
+
+img[loading="lazy"] {
+  min-height: 200px;
+}

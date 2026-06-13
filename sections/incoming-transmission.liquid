@@ -1,0 +1,786 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FEATURED TRANSMISSION (ULTIMATE FIX)
+  ═══════════════════════════════════════════════════════════
+  
+  FIXED: Image now displays properly from product or manual override
+  Features:
+    - Product featured_media support (PRIMARY)
+    - Manual image override (FALLBACK)
+    - Placeholder asset (LAST RESORT)
+    - All neon effects preserved
+    - INCOMING tag
+    - Decryption overlay
+    - Full styling included
+  
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% assign featured_product = section.settings.featured_product %}
+
+<section 
+  class="featured-transmission" 
+  data-section-id="{{ section.id }}"
+  data-section-type="featured-transmission"
+  data-color-scheme="{{ section.settings.color_scheme }}"
+  data-image-position="{{ section.settings.image_position }}"
+>
+  
+  <div class="featured-container">
+    
+    {%- comment -%} 
+      ═══════════════════════════════════════════════════════════
+      FEATURED IMAGE SIDE - ULTIMATE FIX
+      ═══════════════════════════════════════════════════════════
+      Priority cascade:
+      1. Product featured_media (if product selected)
+      2. Manual section.settings.featured_image (override)
+      3. Placeholder asset (fallback)
+    {%- endcomment -%}
+    
+    <div class="featured-image-wrapper">
+      <div class="featured-image-container" data-parallax>
+        
+        {%- liquid
+          # Determine which image to use
+          assign display_image = blank
+          assign image_alt = section.settings.transmission_header | default: 'Stellar Transmission'
+          
+          # Priority 1: Product featured media
+          if featured_product and featured_product.featured_media
+            assign display_image = featured_product.featured_media
+            assign image_alt = featured_product.title
+          # Priority 2: Manual override
+          elsif section.settings.featured_image != blank
+            assign display_image = section.settings.featured_image
+          endif
+        -%}
+        
+        {%- comment -%} THE ACTUAL IMAGE TAG (THIS WAS MISSING!) {%- endcomment -%}
+        {% if display_image != blank %}
+          <img 
+            src="{{ display_image | image_url: width: 1400 }}"
+            alt="{{ image_alt | escape }}"
+            class="featured-image"
+            loading="eager"
+            width="{{ display_image.width | default: 1400 }}"
+            height="{{ display_image.height | default: 800 }}"
+          >
+        {% else %}
+          {%- comment -%} Fallback to placeholder {%- endcomment -%}
+          <img 
+            src="{{ 'placeholder-capsule.jpg' | asset_url }}"
+            alt="Stellar Transmission Placeholder"
+            class="featured-image"
+            loading="lazy"
+            width="1400"
+            height="800"
+          >
+        {% endif %}
+        
+        {%- comment -%} Neon Glow Sweep Effect {%- endcomment -%}
+        <div class="featured-image-glow"></div>
+        
+        {%- comment -%} INCOMING Tag (Top Left) {%- endcomment -%}
+        {% if section.settings.show_incoming_tag %}
+          <div class="incoming-tag orbitron">
+            <span class="tag-pulse"></span>
+            {{ section.settings.tag_text | default: 'INCOMING' }}
+          </div>
+        {% endif %}
+        
+        {%- comment -%} Featured Badge (Top Right) {%- endcomment -%}
+        <div class="featured-badge">
+          <span class="badge-icon">✦</span>
+          <span class="badge-text">FEATURED</span>
+        </div>
+        
+        {%- comment -%} Decryption Overlay (Bottom) {%- endcomment -%}
+        {% if section.settings.show_decryption_overlay %}
+          <div class="decryption-overlay">
+            <div class="decrypt-text orbitron">
+              DECRYPTING SIGNAL {{ section.settings.progress_percentage | default: 69 }}%
+            </div>
+            <div class="decrypt-progress">
+              <div class="decrypt-bar" style="width: {{ section.settings.progress_percentage | default: 69 }}%;"></div>
+            </div>
+          </div>
+        {% endif %}
+        
+      </div>
+    </div>
+    
+    {%- comment -%} 
+      ═══════════════════════════════════════════════════════════
+      CONTENT SIDE
+      ═══════════════════════════════════════════════════════════
+    {%- endcomment -%}
+    
+    <div class="featured-content">
+      
+      {%- comment -%} Transmission Header {%- endcomment -%}
+      {% if section.settings.transmission_header != blank %}
+        <div class="featured-tag orbitron">
+          {{ section.settings.transmission_header }}
+        </div>
+      {% endif %}
+      
+      {%- comment -%} Title from Product or Fallback {%- endcomment -%}
+      <h2 class="featured-title orbitron">
+        {% if featured_product %}
+          {{ featured_product.title | upcase }}
+        {% elsif section.settings.capsule_title != blank %}
+          {{ section.settings.capsule_title | upcase }}
+        {% else %}
+          FEATURED TRANSMISSION
+        {% endif %}
+      </h2>
+      
+      {%- comment -%} Description from Product or Fallback {%- endcomment -%}
+      {% if featured_product and featured_product.description != blank %}
+        <div class="featured-description">
+          {{ featured_product.description | truncate: 300 }}
+        </div>
+      {% elsif section.settings.description != blank %}
+        <div class="featured-description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+      
+      {%- comment -%} Product Tags {%- endcomment -%}
+      {% if featured_product and featured_product.tags.size > 0 %}
+        <div class="capsule-tags">
+          {% for tag in featured_product.tags limit: 4 %}
+            <span class="tag-pill orbitron">
+              #{{ tag | handleize }}
+            </span>
+          {% endfor %}
+        </div>
+      {% endif %}
+      
+      {%- comment -%} CTA Button {%- endcomment -%}
+      <div class="featured-ctas">
+        {% if featured_product %}
+          <a 
+            href="{{ featured_product.url }}" 
+            class="featured-cta featured-cta-primary"
+          >
+            {{ section.settings.button_text | default: 'SHOP THE CAPSULE' }}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 10h10M10 5l5 5-5 5"/>
+            </svg>
+          </a>
+        {% elsif section.settings.primary_cta_link != blank %}
+          <a 
+            href="{{ section.settings.primary_cta_link }}" 
+            class="featured-cta featured-cta-primary"
+          >
+            {{ section.settings.button_text | default: 'EXPLORE CAPSULE' }}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 10h10M10 5l5 5-5 5"/>
+            </svg>
+          </a>
+        {% endif %}
+      </div>
+      
+    </div>
+    
+  </div>
+  
+</section>
+
+{% schema %}
+{
+  "name": "Featured Transmission",
+  "tag": "section",
+  "class": "section-featured-transmission",
+  "settings": [
+    {
+      "type": "header",
+      "content": "⚡ PRODUCT SOURCE"
+    },
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Featured Product",
+      "info": "Product's featured image will be used automatically"
+    },
+    {
+      "type": "header",
+      "content": "🎨 MANUAL OVERRIDE (Optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Manual Image Override",
+      "info": "Only used if no product selected"
+    },
+    {
+      "type": "text",
+      "id": "capsule_title",
+      "label": "Manual Title",
+      "info": "Only used if no product selected"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Manual Description",
+      "info": "Only used if no product selected"
+    },
+    {
+      "type": "header",
+      "content": "📡 TRANSMISSION INFO"
+    },
+    {
+      "type": "text",
+      "id": "transmission_header",
+      "label": "Transmission Header",
+      "default": "INCOMING TRANSMISSION // CAPSULE 001"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "SHOP THE CAPSULE"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Manual Button Link",
+      "info": "Only used if no product selected"
+    },
+    {
+      "type": "header",
+      "content": "🎭 VISUAL EFFECTS"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "options": [
+        {
+          "value": "magenta",
+          "label": "Neon Magenta"
+        },
+        {
+          "value": "cyan",
+          "label": "Cyber Cyan"
+        },
+        {
+          "value": "green",
+          "label": "Toxic Green"
+        }
+      ],
+      "default": "magenta"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_incoming_tag",
+      "label": "Show INCOMING Tag",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Tag Text",
+      "default": "INCOMING"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_decryption_overlay",
+      "label": "Show Decryption Overlay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "progress_percentage",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Decryption Progress",
+      "default": 69
+    },
+    {
+      "type": "header",
+      "content": "📐 LAYOUT"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Transmission"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  /* ════════════════════════════════════════════════════════════════
+     STELLAR REVERB - FEATURED TRANSMISSION ULTIMATE STYLES
+     ════════════════════════════════════════════════════════════════ */
+  
+  /* Color Schemes */
+  :root {
+    --neon-magenta: #E13CFA;
+    --cyan-blue: #28A8D6;
+    --toxic-green: #00F0AC;
+    --electric-yellow: #F4FF30;
+    --void-black: #0D0D0D;
+  }
+  
+  [data-color-scheme="magenta"] {
+    --primary-glow: #E13CFA;
+    --secondary-glow: #28A8D6;
+  }
+  
+  [data-color-scheme="cyan"] {
+    --primary-glow: #28A8D6;
+    --secondary-glow: #00F0FF;
+  }
+  
+  [data-color-scheme="green"] {
+    --primary-glow: #00F0AC;
+    --secondary-glow: #B4FF61;
+  }
+  
+  .featured-transmission {
+    position: relative;
+    background: linear-gradient(135deg, 
+      rgba(13, 13, 13, 0.98) 0%, 
+      rgba(20, 20, 40, 0.95) 100%);
+    padding: 5rem 0;
+    overflow: hidden;
+  }
+  
+  .featured-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  
+  /* Image position variants */
+  [data-image-position="right"] .featured-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  [data-image-position="right"] .featured-image-wrapper {
+    order: 2;
+  }
+  
+  /* ════════════════════════════════════════════════════════════════
+     IMAGE CONTAINER - THE PART THAT WAS MISSING!
+     ════════════════════════════════════════════════════════════════ */
+  
+  .featured-image-wrapper {
+    position: relative;
+  }
+  
+  .featured-image-container {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.6),
+      0 0 60px rgba(var(--primary-glow), 0.3);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .featured-image-container:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 
+      0 30px 80px rgba(0, 0, 0, 0.8),
+      0 0 100px var(--primary-glow);
+  }
+  
+  /* THE ACTUAL IMAGE - THIS IS WHAT DISPLAYS YOUR PHOTO! */
+  .featured-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    filter: contrast(1.05) saturate(1.1);
+  }
+  
+  .featured-image-container:hover .featured-image {
+    transform: scale(1.05);
+    filter: contrast(1.1) saturate(1.2);
+  }
+  
+  /* Neon glow sweep effect */
+  .featured-image-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(40, 168, 214, 0.3), 
+      transparent);
+    transition: left 0.8s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+  
+  .featured-image-container:hover .featured-image-glow {
+    left: 100%;
+  }
+  
+  /* ════════════════════════════════════════════════════════════════
+     OVERLAYS & BADGES
+     ════════════════════════════════════════════════════════════════ */
+  
+  /* INCOMING Tag (Top Left) */
+  .incoming-tag {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(244, 255, 48, 0.95);
+    color: var(--void-black);
+    font-size: 0.8125rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    border-radius: 30px;
+    box-shadow: 0 0 30px var(--electric-yellow);
+    z-index: 3;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  .tag-pulse {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--void-black);
+    border-radius: 50%;
+    animation: pulse-dot 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  
+  /* Featured Badge (Top Right) */
+  .featured-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--neon-magenta), #9D00FF);
+    border-radius: 30px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: white;
+    box-shadow: 0 0 20px var(--neon-magenta);
+    z-index: 3;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 15px var(--primary-glow); }
+    50% { box-shadow: 0 0 35px var(--primary-glow); }
+  }
+  
+  .badge-icon {
+    font-size: 1rem;
+  }
+  
+  /* Decryption Overlay (Bottom) */
+  .decryption-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(
+      to top,
+      rgba(13, 13, 13, 0.95) 0%,
+      rgba(13, 13, 13, 0.8) 50%,
+      transparent 100%
+    );
+    z-index: 3;
+  }
+  
+  .decrypt-text {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--electric-yellow);
+    margin-bottom: 0.75rem;
+    text-shadow: 0 0 10px var(--electric-yellow);
+  }
+  
+  .decrypt-progress {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  
+  .decrypt-bar {
+    height: 100%;
+    background: linear-gradient(90deg, 
+      var(--electric-yellow), 
+      var(--cyan-blue));
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--electric-yellow);
+    animation: decrypt-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes decrypt-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  
+  /* ════════════════════════════════════════════════════════════════
+     CONTENT SIDE
+     ════════════════════════════════════════════════════════════════ */
+  
+  .featured-content {
+    padding: 2rem 0;
+  }
+  
+  .featured-tag {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--cyan-blue);
+    padding: 0.75rem 1.5rem;
+    background: rgba(40, 168, 214, 0.1);
+    border: 2px solid var(--cyan-blue);
+    border-radius: 30px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .featured-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, 
+      var(--neon-magenta), 
+      var(--cyan-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 40px var(--neon-magenta);
+  }
+  
+  .featured-description {
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    font-size: 1.0625rem;
+  }
+  
+  /* Product Tags */
+  .capsule-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  
+  .tag-pill {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(40, 168, 214, 0.1);
+    border: 1px solid var(--cyan-blue);
+    border-radius: 20px;
+    color: var(--cyan-blue);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+  }
+  
+  .tag-pill:hover {
+    background: var(--cyan-blue);
+    color: var(--void-black);
+    box-shadow: 0 0 20px var(--cyan-blue);
+  }
+  
+  /* CTA Buttons */
+  .featured-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  
+  .featured-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 2.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Orbitron', monospace;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .featured-cta svg {
+    transition: transform 0.3s ease;
+  }
+  
+  .featured-cta:hover svg {
+    transform: translateX(4px);
+  }
+  
+  /* Primary CTA */
+  .featured-cta-primary {
+    background: var(--neon-magenta);
+    color: var(--void-black);
+    border: 2px solid var(--neon-magenta);
+    box-shadow: 0 0 20px var(--neon-magenta);
+  }
+  
+  .featured-cta-primary:hover {
+    background: transparent;
+    color: var(--neon-magenta);
+    box-shadow: 0 0 40px var(--neon-magenta);
+    transform: translateY(-2px);
+  }
+  
+  /* ════════════════════════════════════════════════════════════════
+     RESPONSIVE
+     ════════════════════════════════════════════════════════════════ */
+  
+  @media (max-width: 768px) {
+    .featured-transmission {
+      padding: 3rem 0;
+    }
+    
+    .featured-container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 0 1.5rem;
+    }
+    
+    .featured-transmission[data-image-position="right"] .featured-image-wrapper {
+      order: 0;
+    }
+    
+    .featured-content {
+      padding: 0;
+    }
+    
+    .featured-title {
+      font-size: 2rem;
+    }
+    
+    .featured-ctas {
+      flex-direction: column;
+    }
+    
+    .featured-cta {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .incoming-tag,
+    .featured-badge {
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+    }
+  }
+  
+  /* ════════════════════════════════════════════════════════════════
+     ACCESSIBILITY
+     ════════════════════════════════════════════════════════════════ */
+  
+  @media (prefers-reduced-motion: reduce) {
+    .featured-image-container,
+    .featured-image,
+    .featured-image-glow,
+    .featured-cta {
+      transition: none;
+      animation: none;
+    }
+    
+    .featured-badge,
+    .incoming-tag,
+    .decrypt-bar {
+      animation: none;
+    }
+  }
+  
+  .orbitron {
+    font-family: 'Orbitron', monospace;
+  }
+</style>
+
+<script>
+  // Set image position dynamically
+  (function() {
+    const section = document.querySelector('.featured-transmission[data-section-id="{{ section.id }}"]');
+    if (!section) return;
+    
+    // Subtle parallax effect on scroll
+    const imageContainer = section.querySelector('[data-parallax]');
+    if (imageContainer && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + scrolled;
+        const sectionHeight = rect.height;
+        
+        if (scrolled > sectionTop - window.innerHeight && scrolled < sectionTop + sectionHeight) {
+          const parallaxAmount = (scrolled - (sectionTop - window.innerHeight)) * 0.15;
+          imageContainer.style.transform = `translateY(${parallaxAmount}px)`;
+        }
+      });
+    }
+    
+    // Track CTA clicks
+    const ctas = section.querySelectorAll('.featured-cta');
+    ctas.forEach(cta => {
+      cta.addEventListener('click', function() {
+        if (typeof window.stellarAnalytics !== 'undefined') {
+          window.stellarAnalytics.trackCTAClick({
+            section: 'featured_transmission',
+            cta: this.textContent.trim(),
+            destination: this.href
+          });
+        }
+      });
+    });
+  })();
+</script>

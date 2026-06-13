@@ -1,0 +1,64 @@
+{% comment %}
+  STELLAR REVERB - INTER-PAGE HANDSHAKE TERMINAL
+  Triggered by stellar-core.js when navigating lore pages.
+{% endcomment %}
+
+<div id="sr-handshake-terminal" class="sr-handshake-overlay" aria-hidden="true">
+  <div class="handshake-window">
+    <div class="handshake-header">
+      <div class="window-dots">
+        <span class="dot-red"></span>
+        <span class="dot-yellow"></span>
+        <span class="dot-green"></span>
+      </div>
+      <div class="handshake-title orbitron">SYSTEM_REDIRECT</div>
+    </div>
+    
+    <div class="handshake-content">
+      <div id="sr-terminal-logs" class="terminal-logs-text courier">
+        > INITIATING_SECURE_LINK...<br>
+        > BYPASSING_VOID_ENCRYPTION...<br>
+        > HANDSHAKE_ACCEPTED.
+      </div>
+      
+      <div class="handshake-progress-container">
+        <div id="sr-handshake-bar" class="handshake-bar"></div>
+      </div>
+      
+      <div class="handshake-footer">
+        <span class="orbitron">DECRYPTING_RELIC...</span>
+        <span id="sr-terminal-percent" class="courier">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .sr-handshake-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.98);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .sr-handshake-overlay.active { opacity: 1; pointer-events: all; }
+  .handshake-window {
+    width: 90%;
+    max-width: 500px;
+    background: var(--void-black);
+    border: 2px solid var(--neon-magenta);
+    box-shadow: 0 0 40px rgba(225, 60, 250, 0.3);
+  }
+  .handshake-bar {
+    height: 4px;
+    width: 0%;
+    background: var(--neon-magenta);
+    box-shadow: 0 0 15px var(--neon-magenta);
+    transition: width 0.1s linear;
+  }
+</style>

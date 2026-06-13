@@ -1,0 +1,127 @@
+{% comment %}
+  =====================================================
+  ARCHIVE MANIFEST (Beast Mode V2 - Myth Swapper)
+  =====================================================
+{% endcomment %}
+
+{%- liquid
+  assign manifest_title = section.settings.manifest_title | default: 'ARCHIVE MANIFEST'
+  assign manifest_text = section.settings.manifest_text
+-%}
+
+<section class="archive-manifest lore-beast" data-section-id="{{ section.id }}">
+  <div class="manifest-container">
+    {% comment %} Holographic UI Frame {% endcomment %}
+    <div class="manifest-frame">
+      <div class="frame-line frame-top"></div>
+      <div class="frame-line frame-bottom"></div>
+    </div>
+    
+    {% comment %} THE MYTH SWAPPER INTERFACE {% endcomment %}
+    <div class="myth-toggle-wrapper">
+      <button class="myth-toggle active" data-mode="analog">ANALOG_MYTH</button>
+      <div class="toggle-divider">//</div>
+      <button class="myth-toggle" data-mode="ai">AI_LOGIC</button>
+    </div>
+
+    <div class="manifest-content">
+      <h2 class="manifest-title glitch-text" data-text="{{ manifest_title }}">{{ manifest_title }}</h2>
+      
+      <div id="MythTextContainer" class="manifest-text">
+        <div class="myth-text-block active" data-mode="analog">
+          {{ manifest_text }}
+        </div>
+        <div class="myth-text-block" data-mode="ai" style="display: none;">
+          <p class="terminal-line">>> ERROR: NARRATIVE_CORRUPTION. Intercepting neural fragments...</p>
+          <p class="terminal-line">>> Timeline Delta: +0.034. Archive Status: UNINDEXED.</p>
+          <p class="terminal-line">>> The machines remember what the seekers forgot.</p>
+        </div>
+      </div>
+      
+      <div class="manifest-metadata">
+        <span class="metadata-item">CLASSIFICATION: UNINDEXED</span>
+        <span class="metadata-divider">//</span>
+        <span class="metadata-item">CLEARANCE: SIGNAL SEEKER</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lore-beast {
+    padding: 8rem 2rem;
+    background: radial-gradient(circle at center, rgba(225, 60, 250, 0.05) 0%, transparent 70%);
+  }
+  
+  .myth-toggle-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    font-family: 'PP Neuemachina', monospace;
+  }
+  
+  .myth-toggle {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  .myth-toggle.active {
+    color: #E13CFA;
+    text-shadow: 0 0 10px rgba(225, 60, 250, 0.6);
+  }
+  
+  .toggle-divider { color: rgba(40, 168, 214, 0.3); }
+
+  .myth-text-block.glitch-entry {
+    animation: textFlash 0.4s ease-out;
+  }
+
+  @keyframes textFlash {
+    0% { opacity: 0; filter: brightness(2) blur(10px); }
+    100% { opacity: 1; filter: brightness(1) blur(0); }
+  }
+
+  /* Existing Frame Styles */
+  .manifest-frame { position: absolute; inset: -20px 0; pointer-events: none; }
+  .frame-line { position: absolute; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(225, 60, 250, 0.6), transparent); }
+  .frame-top { top: 0; }
+  .frame-bottom { bottom: 0; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.myth-toggle');
+  const texts = document.querySelectorAll('.myth-text-block');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      texts.forEach(txt => {
+        txt.style.display = (txt.dataset.mode === mode) ? 'block' : 'none';
+        if(txt.dataset.mode === mode) txt.classList.add('glitch-entry');
+      });
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Archive Manifest",
+  "settings": [
+    { "type": "text", "id": "manifest_title", "label": "Title", "default": "ARCHIVE MANIFEST" },
+    { "type": "textarea", "id": "manifest_text", "label": "Analog Text", "default": "Fragments of collapsed timelines..." }
+  ],
+  "presets": [{ "name": "Archive Manifest" }]
+}
+{% endschema %}

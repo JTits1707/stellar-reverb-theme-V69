@@ -1,0 +1,87 @@
+.lore-mainframe {
+  position: relative;
+  min-height: 80vh;
+  background: var(--void-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(40, 168, 214, 0.3);
+}
+
+.mainframe-container {
+  max-width: 1000px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.mainframe-title {
+  font-family: var(--font-title);
+  font-size: clamp(3rem, 10vw, 6rem);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 30px rgba(40, 168, 214, 0.6);
+  margin: 1rem 0;
+}
+
+.mainframe-terminal {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--radioactive-green);
+  border-radius: 4px;
+  margin-top: 3rem;
+  max-width: 500px;
+  box-shadow: 0 0 20px rgba(0, 240, 172, 0.2);
+}
+
+.terminal-body {
+  padding: 1rem;
+  font-family: var(--font-accent);
+  color: var(--radioactive-green);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.terminal-cursor {
+  animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  50% { opacity: 0; }
+}
+/* UNIVERSAL LORE - TIMELINE OVERRIDES */
+.stellar-timeline {
+  background: transparent;
+  padding: 10rem 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-event {
+  border-left: 2px solid var(--neon-magenta); /* Using your magenta token */
+  padding-left: 2rem;
+  margin-bottom: 4rem;
+  transition: all 0.5s ease;
+  opacity: 0.7;
+}
+
+.timeline-event:hover {
+  opacity: 1;
+  border-left-color: var(--cyan-blue);
+  transform: translateX(10px);
+}
+
+.timeline-date {
+  font-family: 'PP Neuemachina', monospace;
+  color: var(--radioactive-green);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+}
+
+.timeline-heading {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  text-shadow: 0 0 20px rgba(225, 60, 250, 0.4);
+}

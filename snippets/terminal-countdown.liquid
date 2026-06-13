@@ -1,0 +1,85 @@
+{% comment %}
+  STELLAR REVERB - TERMINAL COUNTDOWN v1.0
+  A tactical ticker for incoming capsule drops.
+{% endcomment %}
+
+<div class="terminal-countdown" 
+     id="relic-countdown" 
+     data-target-date="{{ section.settings.target_date | default: '2026-03-01T00:00:00' }}">
+  
+  <div class="countdown-grid">
+    <div class="countdown-unit">
+      <span class="unit-value orbitron" data-days>00</span>
+      <span class="unit-label courier">DAYS</span>
+    </div>
+    <div class="countdown-separator">:</div>
+    <div class="countdown-unit">
+      <span class="unit-value orbitron" data-hours>00</span>
+      <span class="unit-label courier">HOURS</span>
+    </div>
+    <div class="countdown-separator">:</div>
+    <div class="countdown-unit">
+      <span class="unit-value orbitron" data-minutes>00</span>
+      <span class="unit-label courier">MINS</span>
+    </div>
+    <div class="countdown-separator">:</div>
+    <div class="countdown-unit">
+      <span class="unit-value orbitron" data-seconds>00</span>
+      <span class="unit-label courier">SECS</span>
+    </div>
+  </div>
+
+  <div class="countdown-status">
+    <span class="status-blink"></span>
+    <span class="status-text courier">DECRYPTING_NEXT_SIGNAL...</span>
+  </div>
+</div>
+
+<style>
+  .terminal-countdown {
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--cyan-blue);
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(40, 168, 214, 0.15);
+  }
+  .countdown-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .unit-value {
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: var(--neon-magenta);
+    text-shadow: 0 0 15px var(--neon-magenta);
+  }
+  .unit-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--cyan-blue);
+    letter-spacing: 0.2em;
+  }
+  .countdown-separator {
+    font-size: 2rem;
+    color: var(--cyan-blue);
+    padding-bottom: 1.5rem;
+  }
+  .status-text {
+    font-size: 0.8rem;
+    color: var(--electric-yellow);
+    letter-spacing: 0.1em;
+  }
+  .status-blink {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--electric-yellow);
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: blink 1s infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+</style>

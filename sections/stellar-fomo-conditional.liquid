@@ -1,0 +1,240 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════
+  STELLAR REVERB - FOMO CONDITIONAL SECTION
+  Shows urgency messaging when conditions are met
+  ═══════════════════════════════════════════════════════════
+{% endcomment %}
+
+{%- liquid
+  assign show_fomo = false
+  assign threshold = section.settings.low_stock_threshold | default: 10
+  assign tag_gate = section.settings.required_tag | strip
+  
+  comment
+    Mode 1: Show if collection total count is low
+  endcomment
+  
+  if section.settings.trigger_mode == 'collection_count'
+    if collection.all_products_count <= section.settings.collection_count_threshold
+      assign show_fomo = true
+    endif
+  endif
+  
+  comment
+    Mode 2: Show if ANY product is low stock (optionally tag-gated)
+  endcomment
+  
+  if section.settings.trigger_mode == 'any_product_low_stock'
+    assign low_stock_found = false
+    
+    for product in collection.products
+      if low_stock_found == false
+        assign has_required_tag = true
+        
+        if tag_gate != blank
+          assign has_required_tag = false
+          for tag in product.tags
+            if tag == tag_gate
+              assign has_required_tag = true
+            endif
+          endfor
+        endif
+        
+        if has_required_tag
+          assign total_inv = 0
+          
+          for variant in product.variants
+            if variant.inventory_management != blank
+              assign total_inv = total_inv | plus: variant.inventory_quantity
+            endif
+          endfor
+          
+          if product.available and total_inv > 0 and total_inv <= threshold
+            assign show_fomo = true
+            assign low_stock_found = true
+          endif
+        endif
+      endif
+    endfor
+  endif
+-%}
+
+{%- if show_fomo -%}
+  <section class="stellar-fomo" id="fomo-{{ section.id }}">
+    <div class="stellar-fomo__inner">
+      {% if section.settings.kicker != blank %}
+        <div class="stellar-fomo__kicker">{{ section.settings.kicker }}</div>
+      {% endif %}
+      
+      {% if section.settings.headline != blank %}
+        <div class="stellar-fomo__headline">{{ section.settings.headline }}</div>
+      {% endif %}
+      
+      {% if section.settings.subtext != blank %}
+        <div class="stellar-fomo__sub">{{ section.settings.subtext }}</div>
+      {% endif %}
+    </div>
+  </section>
+
+  <style>
+    .stellar-fomo {
+      background: linear-gradient(135deg, rgba(225, 60, 250, 0.1), rgba(255, 0, 0, 0.1));
+      border: 1px solid rgba(225, 60, 250, 0.3);
+      border-left: 4px solid var(--electric-yellow, #F4FF30);
+      padding: 1.5rem 2rem;
+      margin: 2rem auto;
+      max-width: 1200px;
+      border-radius: 8px;
+      animation: fomoPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes fomoPulse {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(225, 60, 250, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 30px rgba(225, 60, 250, 0.5);
+      }
+    }
+
+    .stellar-fomo__inner {
+      text-align: center;
+    }
+
+    .stellar-fomo__kicker {
+      font-family: var(--font-mono, 'Courier New', monospace);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--electric-yellow, #F4FF30);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 10px rgba(244, 255, 48, 0.5);
+    }
+
+    .stellar-fomo__headline {
+      font-family: var(--font-title, 'Orbitron', monospace);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--neon-magenta, #E13CFA);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 20px rgba(225, 60, 250, 0.5);
+    }
+
+    .stellar-fomo__sub {
+      font-family: var(--font-body, sans-serif);
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.5;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .stellar-fomo {
+        padding: 1.25rem 1.5rem;
+        margin: 1.5rem 1rem;
+      }
+
+      .stellar-fomo__headline {
+        font-size: 1.5rem;
+      }
+
+      .stellar-fomo__sub {
+        font-size: 0.875rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stellar-fomo {
+        animation: none;
+      }
+    }
+  </style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "FOMO (Conditional)",
+  "tag": "section",
+  "class": "section-stellar-fomo",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Trigger Settings"
+    },
+    {
+      "type": "select",
+      "id": "trigger_mode",
+      "label": "Trigger mode",
+      "default": "any_product_low_stock",
+      "options": [
+        {
+          "value": "any_product_low_stock",
+          "label": "Any product low stock"
+        },
+        {
+          "value": "collection_count",
+          "label": "Collection total count low"
+        }
+      ],
+      "info": "Choose when to show the FOMO message"
+    },
+    {
+      "type": "text",
+      "id": "required_tag",
+      "label": "Only trigger for products with tag (optional)",
+      "default": "limited",
+      "info": "Leave blank to check all products, or enter a tag like 'limited' or 'low-stock'"
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "label": "Low stock threshold (per product)",
+      "default": 10,
+      "info": "Show FOMO when any product has this many or fewer items"
+    },
+    {
+      "type": "range",
+      "id": "collection_count_threshold",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "label": "Collection count threshold",
+      "default": 20,
+      "info": "Show FOMO when collection has this many or fewer products"
+    },
+    {
+      "type": "header",
+      "content": "Message Content"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker (small text)",
+      "default": "⚡ SIGNAL DESTABILIZING"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "ALMOST GONE"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Low inventory detected. Once the signal fades, it does not return."
+    }
+  ],
+  "presets": [
+    {
+      "name": "FOMO (Conditional)"
+    }
+  ]
+}
+{% endschema %}

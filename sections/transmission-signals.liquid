@@ -17,11 +17,7 @@ Section: Signals
         (function(){
           const url = "{{ section.settings.x_json_endpoint | escape }}";
           const box = document.getElementById('x-stream');
-          if(!url) return;
-          fetch(url,{credentials:'omit'}).then(r=>{
-            if(!r.ok) throw new Error('Network response failed');
-            return r.json();
-          }).then(data=>{
+          fetch(url,{credentials:'omit'}).then(r=>r.json()).then(data=>{
             box.innerHTML='';
             (data.items||[]).slice(0,12).forEach(item=>{
               const a = document.createElement('article');

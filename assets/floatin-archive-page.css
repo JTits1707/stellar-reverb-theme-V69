@@ -99,3 +99,20 @@
 @media (max-width: 900px) { .fa-product-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } .fa-hero { min-height: 84svh; } }
 @media (max-width: 640px) { .fa-section { padding-inline: 18px; } .fa-product-grid, .fa-frequency-form { grid-template-columns: 1fr; } .fa-hero-title { font-size: clamp(3.3rem, 19vw, 6.2rem); } .fa-hero-content { padding-bottom: 58px; } .fa-gate-logo { width: min(180px, 70vw); } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .001ms !important; } }
+
+
+/* ── SPEC RESTORATION PATCH (locked build spec) ───────────── */
+/* Gate headline never wraps */
+.fa-gate-title { white-space: nowrap; font-size: clamp(2.2rem, 8vw, 4.2rem); }
+
+/* Whole card is the link (media link stretched) */
+.fa-product-card { position: relative; }
+.fa-product-media::after { content: ""; position: absolute; inset: 0; z-index: 2; }
+
+/* Single wisp exhale on hover/focus only (spec: haze at rest, one wisp on interaction) */
+.fa-hover-wisp { position: absolute; left: 18%; bottom: 64px; width: 58%; height: 64px; opacity: 0; pointer-events: none; filter: blur(12px); background: radial-gradient(ellipse, rgba(232,197,138,.34), transparent 70%); transform: translateY(28px) scale(.8); z-index: 1; }
+.fa-product-card:hover .fa-hover-wisp, .fa-product-card:focus-within .fa-hover-wisp { animation: fa-exhale 3s ease-out both; }
+@keyframes fa-exhale { 0% { opacity: 0; transform: translateY(28px) scale(.8); } 18% { opacity: .62; } 100% { opacity: 0; transform: translateY(-110px) translateX(28px) scale(1.8); } }
+
+/* No commerce controls on the relic grid — ever */
+.fa-relic-grid .fa-price, .fa-relic-grid .fa-quick-add, .fa-relic-grid .fa-button { display: none !important; }
