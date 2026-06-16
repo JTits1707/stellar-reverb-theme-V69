@@ -10,7 +10,7 @@
 {
   "sections": {
     "stellar_shop_all_nQDbQp": {
-      "type": "stellar-shop-all",
+      "type": "stellar-shop-alll-v2",
       "name": "Stellar Shop All",
       "settings": {
         "hero_show_brand_icon": true,
