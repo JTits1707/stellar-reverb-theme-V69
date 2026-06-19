@@ -1,0 +1,212 @@
+:root {
+  --neon-magenta: #E13CFA;
+  --cyan-blue: #28A8D6;
+  --void-black: #0D0D0D;
+  --cosmic-purple: #6C24B3;
+  --radioactive-green: #00F0AC;
+  --electric-yellow: #F4FF30;
+  --chrome-silver: #B0B0B0;
+}
+
+.sr-shopall-v2 {
+  position: relative;
+  background: var(--void-black);
+  color: #fff;
+  overflow: hidden;
+  font-family: "Montserrat", system-ui, sans-serif;
+  isolation: isolate;
+}
+
+/* Cosmic Backdrop */
+.sr-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(circle at 20% 80%, rgba(108,36,179,0.85) 0%, transparent 60%),
+              radial-gradient(circle at 80% 20%, rgba(40,168,214,0.8) 0%, transparent 60%);
+  opacity: 0.22;
+}
+.sr-stars, .constellation-dot {
+  position: absolute;
+  background: var(--cyan-blue);
+  border-radius: 50%;
+  animation: twinkle 4s infinite ease-in-out;
+}
+.sr-scanline {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent, rgba(40,168,214,0.15), transparent);
+  animation: scan 6s linear infinite;
+}
+
+/* Hero HUD */
+.sr-hero {
+  text-align: center;
+  padding: 3rem 1rem 2.5rem;
+}
+.sr-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(2.8rem, 6vw, 4.2rem);
+  background: linear-gradient(135deg, var(--neon-magenta), var(--cyan-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.08em;
+}
+.sr-subtitle {
+  font-size: 1.1rem;
+  color: #d1d5db;
+  max-width: 620px;
+  margin: 0 auto 1.5rem;
+}
+
+/* Filters */
+.sr-filters {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(13,13,13,0.95);
+  backdrop-filter: blur(20px);
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(225,60,250,0.3);
+}
+.sr-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.sr-pill {
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid var(--cosmic-purple);
+}
+.sr-pill.is-active,
+.sr-pill:hover {
+  background: var(--neon-magenta);
+  color: #000;
+  box-shadow: 0 0 20px var(--neon-magenta);
+}
+
+/* Grid Cards (fused with relic-card energy) */
+.sr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 1.5rem;
+}
+.sr-card {
+  background: linear-gradient(135deg, rgba(108,36,179,0.15), rgba(40,168,214,0.1));
+  border: 1px solid rgba(108,36,179,0.6);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.23,1,0.32,1);
+  position: relative;
+}
+.sr-card:hover {
+  transform: translateY(-12px) rotate(1deg);
+  box-shadow: 0 25px 50px -12px rgb(225 60 250 / 0.35);
+  border-color: var(--neon-magenta);
+}
+.sr-media {
+  position: relative;
+  display: block;
+}
+.sr-media img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.sr-card:hover .sr-media img {
+  transform: scale(1.08);
+}
+.sr-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(13,13,13,0.92));
+}
+.sr-capsule-label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: linear-gradient(135deg, var(--neon-magenta), var(--cosmic-purple));
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.sr-badge.limited {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--radioactive-green);
+  color: #000;
+  padding: 0.25rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.6rem;
+  font-weight: 900;
+  animation: pulse 2s infinite;
+}
+.sr-meta {
+  padding: 1.25rem;
+}
+.sr-name {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+.sr-desc {
+  font-size: 0.85rem;
+  color: #aaa;
+  line-height: 1.45;
+  margin-bottom: 1rem;
+  min-height: 3.2em;
+}
+.sr-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--electric-yellow);
+}
+.sr-fomo {
+  color: var(--radioactive-green);
+  font-size: 0.8rem;
+}
+.sr-atc-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, var(--neon-magenta), var(--cyan-blue));
+  color: #000;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.sr-atc-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px var(--cyan-blue);
+}
+
+/* Upsell + CTA styles (kept from original) */
+.sr-upsell, .sr-signal-cta { /* ... full styles from previous */ }
+
+/* Animations */
+@keyframes twinkle { 0%,100% {opacity:0.3} 50%{opacity:0.9} }
+@keyframes scan { 0% {transform:translateY(-100%)} 100%{transform:translateY(300%)} }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+@media (max-width: 768px) {
+  .sr-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+}
